@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delete uss file command should display delete uss file help 1`] = `
+"================z/OS FTP DELETE USS-FILE HELP ===============
+
+ COMMAND NAME
+ ------------
+
+   uss-file | uss
+
+ DESCRIPTION
+ -----------
+
+   Delete a USS file
+
+ USAGE
+ -----
+
+   bright zos-ftp delete uss-file <ussFile> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   ussFile		 (string)
+
+      The absolute path to a USS file you would like to delete.
+
+ REQUIRED OPTIONS
+ ----------------
+
+   --for-sure  | -f (boolean)
+
+      Specify this option to confirm that you want to delete the data set permanently.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Delete the USS file \\"/u/ibmuser/myfile.txt\\":
+
+      $ bright zos-ftp delete uss-file \\"/u/ibmuser/myfile.txt\\" -f
+
+================z/OS FTP DELETE USS-FILE HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: uss-file.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a USS file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The absolute path to a USS file you would like to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the USS file \\\\\\"/u/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete uss-file \\\\\\"/u/ibmuser/myfile.txt\\\\\\" -f\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a USS file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The absolute path to a USS file you would like to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the USS file \\\\\\"/u/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete uss-file \\\\\\"/u/ibmuser/myfile.txt\\\\\\" -f\\\\n\\\\n\\"
+}"
+`;

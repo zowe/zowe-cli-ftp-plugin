@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`imperative config should match the snapshot 1`] = `
+Object {
+  "commandModuleGlobs": Array [
+    "**/cli/*/*.definition!(.d).*s",
+  ],
+  "name": "zos-ftp",
+  "pluginAliases": Array [
+    "zftp",
+  ],
+  "pluginSummary": "z/OS Files and jobs via FTP",
+  "productDisplayName": "z/OS FTP Plugin",
+  "profiles": Array [
+    Object {
+      "createProfileExamples": Array [
+        Object {
+          "description": "Create a zftp profile called 'myprofile' with default settings (port, timeout, etc.) to connect with the host system 123.",
+          "options": "myprofile -u ibmuser -p ibmp4ss -H sys123",
+        },
+      ],
+      "schema": Object {
+        "description": "Configuration profile for z/OS FTP",
+        "properties": Object {
+          "connectionTimeout": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "ct",
+              ],
+              "defaultValue": 10000,
+              "description": "How long (in milliseconds) to wait for the control connection to be established.",
+              "name": "connection-timeout",
+              "type": "number",
+            },
+            "type": "number",
+          },
+          "host": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "H",
+              ],
+              "description": "The hostname or IP address of the z/OS server to connect to.",
+              "name": "host",
+              "required": true,
+              "type": "string",
+            },
+            "type": "string",
+          },
+          "password": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "p",
+              ],
+              "description": "Password to authenticate to FTP.",
+              "name": "password",
+              "required": true,
+              "type": "string",
+            },
+            "secure": true,
+            "type": "string",
+          },
+          "port": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "P",
+              ],
+              "defaultValue": 21,
+              "description": "The port of the z/OS FTP server.",
+              "name": "port",
+              "required": true,
+              "type": "number",
+            },
+            "type": "number",
+          },
+          "secure": Object {
+            "optionDefinition": Object {
+              "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+              "name": "secure-ftp",
+              "type": "string",
+            },
+            "type": "string",
+          },
+          "secureOptions": Object {
+            "properties": Object {
+              "rejectUnauthorized": Object {
+                "optionDefinition": Object {
+                  "aliases": Array [
+                    "ru",
+                  ],
+                  "defaultValue": null,
+                  "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+                  "group": "TLS / Secure Connection options",
+                  "name": "reject-unauthorized",
+                  "type": "boolean",
+                },
+                "type": Array [
+                  "boolean",
+                  "null",
+                ],
+              },
+              "servername": Object {
+                "optionDefinition": Object {
+                  "aliases": Array [
+                    "sn",
+                  ],
+                  "defaultValue": null,
+                  "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+                  "group": "TLS / Secure Connection options",
+                  "name": "server-name",
+                  "type": "string",
+                },
+                "type": Array [
+                  "string",
+                  "null",
+                ],
+              },
+            },
+            "type": "object",
+          },
+          "user": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "u",
+              ],
+              "description": "Username for authentication on z/OS",
+              "name": "user",
+              "required": true,
+              "type": "string",
+            },
+            "secure": true,
+            "type": "string",
+          },
+        },
+        "required": Array [
+          "host",
+          "port",
+          "user",
+          "password",
+        ],
+        "title": "Configuration profile for z/OS FTP",
+        "type": "object",
+      },
+      "type": "zftp",
+    },
+  ],
+  "rootCommandDescription": "Data set and job functionality via FTP. This functionality uses the open source zos-node-accessor package from IBM. Commands under this group require you to create a zftp profile before using them.
+If you find this functionality useful, please consider setting up z/OSMF on your system to get improved stability and speed and more features (for example, issuing TSO and console commands) by using core Zowe CLI.",
+}
+`;

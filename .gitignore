@@ -1,0 +1,13 @@
+node_modules/
+lib/
+.vscode
+.idea
+results/
+__results__/
+__tests__/__results__/
+
+/__tests__/__resources__/properties/**
+!/__tests__/__resources__/properties/default_properties.yaml
+
+node-report*
+/docs/typedoc/

@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rename data set command should display rename data set help 1`] = `
+"================z/OS FTP RENAME DATA-SET HELP ===============
+
+ COMMAND NAME
+ ------------
+
+   data-set | ds
+
+ DESCRIPTION
+ -----------
+
+   Rename a cataloged data set
+
+ USAGE
+ -----
+
+   bright zos-ftp rename data-set <oldDataSet> <newDataSet> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   oldDataSet		 (string)
+
+      The current name of the data set you want to rename.
+
+   newDataSet		 (string)
+
+      The new name for the data set.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Rename the data set ibmuser.jcl to ibmuser.cntl:
+
+      $ bright zos-ftp rename data-set ibmuser.jcl ibmuser.cntl
+
+   - Rename the data set member \\"ibmuser.cntl(alloc)\\" to
+   \\"ibmuser.cntl(alloc2)\\". Note: you can only rename members within the same
+   partitioned data set. You cannot move a member to another data set with this
+   command.:
+
+      $ bright zos-ftp rename data-set \\"ibmuser.cntl(alloc)\\" \\"ibmuser.cntl(alloc2)\\"
+
+================z/OS FTP RENAME DATA-SET HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: data-set.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Rename a cataloged data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp rename data-set <oldDataSet> <newDataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   oldDataSet\\\\t\\\\t (string)\\\\n\\\\n      The current name of the data set you want to rename.\\\\n\\\\n   newDataSet\\\\t\\\\t (string)\\\\n\\\\n      The new name for the data set.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Rename the data set ibmuser.jcl to ibmuser.cntl:\\\\n\\\\n      $ bright zos-ftp rename data-set ibmuser.jcl ibmuser.cntl\\\\n\\\\n   - Rename the data set member \\\\\\"ibmuser.cntl(alloc)\\\\\\" to\\\\n   \\\\\\"ibmuser.cntl(alloc2)\\\\\\". Note: you can only rename members within the same\\\\n   partitioned data set. You cannot move a member to another data set with this\\\\n   command.:\\\\n\\\\n      $ bright zos-ftp rename data-set \\\\\\"ibmuser.cntl(alloc)\\\\\\" \\\\\\"ibmuser.cntl(alloc2)\\\\\\"\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Rename a cataloged data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp rename data-set <oldDataSet> <newDataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   oldDataSet\\\\t\\\\t (string)\\\\n\\\\n      The current name of the data set you want to rename.\\\\n\\\\n   newDataSet\\\\t\\\\t (string)\\\\n\\\\n      The new name for the data set.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Rename the data set ibmuser.jcl to ibmuser.cntl:\\\\n\\\\n      $ bright zos-ftp rename data-set ibmuser.jcl ibmuser.cntl\\\\n\\\\n   - Rename the data set member \\\\\\"ibmuser.cntl(alloc)\\\\\\" to\\\\n   \\\\\\"ibmuser.cntl(alloc2)\\\\\\". Note: you can only rename members within the same\\\\n   partitioned data set. You cannot move a member to another data set with this\\\\n   command.:\\\\n\\\\n      $ bright zos-ftp rename data-set \\\\\\"ibmuser.cntl(alloc)\\\\\\" \\\\\\"ibmuser.cntl(alloc2)\\\\\\"\\\\n\\\\n\\"
+}"
+`;

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`view spool-file-by-id command should display view spool-file-by-id help 1`] = `
+"================z/OS FTP VIEW SPOOL-FILE-BY-ID HELP===============
+
+ COMMAND NAME
+ ------------
+
+   spool-file-by-id | sfbi
+
+ DESCRIPTION
+ -----------
+
+   View the contents of a spool file from a z/OS job on spool/JES queues. The
+   command does not pre-validate the JOBID or spool ID. The command presents errors
+   verbatim from the z/OSMF Jobs REST endpoints.
+
+ USAGE
+ -----
+
+   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   jobid		 (string)
+
+      The z/OS JOBID of the job containing the spool file you want to view. No
+      pre-validation of the JOBID is performed.
+
+   spoolfileid		 (number)
+
+      The spool file ID number for the spool file to view. Use the \\"imperative
+      zos-jobs list spool-files-by-jobid\\" command to obtain spool ID numbers.No
+      pre-validation of the ID is performed.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - View the spool file with ID 4 for the job with job ID
+   JOB00123:
+
+      $ bright zos-ftp view spool-file-by-id JOB00123 4
+
+================z/OS FTP VIEW SPOOL-FILE-BY-ID HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: spool-file-by-id.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ bright zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ bright zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\"
+}"
+`;

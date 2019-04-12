@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`upload stdin to data set command should display upload stdin to data set help 1`] = `
+"================z/OS FTP UPLOAD STDIN-TO-DATA-SET HELP ===============
+
+ COMMAND NAME
+ ------------
+
+   stdin-to-data-set | stds
+
+ DESCRIPTION
+ -----------
+
+   Upload contents piped to stdin to a z/OS data set
+
+ USAGE
+ -----
+
+   bright zos-ftp upload stdin-to-data-set <dataSet> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   dataSet		 (string)
+
+      The data set (PDS member or physical sequential data set) to which you would
+      like to upload content.
+
+ OPTIONS
+ -------
+
+   --binary  | -b (boolean)
+
+      Upload content in binary mode.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Upload \\"ibmuser.cntl(iefbr14)\\" from the file iefbr14.txt:
+
+      $ bright zos-ftp upload stdin-to-data-set \\"ibmuser.cntl(iefbr14)\\" --file iefbr14.txt
+
+================z/OS FTP UPLOAD STDIN-TO-DATA-SET HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: stdin-to-data-set.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   stdin-to-data-set | stds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Upload contents piped to stdin to a z/OS data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp upload stdin-to-data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) to which you would\\\\n      like to upload content.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Upload content in binary mode.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Upload \\\\\\"ibmuser.cntl(iefbr14)\\\\\\" from the file iefbr14.txt:\\\\n\\\\n      $ bright zos-ftp upload stdin-to-data-set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\" --file iefbr14.txt\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   stdin-to-data-set | stds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Upload contents piped to stdin to a z/OS data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp upload stdin-to-data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) to which you would\\\\n      like to upload content.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Upload content in binary mode.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Upload \\\\\\"ibmuser.cntl(iefbr14)\\\\\\" from the file iefbr14.txt:\\\\n\\\\n      $ bright zos-ftp upload stdin-to-data-set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\" --file iefbr14.txt\\\\n\\\\n\\"
+}"
+`;

@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`rename uss file command should display rename uss file help 1`] = `
+"================z/OS FTP RENAME USS-FILE HELP ===============
+
+ COMMAND NAME
+ ------------
+
+   uss-file | uss
+
+ DESCRIPTION
+ -----------
+
+   Rename a USS file or directory
+
+ USAGE
+ -----
+
+   bright zos-ftp rename uss-file <olduss> <newuss> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   olduss		 (string)
+
+      The current name of the USS file you want to rename.
+
+   newuss		 (string)
+
+      The new name for the USS file.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Rename the file /u/users/ibmuser/hello.txt to
+   /u/users/ibmuser/hello2.txt:
+
+      $ bright zos-ftp rename uss-file \\"/u/users/ibmuser/hello.txt)\\" \\"/u/users/ibmuser/hello2.txt\\"
+
+================z/OS FTP RENAME USS-FILE HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: uss-file.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Rename a USS file or directory\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp rename uss-file <olduss> <newuss> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   olduss\\\\t\\\\t (string)\\\\n\\\\n      The current name of the USS file you want to rename.\\\\n\\\\n   newuss\\\\t\\\\t (string)\\\\n\\\\n      The new name for the USS file.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Rename the file /u/users/ibmuser/hello.txt to\\\\n   /u/users/ibmuser/hello2.txt:\\\\n\\\\n      $ bright zos-ftp rename uss-file \\\\\\"/u/users/ibmuser/hello.txt)\\\\\\" \\\\\\"/u/users/ibmuser/hello2.txt\\\\\\"\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Rename a USS file or directory\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp rename uss-file <olduss> <newuss> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   olduss\\\\t\\\\t (string)\\\\n\\\\n      The current name of the USS file you want to rename.\\\\n\\\\n   newuss\\\\t\\\\t (string)\\\\n\\\\n      The new name for the USS file.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Rename the file /u/users/ibmuser/hello.txt to\\\\n   /u/users/ibmuser/hello2.txt:\\\\n\\\\n      $ bright zos-ftp rename uss-file \\\\\\"/u/users/ibmuser/hello.txt)\\\\\\" \\\\\\"/u/users/ibmuser/hello2.txt\\\\\\"\\\\n\\\\n\\"
+}"
+`;

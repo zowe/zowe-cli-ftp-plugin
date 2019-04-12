@@ -1,0 +1,55 @@
+#-----------------------------------------------------------------------------#
+#  find and replace the following:                                            #
+#                                                                             #
+#  my-user-name    - This is your TSO user  ID   to connect to FTP            #
+#  my-password     - This is your TSO password                                #
+#  my-writable-pds - this is a PDS on the system that we can write new        #
+#                    members too. member names are randomized, so it's        #
+#                    possible for existing members to be overwritten          #
+#  ds-iefbr14-pds  - PDS qualified by an IEFBR14 member JCL to submit         #
+#  ds-iefbr14-ps   - PS with an IEFBR14 JCL to submit                         #
+#  ftp-host      - The host name for the LPAR with FTP                        #
+#  ftp-port      - The FTP port                                               #
+#  uss-dir       - directory which we can upload files to and then            #
+#                  list, read and delete them  e.g. /u/users/my-user-name     #
+#-----------------------------------------------------------------------------#
+#-- Note: If you add or rename any fields of this default template,         --#
+#-- please also update the ITestPropertiesSchema interface so that          --#
+#-- developers can use auto-complete when using the properties in test code --#
+
+#  see zowe profiles create zftp --help for more info
+zosftp:
+      user: &ftpuser my-user-name
+      password: &ftppass my-password
+      host: &ftphost ftp-host
+      port: &ftpport ftp-port
+      secureFtp: &ftpsecure null
+      connectionTimeout: &ftptimeout null
+      # a file containing a job card to be used when submitting jobs for you
+#-------------------------------------------------------------------------#
+#  Dataset tests                                                          #
+# If you have z/OSMF on the system, you can use core brightside to create #
+# these data sets, however we don't assume z/OSMF is available so they    #
+# have to be manually created before running the tests                    #
+#-------------------------------------------------------------------------#
+datasets:
+  writablePDS: my-writable-pds
+  # a data set that can be renamed
+  # the automated tests will attempt to rename it back to the original name
+  # if this fails an error should be thrown and you may have to
+  # re-create this data set
+  renamablePDS: my-renamable-pds
+#-----------------------------------------------------------------------------#
+#  Set of properties for testing jobs                                         #
+#-----------------------------------------------------------------------------#
+jobs:
+  # a PDS member containing IEFBR14 JCL that your user ID can submit
+  iefbr14Member: ds-iefbr14-pds
+
+
+#-----------------------------------------------------------------------------#
+#  Set of properties for testing USS functionality                            #
+#-----------------------------------------------------------------------------#
+uss:
+  # directory to try to list, upload, download, delete files from
+  ussTestDirectory: uss-dir

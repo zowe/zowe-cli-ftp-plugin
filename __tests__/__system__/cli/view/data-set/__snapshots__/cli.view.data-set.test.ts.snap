@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`view data-set command should display view data set help 1`] = `
+"================z/OS VIEW LIST DATA-SET HELP===============
+
+ COMMAND NAME
+ ------------
+
+   data-set | ds
+
+ DESCRIPTION
+ -----------
+
+   View the contents of a z/OS data set
+
+ USAGE
+ -----
+
+   bright zos-ftp view data-set <dataSet> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   dataSet		 (string)
+
+      The data set (PDS member or physical sequential data set) which you would like
+      to view the contents of.
+
+ OPTIONS
+ -------
+
+   --binary  | -b (boolean)
+
+      View content in binary form without converting to ASCII text
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - View the content of the data set \\"ibmuser.cntl(iefbr14)\\":
+
+      $ bright zos-ftp view data-set \\"ibmuser.cntl(iefbr14)\\"
+
+   - View the content of the data set \\"ibmuser.loadlib(main)\\"
+   and pipe it into the hex viewer program xxd:
+
+      $ bright zos-ftp view data-set \\"ibmuser.loadlib(main)\\" -b | xxd
+
+================z/OS FTP VIEW DATA-SET HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: data-set.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a z/OS data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the data set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\":\\\\n\\\\n      $ bright zos-ftp view data-set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\"\\\\n\\\\n   - View the content of the data set \\\\\\"ibmuser.loadlib(main)\\\\\\"\\\\n   and pipe it into the hex viewer program xxd:\\\\n\\\\n      $ bright zos-ftp view data-set \\\\\\"ibmuser.loadlib(main)\\\\\\" -b | xxd\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a z/OS data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the data set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\":\\\\n\\\\n      $ bright zos-ftp view data-set \\\\\\"ibmuser.cntl(iefbr14)\\\\\\"\\\\n\\\\n   - View the content of the data set \\\\\\"ibmuser.loadlib(main)\\\\\\"\\\\n   and pipe it into the hex viewer program xxd:\\\\n\\\\n      $ bright zos-ftp view data-set \\\\\\"ibmuser.loadlib(main)\\\\\\" -b | xxd\\\\n\\\\n\\"
+}"
+`;

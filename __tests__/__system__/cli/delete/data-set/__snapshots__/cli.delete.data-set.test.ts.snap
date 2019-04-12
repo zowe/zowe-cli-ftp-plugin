@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`delete data set command should display upload file to data set help 1`] = `
+"================z/OS VIEW DELETE DATA-SET HELP===============
+
+ COMMAND NAME
+ ------------
+
+   data-set | ds
+
+ DESCRIPTION
+ -----------
+
+   Delete a data set
+
+ USAGE
+ -----
+
+   bright zos-ftp delete data-set <dataSet> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   dataSet		 (string)
+
+      The data set (PDS member or physical sequential data set) which you would like
+      to delete.
+
+ REQUIRED OPTIONS
+ ----------------
+
+   --for-sure  | -f (boolean)
+
+      Specify this option to confirm that you want to delete the data set permanently.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Delete the data set \\"ibmuser.cntl\\":
+
+      $ bright zos-ftp delete data-set \\"ibmuser.cntl\\" -f
+
+================z/OS FTP DELETE DATA-SET HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: data-set.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\"
+}"
+`;

@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`download all-spool-by-jobid command should display download all-spool-by-jobid help 1`] = `
+"================z/OS DOWNLOAD ALL-SPOOL-BY-JOBID HELP===============
+
+ COMMAND NAME
+ ------------
+
+   all-spool-by-jobid | asbj
+
+ DESCRIPTION
+ -----------
+
+   Download all spool content for a job to files in a local directory by providing
+   the job id
+
+ USAGE
+ -----
+
+   bright zos-ftp download all-spool-by-jobid <jobid> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   jobid		 (string)
+
+      The ID of the job for which you would like to list spool files
+
+ OPTIONS
+ -------
+
+   --directory  | -d (string)
+
+      The local directory to save the spool content to. By default, it will be saved
+      to \\"./output\\".
+
+   --omit-jobid-directory  | --ojd (boolean)
+
+      If you specify this, the job output will be saved directly to the specified (or
+      default) directory. For example, if you omit this, the output would be saved to
+      ./output/JOB00123. If you specify --ojd, the JOB00123 directory would not be
+      included in the output path and the content would be saved to ./output.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Download all spool for the job with the ID JOB00123 to the
+   default subdirectory in the current directory:
+
+      $ bright zos-ftp download all-spool-by-jobid j123
+
+   - Download all spool for the job with the ID JOB00123 to the
+   directory build/job_output:
+
+      $ bright zos-ftp download all-spool-by-jobid j123 -d build/job_output/
+
+================z/OS FTP DOWNLOAD ALL-SPOOL-BY-JOBID HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: all-spool-by-jobid.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   all-spool-by-jobid | asbj\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download all spool content for a job to files in a local directory by providing\\\\n   the job id\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp download all-spool-by-jobid <jobid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The ID of the job for which you would like to list spool files\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --directory  | -d (string)\\\\n\\\\n      The local directory to save the spool content to. By default, it will be saved\\\\n      to \\\\\\"./output\\\\\\".\\\\n\\\\n   --omit-jobid-directory  | --ojd (boolean)\\\\n\\\\n      If you specify this, the job output will be saved directly to the specified (or\\\\n      default) directory. For example, if you omit this, the output would be saved to\\\\n      ./output/JOB00123. If you specify --ojd, the JOB00123 directory would not be\\\\n      included in the output path and the content would be saved to ./output.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download all spool for the job with the ID JOB00123 to the\\\\n   default subdirectory in the current directory:\\\\n\\\\n      $ bright zos-ftp download all-spool-by-jobid j123\\\\n\\\\n   - Download all spool for the job with the ID JOB00123 to the\\\\n   directory build/job_output:\\\\n\\\\n      $ bright zos-ftp download all-spool-by-jobid j123 -d build/job_output/\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   all-spool-by-jobid | asbj\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download all spool content for a job to files in a local directory by providing\\\\n   the job id\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp download all-spool-by-jobid <jobid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The ID of the job for which you would like to list spool files\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --directory  | -d (string)\\\\n\\\\n      The local directory to save the spool content to. By default, it will be saved\\\\n      to \\\\\\"./output\\\\\\".\\\\n\\\\n   --omit-jobid-directory  | --ojd (boolean)\\\\n\\\\n      If you specify this, the job output will be saved directly to the specified (or\\\\n      default) directory. For example, if you omit this, the output would be saved to\\\\n      ./output/JOB00123. If you specify --ojd, the JOB00123 directory would not be\\\\n      included in the output path and the content would be saved to ./output.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download all spool for the job with the ID JOB00123 to the\\\\n   default subdirectory in the current directory:\\\\n\\\\n      $ bright zos-ftp download all-spool-by-jobid j123\\\\n\\\\n   - Download all spool for the job with the ID JOB00123 to the\\\\n   directory build/job_output:\\\\n\\\\n      $ bright zos-ftp download all-spool-by-jobid j123 -d build/job_output/\\\\n\\\\n\\"
+}"
+`;

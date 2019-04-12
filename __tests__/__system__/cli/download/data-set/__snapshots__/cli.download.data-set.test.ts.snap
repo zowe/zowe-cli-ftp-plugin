@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`submit job from local file command should display download data-set help 1`] = `
+"================z/OS VIEW DOWNLOAD DATA-SET HELP===============
+
+ COMMAND NAME
+ ------------
+
+   data-set | ds
+
+ DESCRIPTION
+ -----------
+
+   Download the contents of a z/OS data set to a local file
+
+ USAGE
+ -----
+
+   bright zos-ftp download data-set <dataSet> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   dataSet		 (string)
+
+      The data set (PDS member or physical sequential data set) which you would like
+      to download to a local file.
+
+ OPTIONS
+ -------
+
+   --binary  | -b (boolean)
+
+      Download the file content in binary mode, which means that no data conversion is
+      performed. The data transfer process returns each line as-is, without
+      translation. No delimiters are added between records.
+
+   --file  | -f (string)
+
+      The path to the local file where you want to download the content. When you omit
+      the option, the command generates a file name automatically for you.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Download the data set \\"ibmuser.loadlib(main)\\" in binary
+   mode to the local file \\"main.obj\\":
+
+      $ bright zos-ftp download data-set \\"ibmuser.loadlib(main)\\" -b -f main.obj
+
+================z/OS FTP DOWNLOAD DATA-SET HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: data-set.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a z/OS data set to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp download data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to download to a local file.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file  | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the data set \\\\\\"ibmuser.loadlib(main)\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ bright zos-ftp download data-set \\\\\\"ibmuser.loadlib(main)\\\\\\" -b -f main.obj\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a z/OS data set to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp download data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to download to a local file.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file  | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the data set \\\\\\"ibmuser.loadlib(main)\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ bright zos-ftp download data-set \\\\\\"ibmuser.loadlib(main)\\\\\\" -b -f main.obj\\\\n\\\\n\\"
+}"
+`;

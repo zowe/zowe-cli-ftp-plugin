@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`upload file to uss file command should display upload file to uss file help 1`] = `
+"================z/OS FTP UPLOAD FILE-TO-USS-FILE HELP ===============
+
+ COMMAND NAME
+ ------------
+
+   file-to-uss-file | ftuf
+
+ DESCRIPTION
+ -----------
+
+   Upload contents of a local to a Unix System Services file.
+
+ USAGE
+ -----
+
+   bright zos-ftp upload file-to-uss-file <file> <ussFile> [options]
+
+ POSITIONAL ARGUMENTS
+ --------------------
+
+   file		 (local file path)
+
+      Upload the contents of this local file to a data set.
+
+   ussFile		 (string)
+
+      The USS file to which you would like to upload content.
+
+ OPTIONS
+ -------
+
+   --binary  | -b (boolean)
+
+      Upload content in binary mode.
+
+ PROFILE OPTIONS
+ ---------------
+
+   --zftp-profile  | --zftp-p (string)
+
+      The name of a (zftp) profile to load for this command execution.
+
+ GLOBAL OPTIONS
+ --------------
+
+   --response-format-json  | --rfj (boolean)
+
+      Produce JSON formatted data from a command
+
+   --help  | -h (boolean)
+
+      Display help text
+
+
+ EXAMPLES
+ --------
+
+   - Upload to \\"/u/users/ibmuser/myjava.jar\\" from standard input
+   (you can pipe into this command):
+
+      $ bright zos-ftp upload file-to-uss-file \\"/u/users/ibmuser/myjava.jar\\"  -b
+
+================z/OS FTP UPLOAD FILE-TO-USS-FILE HELP WITH RFJ===========
+{
+  \\"success\\": true,
+  \\"message\\": \\"The help was constructed for command: file-to-uss-file.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   file-to-uss-file | ftuf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Upload contents of a local to a Unix System Services file.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp upload file-to-uss-file <file> <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      Upload the contents of this local file to a data set.\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file to which you would like to upload content.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Upload content in binary mode.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Upload to \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" from standard input\\\\n   (you can pipe into this command):\\\\n\\\\n      $ bright zos-ftp upload file-to-uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\"  -b\\\\n\\\\n\\",
+  \\"stderr\\": \\"\\",
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   file-to-uss-file | ftuf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Upload contents of a local to a Unix System Services file.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp upload file-to-uss-file <file> <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      Upload the contents of this local file to a data set.\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file to which you would like to upload content.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Upload content in binary mode.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Upload to \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" from standard input\\\\n   (you can pipe into this command):\\\\n\\\\n      $ bright zos-ftp upload file-to-uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\"  -b\\\\n\\\\n\\"
+}"
+`;
