@@ -35,5 +35,5 @@ export const DeleteJobDefinition: ICommandDefinition = {
     ],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

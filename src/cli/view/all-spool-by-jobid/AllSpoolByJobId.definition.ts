@@ -35,5 +35,5 @@ export const ViewAllSpoolByJobidDefinition: ICommandDefinition = {
     ],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

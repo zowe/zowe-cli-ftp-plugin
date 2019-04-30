@@ -21,7 +21,7 @@ export const ViewSpoolFileByIdDefinition: ICommandDefinition = {
     "The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
     handler: __dirname + "/SpoolFileById.Handler",
     profile: {
-        required: ["zftp"]
+        optional: ["zftp"]
     },
     positionals: [
         {

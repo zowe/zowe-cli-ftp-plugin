@@ -21,10 +21,4 @@ export interface IFTPHandlerParams extends IHandlerParameters {
      * Connection to zos-node-accessor
      */
     connection: any;
-
-    /**
-     * Loaded zos-ftp profile if any
-     */
-    zosFtpProfile: IZosFTPProfile;
-
 }

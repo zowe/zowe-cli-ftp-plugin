@@ -36,6 +36,6 @@ export const SubmitLocalFileDefinition: ICommandDefinition = {
     }],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

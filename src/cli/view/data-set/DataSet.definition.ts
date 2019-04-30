@@ -40,5 +40,5 @@ export const ViewDataSetDefinition: ICommandDefinition = {
         type: "boolean"
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

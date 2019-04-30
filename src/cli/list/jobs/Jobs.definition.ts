@@ -35,6 +35,6 @@ export const ListJobsDefinition: ICommandDefinition = {
         required: true
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

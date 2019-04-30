@@ -31,7 +31,7 @@ describe("upload file to data set command", () => {
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
-        connection = await FTPConfig.connectFromProfile(testEnvironment.systemTestProperties.zosftp);
+        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
     });

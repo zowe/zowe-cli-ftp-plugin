@@ -44,6 +44,6 @@ export const ListDataSetDefinition: ICommandDefinition = {
         required: true
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };
