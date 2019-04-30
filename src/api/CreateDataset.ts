@@ -10,8 +10,8 @@
  */
 
 import { isNullOrUndefined } from "util";
-import { CreateDataSetTypeEnum, CreateDefaults, ICreateDataSetOptions, IZosFilesResponse, ZosFilesMessages } from "@zowe/cli";
-import { ImperativeError, ImperativeExpect, TextUtils } from "@zowe/imperative";
+import { CreateDataSetTypeEnum, CreateDefaults, ICreateDataSetOptions, IZosFilesResponse, ZosFilesMessages } from "@brightside/core";
+import { ImperativeError, ImperativeExpect, TextUtils } from "@brightside/imperative";
 import { JobUtils } from "./JobUtils";
 import { CoreUtils } from "./CoreUtils";
 import { AbstractTemplatedJCL } from "./AbstractTemplatedJCL";

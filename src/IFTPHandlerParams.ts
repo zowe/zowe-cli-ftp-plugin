@@ -13,7 +13,7 @@
  * Additional parameters pre-populated for handlers
  * including a connection to FTP
  */
-import { IHandlerParameters } from "@zowe/imperative";
+import { IHandlerParameters } from "@brightside/imperative";
 import { IZosFTPProfile } from "./api/doc/IZosFTPProfile";
 
 export interface IFTPHandlerParams extends IHandlerParameters {

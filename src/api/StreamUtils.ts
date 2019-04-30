@@ -9,7 +9,7 @@
  *
  */
 
-import { IHandlerResponseApi, ITaskWithStatus, TaskStage, TextUtils } from "@zowe/imperative";
+import { IHandlerResponseApi, ITaskWithStatus, TaskStage, TextUtils } from "@brightside/imperative";
 import { Readable } from "stream";
 
 export class StreamUtils {

@@ -9,12 +9,12 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 /**
  * Re-use the option definitions for this command from core
  */
 // tslint:disable-next-line
-import { DownloadOptions } from "@zowe/cli/lib/zosfiles/src/cli/download/Download.options";
+import { DownloadOptions } from "@brightside/core/lib/zosfiles/src/cli/download/Download.options";
 
 export const DownloadDataSetDefinition: ICommandDefinition = {
     handler: __dirname + "/DataSet.Handler",

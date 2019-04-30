@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { RenameDataSetDefinition } from "./data-set/DataSet.definition";
 import { RenameUssFileDefinition } from "./uss-file/UssFile.definition";
 

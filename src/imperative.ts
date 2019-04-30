@@ -9,7 +9,7 @@
  *
  */
 
-import { IImperativeConfig } from "@zowe/imperative";
+import { IImperativeConfig } from "@brightside/imperative";
 
 const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 const config: IImperativeConfig = {
