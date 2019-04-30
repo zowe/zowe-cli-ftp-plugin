@@ -14,10 +14,10 @@
  */
 import * as fs from "fs";
 import { ITestEnvironment } from "./environment/doc/response/ITestEnvironment";
-import { ImperativeError, IO } from "@zowe/imperative";
+import { ImperativeError, IO } from "@brightside/imperative";
 import { runCliScript } from "./TestUtils";
 
-import { Constants } from "@zowe/cli";
+import { Constants } from "@brightside/core";
 import { TemporaryScripts } from "./TemporaryScripts";
 
 const uuidv4 = require("uuid");

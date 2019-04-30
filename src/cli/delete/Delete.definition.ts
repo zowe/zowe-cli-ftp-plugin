@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { DeleteDataSetDefinition } from "./data-set/DataSet.definition";
 import { DeleteUssFileDefinition } from "./uss-file/UssFile.definition";
 import { DeleteJobDefinition } from "./job/Job.definition";

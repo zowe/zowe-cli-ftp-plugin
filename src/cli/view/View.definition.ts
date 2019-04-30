@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { ViewDataSetDefinition } from "./data-set/DataSet.definition";
 import { ViewUssFileDefinition } from "./uss-file/UssFile.definition";
 import { ViewAllSpoolByJobidDefinition } from "./all-spool-by-jobid/AllSpoolByJobId.definition";

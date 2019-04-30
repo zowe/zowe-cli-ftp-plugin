@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { UploadFileToDataSetDefinition } from "./file-to-data-set/FileToDataSet.definition";
 import { UploadFileToUssFileDefinition } from "./file-to-uss-file/FileToUssFile.definition";
 import { UploadStdinToUssFileDefinition } from "./stdin-to-uss-file/StdinToUssFile.definition";

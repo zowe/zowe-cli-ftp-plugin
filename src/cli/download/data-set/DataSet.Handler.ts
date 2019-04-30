@@ -9,9 +9,9 @@
  *
  */
 
-import { IO } from "@zowe/imperative";
+import { IO } from "@brightside/imperative";
 import { StreamUtils } from "../../../api/StreamUtils";
-import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
+import { ZosFilesMessages, ZosFilesUtils } from "@brightside/core";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 
