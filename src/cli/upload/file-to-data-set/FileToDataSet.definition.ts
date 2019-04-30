@@ -47,5 +47,5 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

@@ -43,5 +43,5 @@ export const UploadFileToUssFileDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

@@ -39,5 +39,5 @@ export const RenameUssFileDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

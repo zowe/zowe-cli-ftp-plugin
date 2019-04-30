@@ -42,5 +42,5 @@ export const DeleteDataSetDefinition: ICommandDefinition = {
             required: true
         }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

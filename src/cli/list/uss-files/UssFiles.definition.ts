@@ -36,6 +36,6 @@ export const ListUssFilesDefinition: ICommandDefinition = {
         required: true
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

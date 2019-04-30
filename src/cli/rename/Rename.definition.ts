@@ -12,13 +12,24 @@
 import { ICommandDefinition } from "@brightside/imperative";
 import { RenameDataSetDefinition } from "./data-set/DataSet.definition";
 import { RenameUssFileDefinition } from "./uss-file/UssFile.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const RenameDefinition: ICommandDefinition = {
     name: "rename", aliases: ["mv"],
     summary: "Rename data sets and USS files or directories",
     description: "Rename data sets and USS files or directories",
     type: "group",
-    children: [RenameDataSetDefinition, RenameUssFileDefinition]
+    children: [RenameDataSetDefinition, RenameUssFileDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = RenameDefinition;

@@ -42,5 +42,5 @@ export const DeleteUssFileDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

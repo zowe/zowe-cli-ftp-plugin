@@ -41,5 +41,5 @@ export const ViewUssFileDefinition: ICommandDefinition = {
         type: "boolean"
     }],
     profile:
-        {required: ["zftp"]}
+        {optional: ["zftp"]}
 };

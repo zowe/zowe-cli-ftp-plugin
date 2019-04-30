@@ -25,6 +25,6 @@ export const SubmitStdinDefinition: ICommandDefinition = {
         },
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

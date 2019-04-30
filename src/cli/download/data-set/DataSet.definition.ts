@@ -39,5 +39,5 @@ export const DownloadDataSetDefinition: ICommandDefinition = {
         DownloadOptions.binary
     ].sort((a, b) => a.name.localeCompare(b.name)),
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

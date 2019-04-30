@@ -36,6 +36,6 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
     }],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

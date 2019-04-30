@@ -37,6 +37,6 @@ export const ViewJobStatusByJobidDefinition: ICommandDefinition = {
     ],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

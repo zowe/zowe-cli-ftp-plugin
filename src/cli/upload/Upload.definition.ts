@@ -14,13 +14,24 @@ import { UploadFileToDataSetDefinition } from "./file-to-data-set/FileToDataSet.
 import { UploadFileToUssFileDefinition } from "./file-to-uss-file/FileToUssFile.definition";
 import { UploadStdinToUssFileDefinition } from "./stdin-to-uss-file/StdinToUssFile.definition";
 import { UploadStdinToDataSetDefinition } from "./stdin-to-data-set/StdinToDataSet.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const UploadDefinition: ICommandDefinition = {
     name: "upload", aliases: ["ul"],
     summary: "Upload data set and USS content",
     description: "Upload data set and USS content",
     type: "group",
-    children: [UploadFileToDataSetDefinition, UploadStdinToDataSetDefinition, UploadStdinToUssFileDefinition, UploadFileToUssFileDefinition]
+    children: [UploadFileToDataSetDefinition, UploadStdinToDataSetDefinition, UploadStdinToUssFileDefinition, UploadFileToUssFileDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = UploadDefinition;

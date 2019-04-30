@@ -54,5 +54,5 @@ export const DownloadAllSpoolByJobidDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };
