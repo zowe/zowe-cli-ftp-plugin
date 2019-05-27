@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 
 export const DeleteJobDefinition: ICommandDefinition = {
@@ -35,5 +35,5 @@ export const DeleteJobDefinition: ICommandDefinition = {
     ],
     options: [],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

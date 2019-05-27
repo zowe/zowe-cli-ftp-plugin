@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 export const UploadFileToUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/FileToUssFile.Handler",
@@ -43,5 +43,5 @@ export const UploadFileToUssFileDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

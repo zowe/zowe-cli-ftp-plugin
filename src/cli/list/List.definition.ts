@@ -9,18 +9,29 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { ListJobsDefinition } from "./jobs/Jobs.definition";
 import { ListDataSetDefinition } from "./data-set/DataSet.definition";
 import { ListUssFilesDefinition } from "./uss-files/UssFiles.definition";
 import { SpoolFilesByJobidDefinition } from "./spool-files-by-jobid/SpoolFilesByJobid.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const ListDefinition: ICommandDefinition = {
     name: "list", aliases: ["ls"],
     summary: "List data sets, uss files, jobs, spool files",
     description: "List data sets, uss files, jobs, spool files",
     type: "group",
-    children: [ListJobsDefinition, ListDataSetDefinition, SpoolFilesByJobidDefinition, ListUssFilesDefinition]
+    children: [ListJobsDefinition, ListDataSetDefinition, SpoolFilesByJobidDefinition, ListUssFilesDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = ListDefinition;

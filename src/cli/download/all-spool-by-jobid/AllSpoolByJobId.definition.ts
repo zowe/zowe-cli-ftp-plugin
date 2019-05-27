@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 
 export const DownloadAllSpoolByJobidDefinition: ICommandDefinition = {
@@ -54,5 +54,5 @@ export const DownloadAllSpoolByJobidDefinition: ICommandDefinition = {
         }
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

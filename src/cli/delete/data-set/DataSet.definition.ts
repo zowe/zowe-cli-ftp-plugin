@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 
 export const DeleteDataSetDefinition: ICommandDefinition = {
@@ -42,5 +42,5 @@ export const DeleteDataSetDefinition: ICommandDefinition = {
             required: true
         }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

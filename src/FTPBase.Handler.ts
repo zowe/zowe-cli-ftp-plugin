@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@zowe/imperative";
+import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@brightside/imperative";
 import { IFTPHandlerParams } from "./IFTPHandlerParams";
 import { FTPConfig } from "./api/FTPConfig";
 import { IZosFTPProfile } from "./api/doc/IZosFTPProfile";
@@ -27,17 +27,13 @@ export abstract class FTPBaseHandler implements ICommandHandler {
      *
      */
     public async process(commandParameters: IHandlerParameters) {
-        const profile = commandParameters.profiles.get("zftp");
 
-        this.log.debug("Loaded zftp profile called '%s', attempting to connect to zos-node-accessor (FTP)",
-            profile.name);
         let connection: any;
         try {
-            connection = await FTPConfig.connectFromProfile(profile);
+            connection = await FTPConfig.connectFromArguments(commandParameters.arguments);
             this.log.info("Connected to FTP successfully");
             const additionalParameters: IFTPHandlerParams = commandParameters as IFTPHandlerParams;
             additionalParameters.connection = connection;
-            additionalParameters.zosFtpProfile = profile as IZosFTPProfile;
             await this.processFTP(additionalParameters);
         } catch (e) {
             this.log.error("Error encountered in FTP command:\n%s", require("util").inspect(e));

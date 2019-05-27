@@ -9,12 +9,12 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 /**
  * Re-use the option definitions for this command from core
  */
 // tslint:disable-next-line
-import { DownloadOptions } from "@zowe/cli/lib/zosfiles/src/cli/download/Download.options";
+import { DownloadOptions } from "@brightside/core/lib/zosfiles/src/cli/download/Download.options";
 
 export const DownloadUSSFileDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFile.Handler",
@@ -39,5 +39,5 @@ export const DownloadUSSFileDefinition: ICommandDefinition = {
         DownloadOptions.binary
     ].sort((a, b) => a.name.localeCompare(b.name)),
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };

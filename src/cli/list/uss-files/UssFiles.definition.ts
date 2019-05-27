@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 export const ListUssFilesDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFiles.Handler",
@@ -36,6 +36,6 @@ export const ListUssFilesDefinition: ICommandDefinition = {
         required: true
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 
 export const SubmitStdinDefinition: ICommandDefinition = {
@@ -25,6 +25,6 @@ export const SubmitStdinDefinition: ICommandDefinition = {
         },
     ],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
     outputFormatOptions: true
 };

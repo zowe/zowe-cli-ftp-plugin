@@ -9,17 +9,28 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { DeleteDataSetDefinition } from "./data-set/DataSet.definition";
 import { DeleteUssFileDefinition } from "./uss-file/UssFile.definition";
 import { DeleteJobDefinition } from "./job/Job.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const DeleteDefinition: ICommandDefinition = {
     name: "delete", aliases: ["del"],
     summary: "Delete data sets, jobs, and USS files",
     description: "Delete data sets, jobs, and USS files",
     type: "group",
-    children: [DeleteDataSetDefinition, DeleteJobDefinition, DeleteUssFileDefinition]
+    children: [DeleteDataSetDefinition, DeleteJobDefinition, DeleteUssFileDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = DeleteDefinition;

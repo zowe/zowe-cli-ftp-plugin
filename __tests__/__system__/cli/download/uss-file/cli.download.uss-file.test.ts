@@ -14,7 +14,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { IO } from "@zowe/imperative";
+import { IO } from "@brightside/imperative";
 
 let user: string;
 let connection: any;
@@ -29,7 +29,7 @@ describe("submit job from local file command", () => {
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
-        connection = await FTPConfig.connectFromProfile(testEnvironment.systemTestProperties.zosftp);
+        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
 
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;

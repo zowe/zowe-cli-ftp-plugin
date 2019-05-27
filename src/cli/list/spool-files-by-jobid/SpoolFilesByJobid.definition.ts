@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 export const SpoolFilesByJobidDefinition: ICommandDefinition = {
     name: "spool-files-by-jobid",
@@ -21,7 +21,7 @@ export const SpoolFilesByJobidDefinition: ICommandDefinition = {
     "The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
     handler: __dirname + "/SpoolFilesByJobid.Handler",
     profile: {
-        required: ["zftp"]
+        optional: ["zftp"]
     },
     positionals: [
         {

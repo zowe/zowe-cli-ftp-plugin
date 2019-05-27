@@ -9,12 +9,13 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { ViewDataSetDefinition } from "./data-set/DataSet.definition";
 import { ViewUssFileDefinition } from "./uss-file/UssFile.definition";
 import { ViewAllSpoolByJobidDefinition } from "./all-spool-by-jobid/AllSpoolByJobId.definition";
 import { ViewJobStatusByJobidDefinition } from "./job-status-by-jobid/JobStatusByJobid.definition";
 import { ViewSpoolFileByIdDefinition } from "./spool-file-by-id/SpoolFileById.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const ViewDefinition: ICommandDefinition = {
     name: "view", aliases: ["vw"],
@@ -22,7 +23,17 @@ const ViewDefinition: ICommandDefinition = {
     description: "View data sets, job output, and USS content",
     type: "group",
     children: [ViewDataSetDefinition, ViewSpoolFileByIdDefinition,
-        ViewJobStatusByJobidDefinition, ViewUssFileDefinition, ViewAllSpoolByJobidDefinition]
+        ViewJobStatusByJobidDefinition, ViewUssFileDefinition, ViewAllSpoolByJobidDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = ViewDefinition;

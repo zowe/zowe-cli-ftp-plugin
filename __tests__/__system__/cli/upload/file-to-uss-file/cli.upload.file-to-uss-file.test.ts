@@ -14,7 +14,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { IO } from "@zowe/imperative";
+import { IO } from "@brightside/imperative";
 import * as fs from "fs";
 
 let user: string;
@@ -31,7 +31,7 @@ describe("upload file to uss file command", () => {
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
-        connection = await FTPConfig.connectFromProfile(testEnvironment.systemTestProperties.zosftp);
+        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
     });

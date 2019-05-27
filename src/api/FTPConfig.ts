@@ -11,17 +11,99 @@
 
 import { isString } from "util";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
+import { ICommandOptionDefinition } from "@brightside/imperative";
+
+const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 
 export class FTPConfig {
+
+    public static OPTION_HOST: ICommandOptionDefinition = {
+        type: "string",
+        name: "host", aliases: ["H"],
+        required: true,
+        description: "The hostname or IP address of the z/OS server to connect to."
+    };
+
+    public static OPTION_PORT: ICommandOptionDefinition = {
+        type: "number",
+        name: "port", aliases: ["P"],
+        required: true,
+        description: "The port of the z/OS FTP server.",
+        defaultValue: 21
+    };
+
+    public static OPTION_USER: ICommandOptionDefinition = {
+        type: "string",
+        name: "user", aliases: ["u"],
+        required: true,
+        description: "Username for authentication on z/OS"
+    };
+
+    public static OPTION_PASSWORD: ICommandOptionDefinition = {
+        type: "string",
+        name: "password", aliases: ["pass", "pw"],
+        required: true,
+        description: "Password to authenticate to FTP."
+    };
+
+    public static OPTION_SECURE_FTP: ICommandOptionDefinition = {
+        name: "secure-ftp",
+        type: "string",
+        description: "Set to true for both control and data connection encryption," +
+            " 'control' for control connection encryption only, or 'implicit' for implicitly" +
+            " encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). " +
+            "Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH."
+    };
+
+    public static OPTION_REJECT_UNAUTHORIZED: ICommandOptionDefinition = {
+        name: "reject-unauthorized",
+        aliases: ["ru"],
+        description: "Reject self-signed certificates. Only specify this if " +
+            "you are connecting to a secure FTP instance.",
+        type: "boolean",
+        defaultValue: null,
+        group: tlsConnectionOptionGroup
+    };
+
+    public static OPTION_SERVER_NAME: ICommandOptionDefinition = {
+        name: "server-name",
+        aliases: ["sn"],
+        description: "Server name for the SNI (Server Name Indication) TLS extension. " +
+            "Only specify if you are connecting securely",
+        group: tlsConnectionOptionGroup,
+        type: "string",
+        defaultValue: null
+    };
+
+    public static OPTION_CONNECTION_TIMEOUT: ICommandOptionDefinition = {
+        name: "connection-timeout", aliases: ["ct"],
+        description: "How long (in milliseconds) to wait for the control connection to be established.",
+        defaultValue: 10000,
+        type: "number"
+    };
+
+    /**
+     * Shared options used by all FTP commands
+     */
+    public static FTP_CONNECTION_OPTIONS: ICommandOptionDefinition[] = [
+        FTPConfig.OPTION_HOST,
+        FTPConfig.OPTION_PORT,
+        FTPConfig.OPTION_USER,
+        FTPConfig.OPTION_PASSWORD,
+        FTPConfig.OPTION_SECURE_FTP,
+        FTPConfig.OPTION_REJECT_UNAUTHORIZED,
+        FTPConfig.OPTION_SERVER_NAME,
+        FTPConfig.OPTION_CONNECTION_TIMEOUT
+    ];
 
     /**
      * Convert a profile into a config object used to connect to
      * zos-node-accessor
-     * @param profile - the profile created by the user
+     * @param arguments - the arguments passed by the user
      * @returns  the connection to zos-node-accessor's APIs
      */
-    public static async connectFromProfile(profile: any) {
-        const ftpConfig = FTPConfig.createConfigFromProfile(profile);
+    public static async connectFromArguments(args: any) {
+        const ftpConfig = FTPConfig.createConfigFromArguments(args);
         const zosAccessor = new (require("zos-node-accessor"))();
         return zosAccessor.connect(ftpConfig);
     }
@@ -29,38 +111,37 @@ export class FTPConfig {
     /**
      * Convert a profile into a config object used to connect to
      * zos-node-accessor
-     * @param profile - the profile created by the user
+     * @param arguments - the profile created by the user
      * @returns the config object for zos-node-accessor's ftp connection
      */
-    public static createConfigFromProfile(profile: IZosFTPProfile): any {
+    public static createConfigFromArguments(args: any): any {
         // build the options argument for zos-node-accessor
         const result: any = {
-            host: profile.host,
-            user: profile.user,
-            password: profile.password,
-            port: profile.port,
-            connTimeout: profile.connectionTimeout
+            host: args.host,
+            user: args.user,
+            password: args.password,
+            port: args.port,
+            connTimeout: args.connectionTimeout
         };
-        if (profile.secure != null) {
-            if (isString(profile.secure) && profile.secure.trim().toLowerCase() === "true") {
+        if (args.secure != null) {
+            if (isString(args.secure) && args.secure.trim().toLowerCase() === "true") {
                 result.secure = true;
             } else {
-                result.secure = profile.secure;
+                result.secure = args.secure;
             }
         }
-        if (this.profileHasSecureOptions(profile)) {
-            result.secureOptions = profile.secureOptions;
+        if (this.profileHasSecureOptions(args)) {
+            result.secureOptions = args.secureOptions;
         }
         return result;
     }
 
     /**
      * Determine whether the user specified any TLS connection options
-     * @param profile - the profile loaded from the user
+     * @param args - the profile loaded from the user
      * @returns true if the user has specified any secure connection options
      */
-    private static profileHasSecureOptions(profile: IZosFTPProfile): boolean {
-        return profile.secureOptions != null &&
-            ((profile.secureOptions.rejectUnauthorized != null) || (profile.secureOptions.ca != null));
+    private static profileHasSecureOptions(args: IZosFTPProfile): boolean {
+        return ((args.rejectUnauthorized != null) || (args.ca != null));
     }
 }

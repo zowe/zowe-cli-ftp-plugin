@@ -9,7 +9,7 @@
  *
  */
 
-import { Constants, ICommandDefinition } from "@zowe/imperative";
+import { Constants, ICommandDefinition } from "@brightside/imperative";
 
 export const ViewSpoolFileByIdDefinition: ICommandDefinition = {
     name: "spool-file-by-id",
@@ -21,7 +21,7 @@ export const ViewSpoolFileByIdDefinition: ICommandDefinition = {
     "The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
     handler: __dirname + "/SpoolFileById.Handler",
     profile: {
-        required: ["zftp"]
+        optional: ["zftp"]
     },
     positionals: [
         {

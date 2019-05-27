@@ -9,9 +9,9 @@
  *
  */
 
-import { IImperativeConfig } from "@zowe/imperative";
+import { IImperativeConfig } from "@brightside/imperative";
+import { FTPConfig } from "./api/FTPConfig";
 
-const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 const config: IImperativeConfig = {
     commandModuleGlobs: ["**/cli/*/*.definition!(.d).*s"],
     rootCommandDescription: "Data set and job functionality via FTP. This functionality " +
@@ -39,94 +39,45 @@ const config: IImperativeConfig = {
                 properties: {
                     host: {
                         type: "string",
-                        optionDefinition: {
-                            type: "string",
-                            name: "host", aliases: ["H"],
-                            required: true,
-                            description: "The hostname or IP address of the z/OS server to connect to."
-                        }
+                        optionDefinition: FTPConfig.OPTION_HOST
                     },
                     port: {
                         type: "number",
-                        optionDefinition: {
-                            type: "number",
-                            name: "port", aliases: ["P"],
-                            required: true,
-                            description: "The port of the z/OS FTP server.",
-                            defaultValue: 21
-                        }
+                        optionDefinition: FTPConfig.OPTION_PORT
                     },
                     user: {
                         type: "string",
-                        optionDefinition: {
-                            type: "string",
-                            name: "user", aliases: ["u"],
-                            required: true,
-                            description: "Username for authentication on z/OS"
-                        },
+                        optionDefinition: FTPConfig.OPTION_USER,
                         secure: true
                     },
                     password: {
                         type: "string",
-                        optionDefinition: {
-                            type: "string",
-                            name: "password", aliases: ["p"],
-                            required: true,
-                            description: "Password to authenticate to FTP."
-                        },
+                        optionDefinition: FTPConfig.OPTION_PASSWORD,
                         secure: true
                     },
                     secure: {
                         type: "string",
-                        optionDefinition: {
-                            name: "secure-ftp",
-                            type: "string",
-                            description: "Set to true for both control and data connection encryption," +
-                            " 'control' for control connection encryption only, or 'implicit' for implicitly" +
-                            " encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). " +
-                            "Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH."
-                        }
+                        optionDefinition: FTPConfig.OPTION_SECURE_FTP
                     },
                     secureOptions: {
                         type: "object",
                         properties: {
                             rejectUnauthorized: {
                                 type: ["boolean", "null"],
-                                optionDefinition: {
-                                    name: "reject-unauthorized",
-                                    aliases: ["ru"],
-                                    description: "Reject self-signed certificates. Only specify this if " +
-                                    "you are connecting to a secure FTP instance.",
-                                    type: "boolean",
-                                    defaultValue: null,
-                                    group: tlsConnectionOptionGroup
-                                },
+                                optionDefinition: FTPConfig.OPTION_REJECT_UNAUTHORIZED
                             },
                             servername: {
                                 type: ["string", "null"],
-                                optionDefinition: {
-                                    name: "server-name",
-                                    aliases: ["sn"],
-                                    description: "Server name for the SNI (Server Name Indication) TLS extension. " +
-                                    "Only specify if you are connecting securely",
-                                    group: tlsConnectionOptionGroup,
-                                    type: "string",
-                                    defaultValue: null
-                                }
+                                optionDefinition: FTPConfig.OPTION_SERVER_NAME
                             }
                         }
                     },
                     connectionTimeout: {
                         type: "number",
-                        optionDefinition: {
-                            name: "connection-timeout", aliases: ["ct"],
-                            description: "How long (in milliseconds) to wait for the control connection to be established.",
-                            defaultValue: 10000,
-                            type: "number"
-                        }
+                        optionDefinition: FTPConfig.OPTION_CONNECTION_TIMEOUT
                     },
                 },
-                required: ["host", "port", "user", "password"],
+                optional: ["host", "port", "user", "password"],
             },
         },
     ]

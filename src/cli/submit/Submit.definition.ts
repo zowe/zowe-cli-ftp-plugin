@@ -9,17 +9,28 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 import { SubmitLocalFileDefinition } from "./local-file/LocalFile.definition";
 import { SubmitDataSetDefinition } from "./data-set/DataSet.definition";
 import { SubmitStdinDefinition } from "./stdin/Stdin.definition";
+import { FTPConfig } from "../../api/FTPConfig";
 
 const SubmitDefinition: ICommandDefinition = {
     name: "submit", aliases: ["sub"],
     summary: "Submit jobs from local files and data sets",
     description: "Submit jobs from local files and data sets",
     type: "group",
-    children: [SubmitLocalFileDefinition, SubmitDataSetDefinition, SubmitStdinDefinition]
+    children: [SubmitLocalFileDefinition, SubmitDataSetDefinition, SubmitStdinDefinition],
+    passOn: [
+        {
+            property: "options",
+            value: FTPConfig.FTP_CONNECTION_OPTIONS,
+            merge: true,
+            ignoreNodes: [
+                {type: "group"}
+            ]
+        }
+    ]
 };
 
 export = SubmitDefinition;

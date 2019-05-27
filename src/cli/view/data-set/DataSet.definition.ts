@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@brightside/imperative";
 
 
 export const ViewDataSetDefinition: ICommandDefinition = {
@@ -40,5 +40,5 @@ export const ViewDataSetDefinition: ICommandDefinition = {
         type: "boolean"
     }],
     profile:
-        {required: ["zftp"]},
+        {optional: ["zftp"]},
 };
