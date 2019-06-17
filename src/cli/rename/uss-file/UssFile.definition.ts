@@ -21,7 +21,7 @@ export const RenameUssFileDefinition: ICommandDefinition = {
     examples: [
         {
             description: "Rename the file /u/users/ibmuser/hello.txt to /u/users/ibmuser/hello2.txt",
-            options: "\"/u/users/ibmuser/hello.txt)\" \"/u/users/ibmuser/hello2.txt\""
+            options: "\"/u/users/ibmuser/hello.txt\" \"/u/users/ibmuser/hello2.txt\""
         }
     ],
     positionals: [

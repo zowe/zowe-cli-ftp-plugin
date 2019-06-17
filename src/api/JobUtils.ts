@@ -16,14 +16,14 @@ export class JobUtils {
     /**
      * Identify a job by job ID
      * Warning: slow since it lists all jobs
-     * @param  jobid - the job ID of the job you want to identify -
+     * @param  jobId - the job ID of the job you want to identify -
      *                         note: you can't use the abbreviated version like j123. it must be the full job ID
      * @param connection - connection to zos-node-accessor
      */
-    public static async findJobByID(jobid: string, connection: any) {
-        this.log.debug("Attempting to locate job by job ID %s", jobid);
-        jobid = jobid.toUpperCase();
-        const job = await connection.getJobStatus(jobid);
+    public static async findJobByID(jobId: string, connection: any) {
+        this.log.debug("Attempting to locate job by job ID %s", jobId);
+        jobId = jobId.toUpperCase();
+        const job = await connection.getJobStatus({jobId, owner: "*"});
         return job;
     }
 
@@ -32,7 +32,6 @@ export class JobUtils {
             jobs = jobs.slice(1);
         }
         return jobs.map((job: any) => {
-            const result: any = {};
             // object looks like:
             // JOBNAME, JOBID, OWNER, STATUS, CLASS
             // turn the object into a similar format to that returned by
