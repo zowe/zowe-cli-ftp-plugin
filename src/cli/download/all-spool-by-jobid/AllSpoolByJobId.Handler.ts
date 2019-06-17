@@ -31,7 +31,13 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
         }
         for (const spoolFileToDownload of jobDetails.spoolFiles) {
             this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
-            const spoolFile = await params.connection.getJobLog(jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
+            const option = {
+                jobName: jobDetails.jobname,
+                jobId: jobDetails.jobid,
+                owner: "*",
+                fileId: spoolFileToDownload.id
+            };
+            const spoolFile = await params.connection.getJobLog(option);
             spoolFiles.push(spoolFile);
             spoolFileToDownload.contents = spoolFile;
             fullSpoolFiles.push(spoolFileToDownload);
@@ -50,7 +56,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
             const destinationFile = DownloadJobs.getSpoolDownloadFile(mockJobFile, params.arguments.omitJobidDirectory, params.arguments.directory);
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
-            const content = await params.connection.getJobLog(jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
+            const content = await params.connection.getJobLog(option);
             IO.writeFile(destinationFile, content);
         }
         const successMessage = params.response.console.log("Successfully downloaded %d spool files to %s", fullSpoolFiles.length, destination);
