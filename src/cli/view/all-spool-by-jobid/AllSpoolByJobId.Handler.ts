@@ -29,7 +29,13 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
         }
         for (const spoolFileToDownload of jobDetails.spoolFiles) {
             this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
-            const spoolFile = await params.connection.getJobLog(jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
+            const option = {
+                jobName: jobDetails.jobname,
+                jobId: jobDetails.jobid,
+                owner: "*",
+                fileId: spoolFileToDownload.id
+            };
+            const spoolFile = await params.connection.getJobLog(option);
             spoolFiles.push(spoolFile);
             spoolFileToDownload.contents = spoolFile;
             fullSpoolFiles.push(spoolFileToDownload);
