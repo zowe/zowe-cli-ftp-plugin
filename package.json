@@ -1,7 +1,7 @@
 {
   "name": "@zowe/zos-ftp",
-  "version": "0.0.1",
-  "description": "Data set, USS, and job functionality for CA Brightside via FTP",
+  "version": "0.1.0",
+  "description": "Data set, USS, and Jobs functionality via FTP for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run clean && npm run license && tsc --pretty && npm run lint && npm run checkTestsCompile",
@@ -20,7 +20,7 @@
     "configurationModule": "lib/imperative.js"
   },
   "publishConfig": {
-    "registry": "http://isl-dsdc.ca.com/artifactory/api/npm/npm-release-candidate"
+    "registry": "https://gizaartifactory.jfrog.io/gizaartifactory/api/npm/npm-local-release/"
   },
   "peerDependencies": {
     "@brightside/core": "^2.0.0",
