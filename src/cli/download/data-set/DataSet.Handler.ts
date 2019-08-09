@@ -9,6 +9,8 @@
  *
  */
 
+import * as fs from "fs";
+
 import { IO } from "@brightside/imperative";
 import { StreamUtils } from "../../../api/StreamUtils";
 import { ZosFilesMessages, ZosFilesUtils } from "@brightside/core";
@@ -22,14 +24,12 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
         const file = params.arguments.file == null ?
             ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
             params.arguments.file;
-        let content: Buffer;
+        const writable = fs.createWriteStream(file);
         this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
             params.arguments.dataSet, file, transferType);
         IO.createDirsSyncFromFilePath(file);
         const contentStreamPromise = params.connection.getDataset(params.arguments.dataSet, transferType, true);
-        content = await StreamUtils.streamToBuffer(contentStreamPromise, params.response);
-
-        IO.writeFile(file, content);
+        await StreamUtils.streamToStream(contentStreamPromise, writable, params.response);
 
         const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message,
             file);
