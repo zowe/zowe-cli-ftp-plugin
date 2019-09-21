@@ -9,6 +9,8 @@
  *
  */
 
+import * as fs from "fs";
+
 import { IO } from "@brightside/imperative";
 import { StreamUtils } from "../../../api/StreamUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
@@ -32,14 +34,14 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             throw new Error(`The file "${ussFile}" doesn't exist.`);
         }
 
-        let content: Buffer;
+        const writable = fs.createWriteStream(file);
+
         this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s",
             ussFile, file, transferType);
         IO.createDirsSyncFromFilePath(file);
-        const contentStreamPromise = params.connection.getDataset(ussFile, transferType, true);
-        content = await StreamUtils.streamToBuffer(fileToDownload.size, contentStreamPromise, params.response);
 
-        IO.writeFile(file, content);
+        const contentStreamPromise = params.connection.getDataset(ussFile, transferType, true);
+        await StreamUtils.streamToStream(fileToDownload.size, contentStreamPromise, writable, params.response);
 
         const successMsg = params.response.console.log("Successfully downloaded USS file '%s' to local file '%s'",
             ussFile, file);
