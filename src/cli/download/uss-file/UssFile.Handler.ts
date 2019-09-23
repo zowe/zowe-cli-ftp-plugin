@@ -16,7 +16,7 @@ import { StreamUtils } from "../../../api/StreamUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { UssUtils } from "../../../api/UssUtils";
-import { basename } from "path";
+import { basename, dirname } from "path";
 
 export default class DownloadUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
@@ -25,12 +25,23 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
         const file = params.arguments.file == null ?
             basename(ussFile) : // default the destination file name to the basename of the uss file e.g. /u/users/ibmuser/hello.txt -> hello.txt
             params.arguments.file;
+
+        const files = await params.connection.listDataset(dirname(ussFile));
+        const fileToDownload = files.find((f: any) => {
+            return f.name === basename(ussFile);
+        });
+        if (fileToDownload === undefined) {
+            throw new Error(`The file "${ussFile}" doesn't exist.`);
+        }
+
         const writable = fs.createWriteStream(file);
+
         this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s",
             ussFile, file, transferType);
         IO.createDirsSyncFromFilePath(file);
+
         const contentStreamPromise = params.connection.getDataset(ussFile, transferType, true);
-        await StreamUtils.streamToStream(contentStreamPromise, writable, params.response);
+        await StreamUtils.streamToStream(fileToDownload.size, contentStreamPromise, writable, params.response);
 
         const successMsg = params.response.console.log("Successfully downloaded USS file '%s' to local file '%s'",
             ussFile, file);

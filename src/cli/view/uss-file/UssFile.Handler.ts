@@ -13,16 +13,27 @@ import { StreamUtils } from "../../../api/StreamUtils";
 import { UssUtils } from "../../../api/UssUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { basename, dirname } from "path";
 
 export default class ViewUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
+        const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
         const transferType = params.arguments.binary ? "binary" : "ascii";
+
+
+        const files = await params.connection.listDataset(dirname(ussFile));
+        const fileToDownload = files.find((f: any) => {
+            return f.name === basename(ussFile);
+        });
+        if (fileToDownload === undefined) {
+            throw new Error(`The file "${ussFile}" doesn't exist.`);
+        }
 
         let content: Buffer;
 
         const contentStreamPromise = params.connection.getDataset(UssUtils.normalizeUnixPath(params.arguments.ussFile),
             transferType, true);
-        content = await StreamUtils.streamToBuffer(contentStreamPromise, params.response);
+        content = await StreamUtils.streamToBuffer(fileToDownload.size, contentStreamPromise, params.response);
 
         params.response.data.setObj(content);
         params.response.console.log(content);
