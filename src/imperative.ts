@@ -55,22 +55,17 @@ const config: IImperativeConfig = {
                         optionDefinition: FTPConfig.OPTION_PASSWORD,
                         secure: true
                     },
-                    secure: {
+                    secureFtp: {
                         type: "string",
                         optionDefinition: FTPConfig.OPTION_SECURE_FTP
                     },
-                    secureOptions: {
-                        type: "object",
-                        properties: {
-                            rejectUnauthorized: {
-                                type: ["boolean", "null"],
-                                optionDefinition: FTPConfig.OPTION_REJECT_UNAUTHORIZED
-                            },
-                            servername: {
-                                type: ["string", "null"],
-                                optionDefinition: FTPConfig.OPTION_SERVER_NAME
-                            }
-                        }
+                    rejectUnauthorized: {
+                        type: ["boolean", "null"],
+                        optionDefinition: FTPConfig.OPTION_REJECT_UNAUTHORIZED
+                    },
+                    servername: {
+                        type: ["string", "null"],
+                        optionDefinition: FTPConfig.OPTION_SERVER_NAME
                     },
                     connectionTimeout: {
                         type: "number",

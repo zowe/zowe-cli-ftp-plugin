@@ -41,7 +41,7 @@ export class FTPConfig {
 
     public static OPTION_PASSWORD: ICommandOptionDefinition = {
         type: "string",
-        name: "password", aliases: ["pass", "pw"],
+        name: "password", aliases: ["p", "pass", "pw"],
         required: true,
         description: "Password to authenticate to FTP."
     };
@@ -123,15 +123,18 @@ export class FTPConfig {
             port: args.port,
             connTimeout: args.connectionTimeout
         };
-        if (args.secure != null) {
-            if (isString(args.secure) && args.secure.trim().toLowerCase() === "true") {
+        if (args.secureFtp != null) {
+            if (isString(args.secureFtp) && args.secureFtp.trim().toLowerCase() === "true") {
                 result.secure = true;
             } else {
-                result.secure = args.secure;
+                result.secure = args.secureFtp;
             }
         }
         if (this.profileHasSecureOptions(args)) {
-            result.secureOptions = args.secureOptions;
+            result.secureOptions = {
+                rejectUnauthorized: args.rejectUnauthorized,
+                serverName: args.serverName,
+            };
         }
         return result;
     }
@@ -142,6 +145,6 @@ export class FTPConfig {
      * @returns true if the user has specified any secure connection options
      */
     private static profileHasSecureOptions(args: IZosFTPProfile): boolean {
-        return ((args.rejectUnauthorized != null) || (args.ca != null));
+        return (args.rejectUnauthorized != null) || (args.serverName !== null);
     }
 }

@@ -25,17 +25,15 @@ export interface IZosFTPProfile extends IProfile {
      *  implicitly encrypted control connection (this mode is deprecated in modern times,
      *  but usually uses port 990)
      */
-    secure?: string;
+    secureFtp?: string;
     /**
      * TLS connection options that can be specified by the user in their profile
      */
-    secureOptions?: {
-        rejectUnauthorized?: boolean,
-        /**
-         * certificate authority for your secure connection
-         */
-        ca?: string[];
-    };
+    rejectUnauthorized?: boolean,
+    /**
+     * certificate authority for your secure connection
+     */
+    serverName?: string;
 
     jobCardFile?: string;
 }
