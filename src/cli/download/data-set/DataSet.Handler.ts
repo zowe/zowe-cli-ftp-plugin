@@ -18,8 +18,6 @@ import { ZosFilesMessages, ZosFilesUtils } from "@brightside/core";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 
-const TRACK = 56664;
-
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
@@ -38,14 +36,15 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
         this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
             params.arguments.dataSet, file, transferType);
         IO.createDirsSyncFromFilePath(file);
-      
+
         const contentStreamPromise = params.connection.getDataset(params.arguments.dataSet, transferType, true);
 
-        const size = parseInt(files[0].Used, 10) * TRACK;
-        await StreamUtils.streamToStream(size, contentStreamPromise, writable, params.response);
+        const TRACK = 56664;
+        const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        await StreamUtils.streamToStream(estimatedSize, contentStreamPromise, writable, params.response);
+        // await StreamUtils.streamToBuffer(estimatedSize, contentStreamPromise, params.response);
 
-        const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message,
-            file);
+        const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message, file);
         this.log.info(successMsg);
         params.response.data.setMessage(successMsg);
     }

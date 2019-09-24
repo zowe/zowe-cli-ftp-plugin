@@ -57,16 +57,20 @@ export class StreamUtils {
     /**
      * Pipes the readable stream to the writable stream.
      *
+     * @param  estimatedSize - estimated file size
      * @param  stremPromise - promise that will resolve to a readable stream
      * @param  writable - writable stream
      * @param  response - response object from your handler, provide if
      *                                         you want a progress bar created
      * @returns  - promise that resolves when the h
      */
-    public static async streamToStream(streamPromise: Promise<Readable>, writable: Writable, response?: IHandlerResponseApi): Promise<string> {
+    public static async streamToStream(
+        estimatedSize: number, streamPromise: Promise<Readable>, writable: Writable, response?: IHandlerResponseApi
+    ): Promise<string> {
+        const PERCETAGE = 100;
         return new Promise<string>((resolve, reject) => {
             let downloadedBytes = 0;
-            const statusMessage = "Downloaded %d of ? bytes";
+            const statusMessage = "Downloaded %d of %d bytes";
             const task: ITaskWithStatus = {
                 statusMessage: "Starting transfer...",
                 percentComplete: 0,
@@ -76,9 +80,11 @@ export class StreamUtils {
                 response.progress.startBar({task});
             }
             streamPromise.then((stream) => {
+                stream.pipe(writable);
                 stream.on("data", (chunk: Buffer) => {
                     downloadedBytes += chunk.length;
-                    task.statusMessage = TextUtils.formatMessage(statusMessage, downloadedBytes);
+                    task.percentComplete = PERCETAGE * downloadedBytes / estimatedSize;
+                    task.statusMessage = TextUtils.formatMessage(statusMessage, downloadedBytes, estimatedSize);
                 });
                 stream.on("end", () => {
                     response.progress.endBar();
@@ -88,7 +94,6 @@ export class StreamUtils {
                     response.progress.endBar();
                     reject(error);
                 });
-                stream.pipe(writable);
             }).catch((streamRejection: any) => {
                 reject(streamRejection);
             });

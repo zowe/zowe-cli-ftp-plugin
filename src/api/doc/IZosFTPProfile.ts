@@ -29,7 +29,7 @@ export interface IZosFTPProfile extends IProfile {
     /**
      * TLS connection options that can be specified by the user in their profile
      */
-    rejectUnauthorized?: boolean,
+    rejectUnauthorized?: boolean;
     /**
      * certificate authority for your secure connection
      */
