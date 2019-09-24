@@ -72,7 +72,7 @@ const config: IImperativeConfig = {
                         optionDefinition: FTPConfig.OPTION_CONNECTION_TIMEOUT
                     },
                 },
-                optional: ["host", "port", "user", "password"],
+                required: ["host", "port", "user", "password"],
             },
         },
     ]
