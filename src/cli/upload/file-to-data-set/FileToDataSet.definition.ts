@@ -20,8 +20,8 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
     summary: "Upload from local file to data set",
     examples: [
         {
-            description: "Upload  \"ibmuser.cntl(iefbr14)\" from the file iefbr14.txt",
-            options: "\"ibmuser.cntl(iefbr14)\" --file iefbr14.txt"
+            description: "Upload to \"ibmuser.cntl(iefbr14)\" from the file iefbr14.txt",
+            options: "iefbr14.txt \"ibmuser.cntl(iefbr14)\""
         }
     ],
     positionals: [

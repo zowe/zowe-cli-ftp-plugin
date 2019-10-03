@@ -9,6 +9,7 @@ Object {
   "pluginAliases": Array [
     "zftp",
   ],
+  "pluginHealthCheck": "./lib/healthCheck.handler",
   "pluginSummary": "z/OS Files and jobs via FTP",
   "productDisplayName": "z/OS FTP Plugin",
   "profiles": Array [
@@ -21,6 +22,12 @@ Object {
       ],
       "schema": Object {
         "description": "Configuration profile for z/OS FTP",
+        "optional": Array [
+          "host",
+          "port",
+          "user",
+          "password",
+        ],
         "properties": Object {
           "connectionTimeout": Object {
             "optionDefinition": Object {
@@ -50,6 +57,8 @@ Object {
             "optionDefinition": Object {
               "aliases": Array [
                 "p",
+                "pass",
+                "pw",
               ],
               "description": "Password to authenticate to FTP.",
               "name": "password",
@@ -72,7 +81,23 @@ Object {
             },
             "type": "number",
           },
-          "secure": Object {
+          "rejectUnauthorized": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "ru",
+              ],
+              "defaultValue": null,
+              "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+              "group": "TLS / Secure Connection options",
+              "name": "reject-unauthorized",
+              "type": "boolean",
+            },
+            "type": Array [
+              "boolean",
+              "null",
+            ],
+          },
+          "secureFtp": Object {
             "optionDefinition": Object {
               "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
               "name": "secure-ftp",
@@ -80,42 +105,21 @@ Object {
             },
             "type": "string",
           },
-          "secureOptions": Object {
-            "properties": Object {
-              "rejectUnauthorized": Object {
-                "optionDefinition": Object {
-                  "aliases": Array [
-                    "ru",
-                  ],
-                  "defaultValue": null,
-                  "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
-                  "group": "TLS / Secure Connection options",
-                  "name": "reject-unauthorized",
-                  "type": "boolean",
-                },
-                "type": Array [
-                  "boolean",
-                  "null",
-                ],
-              },
-              "servername": Object {
-                "optionDefinition": Object {
-                  "aliases": Array [
-                    "sn",
-                  ],
-                  "defaultValue": null,
-                  "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
-                  "group": "TLS / Secure Connection options",
-                  "name": "server-name",
-                  "type": "string",
-                },
-                "type": Array [
-                  "string",
-                  "null",
-                ],
-              },
+          "servername": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "sn",
+              ],
+              "defaultValue": null,
+              "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+              "group": "TLS / Secure Connection options",
+              "name": "server-name",
+              "type": "string",
             },
-            "type": "object",
+            "type": Array [
+              "string",
+              "null",
+            ],
           },
           "user": Object {
             "optionDefinition": Object {
@@ -131,12 +135,6 @@ Object {
             "type": "string",
           },
         },
-        "required": Array [
-          "host",
-          "port",
-          "user",
-          "password",
-        ],
         "title": "Configuration profile for z/OS FTP",
         "type": "object",
       },

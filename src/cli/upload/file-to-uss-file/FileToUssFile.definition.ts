@@ -19,8 +19,8 @@ export const UploadFileToUssFileDefinition: ICommandDefinition = {
     summary: "Upload a local file to a USS File",
     examples: [
         {
-            description: "Upload to \"/u/users/ibmuser/myjava.jar\" from standard input (you can pipe into this command)",
-            options: "\"/u/users/ibmuser/myjava.jar\"  -b"
+            description: "Upload to \"/u/users/ibmuser/iefbr14.txt\" from the file iefbr14.txt",
+            options: "iefbr14.txt \"/u/users/ibmuser/iefbr14.txt\""
         }
     ],
     positionals: [{

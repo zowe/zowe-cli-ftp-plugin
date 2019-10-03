@@ -1,0 +1,246 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Download definition should match the snapshot 1`] = `
+Object {
+  "aliases": Array [
+    "dl",
+  ],
+  "children": Array [
+    Object {
+      "aliases": Array [
+        "asbj",
+      ],
+      "description": "Download all spool content for a job to files in a local directory by providing the job id",
+      "examples": Array [
+        Object {
+          "description": "Download all spool for the job with the ID JOB00123 to the default subdirectory in the current directory",
+          "options": "j123",
+        },
+        Object {
+          "description": "Download all spool for the job with the ID JOB00123 to the directory build/job_output",
+          "options": "j123 -d build/job_output/",
+        },
+      ],
+      "handler": "AllSpoolByJobId.Handler",
+      "name": "all-spool-by-jobid",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "d",
+          ],
+          "description": "The local directory to save the spool content to. By default, it will be saved to \\"./output\\".",
+          "name": "directory",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ojd",
+          ],
+          "description": "If you specify this, the job output will be saved directly to the specified (or default) directory. For example, if you omit this, the output would be saved to ./output/JOB00123. If you specify --ojd, the JOB00123 directory would not be included in the output path and the content would be saved to ./output.",
+          "name": "omit-jobid-directory",
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The ID of the job for which you would like to list spool files",
+          "name": "jobid",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Download all spool content for a job",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "ds",
+      ],
+      "description": "Download the contents of a z/OS data set to a local file",
+      "examples": Array [
+        Object {
+          "description": "Download the data set \\"ibmuser.loadlib(main)\\" in binary mode to the local file \\"main.obj\\"",
+          "options": "\\"ibmuser.loadlib(main)\\" -b -f main.obj",
+        },
+      ],
+      "handler": "DataSet.Handler",
+      "name": "data-set",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Download the file content in binary mode, which means that no data conversion is performed. The data transfer process returns each line as-is, without translation. No delimiters are added between records.",
+          "name": "binary",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "f",
+          ],
+          "description": "The path to the local file where you want to download the content. When you omit the option, the command generates a file name automatically for you.",
+          "name": "file",
+          "type": "string",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The data set (PDS member or physical sequential data set) which you would like to download to a local file.",
+          "name": "dataSet",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Download data set content to a local file",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "uss",
+      ],
+      "description": "Download the contents of a USS file to a local file",
+      "examples": Array [
+        Object {
+          "description": "Download the USS file \\"/u/users/ibmuser/main.obj\\" in binary mode to the local file \\"main.obj\\"",
+          "options": "\\"/u/users/ibmuser/main.obj\\" -b -f main.obj",
+        },
+      ],
+      "handler": "UssFile.Handler",
+      "name": "uss-file",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Download the file content in binary mode, which means that no data conversion is performed. The data transfer process returns each line as-is, without translation. No delimiters are added between records.",
+          "name": "binary",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "f",
+          ],
+          "description": "The path to the local file where you want to download the content. When you omit the option, the command generates a file name automatically for you.",
+          "name": "file",
+          "type": "string",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The path to the USS file you would like to download.",
+          "name": "ussFile",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Download USS file content to a local file",
+      "type": "command",
+    },
+  ],
+  "description": "Download data set, job spool, and USS file content",
+  "name": "download",
+  "passOn": Array [
+    Object {
+      "ignoreNodes": Array [
+        Object {
+          "type": "group",
+        },
+      ],
+      "merge": true,
+      "property": "options",
+      "value": Array [
+        Object {
+          "aliases": Array [
+            "H",
+          ],
+          "description": "The hostname or IP address of the z/OS server to connect to.",
+          "name": "host",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "P",
+          ],
+          "defaultValue": 21,
+          "description": "The port of the z/OS FTP server.",
+          "name": "port",
+          "required": true,
+          "type": "number",
+        },
+        Object {
+          "aliases": Array [
+            "u",
+          ],
+          "description": "Username for authentication on z/OS",
+          "name": "user",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "p",
+            "pass",
+            "pw",
+          ],
+          "description": "Password to authenticate to FTP.",
+          "name": "password",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+          "name": "secure-ftp",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ru",
+          ],
+          "defaultValue": null,
+          "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+          "group": "TLS / Secure Connection options",
+          "name": "reject-unauthorized",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "sn",
+          ],
+          "defaultValue": null,
+          "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+          "group": "TLS / Secure Connection options",
+          "name": "server-name",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ct",
+          ],
+          "defaultValue": 10000,
+          "description": "How long (in milliseconds) to wait for the control connection to be established.",
+          "name": "connection-timeout",
+          "type": "number",
+        },
+      ],
+    },
+  ],
+  "summary": "Download data set, job spool, and USS file content",
+  "type": "group",
+}
+`;

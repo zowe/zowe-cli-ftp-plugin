@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List uss files handler should return correct message if the uss file is found. 1`] = `
+Array [
+  Object {
+    "name": "ds1",
+  },
+  Object {
+    "name": "ds2",
+  },
+]
+`;
+
+exports[`List uss files handler should return correct message if the uss file is found. 2`] = `
+Object {
+  "fields": Array [
+    "name",
+    "size",
+    "owner",
+    "group",
+    "permissions",
+  ],
+  "format": "table",
+  "output": Array [
+    Object {
+      "name": "ds1",
+    },
+    Object {
+      "name": "ds2",
+    },
+  ],
+}
+`;
+
+exports[`List uss files handler should return no uss file if the uss file is not found. 1`] = `Array []`;
+
+exports[`List uss files handler should return no uss file if the uss file is not found. 2`] = `
+Object {
+  "fields": Array [
+    "name",
+    "size",
+    "owner",
+    "group",
+    "permissions",
+  ],
+  "format": "table",
+  "output": Array [],
+}
+`;

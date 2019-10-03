@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List spool files by job id handler should return correct message if at least one spool file is found. 1`] = `
+Object {
+  "fields": Array [
+    "id",
+    "ddname",
+    "procstep",
+    "stepname",
+  ],
+  "format": "table",
+  "output": Array [
+    Object {
+      "name": "file1",
+    },
+    Object {
+      "name": "file2",
+    },
+  ],
+}
+`;
+
+exports[`List spool files by job id handler should return correct message if at least one spool file is found. 2`] = `
+Array [
+  Object {
+    "name": "file1",
+  },
+  Object {
+    "name": "file2",
+  },
+]
+`;
+
+exports[`List spool files by job id handler should return correct message if at least one spool file is found. 3`] = `
+Object {
+  "fields": Array [
+    "id",
+    "ddname",
+    "procstep",
+    "stepname",
+  ],
+  "format": "table",
+  "output": Array [
+    Object {
+      "name": "file1",
+    },
+    Object {
+      "name": "file2",
+    },
+  ],
+}
+`;
+
+exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 1`] = `Array []`;
+
+exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 2`] = `
+Object {
+  "fields": Array [
+    "id",
+    "ddname",
+    "procstep",
+    "stepname",
+  ],
+  "format": "table",
+  "output": Array [],
+}
+`;
