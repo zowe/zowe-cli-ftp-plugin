@@ -65,8 +65,10 @@ export class StreamUtils {
      *                                         you want a progress bar created
      * @returns  - promise that resolves when the h
      */
-    public static async streamToStream(estimatedSize: number, streamPromise: Promise<Readable>,
-                                       writable: Writable, response?: IHandlerResponseApi): Promise<string> {
+    public static async streamToStream(
+        estimatedSize: number, streamPromise: Promise<Readable>, writable: Writable, response?: IHandlerResponseApi
+    ): Promise<string> {
+        const PERCETAGE = 100;
         return new Promise<string>((resolve, reject) => {
             let downloadedBytes = 0;
             const statusMessage = "Downloaded %d of %d (Estimated) bytes";
@@ -79,6 +81,7 @@ export class StreamUtils {
                 response.progress.startBar({task});
             }
             streamPromise.then((stream) => {
+                stream.pipe(writable);
                 stream.on("data", (chunk: Buffer) => {
                     downloadedBytes += chunk.length;
                     task.percentComplete = PERCETAGE * downloadedBytes / estimatedSize;
@@ -92,7 +95,6 @@ export class StreamUtils {
                     response.progress.endBar();
                     reject(error);
                 });
-                stream.pipe(writable);
             }).catch((streamRejection: any) => {
                 reject(streamRejection);
             });
