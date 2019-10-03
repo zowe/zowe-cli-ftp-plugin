@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List data set handler should return correct message if the data set is found. 1`] = `
+Array [
+  Object {
+    "name": "ds1",
+  },
+  Object {
+    "name": "ds2",
+  },
+]
+`;
+
+exports[`List data set handler should return correct message if the data set is found. 2`] = `
+Object {
+  "fields": Array [
+    "dsname",
+  ],
+  "format": "table",
+  "output": Array [
+    Object {
+      "name": "ds1",
+    },
+    Object {
+      "name": "ds2",
+    },
+  ],
+}
+`;
+
+exports[`List data set handler should return no data set if the data set is not found. 1`] = `Array []`;
+
+exports[`List data set handler should return no data set if the data set is not found. 2`] = `
+Object {
+  "fields": Array [
+    "dsname",
+  ],
+  "format": "table",
+  "output": Array [],
+}
+`;

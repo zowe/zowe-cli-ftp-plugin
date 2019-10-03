@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submit definition should match the snapshot 1`] = `
+Object {
+  "aliases": Array [
+    "sub",
+  ],
+  "children": Array [
+    Object {
+      "aliases": Array [
+        "lf",
+      ],
+      "description": "Submit a job from a local file containing JCL",
+      "examples": Array [
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\"",
+          "options": "\\"my_build_jcl.txt\\"",
+        },
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and print only the job ID",
+          "options": "\\"my_build_jcl.txt\\" --rff jobid --rft string",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/submit/local-file/LocalFile.Handler",
+      "name": "local-file",
+      "options": Array [],
+      "outputFormatOptions": true,
+      "positionals": Array [
+        Object {
+          "description": "The file you would like to submit as jcl",
+          "name": "file",
+          "required": true,
+          "type": "existingLocalFile",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Submit a job from a local file containing JCL",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "ds",
+      ],
+      "description": "Submit a job from a cataloged data set containing JCL. The JCL will be downloaded via FTP and then submitted.",
+      "examples": Array [
+        Object {
+          "description": "Submit a job residing in the data set \\"ibmuser.cntl(iefbr14)\\"",
+          "options": "\\"ibmuser.cntl(iefbr14)\\"",
+        },
+        Object {
+          "description": "Submit a job from the data set \\"ibmuser.cntl(iefbr14)\\" and print only the job ID",
+          "options": "\\"ibmuser.cntl(iefbr14)\\" --rff jobid --rft string",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/submit/data-set/DataSet.Handler",
+      "name": "data-set",
+      "options": Array [],
+      "outputFormatOptions": true,
+      "positionals": Array [
+        Object {
+          "description": "The data set containing JCL that you would like to submit",
+          "name": "dataSet",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Submit a job from a data set containing JCL",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "si",
+      ],
+      "description": "Submit a job from JCL written to the standard input (stdin) of this process.",
+      "examples": Array [
+        Object {
+          "description": "Submit a job from stdin, redirecting the contents of my_jcl.txt in.",
+          "options": " < my_jcl.txt",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/submit/stdin/Stdin.Handler",
+      "name": "stdin",
+      "outputFormatOptions": true,
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Submit a job from stdin",
+      "type": "command",
+    },
+  ],
+  "description": "Submit jobs from local files and data sets",
+  "name": "submit",
+  "passOn": Array [
+    Object {
+      "ignoreNodes": Array [
+        Object {
+          "type": "group",
+        },
+      ],
+      "merge": true,
+      "property": "options",
+      "value": Array [
+        Object {
+          "aliases": Array [
+            "H",
+          ],
+          "description": "The hostname or IP address of the z/OS server to connect to.",
+          "name": "host",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "P",
+          ],
+          "defaultValue": 21,
+          "description": "The port of the z/OS FTP server.",
+          "name": "port",
+          "required": true,
+          "type": "number",
+        },
+        Object {
+          "aliases": Array [
+            "u",
+          ],
+          "description": "Username for authentication on z/OS",
+          "name": "user",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "p",
+            "pass",
+            "pw",
+          ],
+          "description": "Password to authenticate to FTP.",
+          "name": "password",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+          "name": "secure-ftp",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ru",
+          ],
+          "defaultValue": null,
+          "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+          "group": "TLS / Secure Connection options",
+          "name": "reject-unauthorized",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "sn",
+          ],
+          "defaultValue": null,
+          "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+          "group": "TLS / Secure Connection options",
+          "name": "server-name",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ct",
+          ],
+          "defaultValue": 10000,
+          "description": "How long (in milliseconds) to wait for the control connection to be established.",
+          "name": "connection-timeout",
+          "type": "number",
+        },
+      ],
+    },
+  ],
+  "summary": "Submit jobs from local files and data sets",
+  "type": "group",
+}
+`;

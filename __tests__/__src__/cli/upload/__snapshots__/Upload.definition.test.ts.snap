@@ -1,0 +1,269 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Upload definition should match the snapshot 1`] = `
+Object {
+  "aliases": Array [
+    "ul",
+  ],
+  "children": Array [
+    Object {
+      "aliases": Array [
+        "ftds",
+      ],
+      "description": "Upload contents of a local file to a z/OS data set",
+      "examples": Array [
+        Object {
+          "description": "Upload to \\"ibmuser.cntl(iefbr14)\\" from the file iefbr14.txt",
+          "options": "iefbr14.txt \\"ibmuser.cntl(iefbr14)\\"",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/upload/file-to-data-set/FileToDataSet.Handler",
+      "name": "file-to-data-set",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Upload content in binary mode.",
+          "name": "binary",
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "Upload the contents of this file to the data set",
+          "name": "file",
+          "required": true,
+          "type": "existingLocalFile",
+        },
+        Object {
+          "description": "The data set (PDS member or physical sequential data set) to which you would like to upload content.",
+          "name": "dataSet",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Upload from local file to data set",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "stds",
+      ],
+      "description": "Upload contents piped to stdin to a z/OS data set",
+      "examples": Array [
+        Object {
+          "description": "Upload to \\"ibmuser.cntl(iefbr14)\\" from standard input (you can pipe into this command)",
+          "options": "\\"ibmuser.cntl(iefbr14)\\"",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/upload/stdin-to-data-set/StdinToDataSet.Handler",
+      "name": "stdin-to-data-set",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Upload content in binary mode.",
+          "name": "binary",
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The data set (PDS member or physical sequential data set) to which you would like to upload content.",
+          "name": "dataSet",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Upload from stdin to a data set",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "stuf",
+      ],
+      "description": "Upload from stdin to a Unix System Services File",
+      "examples": Array [
+        Object {
+          "description": "Upload to \\"/u/users/ibmuser/iefbr14.txt\\" from standard input (you can pipe into this command)",
+          "options": "\\"/u/users/ibmuser/iefbr14.txt\\"",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/upload/stdin-to-uss-file/StdinToUssFile.Handler",
+      "name": "stdin-to-uss-file",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Upload content in binary mode.",
+          "name": "binary",
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The USS file to which you would like to upload content.",
+          "name": "ussFile",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Upload stdin to a USS File",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "ftuf",
+      ],
+      "description": "Upload contents of a local to a Unix System Services file.",
+      "examples": Array [
+        Object {
+          "description": "Upload to \\"/u/users/ibmuser/iefbr14.txt\\" from the file iefbr14.txt",
+          "options": "iefbr14.txt \\"/u/users/ibmuser/iefbr14.txt\\"",
+        },
+      ],
+      "handler": "/Users/liangqi/_2019_/zowe-cli-std4lqi/zowe-cli-ftp-plugin/src/cli/upload/file-to-uss-file/FileToUssFile.Handler",
+      "name": "file-to-uss-file",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "b",
+          ],
+          "description": "Upload content in binary mode.",
+          "name": "binary",
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "Upload the contents of this local file to a data set.",
+          "name": "file",
+          "required": true,
+          "type": "existingLocalFile",
+        },
+        Object {
+          "description": "The USS file to which you would like to upload content.",
+          "name": "ussFile",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Upload a local file to a USS File",
+      "type": "command",
+    },
+  ],
+  "description": "Upload data set and USS content",
+  "name": "upload",
+  "passOn": Array [
+    Object {
+      "ignoreNodes": Array [
+        Object {
+          "type": "group",
+        },
+      ],
+      "merge": true,
+      "property": "options",
+      "value": Array [
+        Object {
+          "aliases": Array [
+            "H",
+          ],
+          "description": "The hostname or IP address of the z/OS server to connect to.",
+          "name": "host",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "P",
+          ],
+          "defaultValue": 21,
+          "description": "The port of the z/OS FTP server.",
+          "name": "port",
+          "required": true,
+          "type": "number",
+        },
+        Object {
+          "aliases": Array [
+            "u",
+          ],
+          "description": "Username for authentication on z/OS",
+          "name": "user",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "p",
+            "pass",
+            "pw",
+          ],
+          "description": "Password to authenticate to FTP.",
+          "name": "password",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+          "name": "secure-ftp",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ru",
+          ],
+          "defaultValue": null,
+          "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+          "group": "TLS / Secure Connection options",
+          "name": "reject-unauthorized",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "sn",
+          ],
+          "defaultValue": null,
+          "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+          "group": "TLS / Secure Connection options",
+          "name": "server-name",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ct",
+          ],
+          "defaultValue": 10000,
+          "description": "How long (in milliseconds) to wait for the control connection to be established.",
+          "name": "connection-timeout",
+          "type": "number",
+        },
+      ],
+    },
+  ],
+  "summary": "Upload data set and USS content",
+  "type": "group",
+}
+`;
