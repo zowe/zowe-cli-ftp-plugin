@@ -23,6 +23,7 @@ const config: IImperativeConfig = {
     productDisplayName: "z/OS FTP Plugin",
     pluginAliases: ["zftp"],
     pluginSummary: "z/OS Files and jobs via FTP",
+    pluginHealthCheck: "./lib/healthCheck.handler",
     name: "zos-ftp",
     profiles: [
         {
