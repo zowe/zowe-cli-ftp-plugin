@@ -31,7 +31,6 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
             throw new Error(`The dataset "${params.arguments.dataSet}" doesn't exist.`);
         }
 
-        const writable = fs.createWriteStream(file);
 
         this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
             params.arguments.dataSet, file, transferType);
@@ -41,8 +40,8 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
 
         const TRACK = 56664;
         const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        const writable = fs.createWriteStream(file);
         await StreamUtils.streamToStream(estimatedSize, contentStreamPromise, writable, params.response);
-        // await StreamUtils.streamToBuffer(estimatedSize, contentStreamPromise, params.response);
 
         const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message, file);
         this.log.info(successMsg);
