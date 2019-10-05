@@ -34,13 +34,12 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             throw new Error(`The file "${ussFile}" doesn't exist.`);
         }
 
-        const writable = fs.createWriteStream(file);
-
         this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s",
             ussFile, file, transferType);
         IO.createDirsSyncFromFilePath(file);
 
         const contentStreamPromise = params.connection.getDataset(ussFile, transferType, true);
+        const writable = fs.createWriteStream(file);
         await StreamUtils.streamToStream(fileToDownload.size, contentStreamPromise, writable, params.response);
 
         const successMsg = params.response.console.log("Successfully downloaded USS file '%s' to local file '%s'",
