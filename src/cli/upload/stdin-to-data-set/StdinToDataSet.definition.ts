@@ -20,8 +20,8 @@ export const UploadStdinToDataSetDefinition: ICommandDefinition = {
     summary: "Upload from stdin to a data set",
     examples: [
         {
-            description: "Upload  \"ibmuser.cntl(iefbr14)\" from the file iefbr14.txt",
-            options: "\"ibmuser.cntl(iefbr14)\" --file iefbr14.txt"
+            description: "Upload to \"ibmuser.cntl(iefbr14)\" from standard input (you can pipe into this command)",
+            options: "\"ibmuser.cntl(iefbr14)\""
         }
     ],
     positionals: [
