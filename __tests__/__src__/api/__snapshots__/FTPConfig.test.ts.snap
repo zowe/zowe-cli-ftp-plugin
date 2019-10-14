@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FTPConfig should return the correct non-secure config 1`] = `
+Object {
+  "connTimeout": 600,
+  "host": "host1",
+  "password": "password1",
+  "port": 210,
+  "user": "user1",
+}
+`;
+
+exports[`FTPConfig should return the correct secure config 1`] = `
+Object {
+  "connTimeout": 600,
+  "host": "host1",
+  "password": "password1",
+  "port": 210,
+  "secure": true,
+  "secureOptions": Object {
+    "rejectUnauthorized": false,
+    "serverName": "server1",
+  },
+  "user": "user1",
+}
+`;

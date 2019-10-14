@@ -1,0 +1,211 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete definition should match the snapshot 1`] = `
+Object {
+  "aliases": Array [
+    "del",
+  ],
+  "children": Array [
+    Object {
+      "aliases": Array [
+        "ds",
+      ],
+      "description": "Delete a data set",
+      "examples": Array [
+        Object {
+          "description": "Delete the data set \\"ibmuser.cntl\\"",
+          "options": "\\"ibmuser.cntl\\" -f",
+        },
+      ],
+      "handler": "DataSet.Handler",
+      "name": "data-set",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "f",
+          ],
+          "description": "Specify this option to confirm that you want to delete the data set permanently.",
+          "name": "for-sure",
+          "required": true,
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The data set (PDS member or physical sequential data set) which you would like to delete.",
+          "name": "dataSet",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Delete a data set",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "j",
+      ],
+      "description": "Cancel a job and purge its output. Note: this command will not work to delete TSU or STC type jobs.",
+      "examples": Array [
+        Object {
+          "description": "Cancel the job \\"JOB00123\\" and purge its output, optionally abbreviating the job ID",
+          "options": "j123",
+        },
+      ],
+      "handler": "Job.Handler",
+      "name": "job",
+      "options": Array [],
+      "positionals": Array [
+        Object {
+          "description": "The ID of the job that you would like to delete",
+          "name": "jobid",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Cancel a job and purge its output",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
+        "uss",
+      ],
+      "description": "Delete a USS file",
+      "examples": Array [
+        Object {
+          "description": "Delete the USS file \\"/u/ibmuser/myfile.txt\\"",
+          "options": "\\"/u/ibmuser/myfile.txt\\" -f",
+        },
+      ],
+      "handler": "UssFile.Handler",
+      "name": "uss-file",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "f",
+          ],
+          "description": "Specify this option to confirm that you want to delete the data set permanently.",
+          "name": "for-sure",
+          "required": true,
+          "type": "boolean",
+        },
+      ],
+      "positionals": Array [
+        Object {
+          "description": "The absolute path to a USS file you would like to delete.",
+          "name": "ussFile",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "Delete a USS file",
+      "type": "command",
+    },
+  ],
+  "description": "Delete data sets, jobs, and USS files",
+  "name": "delete",
+  "passOn": Array [
+    Object {
+      "ignoreNodes": Array [
+        Object {
+          "type": "group",
+        },
+      ],
+      "merge": true,
+      "property": "options",
+      "value": Array [
+        Object {
+          "aliases": Array [
+            "H",
+          ],
+          "description": "The hostname or IP address of the z/OS server to connect to.",
+          "name": "host",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "P",
+          ],
+          "defaultValue": 21,
+          "description": "The port of the z/OS FTP server.",
+          "name": "port",
+          "required": true,
+          "type": "number",
+        },
+        Object {
+          "aliases": Array [
+            "u",
+          ],
+          "description": "Username for authentication on z/OS",
+          "name": "user",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "p",
+            "pass",
+            "pw",
+          ],
+          "description": "Password to authenticate to FTP.",
+          "name": "password",
+          "required": true,
+          "type": "string",
+        },
+        Object {
+          "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+          "name": "secure-ftp",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ru",
+          ],
+          "defaultValue": null,
+          "description": "Reject self-signed certificates. Only specify this if you are connecting to a secure FTP instance.",
+          "group": "TLS / Secure Connection options",
+          "name": "reject-unauthorized",
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "sn",
+          ],
+          "defaultValue": null,
+          "description": "Server name for the SNI (Server Name Indication) TLS extension. Only specify if you are connecting securely",
+          "group": "TLS / Secure Connection options",
+          "name": "server-name",
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "ct",
+          ],
+          "defaultValue": 10000,
+          "description": "How long (in milliseconds) to wait for the control connection to be established.",
+          "name": "connection-timeout",
+          "type": "number",
+        },
+      ],
+    },
+  ],
+  "summary": "Delete data sets, jobs, and USS files",
+  "type": "group",
+}
+`;
