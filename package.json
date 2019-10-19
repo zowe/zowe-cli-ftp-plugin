@@ -96,7 +96,7 @@
     "output": "__tests__/__results__/junit.xml"
   },
   "jest-html-reporter": {
-    "pageTitle": "Brightside Sample Plugin Test Results",
+    "pageTitle": "Zowe CLI ZFTP Plugin Test Results",
     "outputPath": "__tests__/__results__/results.html",
     "includeFailureMsg": true
   },

@@ -36,7 +36,7 @@ describe("View all spool by job id handler", () => {
         }
     });
 
-    it.only("should return data set contents if at least one data set is found.", async () => {
+    it("should return data set contents if at least one data set is found.", async () => {
         const handler = new ViewAllSpoolByJobIdHandler();
 
         const spoolFiles: any[] = [

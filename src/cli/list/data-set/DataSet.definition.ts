@@ -33,10 +33,10 @@ export const ListDataSetDefinition: ICommandDefinition = {
         "is somewhat similar to the concept of a 'glob' (but not identical)." +
         " The following special sequences can be used in the pattern:\n" +
         TextUtils.chalk.yellow("%") + ": Matches any single character\n" +
-        TextUtils.chalk.yellow("*") + ": matches any number of characters within" +
+        TextUtils.chalk.yellow("*") + ": Matches any number of characters within" +
         " a data set name qualifier (e.g. " +
         "\"ibmuser.j*.old\" matches \"ibmuser.jcl.old\" but not \"ibmuser.jcl.very.old\")\n" +
-        TextUtils.chalk.yellow("**") + ": matches any number of characters within any number" +
+        TextUtils.chalk.yellow("**") + ": Matches any number of characters within any number" +
         " of data set name qualifiers (e.g. " +
         "\"ibmuser.**.old\" matches both \"ibmuser.jcl.old\" and \"ibmuser.jcl.very.old\")\n" +
         "However, the pattern cannot begin with any of these sequences.\n",
