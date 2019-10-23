@@ -70,9 +70,9 @@ The following values can be used with the --response-format-filter (--rff) argum
       "positionals": Array [
         Object {
           "description": "The pattern or patterns to match data sets against. Also known as 'DSLEVEL', it is somewhat similar to the concept of a 'glob' (but not identical). The following special sequences can be used in the pattern:
-[33m%[39m: Matches any single character
-[33m*[39m: matches any number of characters within a data set name qualifier (e.g. \\"ibmuser.j*.old\\" matches \\"ibmuser.jcl.old\\" but not \\"ibmuser.jcl.very.old\\")
-[33m**[39m: matches any number of characters within any number of data set name qualifiers (e.g. \\"ibmuser.**.old\\" matches both \\"ibmuser.jcl.old\\" and \\"ibmuser.jcl.very.old\\")
+%: Matches any single character
+*: Matches any number of characters within a data set name qualifier (e.g. \\"ibmuser.j*.old\\" matches \\"ibmuser.jcl.old\\" but not \\"ibmuser.jcl.very.old\\")
+**: Matches any number of characters within any number of data set name qualifiers (e.g. \\"ibmuser.**.old\\" matches both \\"ibmuser.jcl.old\\" and \\"ibmuser.jcl.very.old\\")
 However, the pattern cannot begin with any of these sequences.
 ",
           "name": "pattern",

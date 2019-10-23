@@ -58,7 +58,8 @@ describe("upload stdin to uss file command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset(destination)).toString().trim();
+        let uploadedContent = (await connection.getDataset(destination)).toString().trim();
+        uploadedContent = uploadedContent.replace(/\r\n/g, "\n");
         const expectedContent = IO.readFileSync(fileToUpload).toString().trim();
         expect(uploadedContent).toEqual(expectedContent);
         await connection.deleteDataset(destination);
