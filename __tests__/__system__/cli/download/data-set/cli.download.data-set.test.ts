@@ -64,7 +64,7 @@ describe("submit job from local file command", () => {
         IO.deleteFile(downloadFilePath);
     });
 
-    it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
+    it.only("should be able to download a data set to a  local file in binary mode and verify the content", async () => {
         // download the appropriate JCL content from the data set
         const testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         const randomContentLength = 60;

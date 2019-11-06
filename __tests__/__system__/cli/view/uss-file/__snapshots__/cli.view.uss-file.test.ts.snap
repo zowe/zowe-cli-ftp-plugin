@@ -16,7 +16,7 @@ exports[`view uss file command should display view uss file help 1`] = `
  USAGE
  -----
 
-   bright zos-ftp view uss-file <ussFile> [options]
+   zowe zos-ftp view uss-file <ussFile> [options]
 
  POSITIONAL ARGUMENTS
  --------------------
@@ -31,6 +31,54 @@ exports[`view uss file command should display view uss file help 1`] = `
    --binary  | -b (boolean)
 
       View content in binary form without converting to ASCII text
+
+   --secure-ftp  (string)
+
+      Set to true for both control and data connection encryption, 'control' for
+      control connection encryption only, or 'implicit' for implicitly encrypted
+      control connection (this mode is deprecated in modern times, but usually uses
+      port 990). Note: Unfortunately, this plugin's functionality only works with FTP
+      and FTPS, not 'SFTP' which is FTP over SSH.
+
+   --connection-timeout  | --ct (number)
+
+      How long (in milliseconds) to wait for the control connection to be established.
+
+      Default value: 10000
+
+ REQUIRED OPTIONS
+ ----------------
+
+   --host  | -H (string)
+
+      The hostname or IP address of the z/OS server to connect to.
+
+   --port  | -P (number)
+
+      The port of the z/OS FTP server.
+
+      Default value: 21
+
+   --user  | -u (string)
+
+      Username for authentication on z/OS
+
+   --password  | -p | --pass | --pw (string)
+
+      Password to authenticate to FTP.
+
+ TLS / SECURE CONNECTION OPTIONS
+ -------------------------------
+
+   --reject-unauthorized  | --ru (boolean)
+
+      Reject self-signed certificates. Only specify this if you are connecting to a
+      secure FTP instance.
+
+   --server-name  | --sn (string)
+
+      Server name for the SNI (Server Name Indication) TLS extension. Only specify if
+      you are connecting securely
 
  PROFILE OPTIONS
  ---------------
@@ -57,20 +105,21 @@ exports[`view uss file command should display view uss file help 1`] = `
    - View the content of the USS file
    \\"/u/users/ibmuser/myfile.txt\\":
 
-      $ bright zos-ftp view uss-file \\"/u/users/ibmuser/myfile.txt\\"
+      $ zowe zos-ftp view uss-file \\"/u/users/ibmuser/myfile.txt\\"
 
    - View the content of the USS file
    \\"/u/users/ibmuser/myjava.jar\\" in binary mode and pipe it into the hex viewer
    command xxd:
 
-      $ bright zos-ftp view uss-file \\"/u/users/ibmuser/myjava.jar\\" -b | xxd 
+      $ zowe zos-ftp view uss-file \\"/u/users/ibmuser/myjava.jar\\" -b | xxd 
 
 ================z/OS FTP VIEW USS-FILE HELP WITH RFJ===========
 {
   \\"success\\": true,
+  \\"exitCode\\": 0,
   \\"message\\": \\"The help was constructed for command: uss-file.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a Unix System Services File\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file you'd like to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\"\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" in binary mode and pipe it into the hex viewer\\\\n   command xxd:\\\\n\\\\n      $ bright zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" -b | xxd \\\\n\\\\n\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a Unix System Services File\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp view uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file you'd like to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\"\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" in binary mode and pipe it into the hex viewer\\\\n   command xxd:\\\\n\\\\n      $ zowe zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" -b | xxd \\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a Unix System Services File\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file you'd like to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\"\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" in binary mode and pipe it into the hex viewer\\\\n   command xxd:\\\\n\\\\n      $ bright zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" -b | xxd \\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a Unix System Services File\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp view uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The USS file you'd like to view the contents of.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      View content in binary form without converting to ASCII text\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myfile.txt\\\\\\"\\\\n\\\\n   - View the content of the USS file\\\\n   \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" in binary mode and pipe it into the hex viewer\\\\n   command xxd:\\\\n\\\\n      $ zowe zos-ftp view uss-file \\\\\\"/u/users/ibmuser/myjava.jar\\\\\\" -b | xxd \\\\n\\\\n\\"
 }"
 `;

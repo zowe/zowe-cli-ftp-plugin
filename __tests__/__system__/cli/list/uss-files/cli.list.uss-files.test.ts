@@ -62,7 +62,7 @@ describe("list data-set-classic ftp command", () => {
         await connection.deleteDataset(destination);
     });
 
-    it("should give a syntax error if the data set pattern is omitted", async () => {
+    it.only("should give a syntax error if the uss file pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");

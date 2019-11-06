@@ -48,7 +48,7 @@ describe("delete uss file command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to upload a file to a uss directory then delete it", async () => {
+    it.only("should be able to upload a file to a uss directory then delete it", async () => {
         const CONTENT_LENGTH = 60;
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
@@ -57,10 +57,9 @@ describe("delete uss file command", () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_delete_uss_file.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
-        expect(result.stdout.toString()).toContain(uploadContent);
+        expect(result.stdout.toString()).toContain("Successfully deleted USS file");
         expect(result.status).toEqual(0);
-        await connection.deleteDataset(destination);
-    });
+        });
 
     it("should give a syntax error if the uss file is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_delete_uss_file.sh", testEnvironment, []);

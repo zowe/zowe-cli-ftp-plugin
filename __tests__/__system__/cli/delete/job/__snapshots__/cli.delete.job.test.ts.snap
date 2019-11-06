@@ -17,7 +17,7 @@ exports[`delete job command should display submit job from local file help 1`] =
  USAGE
  -----
 
-   bright zos-ftp delete job <jobid> [options]
+   zowe zos-ftp delete job <jobid> [options]
 
  POSITIONAL ARGUMENTS
  --------------------
@@ -25,6 +25,57 @@ exports[`delete job command should display submit job from local file help 1`] =
    jobid		 (string)
 
       The ID of the job that you would like to delete
+
+ REQUIRED OPTIONS
+ ----------------
+
+   --host  | -H (string)
+
+      The hostname or IP address of the z/OS server to connect to.
+
+   --port  | -P (number)
+
+      The port of the z/OS FTP server.
+
+      Default value: 21
+
+   --user  | -u (string)
+
+      Username for authentication on z/OS
+
+   --password  | -p | --pass | --pw (string)
+
+      Password to authenticate to FTP.
+
+ OPTIONS
+ -------
+
+   --secure-ftp  (string)
+
+      Set to true for both control and data connection encryption, 'control' for
+      control connection encryption only, or 'implicit' for implicitly encrypted
+      control connection (this mode is deprecated in modern times, but usually uses
+      port 990). Note: Unfortunately, this plugin's functionality only works with FTP
+      and FTPS, not 'SFTP' which is FTP over SSH.
+
+   --connection-timeout  | --ct (number)
+
+      How long (in milliseconds) to wait for the control connection to be established.
+
+      Default value: 10000
+
+ TLS / SECURE CONNECTION OPTIONS
+ -------------------------------
+
+   --reject-unauthorized  | --ru (boolean)
+
+      Reject self-signed certificates. Only specify this if you are connecting to a
+      secure FTP instance.
+
+   --server-name  | --sn (string)
+
+      Server name for the SNI (Server Name Indication) TLS extension. Only specify if
+      you are connecting securely
 
  PROFILE OPTIONS
  ---------------
@@ -51,14 +102,15 @@ exports[`delete job command should display submit job from local file help 1`] =
    - Cancel the job \\"JOB00123\\" and purge its output, optionally
    abbreviating the job ID:
 
-      $ bright zos-ftp delete job j123
+      $ zowe zos-ftp delete job j123
 
 ================z/OS FTP DELETE JOB HELP WITH RFJ===========
 {
   \\"success\\": true,
-  \\"message\\": \\"The help was constructed for command: local-file.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter  | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type  | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header  | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ bright zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n\\",
+  \\"exitCode\\": 0,
+  \\"message\\": \\"The help was constructed for command: job.\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   job | j\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Cancel a job and purge its output. Note: this command will not work to delete\\\\n   TSU or STC type jobs.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp delete job <jobid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The ID of the job that you would like to delete\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Cancel the job \\\\\\"JOB00123\\\\\\" and purge its output, optionally\\\\n   abbreviating the job ID:\\\\n\\\\n      $ zowe zos-ftp delete job j123\\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter  | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type  | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header  | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ bright zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ bright zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   job | j\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Cancel a job and purge its output. Note: this command will not work to delete\\\\n   TSU or STC type jobs.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp delete job <jobid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The ID of the job that you would like to delete\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Cancel the job \\\\\\"JOB00123\\\\\\" and purge its output, optionally\\\\n   abbreviating the job ID:\\\\n\\\\n      $ zowe zos-ftp delete job j123\\\\n\\\\n\\"
 }"
 `;

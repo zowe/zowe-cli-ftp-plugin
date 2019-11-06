@@ -50,7 +50,7 @@ describe("upload stdin to uss file command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to upload stdin to a uss directory and verify that the file exists and contains the right content", async () => {
+    it.only("should be able to upload stdin to a uss directory and verify that the file exists and contains the right content", async () => {
         const fileToUpload = __dirname + "/resources/file.txt";
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";

@@ -14,24 +14,24 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { CoreUtils } from "../../../../../src/api/CoreUtils";
 
 let dsname: string;
 let user: string;
 let connection: any;
 
 let testEnvironment: ITestEnvironment;
-describe("delete job command", () => {
+describe("list job ftp command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
-            testName: "zos_ftp_delete_job",
+            testName: "zos_list_job",
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
+
 
     });
 
@@ -40,8 +40,8 @@ describe("delete job command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it.only("should display submit job from local file help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "delete_job_help.sh");
+    it("should display list job help", () => {
+        const shellScript = path.join(__dirname, "__scripts__", "list_job_help.sh");
         const response = runCliScript(shellScript, testEnvironment);
 
         expect(response.stderr.toString()).toBe("");
@@ -49,24 +49,24 @@ describe("delete job command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to submit a job from a local file and then delete the job", async () => {
-        // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
-        const jobID = await connection.submitJCL(iefbr14Content);
-        const ONE_SECOND = 1000;
-        await CoreUtils.sleep(ONE_SECOND);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_delete_job.sh", testEnvironment, [jobID]);
+    it("should be able to list the jobs with prefix from the test properties file", async () => {
+       // const expectedDS = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase();
+        //const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [expectedDS]);
+        const pre = "IEFBR14";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain("deleted");
+        //expect(result.stdout.toString()).toContain(expectedDS);
+        expect(result.stdout.toString()).toContain(pre);
     });
 
-    it("should give a syntax error if the job ID to delete is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_delete_job.sh", testEnvironment, []);
+    it.only("should give a syntax error if the job pattern is omitted", async () => {
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
-        expect(stderr).toContain("Positional");
-        expect(stderr).toContain("jobid");
+       // expect(stderr).toContain("Positional");
+       // expect(stderr).toContain("data set");
+       expect(stderr).toContain("jobs");
+        expect(stderr).toContain("prefix");
         expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);
     });
