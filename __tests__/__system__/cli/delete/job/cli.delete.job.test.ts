@@ -15,7 +15,6 @@ import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
-import { IO } from "@brightside/imperative";
 
 let dsname: string;
 let user: string;
@@ -52,33 +51,17 @@ describe("delete job command", () => {
 
     it("should be able to submit a job from a local file and then delete the job", async () => {
 
-        const fileToUpload = __dirname + "/resources/IEFBR14.JCL";
-        const destination = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase() + "(IEFBR14)";
-        const result1 = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set.sh", testEnvironment,
-            [fileToUpload, destination]);
-
-        expect(result1.stderr.toString()).toEqual("");
-        expect(result1.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset(destination)).toString();
-        const expectedContent = IO.readFileSync(fileToUpload).toString();
-        const uploadedLines = uploadedContent.split(/\r?\n/g);
-        const expectedLines = expectedContent.split(/\r?\n/g);
-        for (let x = 0; x < expectedLines.length; x++) {
-            expect(uploadedLines[x].trim()).toEqual(expectedLines[x].trim());
-        }
-
-        const iefbr14DataSet = destination;
+        // download the appropriate JCL content from the data set
+        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobID = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;
-        await connection.deleteDataset(destination); // delete the temporary member
+        await CoreUtils.sleep(ONE_SECOND);
         const result = runCliScript(__dirname + "/__scripts__/command/command_delete_job.sh", testEnvironment, [jobID]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("deleted");
     });
-
-    
 
     it("should give a syntax error if the job ID to delete is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_delete_job.sh", testEnvironment, []);

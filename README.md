@@ -20,6 +20,11 @@ The plugin should now be installed.
 In order to run automated tests, after you have cloned the repository and issued `npm install` and `npm run build`, 
 copy `__tests__/__resources__/properties/default_properties.yaml` to `custom_properties.yaml` in the same directory, modifying it according to the instructions at the top of the file. 
 
+run the following command to prepare the required dataset:
+`bright zos-ftp upload file-to-data-set "$localfile" "$dataset" `
+`$localfile` is an IEFBR14 JCL which is in `__tests__/__resources__/IEFBR14.JCL`
+`$dataset` is iefbr14Member which specified in custom_properties.yaml.
+
 After you have created and populated `custom_properties.yaml`, run `npm run test` to run the automated tests. 
 
 The results will be available at `__tests__/__results__/`.

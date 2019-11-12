@@ -15,7 +15,6 @@ import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment
 import { generateRandomAlphaNumericString, randomDsName, runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { inspect } from "util";
-import { IO } from "@brightside/imperative";
 
 
 let user: string;
@@ -54,22 +53,7 @@ describe("rename data set command", () => {
 
     it("should be able to upload a file to a data set member then rename the member", async () => {
 
-        const fileToUpload = __dirname + "/resources/IEFBR14.JCL";
-        const destination = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase() + "(IEFBR14)";
-        const result1 = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set.sh", testEnvironment,
-            [fileToUpload, destination]);
-
-        expect(result1.stderr.toString()).toEqual("");
-        expect(result1.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset(destination)).toString();
-        const expectedContent = IO.readFileSync(fileToUpload).toString();
-        const uploadedLines = uploadedContent.split(/\r?\n/g);
-        const expectedLines = expectedContent.split(/\r?\n/g);
-        for (let x = 0; x < expectedLines.length; x++) {
-            expect(uploadedLines[x].trim()).toEqual(expectedLines[x].trim());
-        }
-
-        const iefbr14DataSet = destination;
+        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member.toUpperCase();
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const memberSuffixLength = 6;
         const originalMember = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
