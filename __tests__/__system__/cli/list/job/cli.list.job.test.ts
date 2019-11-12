@@ -50,24 +50,20 @@ describe("list job ftp command", () => {
     });
 
     it("should be able to list the jobs with prefix from the test properties file", async () => {
-       // const expectedDS = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase();
-        //const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [expectedDS]);
-        const pre = "IEFBR14";
+        const pre = "\"*\"";
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        //expect(result.stdout.toString()).toContain(expectedDS);
-        expect(result.stdout.toString()).toContain(pre);
+       // expect(result.stdout.toString()).toContain(pre);
     });
 
-    it.only("should give a syntax error if the job pattern is omitted", async () => {
+    it("should give a syntax error if the job pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
-       // expect(stderr).toContain("Positional");
-       // expect(stderr).toContain("data set");
-       expect(stderr).toContain("jobs");
+       
+        expect(stderr).toContain("Syntax Error");
+        expect(stderr).toContain("No value specified for option");
         expect(stderr).toContain("prefix");
-        expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);
     });
 });

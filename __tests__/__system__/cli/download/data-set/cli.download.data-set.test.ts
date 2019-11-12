@@ -50,8 +50,23 @@ describe("submit job from local file command", () => {
     });
 
     it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
+
+        const fileToUpload = __dirname + "/resources/IEFBR14.JCL";
+        const destination = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase() + "(IEFBR14)";
+        const result1 = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set.sh", testEnvironment,
+            [fileToUpload, destination]);
+
+        expect(result1.stderr.toString()).toEqual("");
+        expect(result1.status).toEqual(0);
+        const uploadedContent = (await connection.getDataset(destination)).toString();
+        const expectedContent = IO.readFileSync(fileToUpload).toString();
+        const uploadedLines = uploadedContent.split(/\r?\n/g);
+        const expectedLines = expectedContent.split(/\r?\n/g);
+        for (let x = 0; x < expectedLines.length; x++) {
+            expect(uploadedLines[x].trim()).toEqual(expectedLines[x].trim());
+        }
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
+        const iefbr14DataSet = destination;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command/command_download_data_set.sh", testEnvironment,
@@ -64,7 +79,7 @@ describe("submit job from local file command", () => {
         IO.deleteFile(downloadFilePath);
     });
 
-    it.only("should be able to download a data set to a  local file in binary mode and verify the content", async () => {
+    it("should be able to download a data set to a  local file in binary mode and verify the content", async () => {
         // download the appropriate JCL content from the data set
         const testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         const randomContentLength = 60;

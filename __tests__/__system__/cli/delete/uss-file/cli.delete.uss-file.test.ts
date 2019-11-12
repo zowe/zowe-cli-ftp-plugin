@@ -48,7 +48,7 @@ describe("delete uss file command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it.only("should be able to upload a file to a uss directory then delete it", async () => {
+    it("should be able to upload a file to a uss directory then delete it", async () => {
         const CONTENT_LENGTH = 60;
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
