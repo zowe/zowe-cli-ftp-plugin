@@ -49,9 +49,8 @@ describe("submit job from stdin command", () => {
 
     it("should be able to submit a job from standard in and see the job name and job id", async () => {
 
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = destination;
+        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         await IO.writeFileAsync(jclFilePath, iefbr14Content);
