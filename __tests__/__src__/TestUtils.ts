@@ -54,6 +54,9 @@ export async function generateRandomBytes(len: number): Promise<Buffer> {
                 reject(randomErr);
                 return;
             }
+            // To void the zero-ending byte like 0x00, or 0xE0
+            const NON_ZERO = 0xCC;
+            randomData[len - 1] = NON_ZERO;
             resolve(randomData);
         });
     });

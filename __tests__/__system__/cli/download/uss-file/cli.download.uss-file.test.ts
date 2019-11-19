@@ -66,7 +66,7 @@ describe("submit job from local file command", () => {
         IO.deleteFile(downloadFilePath);
     });
 
-    it("should be able to download a USS file to a  local file in text mode and verify the content", async () => {
+    it("should be able to download a USS file to a  local file in binary mode and verify the content", async () => {
         const randomContentLength = 6000;
         const randomContent = await generateRandomBytes(randomContentLength);
         const fileNameLength = 30;

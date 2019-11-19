@@ -14,7 +14,6 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { IO } from "@brightside/imperative";
 
 let dsname: string;
 let user: string;
@@ -51,6 +50,7 @@ describe("submit job from data set command", () => {
     });
 
     it("should be able to submit a job from a local file and see the job name and job id", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";

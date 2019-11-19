@@ -14,23 +14,24 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { CoreUtils } from "../../../../../src/api/CoreUtils";
 
+let dsname: string;
 let user: string;
 let connection: any;
 
 let testEnvironment: ITestEnvironment;
-describe("view all-spool-by-jobid command", () => {
+describe("list job ftp command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
-            testName: "zos_ftp_view_all_spool_by_jobid",
+            testName: "zos_list_job",
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
+
 
     });
 
@@ -39,8 +40,8 @@ describe("view all-spool-by-jobid command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display view all spool help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "view_all_spool_by_jobid_help.sh");
+    it("should display list job help", () => {
+        const shellScript = path.join(__dirname, "__scripts__", "list_job_help.sh");
         const response = runCliScript(shellScript, testEnvironment);
 
         expect(response.stderr.toString()).toBe("");
@@ -48,33 +49,21 @@ describe("view all-spool-by-jobid command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to submit a job and then view all its spool", async () => {
-
-        // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
-        const jobID = await connection.submitJCL(iefbr14Content);
-        const JOB_WAIT = 2000;
-        await CoreUtils.sleep(JOB_WAIT);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_view_all_spool_by_jobid.sh", testEnvironment, [jobID]);
+    it("should be able to list the jobs with prefix from the test properties file", async () => {
+        const pre = "\"*\"";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const stdout = result.stdout.toString();
-        expect(result.stdout.toString()).toContain("IEFBR14");
-        for (const word of iefbr14Content.split(/[ \s]/g)) {
-            // the original JCL should pretty much be present from the JESJCL spool DD
-            // but it's modified slightly like expanded procedures etc. so we can't just put "toContain"
-            expect(stdout).toContain(word);
-        }
-        expect(result.stdout.toString()).toContain(jobID);
+       // expect(result.stdout.toString()).toContain(pre);
     });
 
-    it("should give a syntax error if the local file to submit is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_view_all_spool_by_jobid.sh", testEnvironment, []);
+    it("should give a syntax error if the job pattern is omitted", async () => {
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
-        expect(stderr).toContain("Positional");
-        expect(stderr).toContain("jobid");
-        expect(stderr).toContain("Syntax");
+       
+        expect(stderr).toContain("Syntax Error");
+        expect(stderr).toContain("No value specified for option");
+        expect(stderr).toContain("prefix");
         expect(result.status).toEqual(1);
     });
 });
