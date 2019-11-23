@@ -52,6 +52,7 @@ describe("download all-spool-by-jobid command", () => {
     });
 
     it("should be able to submit an IEFBR14 job and then download the jobid", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
@@ -73,6 +74,7 @@ describe("download all-spool-by-jobid command", () => {
 
 
     it("should be able to submit a job from a local file and then download the spool, omitting the jobid directory", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();

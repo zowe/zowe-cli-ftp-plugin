@@ -16,6 +16,7 @@ import { generateRandomAlphaNumericString, randomDsName, runCliScript } from "..
 import * as path from "path";
 import { inspect } from "util";
 
+
 let user: string;
 let connection: any;
 let testDataSet: string;
@@ -51,6 +52,7 @@ describe("rename data set command", () => {
     });
 
     it("should be able to upload a file to a data set member then rename the member", async () => {
+
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member.toUpperCase();
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const memberSuffixLength = 6;
