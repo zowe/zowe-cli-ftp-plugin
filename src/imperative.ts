@@ -57,7 +57,7 @@ const config: IImperativeConfig = {
                         secure: true
                     },
                     secureFtp: {
-                        type: "string",
+                        type: ["boolean", "null"],
                         optionDefinition: FTPConfig.OPTION_SECURE_FTP
                     },
                     rejectUnauthorized: {

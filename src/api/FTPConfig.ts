@@ -48,7 +48,8 @@ export class FTPConfig {
 
     public static OPTION_SECURE_FTP: ICommandOptionDefinition = {
         name: "secure-ftp",
-        type: "string",
+        type: "boolean",
+        defaultValue: true,
         description: "Set to true for both control and data connection encryption," +
             " 'control' for control connection encryption only, or 'implicit' for implicitly" +
             " encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). " +

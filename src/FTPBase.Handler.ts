@@ -12,7 +12,6 @@
 import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@brightside/imperative";
 import { IFTPHandlerParams } from "./IFTPHandlerParams";
 import { FTPConfig } from "./api/FTPConfig";
-import { IZosFTPProfile } from "./api/doc/IZosFTPProfile";
 
 /**
  * This class is used by the various zos-ftp handlers as the base class for their implementation.
