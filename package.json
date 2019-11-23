@@ -1,6 +1,6 @@
 {
-  "name": "@zowe/zos-ftp",
-  "version": "0.1.0",
+  "name": "@brightside/zos-ftp-for-zowe-cli",
+  "version": "1.0.0",
   "description": "Data set, USS, and Jobs functionality via FTP for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
