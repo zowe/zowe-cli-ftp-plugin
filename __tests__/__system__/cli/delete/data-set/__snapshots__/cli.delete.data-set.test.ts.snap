@@ -16,7 +16,7 @@ exports[`delete data set command should display upload file to data set help 1`]
  USAGE
  -----
 
-   bright zos-ftp delete data-set <dataSet> [options]
+   zowe zos-ftp delete data-set <dataSet> [options]
 
  POSITIONAL ARGUMENTS
  --------------------
@@ -32,6 +32,54 @@ exports[`delete data set command should display upload file to data set help 1`]
    --for-sure  | -f (boolean)
 
       Specify this option to confirm that you want to delete the data set permanently.
+
+   --host  | -H (string)
+
+      The hostname or IP address of the z/OS server to connect to.
+
+   --port  | -P (number)
+
+      The port of the z/OS FTP server.
+
+      Default value: 21
+
+   --user  | -u (string)
+
+      Username for authentication on z/OS
+
+   --password  | -p | --pass | --pw (string)
+
+      Password to authenticate to FTP.
+
+ OPTIONS
+ -------
+
+   --secure-ftp  (string)
+
+      Set to true for both control and data connection encryption, 'control' for
+      control connection encryption only, or 'implicit' for implicitly encrypted
+      control connection (this mode is deprecated in modern times, but usually uses
+      port 990). Note: Unfortunately, this plugin's functionality only works with FTP
+      and FTPS, not 'SFTP' which is FTP over SSH.
+
+   --connection-timeout  | --ct (number)
+
+      How long (in milliseconds) to wait for the control connection to be established.
+
+      Default value: 10000
+
+ TLS / SECURE CONNECTION OPTIONS
+ -------------------------------
+
+   --reject-unauthorized  | --ru (boolean)
+
+      Reject self-signed certificates. Only specify this if you are connecting to a
+      secure FTP instance.
+
+   --server-name  | --sn (string)
+
+      Server name for the SNI (Server Name Indication) TLS extension. Only specify if
+      you are connecting securely
 
  PROFILE OPTIONS
  ---------------
@@ -51,20 +99,28 @@ exports[`delete data set command should display upload file to data set help 1`]
 
       Display help text
 
+   --help-examples  (boolean)
+
+      Display examples for all the commands in a the group
+
+   --help-web  | --hw (boolean)
+
+      Display HTML help in browser
 
  EXAMPLES
  --------
 
    - Delete the data set \\"ibmuser.cntl\\":
 
-      $ bright zos-ftp delete data-set \\"ibmuser.cntl\\" -f
+      $ zowe zos-ftp delete data-set \\"ibmuser.cntl\\" -f
 
 ================z/OS FTP DELETE DATA-SET HELP WITH RFJ===========
 {
   \\"success\\": true,
+  \\"exitCode\\": 0,
   \\"message\\": \\"The help was constructed for command: data-set.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a the group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ zowe zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ bright zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   data-set | ds\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Delete a data set\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp delete data-set <dataSet> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   dataSet\\\\t\\\\t (string)\\\\n\\\\n      The data set (PDS member or physical sequential data set) which you would like\\\\n      to delete.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --for-sure  | -f (boolean)\\\\n\\\\n      Specify this option to confirm that you want to delete the data set permanently.\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a the group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Delete the data set \\\\\\"ibmuser.cntl\\\\\\":\\\\n\\\\n      $ zowe zos-ftp delete data-set \\\\\\"ibmuser.cntl\\\\\\" -f\\\\n\\\\n\\"
 }"
 `;

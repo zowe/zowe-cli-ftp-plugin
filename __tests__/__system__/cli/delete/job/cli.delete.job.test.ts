@@ -50,6 +50,7 @@ describe("delete job command", () => {
     });
 
     it("should be able to submit a job from a local file and then delete the job", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();

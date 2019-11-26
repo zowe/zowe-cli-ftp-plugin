@@ -15,6 +15,7 @@ import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
+import { IO } from "@brightside/imperative";
 
 let dsname: string;
 let user: string;
@@ -50,6 +51,7 @@ describe("view job-status-by-jobid command", () => {
     });
 
     it("should be able to submit a job and then view its status", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();

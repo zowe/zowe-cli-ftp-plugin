@@ -50,6 +50,7 @@ describe("submit job from local file command", () => {
     });
 
     it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
@@ -64,7 +65,7 @@ describe("submit job from local file command", () => {
         IO.deleteFile(downloadFilePath);
     });
 
-    it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
+    it("should be able to download a data set to a  local file in binary mode and verify the content", async () => {
         // download the appropriate JCL content from the data set
         const testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         const randomContentLength = 60;

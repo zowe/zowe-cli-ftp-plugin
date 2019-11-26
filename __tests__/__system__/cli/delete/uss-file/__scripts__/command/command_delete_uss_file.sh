@@ -2,4 +2,4 @@
 ussfile=$1
 set -e
 
-bright zos-ftp view uss-file "$ussfile"
+bright zos-ftp delete uss-file $ussfile -f

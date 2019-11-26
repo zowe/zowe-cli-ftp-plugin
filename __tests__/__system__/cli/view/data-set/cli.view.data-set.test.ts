@@ -51,6 +51,7 @@ describe("view data-set command", () => {
     });
 
     it("should be able to view the job data set from the test properties file", async () => {
+
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member.toUpperCase();
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const result = runCliScript(__dirname + "/__scripts__/command/command_view_data_set.sh", testEnvironment, [iefbr14DataSet]);

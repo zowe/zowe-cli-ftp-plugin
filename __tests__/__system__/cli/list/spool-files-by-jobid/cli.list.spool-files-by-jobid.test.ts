@@ -49,6 +49,7 @@ describe("list spool-files-by-jobid command", () => {
     });
 
     it("should be able to submit a job and then list spool files for the job ID", async () => {
+
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();

@@ -18,7 +18,7 @@ exports[`view spool-file-by-id command should display view spool-file-by-id help
  USAGE
  -----
 
-   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]
+   zowe zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]
 
  POSITIONAL ARGUMENTS
  --------------------
@@ -33,6 +33,57 @@ exports[`view spool-file-by-id command should display view spool-file-by-id help
       The spool file ID number for the spool file to view. Use the \\"imperative
       zos-jobs list spool-files-by-jobid\\" command to obtain spool ID numbers.No
       pre-validation of the ID is performed.
+
+ REQUIRED OPTIONS
+ ----------------
+
+   --host  | -H (string)
+
+      The hostname or IP address of the z/OS server to connect to.
+
+   --port  | -P (number)
+
+      The port of the z/OS FTP server.
+
+      Default value: 21
+
+   --user  | -u (string)
+
+      Username for authentication on z/OS
+
+   --password  | -p | --pass | --pw (string)
+
+      Password to authenticate to FTP.
+
+ OPTIONS
+ -------
+
+   --secure-ftp  (string)
+
+      Set to true for both control and data connection encryption, 'control' for
+      control connection encryption only, or 'implicit' for implicitly encrypted
+      control connection (this mode is deprecated in modern times, but usually uses
+      port 990). Note: Unfortunately, this plugin's functionality only works with FTP
+      and FTPS, not 'SFTP' which is FTP over SSH.
+
+   --connection-timeout  | --ct (number)
+
+      How long (in milliseconds) to wait for the control connection to be established.
+
+      Default value: 10000
+
+ TLS / SECURE CONNECTION OPTIONS
+ -------------------------------
+
+   --reject-unauthorized  | --ru (boolean)
+
+      Reject self-signed certificates. Only specify this if you are connecting to a
+      secure FTP instance.
+
+   --server-name  | --sn (string)
+
+      Server name for the SNI (Server Name Indication) TLS extension. Only specify if
+      you are connecting securely
 
  PROFILE OPTIONS
  ---------------
@@ -52,6 +103,13 @@ exports[`view spool-file-by-id command should display view spool-file-by-id help
 
       Display help text
 
+   --help-examples  (boolean)
+
+      Display examples for all the commands in a the group
+
+   --help-web  | --hw (boolean)
+
+      Display HTML help in browser
 
  EXAMPLES
  --------
@@ -59,14 +117,15 @@ exports[`view spool-file-by-id command should display view spool-file-by-id help
    - View the spool file with ID 4 for the job with job ID
    JOB00123:
 
-      $ bright zos-ftp view spool-file-by-id JOB00123 4
+      $ zowe zos-ftp view spool-file-by-id JOB00123 4
 
 ================z/OS FTP VIEW SPOOL-FILE-BY-ID HELP WITH RFJ===========
 {
   \\"success\\": true,
+  \\"exitCode\\": 0,
   \\"message\\": \\"The help was constructed for command: spool-file-by-id.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ bright zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a the group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ zowe zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   bright zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ bright zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   spool-file-by-id | sfbi\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   View the contents of a spool file from a z/OS job on spool/JES queues. The\\\\n   command does not pre-validate the JOBID or spool ID. The command presents errors\\\\n   verbatim from the z/OSMF Jobs REST endpoints.\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp view spool-file-by-id <jobid> <spoolfileid> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   jobid\\\\t\\\\t (string)\\\\n\\\\n      The z/OS JOBID of the job containing the spool file you want to view. No\\\\n      pre-validation of the JOBID is performed.\\\\n\\\\n   spoolfileid\\\\t\\\\t (number)\\\\n\\\\n      The spool file ID number for the spool file to view. Use the \\\\\\"imperative\\\\n      zos-jobs list spool-files-by-jobid\\\\\\" command to obtain spool ID numbers.No\\\\n      pre-validation of the ID is performed.\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --secure-ftp  (string)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a the group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - View the spool file with ID 4 for the job with job ID\\\\n   JOB00123:\\\\n\\\\n      $ zowe zos-ftp view spool-file-by-id JOB00123 4\\\\n\\\\n\\"
 }"
 `;
