@@ -54,18 +54,18 @@ Before you install the plug-in, meet the following prerequisites:
 1.  Meet the prerequisites.
 2.  Install the plug-in:
     ```
-    zowe plugins install @brightside/zos-ftp-for-zowe-cli@latest
+    zowe plugins install @zowe/zos-ftp-for-zowe-cli@latest
     ```
 
     **Note**: The `latest` npm tag installs a version of the product that is intended for public consumption. You can use different npm tags to install other versions of the product. For example, you can install with the `@beta` tag to try new features that have not been fully validated. For more information about tag usage, see [NPM Tag Names](https://github.com/zowe/zowe-cli/blob/master/docs/MaintainerVersioning.md#npm-tag-names).
 
 3.  (Optional) Verify the installation:
     ```
-    zowe plugins validate @brightside/zos-ftp-for-zowe-cli
+    zowe plugins validate @zowe/zos-ftp-for-zowe-cli
     ```
     When you install the plug-in successfully, the following message displays:
     ```
-    _____ Validation results for plugin '@brightside/zos-ftp-for-zowe-cli' _____
+    _____ Validation results for plugin '@zowe/zos-ftp-for-zowe-cli' _____
     This plugin was successfully validated. Enjoy the plugin.
     ``` 
     **Tip:** When an unsuccessful message displays, you can troubleshoot the installation by addressing the issues that the message describes. You can also review the information that is contained in the log file that is located in the directory where you installed Zowe CLI.  
