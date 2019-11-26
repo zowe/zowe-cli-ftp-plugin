@@ -151,9 +151,10 @@ Object {
           "type": "string",
         },
         Object {
+          "defaultValue": true,
           "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
           "name": "secure-ftp",
-          "type": "string",
+          "type": "boolean",
         },
         Object {
           "aliases": Array [

@@ -1,5 +1,5 @@
 {
-  "name": "@zowe/zos-ftp",
+  "name": "@zowe/zos-ftp-for-zowe-cli",
   "version": "0.1.0",
   "description": "Data set, USS, and Jobs functionality via FTP for Zowe CLI",
   "main": "lib/index.js",
