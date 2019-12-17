@@ -132,18 +132,19 @@ export class CreateDataset extends AbstractTemplatedJCL {
         const continueLine = "//   ";
 
         // todo: make sure all options are used here
+        if (options.alcunit) {
+            let spaceParams = "SPACE=(";
+            spaceParams += options.alcunit.toUpperCase() + ",(";
+            spaceParams += options.primary;
+            if (options.secondary != null) {
+                spaceParams += "," + options.secondary;
+            }
+            spaceParams += "))";
 
-        let spaceParams = "SPACE=(";
-        spaceParams += options.alcunit.toUpperCase() + ",(";
-        spaceParams += options.primary;
-        if (options.secondary != null) {
-            spaceParams += "," + options.secondary;
-        }
-        spaceParams += "))";
-
-        createDDValues.push(spaceParams);
-        if (options.volser != null) {
-            createDDValues.push("VOLSER=" + options.volser.toUpperCase());
+            createDDValues.push(spaceParams);
+            if (options.volser != null) {
+                createDDValues.push("VOLSER=" + options.volser.toUpperCase());
+            }
         }
         if (options.lrecl != null) {
             createDDValues.push("LRECL=" + options.lrecl);
