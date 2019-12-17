@@ -41,11 +41,15 @@ export class StreamUtils {
                     task.statusMessage = TextUtils.formatMessage(statusMessage, data.length, estimatedSize);
                 });
                 stream.on("end", () => {
-                    response.progress.endBar();
+                    if (response != null) {
+                        response.progress.endBar();
+                    }
                     resolve(data);
                 });
                 stream.on("error", (error: any) => {
-                    response.progress.endBar();
+                    if (response != null) {
+                        response.progress.endBar();
+                    }
                     reject(error);
                 });
             }).catch((streamRejection: any) => {
@@ -87,11 +91,15 @@ export class StreamUtils {
                     task.statusMessage = TextUtils.formatMessage(statusMessage, downloadedBytes, estimatedSize);
                 });
                 stream.on("end", () => {
-                    response.progress.endBar();
+                    if (response != null) {
+                        response.progress.endBar();
+                    }
                     resolve("end");
                 });
                 stream.on("error", (error: any) => {
-                    response.progress.endBar();
+                    if (response != null) {
+                        response.progress.endBar();
+                    }
                     reject(error);
                 });
             }).catch((streamRejection: any) => {
