@@ -20,7 +20,7 @@
     "configurationModule": "lib/imperative.js"
   },
   "publishConfig": {
-    "registry": "https://gizaartifactory.jfrog.io/gizaartifactory/api/npm/npm-local-release/"
+    "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
     "@brightside/core": "^2.0.0",
