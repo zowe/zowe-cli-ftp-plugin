@@ -45,7 +45,7 @@ node('ca-jenkins-agent') {
     /*
     pipeline.publishConfig = [
         email: pipeline.gitConfig.email,
-        credentialsId: 'GizaArtifactory',
+        credentialsId: 'zowe.jfrog.io',
         scope: '@zowe'
     ]
     */
