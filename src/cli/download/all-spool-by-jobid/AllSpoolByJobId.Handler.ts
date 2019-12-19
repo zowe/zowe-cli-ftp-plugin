@@ -45,9 +45,11 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 "jobid": jobDetails.jobid, "jobname": jobDetails.jobname,
                 "recfm": "FB", "lrecl": 80, "byte-count": spoolFileToDownload.byteCount,
                 // todo is recfm or lrecl available? FB 80 could be wrong
-                "record-count": 0, "job-correlator": undefined, // most of these options don't matter for download
+                "record-count": 0,
+                "job-correlator": "", // most of these options don't matter for download
                 "class": "A", "ddname": spoolFileToDownload.ddname,
-                "id": spoolFileToDownload.id, "records-url": undefined,
+                "id": spoolFileToDownload.id,
+                "records-url": "",
                 "subsystem": "JES2",
                 "stepname": spoolFileToDownload.stepname,
                 "procstep": spoolFileToDownload.procstep === "N/A" || spoolFileToDownload.procstep == null ?
