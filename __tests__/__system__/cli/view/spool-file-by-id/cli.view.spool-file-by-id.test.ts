@@ -57,8 +57,8 @@ describe("view spool-file-by-id command", () => {
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobID = await connection.submitJCL(iefbr14Content);
 
-        const ONE_SECOND = 1000;
-        await CoreUtils.sleep(ONE_SECOND);
+        const FIVE_SECOND = 5000;
+        await CoreUtils.sleep(FIVE_SECOND);
         const jobStatus = await connection.getJobStatus(jobID);
         let jesJCLID: string;
         for (const file  of jobStatus.spoolFiles) {
