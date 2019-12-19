@@ -13,3 +13,7 @@ package-lock.json
 
 node-report*
 /docs/typedoc/
+
+*.tgz
+ds1
+ussFile1

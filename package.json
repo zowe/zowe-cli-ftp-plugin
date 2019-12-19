@@ -1,6 +1,6 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Data set, USS, and Jobs functionality via FTP for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {
@@ -20,14 +20,14 @@
     "configurationModule": "lib/imperative.js"
   },
   "publishConfig": {
-    "registry": "https://gizaartifactory.jfrog.io/gizaartifactory/api/npm/npm-local-release/"
+    "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
     "@brightside/core": "^2.0.0",
     "@brightside/imperative": "^2.0.0"
   },
   "dependencies": {
-    "zos-node-accessor": "1.0.3"
+    "zos-node-accessor": "~1.0.4"
   },
   "devDependencies": {
     "@brightside/core": "^2.20.1",
