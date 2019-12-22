@@ -27,7 +27,7 @@
     "@brightside/imperative": "^2.0.0"
   },
   "dependencies": {
-    "zos-node-accessor": "~1.0.4"
+    "zos-node-accessor": "1.0.5"
   },
   "devDependencies": {
     "@brightside/core": "^2.20.1",
