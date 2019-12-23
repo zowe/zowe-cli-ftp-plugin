@@ -22,6 +22,10 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
         {
             description: "Upload to \"ibmuser.cntl(iefbr14)\" from the file iefbr14.txt",
             options: "iefbr14.txt \"ibmuser.cntl(iefbr14)\""
+        },
+        {
+            description: "Upload to \"ibmuser.cntl(iefbr14)\" from the file iefbr14.txt with the DCB parameters",
+            options: "iefbr14.txt \"ibmuser.cntl(iefbr14)\" --dcb RECFM=FB,LRECL=326,BLKSIZE=23472"
         }
     ],
     positionals: [
@@ -44,6 +48,12 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
             name: "binary", aliases: ["b"],
             description: "Upload content in binary mode.",
             type: "boolean"
+        },
+        {
+            name: "dcb", aliases: [],
+            description: "DCB parameters for dataset allocation if not existing. " +
+            "It's space separated like RECFM=FB LRECL=326 BLKSIZE=23472",
+            type: "string"
         }
     ],
     profile:

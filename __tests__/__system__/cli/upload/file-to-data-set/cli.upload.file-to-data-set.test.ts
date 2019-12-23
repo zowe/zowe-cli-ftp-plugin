@@ -10,6 +10,7 @@
  */
 
 import { ITestEnvironment } from "../../../../__src__/environment/doc/response/ITestEnvironment";
+import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
@@ -20,6 +21,7 @@ import * as fs from "fs";
 let user: string;
 let connection: any;
 let testDataSet: string;
+let dsnPrefix: string;
 
 let testEnvironment: ITestEnvironment;
 describe("upload file to data set command", () => {
@@ -34,6 +36,7 @@ describe("upload file to data set command", () => {
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
+        dsnPrefix = testEnvironment.systemTestProperties.datasets.dsnPrefix;
     });
 
     afterAll(async () => {
@@ -96,4 +99,27 @@ describe("upload file to data set command", () => {
         expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);
     });
+
+    it("should be able to upload a file to a data set with the specified DCB parameters and verify that the data set exists and contains the right content", async () => {
+        const fileToUpload = __dirname + "/resources/file.txt";
+        const memberSuffixLength = 6;
+        const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
+        const dcb = "LRECL=100 RECFM=FB PRIMARY=8 SECONDARY=3 TRACKS";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set_dcb.sh", testEnvironment,
+            [fileToUpload, destination, dcb]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+
+        const JOB_WAIT = 2000;
+        await CoreUtils.sleep(JOB_WAIT);
+        const uploadedContent = (await connection.getDataset(destination)).toString();
+        const expectedContent = IO.readFileSync(fileToUpload).toString();
+        const uploadedLines = uploadedContent.split(/\r?\n/g);
+        const expectedLines = expectedContent.split(/\r?\n/g);
+        for (let x = 0; x < expectedLines.length; x++) {
+            expect(uploadedLines[x].trim()).toEqual(expectedLines[x].trim());
+        }
+        await connection.deleteDataset(destination); // delete the temporary member
+    });
+
 });
