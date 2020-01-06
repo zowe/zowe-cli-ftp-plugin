@@ -99,6 +99,13 @@ Object {
           "required": true,
           "type": "boolean",
         },
+        Object {
+          "aliases": Array [],
+          "description": "Delete the directory and all files/directories under it.",
+          "name": "recursive",
+          "required": false,
+          "type": "boolean",
+        },
       ],
       "positionals": Array [
         Object {
