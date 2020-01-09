@@ -52,6 +52,7 @@ export class StreamUtils {
                     }
                     reject(error);
                 });
+                stream.resume();
             }).catch((streamRejection: any) => {
                 reject(streamRejection);
             });
