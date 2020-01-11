@@ -12,7 +12,7 @@
     "lint:fix": "npm run lint -- --fix",
     "checkTestsCompile": "echo \"Checking that test source compiles...\" && tsc --project __tests__/test-tsconfig.json --noEmit ",
     "test": "jest --coverage",
-    "test:system": "jest .*/__system__/.* --coverage false",
+    "test:system": "jest .*/__system__/.* --runInBand --coverage false",
     "test:unit": "jest --coverage --testPathIgnorePatterns \".*/__system__/.*\"",
     "installPlugin": "npm install && rimraf lib && npm run build && zowe plugins install ."
   },
@@ -27,7 +27,7 @@
     "@brightside/imperative": "^2.0.0"
   },
   "dependencies": {
-    "zos-node-accessor": "~1.0.6"
+    "zos-node-accessor": "~1.0.7"
   },
   "devDependencies": {
     "@brightside/core": "^2.20.1",
