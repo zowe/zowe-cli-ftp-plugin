@@ -27,7 +27,8 @@ export default class UploadFileToDataSetHandler extends FTPBaseHandler {
             content = CoreUtils.addCarriageReturns(content.toString());
         }
 
-        await params.connection.uploadDataset(content, "'" + params.arguments.dataSet + "'", transferType);
+        const dcb = params.arguments.dcb;
+        await params.connection.uploadDataset(content, "'" + params.arguments.dataSet + "'", transferType, dcb);
 
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, params.arguments.dataSet);
         params.response.data.setMessage(successMsg);
