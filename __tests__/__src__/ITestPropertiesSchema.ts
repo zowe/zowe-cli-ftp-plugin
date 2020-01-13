@@ -62,6 +62,10 @@ export interface ITestPropertiesSchema {
          * that you specify in custom_properties
          */
         renamablePDS: string;
+        /**
+         * Data set name prefix
+         */
+        dsnPrefix: string;
     };
     jobs: {
 
