@@ -54,7 +54,7 @@ describe("view spool-file-by-id command", () => {
 
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        let iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobID = await connection.submitJCL(iefbr14Content);
 
         const FIVE_SECOND = 5000;
@@ -73,6 +73,11 @@ describe("view spool-file-by-id command", () => {
         expect(result.status).toEqual(0);
         const stdout = result.stdout.toString();
         expect(result.stdout.toString()).toContain("IEFBR14");
+        iefbr14Content = iefbr14Content.split("\n").map((line: string) => {
+            // Exclude the potential trailing statement number.
+            const JCL_LINE_LENGTH = 72;
+            return line.substring(0, JCL_LINE_LENGTH);
+        }).join("\n");
         for (const word of iefbr14Content.split(/[ \s]/g)) {
             // the original JCL should pretty much be present from the JESJCL spool DD
             // but it's modified slightly like expanded procedures etc. so we can't just put "toContain"

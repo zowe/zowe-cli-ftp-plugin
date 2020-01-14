@@ -39,6 +39,13 @@ export const DeleteUssFileDefinition: ICommandDefinition = {
             description: "Specify this option to confirm that you want to delete the data set permanently.",
             type: "boolean",
             required: true
+        },
+        {
+            name: "recursive",
+            aliases: [],
+            description: "Delete the directory and all files/directories under it.",
+            type: "boolean",
+            required: false
         }
     ],
     profile:
