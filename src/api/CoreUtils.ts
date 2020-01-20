@@ -9,7 +9,7 @@
  *
  */
 
-import { IImperativeError, Logger } from "@brightside/imperative";
+import { IImperativeError, Logger } from "@zowe/imperative";
 import { isNullOrUndefined } from "util";
 
 export class CoreUtils {

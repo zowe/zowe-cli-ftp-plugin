@@ -9,7 +9,7 @@
  *
  */
 
-import { Logger } from "@brightside/imperative";
+import { Logger } from "@zowe/imperative";
 
 export class UssUtils {
 

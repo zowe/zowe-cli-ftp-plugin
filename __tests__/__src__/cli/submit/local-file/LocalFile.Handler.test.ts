@@ -9,7 +9,7 @@
  *
  */
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import SubmitJobFromLocalFileHandler from "../../../../../src/cli/submit/local-file/LocalFile.Handler";
 import TestUtils from "../../TestUtils";
 

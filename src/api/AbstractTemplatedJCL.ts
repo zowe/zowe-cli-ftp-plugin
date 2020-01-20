@@ -9,7 +9,7 @@
  *
  */
 
-import { IO, Logger, TextUtils } from "@brightside/imperative";
+import { IO, Logger, TextUtils } from "@zowe/imperative";
 import { CoreUtils } from "./CoreUtils";
 
 export abstract class AbstractTemplatedJCL {

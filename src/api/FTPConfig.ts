@@ -11,7 +11,7 @@
 
 import { isString } from "util";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
-import { ICommandOptionDefinition } from "@brightside/imperative";
+import { ICommandOptionDefinition } from "@zowe/imperative";
 
 const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 

@@ -12,8 +12,8 @@
 import { JobUtils } from "../../../api/JobUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { DownloadJobs, IJobFile } from "@brightside/core";
-import { ImperativeError, IO, TextUtils } from "@brightside/imperative";
+import { DownloadJobs, IJobFile } from "@zowe/cli";
+import { ImperativeError, IO, TextUtils } from "@zowe/imperative";
 
 export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {

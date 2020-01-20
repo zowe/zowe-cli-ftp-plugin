@@ -9,7 +9,7 @@
  *
  */
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import { CoreUtils } from "../../../api/CoreUtils";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";

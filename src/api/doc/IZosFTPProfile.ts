@@ -9,7 +9,7 @@
  *
  */
 
-import { IProfile } from "@brightside/imperative";
+import { IProfile } from "@zowe/imperative";
 
 /**
  * Typescript representation of a loaded zos-ftp profile

@@ -11,10 +11,10 @@
 
 import * as fs from "fs";
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 
 import { StreamUtils } from "../../../api/StreamUtils";
-import { ZosFilesMessages, ZosFilesUtils } from "@brightside/core";
+import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 

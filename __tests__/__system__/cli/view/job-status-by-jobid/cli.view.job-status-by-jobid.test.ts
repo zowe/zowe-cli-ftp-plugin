@@ -15,7 +15,7 @@ import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 
 let dsname: string;
 let user: string;

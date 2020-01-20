@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@brightside/imperative";
+import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@zowe/imperative";
 import { IFTPHandlerParams } from "./IFTPHandlerParams";
 import { FTPConfig } from "./api/FTPConfig";
 

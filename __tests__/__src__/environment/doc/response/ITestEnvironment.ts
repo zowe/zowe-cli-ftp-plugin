@@ -33,7 +33,7 @@ export interface ITestEnvironment {
 
     /**
      * Set of environmental variables (such as profile/logging home directory)
-     * that can be used when executing brightside commands
+     * that can be used when executing zowe commands
      */
     env: { [key: string]: string };
 

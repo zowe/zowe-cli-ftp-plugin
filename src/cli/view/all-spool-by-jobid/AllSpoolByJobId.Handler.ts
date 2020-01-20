@@ -12,7 +12,7 @@
 import { JobUtils } from "../../../api/JobUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { ImperativeError, TextUtils } from "@brightside/imperative";
+import { ImperativeError, TextUtils } from "@zowe/imperative";
 
 export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {

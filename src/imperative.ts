@@ -9,7 +9,7 @@
  *
  */
 
-import { IImperativeConfig } from "@brightside/imperative";
+import { IImperativeConfig } from "@zowe/imperative";
 import { FTPConfig } from "./api/FTPConfig";
 
 const config: IImperativeConfig = {

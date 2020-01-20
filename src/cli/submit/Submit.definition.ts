@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition } from "@brightside/imperative";
+import { ICommandDefinition } from "@zowe/imperative";
 import { SubmitLocalFileDefinition } from "./local-file/LocalFile.definition";
 import { SubmitDataSetDefinition } from "./data-set/DataSet.definition";
 import { SubmitStdinDefinition } from "./stdin/Stdin.definition";

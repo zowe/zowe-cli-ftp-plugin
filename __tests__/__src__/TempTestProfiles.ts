@@ -14,10 +14,10 @@
  */
 import * as fs from "fs";
 import { ITestEnvironment } from "./environment/doc/response/ITestEnvironment";
-import { ImperativeError, IO } from "@brightside/imperative";
+import { ImperativeError, IO } from "@zowe/imperative";
 import { runCliScript } from "./TestUtils";
 
-import { Constants } from "@brightside/core";
+import { Constants } from "@zowe/cli";
 import { TemporaryScripts } from "./TemporaryScripts";
 
 const uuidv4 = require("uuid");
@@ -28,7 +28,7 @@ const uuidv4 = require("uuid");
 export class TempTestProfiles {
 
     /**
-     * Note reminding the user that failed profile creation may be the result of not installing brightside
+     * Note reminding the user that failed profile creation may be the result of not installing zowe
      * globally
      */
     public static GLOBAL_INSTALL_NOTE: string = "\n\nNote: Make sure you have the current version of " +

@@ -9,7 +9,7 @@
  *
  */
 
-import { Logger } from "@brightside/imperative";
+import { Logger } from "@zowe/imperative";
 
 export class JobUtils {
 
@@ -36,7 +36,7 @@ export class JobUtils {
             // JOBNAME, JOBID, OWNER, STATUS, CLASS
             // turn the object into a similar format to that returned by
             // z/osmf so that users who use the list ds command in main
-            // brightside can use the same filtering options
+            // zowe can use the same filtering options
             const fields = job.split(/ /g);
 
             const jobNameIndex = 0;

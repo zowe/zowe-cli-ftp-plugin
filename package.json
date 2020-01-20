@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gizafoundation/zowe-cli-ftp-plugin.git"
+    "url": "https://github.com/zowe/zowe-cli-ftp-plugin.git"
   },
   "files": [
     "lib"
@@ -30,15 +30,14 @@
     "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
-    "@brightside/core": "^2.0.0",
-    "@brightside/imperative": "^2.0.0"
+    "@zowe/cli": "^6.0.0",
+    "@zowe/imperative": "^4.0.0"
   },
   "dependencies": {
     "zos-node-accessor": "~1.0.7"
   },
   "devDependencies": {
-    "@brightside/core": "^2.20.1",
-    "@brightside/imperative": "^2.4.1",
+    "@zowe/cli": "^6.0.0",
     "@types/fs-extra": "^5.0.5",
     "@types/jest": "^20.0.5",
     "@types/node": "^8.0.0",
