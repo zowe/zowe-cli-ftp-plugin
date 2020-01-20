@@ -1,6 +1,10 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
   "version": "0.1.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gizafoundation/zowe-cli-ftp-plugin.git"
+  },
   "description": "Data set, USS, and Jobs functionality via FTP for Zowe CLI",
   "main": "lib/index.js",
   "scripts": {

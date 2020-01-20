@@ -47,7 +47,16 @@ node('ca-jenkins-agent') {
     pipeline.publishConfig = [
         email: pipeline.gitConfig.email,
         credentialsId: 'zowe.jfrog.io',
-        scope: '@zowe'
+        scope: '@brightside'
+    ]
+
+    pipeline.registryConfig = [
+        [
+            email: pipeline.publishConfig.email,
+            credentialsId: pipeline.publishConfig.credentialsId,
+            url: 'https://zowe.jfrog.io/zowe/api/npm/npm-release/',
+            scope: pipeline.publishConfig.scope
+        ]
     ]
 
     // Initialize the pipeline library, should create 5 steps
