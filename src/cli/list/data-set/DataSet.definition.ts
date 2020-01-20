@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition, TextUtils } from "@brightside/imperative";
+import { ICommandDefinition, TextUtils } from "@zowe/imperative";
 
 
 export const ListDataSetDefinition: ICommandDefinition = {

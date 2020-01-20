@@ -12,8 +12,8 @@
 import ViewAllSpoolByJobIdHandler from "../../../../../src/cli/download/all-spool-by-jobid/AllSpoolByJobId.Handler";
 import TestUtils from "../../TestUtils";
 
-import { DownloadJobs } from "@brightside/core";
-import { IO } from "@brightside/imperative";
+import { DownloadJobs } from "@zowe/cli";
+import { IO } from "@zowe/imperative";
 
 describe("Download all spool by job id handler", () => {
 

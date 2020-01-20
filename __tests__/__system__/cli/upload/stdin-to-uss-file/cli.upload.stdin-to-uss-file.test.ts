@@ -14,7 +14,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import * as fs from "fs";
 
 let user: string;

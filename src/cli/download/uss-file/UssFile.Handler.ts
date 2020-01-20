@@ -11,7 +11,7 @@
 
 import * as fs from "fs";
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import { StreamUtils } from "../../../api/StreamUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";

@@ -25,14 +25,16 @@ node('ca-jenkins-agent') {
 
     // Build admins, users that can approve the build and receieve emails for
     // all protected branch builds.
-    pipeline.admins.add("liangqi")
+    pipeline.admins.add("liangqi", "zfernand0", "mikebauerca")
 
     // Comma-separated list of emails that should receive notifications about these builds
-    pipeline.emailList = "liangqi@cn.ibm.com"
+    pipeline.emailList = "liangqi@cn.ibm.com, fernando.rijocedeno@broadcom.com"
 
     // Protected branch property definitions
     pipeline.protectedBranches.addMap([
-        [name: "master", tag: "master", dependencies: ["@brightside/imperative": "lts-incremental"]]
+        [name: "master", tag: "latest", dependencies: ["@zowe/imperative": "latest"]],
+        [name: "lts-incremental", tag: "lts-incremental", dependencies: ["@brightside/imperative": "lts-incremental"]]
+        //[name: "zowe-v1-lts", tag: "zowe-v1-lts", level: SemverLevel.MINOR, dependencies: ["@zowe/imperative": "zowe-v1-lts"]]
     ])
 
     // Git configuration information
@@ -42,13 +44,20 @@ node('ca-jenkins-agent') {
     ]
 
     // npm publish configuration
-    /*
     pipeline.publishConfig = [
         email: pipeline.gitConfig.email,
         credentialsId: 'zowe.jfrog.io',
         scope: '@zowe'
     ]
-    */
+
+    pipeline.registryConfig = [
+        [
+            email: pipeline.publishConfig.email,
+            credentialsId: pipeline.publishConfig.credentialsId,
+            url: 'https://zowe.jfrog.io/zowe/api/npm/npm-release/',
+            scope: pipeline.publishConfig.scope
+        ]
+    ]
 
     // Initialize the pipeline library, should create 5 steps
     pipeline.setup()
@@ -85,30 +94,16 @@ node('ca-jenkins-agent') {
         coverageResults: [dir: "${UNIT_TEST_ROOT}/coverage/lcov-report", files: "index.html", name: "${PRODUCT_NAME} - Unit Test Coverage Report"],
         junitOutput: UNIT_JUNIT_OUTPUT
     )
-/*
-     def INTEGRATION_TEST_ROOT= "__tests__/__results__/integration"
-     def INTEGRATION_JUNIT_OUTPUT = "$INTEGRATION_TEST_ROOT/junit.xml"
-     // Perform a unit test and capture the results
-    pipeline.test(
-        name: "Integration",
-        operation: {
-            sh "npm i -g @zowe/cli@latest"
-            sh "npm run test:integration"
-        },
-        testResults: [dir: "${INTEGRATION_TEST_ROOT}/jest-stare", files: "index.html", name: "${PRODUCT_NAME} - Integration Test Report"],
-        junitOutput: INTEGRATION_JUNIT_OUTPUT,
-    )
-*/    
-    // Check for vulnerabilities
+
+    // Check for Vulnerabilities
     pipeline.checkVulnerabilities()
-    
-/*
+
     // Deploys the application if on a protected branch. Give the version input
     // 30 minutes before an auto timeout approve.
     pipeline.deploy(
         versionArguments: [timeout: [time: 30, unit: 'MINUTES']]
     )
-*/
+
     // Once called, no stages can be added and all added stages will be executed. On completion
     // appropriate emails will be sent out by the shared library.
     pipeline.end()

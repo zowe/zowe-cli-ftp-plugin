@@ -9,7 +9,7 @@
  *
  */
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import { UssUtils } from "../../../../../src/api/UssUtils";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import UploadFileToUssFileHandler from "../../../../../src/cli/upload/file-to-uss-file/FileToUssFile.Handler";
@@ -21,7 +21,7 @@ describe("Upload file to data set handler", () => {
         const handler = new UploadFileToUssFileHandler();
 
         IO.readFileSync = jest.fn().mockReturnValue(Promise.resolve(Buffer.from("sss")));
-        // UssUtils.normalizeUnixPath = 
+        // UssUtils.normalizeUnixPath =
         CoreUtils.addCarriageReturns = jest.fn().mockReturnValue(("sss"));
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {

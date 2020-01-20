@@ -25,7 +25,7 @@ export default class ListDataSetsHandler extends FTPBaseHandler {
             for (const key of Object.keys(file)) {
                 // turn the object into a similar format to that returned by
                 // z/osmf so that users who use the list ds command in main
-                // brightside can use the same filtering options
+                // zowe can use the same filtering options
                 this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
                 result[key.toLowerCase()] = file[key];
             }

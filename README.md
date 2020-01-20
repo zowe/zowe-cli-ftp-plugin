@@ -1,8 +1,8 @@
-# z/OS FTP Plugin for Zowe CLI  
+# z/OS FTP Plugin for Zowe CLI
 
-z/OS FTP Plugin for Zowe CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging z/OS FTP service. It allows you to these z/OS operations in Zowe CLI way without z/OSMF (or where zosmf is down). 
+z/OS FTP Plugin for Zowe CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging z/OS FTP service. It allows you to these z/OS operations in Zowe CLI way without z/OSMF (or where zosmf is down).
 
-This plugin uses the [zos-node-accessor package](https://github.com/IBM/zos-node-accessor), intending to be as close as possible to the corresponding commands in core Zowe CLI in terms of syntax and response. However there may be times where they differ slightly due to technical details of the zos-node-accessor package. 
+This plugin uses the [zos-node-accessor package](https://github.com/IBM/zos-node-accessor), intending to be as close as possible to the corresponding commands in core Zowe CLI in terms of syntax and response. However there may be times where they differ slightly due to technical details of the zos-node-accessor package.
 
 As an application developer, you can use the plug-in to perform various tasks, such as the following:
 
@@ -35,7 +35,7 @@ Before you install the plug-in, meet the following prerequisites:
     npm run build
     ```
 
-    The first time you build your code changes, you will be prompted for the location of the Imperative CLI Framework package, which is located in the `node_modules/@brightside` folder in the directory where Zowe CLI was installed.
+    The first time you build your code changes, you will be prompted for the location of the Imperative CLI Framework package, which is located in the `node_modules/@zowe` folder in the directory where Zowe CLI was installed.
 
     **Note:** When you update `package.json` to include new dependencies, or when you pull changes that affect `package.json`, issue the `npm update` command to download the dependencies.
 
@@ -44,9 +44,9 @@ Before you install the plug-in, meet the following prerequisites:
     ```
     npm run installPlugin
     ```
-    
-    The plugin should now be installed. 
-    
+
+    The plugin should now be installed.
+
 ## Install the z/OS FTP Plugin
 
 **Follow these steps:**
@@ -67,8 +67,8 @@ Before you install the plug-in, meet the following prerequisites:
     ```
     _____ Validation results for plugin '@zowe/zos-ftp-for-zowe-cli' _____
     This plugin was successfully validated. Enjoy the plugin.
-    ``` 
-    **Tip:** When an unsuccessful message displays, you can troubleshoot the installation by addressing the issues that the message describes. You can also review the information that is contained in the log file that is located in the directory where you installed Zowe CLI.  
+    ```
+    **Tip:** When an unsuccessful message displays, you can troubleshoot the installation by addressing the issues that the message describes. You can also review the information that is contained in the log file that is located in the directory where you installed Zowe CLI.
 
 4.  [Create a user profile](#create-a-user-profile).
 
@@ -76,13 +76,13 @@ Before you install the plug-in, meet the following prerequisites:
 You can create a `zftp` user profile to avoid typing your connection details on every command. A `zftp` profile contains the host, port, username, and password for the z/OS you will connect. You can create multiple profiles and switch between them as needed.
 
 **Follow these steps:**
-1.  Create a zftp profile: 
+1.  Create a zftp profile:
     ```
     zowe profiles create zftp <profile name> -H <host> -u <user> -p <password> -P <port>
     zowe profiles create zftp <profile name> -H <host> -u <user> -p <password> -P <port> --secure-ftp true
     ```
-    The result of the command displays as a success or failure message. You can use your profile when you issue commands in the zftp command group. 
-    
+    The result of the command displays as a success or failure message. You can use your profile when you issue commands in the zftp command group.
+
 **Notice** The option `--secure-ftp true` is strongly recommended, if FTPS (FTP over SSL) is enabled in z/OS FTP service. , It's not SFTP (FTP over SSH).
 
 **Tip:** For more information about the syntax, actions, and options, for a profiles create command, open Zowe CLI and issue the following command:
@@ -123,7 +123,7 @@ Any failures potentially indicate an issue with the set-up of the Rest API or co
 **Follow these steps:**
 1.  To uninstall the plug-in from a base application, issue the following command:
     ```
-    zowe plugins uninstall @brightside/zftp
+    zowe plugins uninstall @zowe/zos-ftp-for-zowe-cli
     ```
 After the uninstallation process completes successfully, the product no longer contains the plug-in configuration.
 
@@ -138,7 +138,7 @@ To learn about building new commands or a new plug-in for Zowe CLI, see [Develop
 ### Imperative CLI Framework documentation
 
 [Imperative CLI Framework](https://github.com/zowe/imperative/wiki) documentation is a key source of information to learn about the features of Imperative CLI Framework (the code framework that you use to build plug-ins for Zowe CLI). Refer to the documentation as you develop your plug-in.
- 
+
 ### Example usage
 
 Here is a script showing how you can submit JCL and download spool files via FTP remotely.

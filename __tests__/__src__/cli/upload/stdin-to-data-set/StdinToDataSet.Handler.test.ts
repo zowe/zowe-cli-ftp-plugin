@@ -9,7 +9,7 @@
  *
  */
 
-import { IO } from "@brightside/imperative";
+import { IO } from "@zowe/imperative";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import UploadStdinToDataSetHandler from "../../../../../src/cli/upload/stdin-to-data-set/StdinToDataSet.Handler";
 import TestUtils from "../../TestUtils";
