@@ -41,7 +41,7 @@ export const DownloadUSSFileDefinition: ICommandDefinition = {
             name: "file",
             aliases: ["f"],
             description: "The path to the local file where you want to download the content. When you omit the option, " +
-                "the command generates a file name automatically for you",
+                "the command generates a file name automatically for you.",
             type: "string"
         }
     ],
