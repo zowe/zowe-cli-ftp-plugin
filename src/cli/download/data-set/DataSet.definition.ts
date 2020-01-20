@@ -10,11 +10,6 @@
  */
 
 import { ICommandDefinition } from "@zowe/imperative";
-/**
- * Re-use the option definitions for this command from core
- */
-// tslint:disable-next-line
-import { DownloadOptions } from "@zowe/cli";
 
 export const DownloadDataSetDefinition: ICommandDefinition = {
     handler: __dirname + "/DataSet.Handler",
@@ -35,9 +30,21 @@ export const DownloadDataSetDefinition: ICommandDefinition = {
         required: true
     }],
     options: [
-        DownloadOptions.file,
-        DownloadOptions.binary
-    ].sort((a, b) => a.name.localeCompare(b.name)),
+        {
+            name: "binary",
+            aliases: ["b"],
+            description: "Download the file content in binary mode, which means that no data conversion is performed. The data " +
+                "transfer process returns each line as-is, without translation. No delimiters are added between records.",
+            type: "boolean"
+        },
+        {
+            name: "file",
+            aliases: ["f"],
+            description: "The path to the local file where you want to download the content. When you omit the option, " +
+                "the command generates a file name automatically for you",
+            type: "string"
+        }
+    ],
     profile:
         {optional: ["zftp"]},
 };
