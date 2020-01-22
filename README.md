@@ -1,25 +1,30 @@
-# z/OS FTP Plugin for Zowe CLI
+# z/OS FTP Plug-in for Zowe™ CLI
 
-z/OS FTP Plugin for Zowe CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging z/OS FTP service. It allows you to these z/OS operations in Zowe CLI way without z/OSMF (or where zosmf is down).
+The z/OS FTP Plug-in for Zowe™ CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging the z/OS FTP service. The plug-in lets you perform these z/OS operations through the Zowe CLI client without the use of IBM z/OSMF on the back end (such as situations where z/OSMF is down).
 
-This plugin uses the [zos-node-accessor package](https://github.com/IBM/zos-node-accessor), intending to be as close as possible to the corresponding commands in core Zowe CLI in terms of syntax and response. However there may be times where they differ slightly due to technical details of the zos-node-accessor package.
+## How the plug-in works
 
-As an application developer, you can use the plug-in to perform various tasks, such as the following:
+This plug-in uses the [zos-node-accessor package](https://github.com/IBM/zos-node-accessor), intending to be as close as possible to the corresponding commands in core Zowe CLI in terms of syntax and response. However, there may be times where they differ slightly due to technical details of the zos-node-accessor package.
+
+You can use the plug-in to perform various tasks, such as the following:
 
 * List, view, rename, or download z/OS dataset or USS file.
 * Upload local file or stdin to z/OS dataset or USS file.
 * List, view or download job status, job spool files.
 * Delete z/OS dataset, USS file, or job.
 
-## Prerequisites
-Before you install the plug-in, meet the following prerequisites:
+## Software Requirements
+
+Before you install the plug-in, meet the following requirements:
+
 * Install Zowe CLI on your PC.
 
-    **Note:** For more information, see [Installing Zowe CLI](https://zowe.github.io/docs-site/stable/user-guide/cli-installcli.html).
+    **Note:** For more information, see [Installing Zowe CLI](https://docs.zowe.org/active-development/user-guide/cli-installcli.html).
 
-* Check to ensure z/OS FTP service can be accessed remotely. And connect z/OS with FTP client, and run command `rstat` in FTP client to check the option JESINTERFACELevel is set to 2.
+* Check to ensure z/OS FTP service can be accessed remotely. Connect z/OS with the FTP client and run command `rstat` in FTP client to check the option JESINTERFACELevel is set to 2.
 
 ## Build the Plug-in from Source
+
 **Follow these steps:**
 
 1. The first time that you download the z/OS FTP Plugin from the GitHub repository, issue the following command against the local directory:
@@ -27,7 +32,8 @@ Before you install the plug-in, meet the following prerequisites:
     ```
     npm install
     ```
-    The command installs the required z/OS FTP Plugin dependencies and several development tools. When necessary, you can run the task at any time to update the tools.
+
+    The command installs the required dependencies and several development tools. When necessary, you can run the task at any time to update the tools.
 
 2. To build your code changes, issue the following command:
 
@@ -47,43 +53,51 @@ Before you install the plug-in, meet the following prerequisites:
 
     The plugin should now be installed.
 
-## Install the z/OS FTP Plugin
+## Install the z/OS FTP Plug-in
 
 **Follow these steps:**
 
 1.  Meet the prerequisites.
+
 2.  Install the plug-in:
+
+3.
     ```
     zowe plugins install @zowe/zos-ftp-for-zowe-cli@latest
     ```
 
     **Note**: The `latest` npm tag installs a version of the product that is intended for public consumption. You can use different npm tags to install other versions of the product. For example, you can install with the `@beta` tag to try new features that have not been fully validated. For more information about tag usage, see [NPM Tag Names](https://github.com/zowe/zowe-cli/blob/master/docs/MaintainerVersioning.md#npm-tag-names).
 
-3.  (Optional) Verify the installation:
+4.  (Optional) Verify the installation:
+
     ```
     zowe plugins validate @zowe/zos-ftp-for-zowe-cli
     ```
+
     When you install the plug-in successfully, the following message displays:
+
     ```
     _____ Validation results for plugin '@zowe/zos-ftp-for-zowe-cli' _____
     This plugin was successfully validated. Enjoy the plugin.
     ```
     **Tip:** When an unsuccessful message displays, you can troubleshoot the installation by addressing the issues that the message describes. You can also review the information that is contained in the log file that is located in the directory where you installed Zowe CLI.
 
-4.  [Create a user profile](#create-a-user-profile).
+5.  [Create a user profile](#create-a-user-profile).
 
 ## Create a User Profile
+
 You can create a `zftp` user profile to avoid typing your connection details on every command. A `zftp` profile contains the host, port, username, and password for the z/OS you will connect. You can create multiple profiles and switch between them as needed.
 
 **Follow these steps:**
 1.  Create a zftp profile:
+
     ```
-    zowe profiles create zftp <profile name> -H <host> -u <user> -p <password> -P <port>
     zowe profiles create zftp <profile name> -H <host> -u <user> -p <password> -P <port> --secure-ftp true
     ```
+
     The result of the command displays as a success or failure message. You can use your profile when you issue commands in the zftp command group.
 
-**Notice** The option `--secure-ftp true` is strongly recommended, if FTPS (FTP over SSL) is enabled in z/OS FTP service. , It's not SFTP (FTP over SSH).
+**Notice** The option `--secure-ftp true` is strongly recommended if FTPS (FTP over SSL) is enabled in z/OS FTP service. This is not the same as SFTP (FTP over SSH).
 
 **Tip:** For more information about the syntax, actions, and options, for a profiles create command, open Zowe CLI and issue the following command:
 
@@ -133,7 +147,7 @@ For information about contributing to the plug-in, see the Zowe CLI [Contributio
 
 ### Tutorials
 
-To learn about building new commands or a new plug-in for Zowe CLI, see [Develop for Zowe CLI](https://zowe.github.io/docs-site/latest/extend/extend-cli/cli-devTutorials.html).
+To learn about building new commands or a new plug-in for Zowe CLI, see [Develop for Zowe CLI](https://docs.zowe.org/stable/extend/extend-cli/cli-devTutorials.html).
 
 ### Imperative CLI Framework documentation
 
