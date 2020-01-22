@@ -1,6 +1,6 @@
-# z/OS FTP Plug-in for Zowe CLI
+# z/OS FTP Plug-in for Zowe™ CLI
 
-The z/OS FTP Plug-in for Zowe CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging the z/OS FTP service. The plug-in lets you perform these z/OS operations through the Zowe CLI client without the use of IBM z/OSMF on the back end (such as situations where z/OSMF is down).
+The z/OS FTP Plug-in for Zowe™ CLI lets you access z/OS datasets, USS files, and submit JCL, leveraging the z/OS FTP service. The plug-in lets you perform these z/OS operations through the Zowe CLI client without the use of IBM z/OSMF on the back end (such as situations where z/OSMF is down).
 
 ## How the plug-in works
 
