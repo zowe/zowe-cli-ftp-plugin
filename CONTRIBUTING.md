@@ -2,6 +2,19 @@
 
 This document is intended to be a living summary of conventions & best practices for development within z/OS FTP Plug-in for Zowe CLI.
 
+## Changelog Update Guidelines
+
+The changelog should be updated for any PR that updates code that will be distributed to the end user. Changes to certain files, such as the Jenkinsfile, do not require an update to the changelog.
+
+The following code block should be inserted into the Changelog above the last released version:
+
+```
+## Recent Changes
+
+- <Your changes should>
+- <be documented here>
+```
+
 ## Primary Contribution Guidelines
 
 The following information is critical to working with the code, running/writing/maintaining automated tests, developing consistent syntax in your plug-in, and ensuring that your plug-in integrates with Zowe CLI properly:
