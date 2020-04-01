@@ -18,7 +18,7 @@ Object {
         },
         Object {
           "description": "Upload to \\"ibmuser.cntl(iefbr14)\\" from the file iefbr14.txt with the DCB parameters",
-          "options": "iefbr14.txt \\"ibmuser.cntl(iefbr14)\\" --dcb RECFM=FB,LRECL=326,BLKSIZE=23472",
+          "options": "iefbr14.txt \\"ibmuser.cntl(iefbr14)\\" --dcb \\"RECFM=FB LRECL=326 BLKSIZE=23472\\"",
         },
       ],
       "handler": "FileToDataSet.Handler",
