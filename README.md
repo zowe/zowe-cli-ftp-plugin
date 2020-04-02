@@ -12,6 +12,7 @@ You can use the plug-in to perform various tasks, such as the following:
 * Upload local file or stdin to z/OS dataset or USS file.
 * List, view or download job status, job spool files.
 * Delete z/OS dataset, USS file, or job.
+* Submit job from dataset, local file and stdin.
 
 ## Software Requirements
 
