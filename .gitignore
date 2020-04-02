@@ -6,7 +6,6 @@ results/
 __results__/
 __tests__/__results__/
 
-package-lock.json
 npm-shrinkwrap.json
 
 /__tests__/__resources__/properties/**
