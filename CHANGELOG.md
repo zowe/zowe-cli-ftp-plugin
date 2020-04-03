@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.0.2`
 
 - Fixed example quotes for uploading a file to a dataset.
 
