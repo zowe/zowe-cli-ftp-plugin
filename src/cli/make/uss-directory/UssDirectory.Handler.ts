@@ -9,11 +9,9 @@
  *
  */
 
-import { StreamUtils } from "../../../api/StreamUtils";
 import { UssUtils } from "../../../api/UssUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { basename, dirname } from "path";
 
 export default class MakeUssDirectoryHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
