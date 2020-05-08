@@ -15,13 +15,13 @@ import { FTPBaseHandler } from "../../../FTPBase.Handler";
 export default class ListDataSetMembersHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        let files: any[];
+        let members: any[];
         this.log.debug("Listing members of dataset %s", params.arguments.dsname);
         const datasetname = params.arguments.dsname + "(*)";
-        files = await params.connection.listDataset(datasetname);
+        members = await params.connection.listDataset(datasetname);
 
-        this.log.debug("Found %d members", files.length);
-        const filteredFiles = files.map((file: any) => {
+        this.log.debug("Found %d members", members.length);
+        const filteredMembers = members.map((file: any) => {
             const result: any = {};
             for (const key of Object.keys(file)) {
                 // turn the object into a similar format to that returned by
@@ -32,15 +32,15 @@ export default class ListDataSetMembersHandler extends FTPBaseHandler {
             }
             return result;
         });
-        params.response.data.setObj(filteredFiles);
+        params.response.data.setObj(filteredMembers);
         const successMsg = params.response.console.log("Successfully listed %d members in data sets %s",
-        filteredFiles.length, params.arguments.dsname);
+        filteredMembers.length, params.arguments.dsname);
         this.log.info(successMsg);
 
         params.response.data.setMessage("Successfully listed %d members in data sets %s",
-            filteredFiles.length, params.arguments.dsname);
+            filteredMembers.length, params.arguments.dsname);
         params.response.format.output({
-            output: filteredFiles,
+            output: filteredMembers,
             format: "table",
             fields: ["name"]
         });
