@@ -90,6 +90,36 @@ However, the pattern cannot begin with any of these sequences.
     },
     Object {
       "aliases": Array [
+        "members",
+      ],
+      "description": "List all members of the specified PDS or PDSE data set.",
+      "examples": Array [
+        Object {
+          "description": "List all members in data set \\"ibmuser.test.cntl\\"",
+          "options": "\\"ibmuser.test.cntl\\"",
+        },
+      ],
+      "handler": "DataSetMembers.Handler",
+      "name": "data-set-members",
+      "outputFormatOptions": true,
+      "positionals": Array [
+        Object {
+          "description": "The PDS or PDSE data set name.",
+          "name": "dsname",
+          "required": true,
+          "type": "string",
+        },
+      ],
+      "profile": Object {
+        "optional": Array [
+          "zftp",
+        ],
+      },
+      "summary": "List PDS or PDSE data set members",
+      "type": "command",
+    },
+    Object {
+      "aliases": Array [
         "sfbj",
       ],
       "description": "Given a z/OS job JOBID, list the spool files (DDs) for a z/OS job on the JES/spool queues. The command does not pre-validate the JOBID. The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
@@ -154,7 +184,7 @@ The following values can be used with the --response-format-filter (--rff) argum
       "type": "command",
     },
   ],
-  "description": "List data sets, uss files, jobs, spool files",
+  "description": "List data sets, data set members, uss files, jobs, spool files",
   "name": "list",
   "passOn": Array [
     Object {
@@ -243,7 +273,7 @@ The following values can be used with the --response-format-filter (--rff) argum
       ],
     },
   ],
-  "summary": "List data sets, uss files, jobs, spool files",
+  "summary": "List data sets, data set members, uss files, jobs, spool files",
   "type": "group",
 }
 `;
