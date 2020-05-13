@@ -12,16 +12,17 @@
 import { ICommandDefinition } from "@zowe/imperative";
 import { ListJobsDefinition } from "./jobs/Jobs.definition";
 import { ListDataSetDefinition } from "./data-set/DataSet.definition";
+import { ListDataSetMembersDefinition } from "./data-set-members/DataSetMembers.definition";
 import { ListUssFilesDefinition } from "./uss-files/UssFiles.definition";
 import { SpoolFilesByJobidDefinition } from "./spool-files-by-jobid/SpoolFilesByJobid.definition";
 import { FTPConfig } from "../../api/FTPConfig";
 
 const ListDefinition: ICommandDefinition = {
     name: "list", aliases: ["ls"],
-    summary: "List data sets, uss files, jobs, spool files",
-    description: "List data sets, uss files, jobs, spool files",
+    summary: "List data sets, data set members, uss files, jobs, spool files",
+    description: "List data sets, data set members, uss files, jobs, spool files",
     type: "group",
-    children: [ListJobsDefinition, ListDataSetDefinition, SpoolFilesByJobidDefinition, ListUssFilesDefinition],
+    children: [ListJobsDefinition, ListDataSetDefinition, ListDataSetMembersDefinition, SpoolFilesByJobidDefinition, ListUssFilesDefinition],
     passOn: [
         {
             property: "options",
