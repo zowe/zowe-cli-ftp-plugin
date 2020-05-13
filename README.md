@@ -8,11 +8,12 @@ This plug-in uses the [zos-node-accessor package](https://github.com/IBM/zos-nod
 
 You can use the plug-in to perform various tasks, such as the following:
 
-* List, view, rename, or download z/OS dataset or USS file.
+* List, view, rename, or download z/OS dataset, partitioned dataset members or USS file.
 * Upload local file or stdin to z/OS dataset or USS file.
 * List, view or download job status, job spool files.
 * Delete z/OS dataset, USS file, or job.
 * Submit job from dataset, local file and stdin.
+* Make USS directory.
 
 ## Software Requirements
 
