@@ -34,7 +34,14 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
         type: "string",
         required: true
     }],
-    options: [],
+    options: [
+        {
+            name: "wait",
+            aliases: ["w"],
+            description: "Specify this option to waiting job finished results.",
+            type: "boolean",
+            required: false
+        }],
     profile:
         {optional: ["zftp"]},
     outputFormatOptions: true
