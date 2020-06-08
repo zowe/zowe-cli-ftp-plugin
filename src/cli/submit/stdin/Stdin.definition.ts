@@ -23,7 +23,20 @@ export const SubmitStdinDefinition: ICommandDefinition = {
             description: "Submit a job from stdin, redirecting the contents of my_jcl.txt in.",
             options: " < my_jcl.txt"
         },
+        {
+            description: "Submit a job from the local file \"my_build_jcl.txt\" and waitting job status",
+            options: "\"my_build_jcl.txt\" --wait 5,12"
+        },
     ],
+    options: [
+        {
+            name: "wait",
+            aliases: ["w"],
+            description: "Specify this option to waiting job finished results.",
+            type: "boolean",
+            required: false,
+            defaultValue: "5,12"
+        }],
     profile:
         {optional: ["zftp"]},
     outputFormatOptions: true

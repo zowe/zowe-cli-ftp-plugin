@@ -27,6 +27,10 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
             description: "Submit a job from the data set \"ibmuser.cntl(iefbr14)\" and print only the job ID",
             options: "\"ibmuser.cntl(iefbr14)\" --rff jobid --rft string"
         },
+        {
+            description: "Submit a job from the data set \"ibmuser.cntl(iefbr14)\" and waitting job status",
+            options: "\"ibmuser.cntl(iefbr14)\" --wait 5,12"
+        },
     ],
     positionals: [{
         name: "dataSet",
@@ -38,9 +42,10 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
         {
             name: "wait",
             aliases: ["w"],
-            description: "Specify this option to waiting job finished results.",
-            type: "boolean",
-            required: false
+            description: "Using this option to specify job query interval and max times of querying job status",
+            type: "string",
+            required: false,
+            defaultValue: "5,12"
         }],
     profile:
         {optional: ["zftp"]},

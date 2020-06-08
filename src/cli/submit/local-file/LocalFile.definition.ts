@@ -27,6 +27,10 @@ export const SubmitLocalFileDefinition: ICommandDefinition = {
             description: "Submit a job from the local file \"my_build_jcl.txt\" and print only the job ID",
             options: "\"my_build_jcl.txt\" --rff jobid --rft string"
         },
+        {
+            description: "Submit a job from the local file \"my_build_jcl.txt\" and waitting job status",
+            options: "\"my_build_jcl.txt\" --wait 5,12"
+        },
     ],
     positionals: [{
         name: "file",
@@ -34,7 +38,15 @@ export const SubmitLocalFileDefinition: ICommandDefinition = {
         type: "existingLocalFile",
         required: true
     }],
-    options: [],
+    options: [
+        {
+            name: "wait",
+            aliases: ["w"],
+            description: "Specify this option to waiting job finished results.",
+            type: "string",
+            required: false,
+            defaultValue: "5,12"
+        }],
     profile:
         {optional: ["zftp"]},
     outputFormatOptions: true
