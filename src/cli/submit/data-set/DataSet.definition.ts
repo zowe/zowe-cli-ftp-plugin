@@ -28,7 +28,7 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
             options: "\"ibmuser.cntl(iefbr14)\" --rff jobid --rft string"
         },
         {
-            description: "Submit a job from the data set \"ibmuser.cntl(iefbr14)\" and waitting job status",
+            description: "Submit a job from the data set \"ibmuser.cntl(iefbr14)\" and wait for job complete.",
             options: "\"ibmuser.cntl(iefbr14)\" --wait 5,12"
         },
     ],
@@ -42,8 +42,8 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
         {
             name: "wait",
             aliases: ["w"],
-            description: "Using this option to specify job query interval and max times of querying job status." +
-            "The default value is 5,12 which means query job status every 5 seconds and the Maximum query time is 12",
+            description: "Specify job query interval and max times of querying job status. " +
+            "The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
             type: "string",
             required: false
         }],

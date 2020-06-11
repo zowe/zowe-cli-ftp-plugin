@@ -17,7 +17,6 @@ import { SubmitJobHandler } from "../SubmitJobHandler";
 
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        // tslint:disable-next-line: prefer-const
         this.log.debug("Submitting a job from data set '%s'. Downloading before submitting...", params.arguments.dataSet);
         const dsContent = (await params.connection.getDataset("'" + params.arguments.dataSet + "'")).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", params.arguments.dataSet);

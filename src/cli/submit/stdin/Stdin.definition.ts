@@ -24,7 +24,7 @@ export const SubmitStdinDefinition: ICommandDefinition = {
             options: " < my_jcl.txt"
         },
         {
-            description: "Submit a job from the local file \"my_build_jcl.txt\" and waitting job status",
+            description: "Submit a job from the local file \"my_build_jcl.txt\" and wait for job complete.",
             options: "\"my_build_jcl.txt\" --wait 5,12"
         },
     ],
@@ -32,8 +32,8 @@ export const SubmitStdinDefinition: ICommandDefinition = {
         {
             name: "wait",
             aliases: ["w"],
-            description: "Using this option to specify job query interval and max times of querying job status." +
-            "The default value is 5,12 which means query job status every 5 seconds and the Maximum query time is 12",
+            description: "Specify job query interval and max times of querying job status. " +
+            "The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
             type: "string",
             required: false
         }],

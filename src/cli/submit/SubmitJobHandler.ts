@@ -14,26 +14,27 @@ import { JobUtils } from "../../api/JobUtils";
 import { FTPBaseHandler } from "../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../IFTPHandlerParams";
 
+let interval = 0;
+let maxTries = 0;
+const ONE_SECOND = 1000;
+const DEFAULT_INTERVAL = 5000;
+const DEFAULT_MAX_TRIES = 12;
 export abstract class SubmitJobHandler extends FTPBaseHandler {
     public async submitJCL(jcl: string, params: IFTPHandlerParams): Promise<void> {
         const jobid = await params.connection.submitJCL(jcl);
         if (params.arguments.wait) {
-            let interval = 0;
-            let maxtry = 0;
-            const s = 1000;
-            const defaultinterval = 5000;
-            const defaultmaxtry = 12;
             const input = RegExp(/^\d+,\d+$/);
             const matched = input.test(params.arguments.wait);
             if (matched === true) {
                 const wait = params.arguments.wait.split(",", 2);
-                interval = wait[0] * s;
-                maxtry = wait[1];
+                interval = wait[0] * ONE_SECOND;
+                maxTries = wait[1];
             } else {
-                const notmatchMsg = params.response.console.log("The wait value is invalid. The default value 5,12 is used.");
+                const notmatchMsg = params.response.console.log("The wait value", params.arguments.wait, "is invalid." +
+                "The default value 5,12 is used.");
                 this.log.info(notmatchMsg);
-                interval = defaultinterval;
-                maxtry = defaultmaxtry;
+                interval = DEFAULT_INTERVAL;
+                maxTries = DEFAULT_MAX_TRIES;
             }
             return new Promise((resolve, reject) => {
                 let num = 0;
@@ -54,8 +55,8 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                                 clearInterval(timerId);
                                 resolve();
                             }, 0);
-                        } else if (num === maxtry) {
-                            const stopcheckMsg = params.response.console.log("Job is runing, palease check status later!", +
+                        } else if (num === maxTries) {
+                            const stopcheckMsg = params.response.console.log("Job is running. Please check status later!", +
                                 jobDetails.jobname, jobDetails.jobid);
                             this.log.info(stopcheckMsg);
                             setTimeout(() => {
@@ -63,7 +64,7 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                                 resolve();
                             }, 0);
                         } else {
-                            const waitMsg = params.response.console.log("Job is runing, palease wait!", jobDetails.jobname, jobDetails.jobid);
+                            const waitMsg = params.response.console.log("Job is running. Please wait!", jobDetails.jobname, jobDetails.jobid);
                             this.log.info(waitMsg);
                             num = num + 1;
                         }
