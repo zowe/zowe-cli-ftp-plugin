@@ -42,10 +42,10 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
         {
             name: "wait",
             aliases: ["w"],
-            description: "Using this option to specify job query interval and max times of querying job status",
+            description: "Using this option to specify job query interval and max times of querying job status." +
+            "The default value is 5,12 which means query job status every 5 seconds and the Maximum query time is 12",
             type: "string",
-            required: false,
-            defaultValue: "5,12"
+            required: false
         }],
     profile:
         {optional: ["zftp"]},

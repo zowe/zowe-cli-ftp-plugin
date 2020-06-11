@@ -32,10 +32,10 @@ export const SubmitStdinDefinition: ICommandDefinition = {
         {
             name: "wait",
             aliases: ["w"],
-            description: "Specify this option to waiting job finished results.",
-            type: "boolean",
-            required: false,
-            defaultValue: "5,12"
+            description: "Using this option to specify job query interval and max times of querying job status." +
+            "The default value is 5,12 which means query job status every 5 seconds and the Maximum query time is 12",
+            type: "string",
+            required: false
         }],
     profile:
         {optional: ["zftp"]},

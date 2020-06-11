@@ -18,10 +18,20 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
     public async submitJCL(jcl: string, params: IFTPHandlerParams): Promise<void> {
         const jobid = await params.connection.submitJCL(jcl);
         if (params.arguments.wait) {
-            const wait = params.arguments.wait.split(",", 2);
-            // tslint:disable-next-line: no-magic-numbers
-            const interval = wait[0] * 1000;
-            const maxtry = wait[1] * 1;
+            const input = RegExp(/^\d+,\d+$/);
+            const judge = input.test(params.arguments.wait);
+            if (judge === true) {
+                const wait = params.arguments.wait.split(",", 2);
+                // tslint:disable-next-line: no-var-keyword no-magic-numbers
+                var interval = wait[0] * 1000;
+                // tslint:disable-next-line: no-var-keyword
+                var maxtry = wait[1] * 1;
+            } else {
+                // tslint:disable-next-line: no-magic-numbers
+                interval = 5000;
+                // tslint:disable-next-line: no-magic-numbers
+                maxtry = 12;
+            }
             return new Promise((resolve, reject) => {
                 let num = 0;
                 const timerId = setInterval(async () => {
@@ -54,9 +64,6 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                             const waitMsg = params.response.console.log("Job is runing, palease wait!", jobDetails.jobname, jobDetails.jobid);
                             this.log.info(waitMsg);
                             num = num + 1;
-                            const successMsg5 = params.response.console.log(num.toString());
-                            this.log.info(successMsg5);
-
                         }
                     }
                     catch (err) {
