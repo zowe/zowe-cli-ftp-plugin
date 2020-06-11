@@ -18,19 +18,22 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
     public async submitJCL(jcl: string, params: IFTPHandlerParams): Promise<void> {
         const jobid = await params.connection.submitJCL(jcl);
         if (params.arguments.wait) {
+            let interval = 0;
+            let maxtry = 0;
+            const s = 1000;
+            const defaultinterval = 5000;
+            const defaultmaxtry = 12;
             const input = RegExp(/^\d+,\d+$/);
-            const judge = input.test(params.arguments.wait);
-            if (judge === true) {
+            const matched = input.test(params.arguments.wait);
+            if (matched === true) {
                 const wait = params.arguments.wait.split(",", 2);
-                // tslint:disable-next-line: no-var-keyword no-magic-numbers
-                var interval = wait[0] * 1000;
-                // tslint:disable-next-line: no-var-keyword
-                var maxtry = wait[1] * 1;
+                interval = wait[0] * s;
+                maxtry = wait[1];
             } else {
-                // tslint:disable-next-line: no-magic-numbers
-                interval = 5000;
-                // tslint:disable-next-line: no-magic-numbers
-                maxtry = 12;
+                const notmatchMsg = params.response.console.log("The wait value is invalid. The default value 5,12 is used.");
+                this.log.info(notmatchMsg);
+                interval = defaultinterval;
+                maxtry = defaultmaxtry;
             }
             return new Promise((resolve, reject) => {
                 let num = 0;
@@ -52,29 +55,26 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                                 resolve();
                             }, 0);
                         } else if (num === maxtry) {
-                            // tslint:disable-next-line: max-line-length
-                            const stopcheckMsg = params.response.console.log("Job is runing, palease check status later!", jobDetails.jobname, jobDetails.jobid);
+                            const stopcheckMsg = params.response.console.log("Job is runing, palease check status later!", +
+                                jobDetails.jobname, jobDetails.jobid);
                             this.log.info(stopcheckMsg);
                             setTimeout(() => {
                                 clearInterval(timerId);
                                 resolve();
                             }, 0);
-                        }
-                        else {
+                        } else {
                             const waitMsg = params.response.console.log("Job is runing, palease wait!", jobDetails.jobname, jobDetails.jobid);
                             this.log.info(waitMsg);
                             num = num + 1;
                         }
-                    }
-                    catch (err) {
+                    } catch (err) {
                         const errMsg = params.response.console.log(err);
                         this.log.info(errMsg);
                         reject();
                     }
                 }, interval);
             });
-        }
-        else {
+        } else {
             const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
             const successMsg = params.response.console.log("Submitted job successfully!", jobDetails.jobname, jobDetails.jobid);
             this.log.info(successMsg);
