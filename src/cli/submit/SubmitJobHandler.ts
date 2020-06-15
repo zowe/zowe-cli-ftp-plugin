@@ -45,15 +45,8 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                         const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
                         const status = jobDetails.status.toString();
                         if (status === "OUTPUT") {
-                            const successMsg = params.response.console.log("Submitted job successfully, jobname:" +
-                                jobDetails.jobname, ", jobid:", jobDetails.jobid);
+                            const successMsg = params.response.console.log("Job finished, rc:", jobDetails.rc);
                             this.log.info(successMsg);
-                            params.response.data.setObj(jobDetails);
-                            params.response.format.output({
-                                output: jobDetails,
-                                format: "object",
-                                fields: ["jobid", "jobname", "owner", "status", "rc"]
-                            });
                             setTimeout(() => {
                                 clearInterval(timerId);
                                 resolve();
@@ -68,8 +61,8 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                             }, 0);
                         } else {
                             if (flag === "N") {
-                                const waitMsg = params.response.console.log("Job is running, " +
-                                    "jobname:", jobDetails.jobname, ", jobid:", jobDetails.jobid);
+                                const waitMsg = params.response.console.log("Submitted job successfully. " +
+                                    "jobname:", jobDetails.jobname, ", jobid:", jobDetails.jobid, "\nWaiting for job completion.");
                                 this.log.info(waitMsg);
                                 flag = "Y";
                             } else if (flag === "Y") {
@@ -88,14 +81,12 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
             });
         } else {
             const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
-            const successMsg = params.response.console.log("Submitted job successfully, jobname:" +
-                jobDetails.jobname, ", jobid:", jobDetails.jobid);
-            this.log.info(successMsg);
+            this.log.info("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
             params.response.data.setObj(jobDetails);
             params.response.format.output({
                 output: jobDetails,
                 format: "object",
-                fields: ["jobid", "jobname", "owner", "status", "rc"]
+                fields: ["jobid", "jobname", "owner", "status"]
             });
         }
     }
