@@ -9,9 +9,6 @@
  *
  */
 
-import { IO } from "@zowe/imperative";
-import { JobUtils } from "../../../api/JobUtils";
-import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { CoreUtils } from "../../../api/CoreUtils";
 import { SubmitJobHandler } from "../SubmitJobHandler";

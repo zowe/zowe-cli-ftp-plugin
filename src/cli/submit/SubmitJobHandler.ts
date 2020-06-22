@@ -9,7 +9,6 @@
  *
  */
 
-import { IO } from "@zowe/imperative";
 import { JobUtils } from "../../api/JobUtils";
 import { FTPBaseHandler } from "../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../IFTPHandlerParams";
@@ -17,10 +16,19 @@ import { IFTPHandlerParams } from "../../IFTPHandlerParams";
 const ONE_SECOND = 1000;
 const DEFAULT_INTERVAL = 5000;
 const DEFAULT_MAX_TRIES = 12;
+
 export abstract class SubmitJobHandler extends FTPBaseHandler {
+
     public async submitJCL(jcl: string, params: IFTPHandlerParams): Promise<void> {
         const jobid = await params.connection.submitJCL(jcl);
+        const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
+        const message = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
+        this.log.info(message);
+
         if (params.arguments.wait) {
+            const message2 = params.response.console.log("Waiting for job completion.");
+            this.log.info(message2);
+
             let interval = 0;
             let maxTries = 0;
             const input = RegExp(/^\d+,\d+$/);
@@ -39,38 +47,46 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
             return new Promise((resolve, reject) => {
                 let num = 0;
                 let time = interval / ONE_SECOND;
-                let flag = "N";
                 const timerId = setInterval(async () => {
                     try {
-                        const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
-                        const status = jobDetails.status.toString();
+                        const jobDetails2 = await JobUtils.findJobByID(jobid, params.connection);
+                        const status = jobDetails2.status.toString();
                         if (status === "OUTPUT") {
-                            const successMsg = params.response.console.log("Job finished, rc:", jobDetails.rc);
+                            const successMsg = params.response.console.log("Job %s finished.", jobDetails2.jobid);
+                            params.response.data.setObj(jobDetails2);
+                            params.response.format.output({
+                                output: jobDetails2,
+                                format: "object",
+                                fields: ["jobid", "jobname", "owner", "status", "rc"]
+                            });
                             this.log.info(successMsg);
                             setTimeout(() => {
                                 clearInterval(timerId);
                                 resolve();
                             }, 0);
                         } else if (num === maxTries) {
-                            const stopcheckMsg = params.response.console.log("Job is running. Please using the following command to check status later: \n" +
-                                "\"zowe zos-ftp view job-status-by-jobid", jobDetails.jobid, "\"");
-                            this.log.info(stopcheckMsg);
+                            let message3 = params.response.console.log("Job is still running.");
+                            this.log.info(message3);
+
+                            params.response.data.setObj(jobDetails2);
+                            params.response.format.output({
+                                output: jobDetails2,
+                                format: "object",
+                                fields: ["jobid", "jobname", "owner", "status"]
+                            });
+
+                            message3 = params.response.console.log("\nPlease using the following command to check its status later: \n" +
+                                "    \"zowe zos-ftp view job-status-by-jobid", jobDetails.jobid, "\"");
+                            this.log.info(message3);
                             setTimeout(() => {
                                 clearInterval(timerId);
                                 resolve();
                             }, 0);
                         } else {
-                            if (flag === "N") {
-                                const waitMsg = params.response.console.log("Submitted job successfully. " +
-                                    "jobname:", jobDetails.jobname, ", jobid:", jobDetails.jobid, "\nWaiting for job completion.");
-                                this.log.info(waitMsg);
-                                flag = "Y";
-                            } else if (flag === "Y") {
-                                const waittimeMsg = params.response.console.log(time.toString(), "s");
-                                this.log.info(waittimeMsg);
-                                time = time + interval / ONE_SECOND;
-                                num = num + 1;
-                            }
+                            const waittimeMsg = params.response.console.log(time.toString(), "s");
+                            this.log.info(waittimeMsg);
+                            time = time + interval / ONE_SECOND;
+                            num = num + 1;
                         }
                     } catch (err) {
                         const errMsg = params.response.console.log(err);
@@ -80,8 +96,6 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                 }, interval);
             });
         } else {
-            const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
-            this.log.info("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
             params.response.data.setObj(jobDetails);
             params.response.format.output({
                 output: jobDetails,

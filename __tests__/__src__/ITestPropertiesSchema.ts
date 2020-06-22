@@ -73,7 +73,7 @@ export interface ITestPropertiesSchema {
          * a PDS member containing IEFBR14 JCL that your user ID can submit
          */
         iefbr14Member: string,
-        syscmdMember: string;
+        sleepMember: string;
     };
     uss: {
         /**

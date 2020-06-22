@@ -66,47 +66,48 @@ describe("submit job from local file command", () => {
     it("should be able to submit a job from a local file with wait option and get rc successfully", async () => {
 
         // download the appropriate JCL content from the data set
-        const syscmdDataSet = testEnvironment.systemTestProperties.jobs.syscmdMember;
-        const syscmdContent = (await connection.getDataset(syscmdDataSet)).toString();
-        const jclFilePath = testEnvironment.workingDir + "/syscmd.txt";
-        await IO.writeFileAsync(jclFilePath, syscmdContent);
+        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
+        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
+        const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
+        await IO.writeFileAsync(jclFilePath, sleepContent);
         const wait = "3,5";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_local_file_wait.sh", testEnvironment, [jclFilePath,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
-        expect(result.stdout.toString()).toContain("Job finished, rc");
+        expect(result.output.toString()).toContain("rc:");
     });
 
     it("should be able to submit a job from a local file with invalid wait value", async () => {
 
         // download the appropriate JCL content from the data set
-        const syscmdDataSet = testEnvironment.systemTestProperties.jobs.syscmdMember;
-        const syscmdContent = (await connection.getDataset(syscmdDataSet)).toString();
-        const jclFilePath = testEnvironment.workingDir + "/syscmd.txt";
-        await IO.writeFileAsync(jclFilePath, syscmdContent);
+        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
+        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
+        const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
+        await IO.writeFileAsync(jclFilePath, sleepContent);
         const wait = "3,";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_local_file_wait.sh", testEnvironment, [jclFilePath,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("is invalid.");
         expect(result.output.toString()).toContain("The default value");
-        expect(result.stdout.toString()).toContain("Job finished, rc");
+        expect(result.output.toString()).toContain("rc:");
     });
 
     it("should be able to submit a job from a local file but not finished within specified wait option", async () => {
 
         // download the appropriate JCL content from the data set
-        const syscmdDataSet = testEnvironment.systemTestProperties.jobs.syscmdMember;
-        const syscmdContent = (await connection.getDataset(syscmdDataSet)).toString();
-        const jclFilePath = testEnvironment.workingDir + "/syscmd.txt";
-        await IO.writeFileAsync(jclFilePath, syscmdContent);
+        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
+        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
+        const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
+        await IO.writeFileAsync(jclFilePath, sleepContent);
         const wait = "1,2";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_local_file_wait.sh", testEnvironment, [jclFilePath,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Submitted job successfully");
-        expect(result.output.toString()).toContain("Job is running. Please using the following command to check status later:");
+        expect(result.output.toString()).toContain("Job is still running.");
+        expect(result.output.toString()).toContain("Please using the following command to check its status later:");
     });
 
     it("should give a syntax error if the local file to submit is omitted", async () => {
