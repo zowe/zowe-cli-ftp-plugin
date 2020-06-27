@@ -20,10 +20,24 @@ Object {
           "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and print only the job ID",
           "options": "\\"my_build_jcl.txt\\" --rff jobid --rft string",
         },
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and wait for job complete.",
+          "options": "\\"my_build_jcl.txt\\" --wait 5,12",
+        },
       ],
       "handler": "LocalFile.Handler",
       "name": "local-file",
-      "options": Array [],
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+      ],
       "outputFormatOptions": true,
       "positionals": Array [
         Object {
@@ -55,10 +69,24 @@ Object {
           "description": "Submit a job from the data set \\"ibmuser.cntl(iefbr14)\\" and print only the job ID",
           "options": "\\"ibmuser.cntl(iefbr14)\\" --rff jobid --rft string",
         },
+        Object {
+          "description": "Submit a job from the data set \\"ibmuser.cntl(iefbr14)\\" and wait for job complete.",
+          "options": "\\"ibmuser.cntl(iefbr14)\\" --wait 5,12",
+        },
       ],
       "handler": "DataSet.Handler",
       "name": "data-set",
-      "options": Array [],
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+      ],
       "outputFormatOptions": true,
       "positionals": Array [
         Object {
@@ -86,9 +114,24 @@ Object {
           "description": "Submit a job from stdin, redirecting the contents of my_jcl.txt in.",
           "options": " < my_jcl.txt",
         },
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and wait for job complete.",
+          "options": "\\"my_build_jcl.txt\\" --wait 5,12",
+        },
       ],
       "handler": "Stdin.Handler",
       "name": "stdin",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+      ],
       "outputFormatOptions": true,
       "profile": Object {
         "optional": Array [
