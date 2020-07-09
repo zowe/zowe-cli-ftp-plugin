@@ -43,9 +43,26 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
             name: "wait",
             aliases: ["w"],
             description: "Specify job query interval and max times of querying job status. " +
-            "The default value is '5,12' which queries job status every 5 seconds for 12 times at most.",
+            "The format of this option is comma-separated numeric values. For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
             type: "string",
-            required: false
+            required: false,
+            conflictsWith: ["wait-for-active", "wait-for-output"]
+        },
+        {
+            name: "wait-for-output",
+            aliases: ["wfo"],
+            description: "Wait for the job to enter OUTPUT status before completing the command.",
+            type: "boolean",
+            required: false,
+            conflictsWith: ["wait-for-active", "wait"]
+        },
+        {
+            name: "wait-for-active",
+            aliases: ["wfa"],
+            description: "Wait for the job to enter ACTIVE status before completing the command.",
+            type: "boolean",
+            required: false,
+            conflictsWith: ["wait-for-output", "wait"]
         }],
     profile:
         {optional: ["zftp"]},

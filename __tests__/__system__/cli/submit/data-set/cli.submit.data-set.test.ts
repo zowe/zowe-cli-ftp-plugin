@@ -15,7 +15,6 @@ import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
 
-let dsname: string;
 let user: string;
 let connection: any;
 
@@ -53,7 +52,6 @@ describe("submit job from data set command", () => {
 
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set.sh", testEnvironment, [iefbr14DataSet]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -65,34 +63,30 @@ describe("submit job from data set command", () => {
 
         // download the appropriate JCL content from the data set
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const wait = "3,5";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
         expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("finished");
     });
 
-    it("should be able to submit a job from a local file with invalid wait value", async () => {
+    it("should give a syntax error if the wait value is invalid", async () => {
 
         // download the appropriate JCL content from the data set
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const wait = "3,";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,wait]);
-        expect(result.stderr.toString()).toEqual("");
+        expect(result.output.toString()).toContain("comma-separated numeric values");
+        expect(result.output.toString()).toContain("Syntax error:");
         expect(result.status).toEqual(0);
-        expect(result.output.toString()).toContain("is invalid.");
-        expect(result.output.toString()).toContain("The default value");
-        expect(result.output.toString()).toContain("rc:");
     });
 
     it("should be able to submit a job from a local file but not finished within specified wait option", async () => {
 
         // download the appropriate JCL content from the data set
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const wait = "1,2";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,wait]);
         expect(result.stderr.toString()).toEqual("");
@@ -100,6 +94,31 @@ describe("submit job from data set command", () => {
         expect(result.output.toString()).toContain("Submitted job successfully");
         expect(result.output.toString()).toContain("Job is still running.");
         expect(result.output.toString()).toContain("Please using the following command to check its status later:");
+    });
+
+    it("should be able to submit a job from a local file with wait-for-output option and get rc successfully", async () => {
+
+        // download the appropriate JCL content from the data set
+        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
+        const option = "--wait-for-output";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_waitopt.sh", testEnvironment, [sleepDataSet,option]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.output.toString()).toContain("Waiting for job completion.");
+        expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("finished");
+    });
+
+    it("should be able to submit a job from a local file with wait-for-active option and get rc successfully", async () => {
+
+        // download the appropriate JCL content from the data set
+        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
+        const option = "--wait-for-active";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_waitopt.sh", testEnvironment, [sleepDataSet,option]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.output.toString()).not.toContain("rc:");
+        expect(result.output.toString()).toContain("ACTIVE");
     });
 
     it("should give a syntax error if the data set to submit is omitted", async () => {

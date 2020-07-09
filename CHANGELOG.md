@@ -4,9 +4,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## Recent Changes
 
-## `1.1.1` 
-
-- Can get return code when submit jcl with --wait options.
+- Added three options for submit job: --wait, --wait-for-output, --wait-for-active.
 
 ## `1.1.0`
 
