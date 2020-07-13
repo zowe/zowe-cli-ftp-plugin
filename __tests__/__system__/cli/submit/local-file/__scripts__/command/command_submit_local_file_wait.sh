@@ -1,6 +1,12 @@
 #!/bin/bash
 localFile=$1
-wait=$2
+option=$2
+wait=$3
 set -e
 
-bright zos-ftp submit local-file "$localFile" --wait "$wait"
+if [ "$2" == "--wait" ] 
+then
+bright zos-ftp submit local-file "$localFile" "$option" "$wait"
+else
+bright zos-ftp submit local-file "$localFile" "$option"
+fi

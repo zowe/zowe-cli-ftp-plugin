@@ -21,26 +21,30 @@ let maxTries = 0;
 export abstract class SubmitJobHandler extends FTPBaseHandler {
     public async submitJCL(jcl: string, params: IFTPHandlerParams): Promise<void> {
 
-        if (params.arguments.wait || params.arguments.wfo || params.arguments.wfa) {
+        if (params.arguments.wait) {
             const input = RegExp(/^\d+,\d+$/);
             const matched = input.test(params.arguments.wait);
             if (matched === true) {
                 const wait = params.arguments.wait.split(",", 2);
                 interval = wait[0] * ONE_SECOND;
                 maxTries = wait[1] * 1;
-            } else if (params.arguments.wfo || params.arguments.wfa) {
-                interval = DEFAULT_INTERVAL;
-                maxTries = DEFAULT_MAX_TRIES;
             } else {
                 const notmatchMsg = params.response.console.log("Syntax error: The format of wait option is comma-separated numeric values. " +
                     "For example,'5,12' means queries job status every 5 seconds for 12 times at most.");
                 this.log.error(notmatchMsg);
                 return Promise.resolve();
             }
-            const jobid = await params.connection.submitJCL(jcl);
-            const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
-            const subMsg = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
-            this.log.info(subMsg);
+        }
+        else if (params.arguments.wfo || params.arguments.wfa) {
+            interval = DEFAULT_INTERVAL;
+            maxTries = DEFAULT_MAX_TRIES;
+            }
+
+        const jobid = await params.connection.submitJCL(jcl);
+        const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
+        const subMsg = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
+        this.log.info(subMsg);
+        if (params.arguments.wait || params.arguments.wfo || params.arguments.wfa) {
             const waitMsg = params.response.console.log("Waiting for job completion.");
             this.log.info(waitMsg);
             return new Promise((resolve, reject) => {
@@ -82,13 +86,11 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                                 resolve();
                             }, 0);
                         } else if (status === "ACTIVE" && params.arguments.wfa) {
-                            // const jobid2 = await params.connection.submitJCL(jcl);
-                            const jobDetails2 = await JobUtils.findJobByID(jobid, params.connection);
                             const activeMsg = params.response.console.log("Job is active.");
                             this.log.info(activeMsg);
-                            params.response.data.setObj(jobDetails2);
+                            params.response.data.setObj(jobDetails);
                             params.response.format.output({
-                                output: jobDetails2,
+                                output: jobDetails,
                                 format: "object",
                                 fields: ["jobid", "jobname", "owner", "status"]
                             });
@@ -110,10 +112,6 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                 }, interval);
             });
         } else {
-            const jobid = await params.connection.submitJCL(jcl);
-            const jobDetails = await JobUtils.findJobByID(jobid, params.connection);
-            const message = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
-            this.log.info(message);
             params.response.data.setObj(jobDetails);
             params.response.format.output({
                 output: jobDetails,

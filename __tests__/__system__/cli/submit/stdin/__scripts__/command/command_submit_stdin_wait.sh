@@ -1,7 +1,13 @@
 #!/bin/bash
 localFile=$1
-wait=$2
+option=$2
+wait=$3
 set -e
 set -o pipefail
 
-cat "$localFile" | bright zos-ftp submit stdin --wait "$wait"
+if [ "$2" == "--wait" ] 
+then
+cat "$localFile" | bright zos-ftp submit stdin "$option" "$wait"
+else
+cat "$localFile" | bright zos-ftp submit stdin "$option"
+fi
