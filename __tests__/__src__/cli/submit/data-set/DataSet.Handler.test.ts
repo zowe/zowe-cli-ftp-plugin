@@ -11,6 +11,8 @@
 
 import SubmitJobFromLocalFileHandler from "../../../../../src/cli/submit/data-set/DataSet.Handler";
 import TestUtils from "../../TestUtils";
+import { doesNotThrow } from "assert";
+import { NONAME } from "dns";
 
 describe("Submit data set handler", () => {
 
@@ -36,6 +38,45 @@ describe("Submit data set handler", () => {
         await handler.processFTP(mockParams);
         expect(mockResponse.data.setObj.mock.calls[0][0]).toMatchSnapshot();
         expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();
+    });
+
+    it("should return correct message if the data set is submit successfully with wait option.", async () => {
+
+        const handler = new SubmitJobFromLocalFileHandler();
+        const jobDetails = {
+            jobid: "jobid2",
+            jobname: "jobname2",
+            owner: "owner2",
+            status: "OUTPUT",
+            rc: 0
+        };
+
+        const jobRuning = {
+            jobid: "jobid2",
+            jobname: "jobname2",
+            owner: "owner2",
+            status: "ACTIVE"
+        };
+
+        const mockResponse = TestUtils.getMockResponse();
+        const mockParams: any = {
+            arguments: {
+                dataSet: "ds2",
+                wait: "5,10"
+            },
+            connection: {
+                getDataset: jest.fn().mockReturnValue(Promise.resolve(Buffer.from(""))),
+                submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid2")),
+                getJobStatus: jest.fn().mockReturnValueOnce(Promise.resolve(jobRuning)).mockReturnValueOnce(Promise.resolve(jobRuning))
+                .mockReturnValue(Promise.resolve(jobDetails))
+            },
+            response: mockResponse
+        };
+        await handler.processFTP(mockParams);
+        expect(mockResponse.data.setObj.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockParams.connection.getJobStatus).toHaveBeenCalledTimes(3);
+        expect(mockResponse.console.log.mock.calls[1][0]).toBe("Waiting for job completion.");
     });
 
 });

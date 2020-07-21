@@ -1,5 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Submit data set handler should return correct message if the data set is submit successfully with wait option. 1`] = `
+Object {
+  "jobid": "jobid2",
+  "jobname": "jobname2",
+  "owner": "owner2",
+  "rc": 0,
+  "status": "OUTPUT",
+}
+`;
+
+exports[`Submit data set handler should return correct message if the data set is submit successfully with wait option. 2`] = `
+Object {
+  "fields": Array [
+    "jobid",
+    "jobname",
+    "owner",
+    "status",
+    "rc",
+  ],
+  "format": "object",
+  "output": Object {
+    "jobid": "jobid2",
+    "jobname": "jobname2",
+    "owner": "owner2",
+    "rc": 0,
+    "status": "OUTPUT",
+  },
+}
+`;
+
 exports[`Submit data set handler should return correct message if the data set is submit successfully. 1`] = `
 Object {
   "jobid": "jobid1",
