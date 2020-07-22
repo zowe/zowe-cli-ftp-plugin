@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.2.0`
 
 - Added three options for submit job: --wait, --wait-for-output, --wait-for-active.
 
