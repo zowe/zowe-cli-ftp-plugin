@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Added three options for submit job: --wait, --wait-for-output, --wait-for-active.
+
 ## `1.1.0`
 
 - Added two commands: list data-set-members and make uss-directory.
@@ -17,3 +21,4 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 ## `1.0.0`
 
 - Plugin released
+

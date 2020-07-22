@@ -20,10 +20,54 @@ Object {
           "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and print only the job ID",
           "options": "\\"my_build_jcl.txt\\" --rff jobid --rft string",
         },
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and wait for job complete.",
+          "options": "\\"my_build_jcl.txt\\" --wait 5,12",
+        },
       ],
       "handler": "LocalFile.Handler",
       "name": "local-file",
-      "options": Array [],
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait-for-output",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The format of this option is comma-separated numeric values. For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "wfo",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait",
+          ],
+          "description": "Wait for the job to enter OUTPUT status before completing the command.",
+          "name": "wait-for-output",
+          "required": false,
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "wfa",
+          ],
+          "conflictsWith": Array [
+            "wait-for-output",
+            "wait",
+          ],
+          "description": "Wait for the job to enter ACTIVE status before completing the command.",
+          "name": "wait-for-active",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
       "outputFormatOptions": true,
       "positionals": Array [
         Object {
@@ -55,10 +99,54 @@ Object {
           "description": "Submit a job from the data set \\"ibmuser.cntl(iefbr14)\\" and print only the job ID",
           "options": "\\"ibmuser.cntl(iefbr14)\\" --rff jobid --rft string",
         },
+        Object {
+          "description": "Submit a job from the data set \\"ibmuser.cntl(iefbr14)\\" and wait for job complete.",
+          "options": "\\"ibmuser.cntl(iefbr14)\\" --wait 5,12",
+        },
       ],
       "handler": "DataSet.Handler",
       "name": "data-set",
-      "options": Array [],
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait-for-output",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The format of this option is comma-separated numeric values. For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "wfo",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait",
+          ],
+          "description": "Wait for the job to enter OUTPUT status before completing the command.",
+          "name": "wait-for-output",
+          "required": false,
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "wfa",
+          ],
+          "conflictsWith": Array [
+            "wait-for-output",
+            "wait",
+          ],
+          "description": "Wait for the job to enter ACTIVE status before completing the command.",
+          "name": "wait-for-active",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
       "outputFormatOptions": true,
       "positionals": Array [
         Object {
@@ -86,9 +174,54 @@ Object {
           "description": "Submit a job from stdin, redirecting the contents of my_jcl.txt in.",
           "options": " < my_jcl.txt",
         },
+        Object {
+          "description": "Submit a job from the local file \\"my_build_jcl.txt\\" and wait for job complete.",
+          "options": "\\"my_build_jcl.txt\\" --wait 5,12",
+        },
       ],
       "handler": "Stdin.Handler",
       "name": "stdin",
+      "options": Array [
+        Object {
+          "aliases": Array [
+            "w",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait-for-output",
+          ],
+          "description": "Specify job query interval and max times of querying job status. The format of this option is comma-separated numeric values. For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
+          "name": "wait",
+          "required": false,
+          "type": "string",
+        },
+        Object {
+          "aliases": Array [
+            "wfo",
+          ],
+          "conflictsWith": Array [
+            "wait-for-active",
+            "wait",
+          ],
+          "description": "Wait for the job to enter OUTPUT status before completing the command.",
+          "name": "wait-for-output",
+          "required": false,
+          "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "wfa",
+          ],
+          "conflictsWith": Array [
+            "wait-for-output",
+            "wait",
+          ],
+          "description": "Wait for the job to enter ACTIVE status before completing the command.",
+          "name": "wait-for-active",
+          "required": false,
+          "type": "boolean",
+        },
+      ],
       "outputFormatOptions": true,
       "profile": Object {
         "optional": Array [

@@ -1,5 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Submit job from local file handler should return correct message if the local file is submit successfully with wait option. 1`] = `
+Object {
+  "jobid": "jobid2",
+  "jobname": "jobname2",
+  "owner": "owner2",
+  "rc": 0,
+  "spoolFiles": Array [
+    Object {
+      "name": "file1",
+    },
+    Object {
+      "name": "file2",
+    },
+  ],
+  "status": "OUTPUT",
+}
+`;
+
+exports[`Submit job from local file handler should return correct message if the local file is submit successfully with wait option. 2`] = `
+Object {
+  "fields": Array [
+    "jobid",
+    "jobname",
+    "owner",
+    "status",
+    "rc",
+  ],
+  "format": "object",
+  "output": Object {
+    "jobid": "jobid2",
+    "jobname": "jobname2",
+    "owner": "owner2",
+    "rc": 0,
+    "spoolFiles": Array [
+      Object {
+        "name": "file1",
+      },
+      Object {
+        "name": "file2",
+      },
+    ],
+    "status": "OUTPUT",
+  },
+}
+`;
+
 exports[`Submit job from local file handler should return correct message if the local file is submit successfully. 1`] = `
 Array [
   Object {

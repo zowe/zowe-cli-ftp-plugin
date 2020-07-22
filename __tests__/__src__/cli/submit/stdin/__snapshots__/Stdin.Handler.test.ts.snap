@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Submit job from stdin handler should return correct message if the job is submit successfully with wait option. 1`] = `
+Array [
+  Object {
+    "jobid": "jobid2",
+    "jobname": "jobname2",
+    "owner": "owner2",
+    "rc": 0,
+    "spoolFiles": Array [
+      Object {
+        "name": "file1",
+      },
+      Object {
+        "name": "file2",
+      },
+    ],
+    "status": "OUTPUT",
+  },
+]
+`;
+
+exports[`Submit job from stdin handler should return correct message if the job is submit successfully with wait option. 2`] = `
+Array [
+  Object {
+    "fields": Array [
+      "jobid",
+      "jobname",
+      "owner",
+      "status",
+      "rc",
+    ],
+    "format": "object",
+    "output": Object {
+      "jobid": "jobid2",
+      "jobname": "jobname2",
+      "owner": "owner2",
+      "rc": 0,
+      "spoolFiles": Array [
+        Object {
+          "name": "file1",
+        },
+        Object {
+          "name": "file2",
+        },
+      ],
+      "status": "OUTPUT",
+    },
+  },
+]
+`;
+
 exports[`Submit job from stdin handler should return correct message if the job is submit successfully. 1`] = `
 Array [
   Object {
