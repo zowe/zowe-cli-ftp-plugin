@@ -17,8 +17,7 @@ export const ViewSpoolFileByIdDefinition: ICommandDefinition = {
     type: "command",
     summary: "View a spool file from a z/OS job",
     description: "View the contents of a spool file from a z/OS job on spool/JES queues. " +
-    "The command does not pre-validate the JOBID or spool ID. " +
-    "The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
+    "The command does not pre-validate the JOBID or spool ID. ",
     handler: __dirname + "/SpoolFileById.Handler",
     profile: {
         optional: ["zftp"]

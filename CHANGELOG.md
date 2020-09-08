@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Fixed view spool file by id with wrong content.
+
 ## `1.2.0`
 
 - Added three options for submit job: --wait, --wait-for-output, --wait-for-active.
