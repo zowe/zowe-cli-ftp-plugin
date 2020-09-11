@@ -7,6 +7,7 @@
 #                    members too. member names are randomized, so it's        #
 #                    possible for existing members to be overwritten          #
 #  ds-iefbr14-pds  - PDS qualified by an IEFBR14 member JCL to submit         #
+#  ds-sleep-pds    - PDS qualified by an SLEEP member JCL to submit
 #  ds-iefbr14-ps   - PS with an IEFBR14 JCL to submit                         #
 #  ftp-host      - The host name for the LPAR with FTP                        #
 #  ftp-port      - The FTP port                                               #
@@ -48,8 +49,8 @@ datasets:
 jobs:
   # a PDS member containing IEFBR14 JCL that your user ID can submit
   iefbr14Member: ds-iefbr14-pds
-
-
+  # a PDS member containing SLEEP JCL that your user ID can submit
+  sleepMember: ds-sleep-pds
 #-----------------------------------------------------------------------------#
 #  Set of properties for testing USS functionality                            #
 #-----------------------------------------------------------------------------#

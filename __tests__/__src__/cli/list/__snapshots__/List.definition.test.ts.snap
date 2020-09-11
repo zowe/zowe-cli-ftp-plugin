@@ -122,7 +122,7 @@ However, the pattern cannot begin with any of these sequences.
       "aliases": Array [
         "sfbj",
       ],
-      "description": "Given a z/OS job JOBID, list the spool files (DDs) for a z/OS job on the JES/spool queues. The command does not pre-validate the JOBID. The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
+      "description": "Given a z/OS job JOBID, list the spool files (DDs) for a z/OS job on the JES/spool queues. The command does not pre-validate the JOBID. ",
       "examples": Array [
         Object {
           "description": "List the spool files of the job with JOBID JOB00123",

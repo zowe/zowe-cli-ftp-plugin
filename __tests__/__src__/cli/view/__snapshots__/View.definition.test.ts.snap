@@ -53,7 +53,7 @@ Object {
       "aliases": Array [
         "sfbi",
       ],
-      "description": "View the contents of a spool file from a z/OS job on spool/JES queues. The command does not pre-validate the JOBID or spool ID. The command presents errors verbatim from the z/OSMF Jobs REST endpoints.",
+      "description": "View the contents of a spool file from a z/OS job on spool/JES queues. The command does not pre-validate the JOBID or spool ID. ",
       "examples": Array [
         Object {
           "description": "View the spool file with ID 4 for the job with job ID JOB00123",
@@ -88,7 +88,7 @@ Object {
       "aliases": Array [
         "jsbj",
       ],
-      "description": "View status details of a single z/OS job on spool/JES queues. The command does not prevalidate the JOBID. The command presents errors verbatim from the z/OSMF Jobs REST endpoints (expect for \\"no jobs found\\").",
+      "description": "View status details of a single z/OS job on spool/JES queues. The command does not prevalidate the JOBID. ",
       "examples": Array [
         Object {
           "description": "View the status for the job with ID \\"JOB00123\\" (optionally abbreviating the ID)",
