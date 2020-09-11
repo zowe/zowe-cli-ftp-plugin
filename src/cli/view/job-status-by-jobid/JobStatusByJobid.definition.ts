@@ -18,7 +18,7 @@ export const ViewJobStatusByJobidDefinition: ICommandDefinition = {
     name: "job-status-by-jobid", aliases: ["jsbj"],
     summary: "View status details of a z/OS job",
     description: "View status details of a single z/OS job on spool/JES queues. " +
-    "The command does not prevalidate the JOBID. ",
+    "The command does not prevalidate the JOBID.",
     examples: [
         {
             description: "View the status for the job with ID \"JOB00123\" (optionally abbreviating the ID)",

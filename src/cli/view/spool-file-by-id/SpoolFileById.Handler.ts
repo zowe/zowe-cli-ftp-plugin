@@ -27,6 +27,12 @@ export default class SpoolFileByIdHandler extends FTPBaseHandler {
             owner: "*",
             fileId: params.arguments.spoolfileid
         };
+
+        /* Add await JobUtils.findJobByID(params.arguments.jobid, params.connection);
+         * to avoid the list spool-files-by-jobid command and view spool-file-by-id making two separate FTP sessions.
+         * And ensure the correct spool file can be retrieved.
+         */
+
         await JobUtils.findJobByID(params.arguments.jobid, params.connection);
         const content: string = await params.connection.getJobLog(option);
         params.response.data.setObj(content);
