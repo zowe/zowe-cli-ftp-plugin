@@ -18,13 +18,21 @@ describe("View spool file by id handler", () => {
         const handler = new SpoolFileByIdHandler();
 
         const mockResponse = TestUtils.getMockResponse();
+        const jobDetails = {
+            jobname: "jobname1",
+            jobid: "jobid1",
+            owner: "owner1",
+            status: "success",
+            rc: 0
+        };
         const mockParams: any = {
             arguments: {
                 jobid: "jobid1",
                 spoolfileid: "123"
             },
             connection: {
-                getJobLog: jest.fn().mockReturnValue(Promise.resolve("spool file contents"))
+                getJobLog: jest.fn().mockReturnValue(Promise.resolve("spool file contents")),
+                getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails))
             },
             response: mockResponse
         };
