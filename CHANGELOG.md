@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.2.1`
 
 - Fixed view spool file by id with wrong content.
 
