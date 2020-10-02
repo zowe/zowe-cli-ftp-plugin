@@ -4,7 +4,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## `1.2.1`
 
-- Fixed view spool file by id with wrong content.
+- BugFix: Fixed an issue whre the `view spool-file-by-id` command retrieved incorrect contents. [#61](https://github.com/zowe/zowe-cli-ftp-plugin/issues/61)
 
 ## `1.2.0`
 
