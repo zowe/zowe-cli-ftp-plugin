@@ -9,9 +9,135 @@
  *
  */
 
-import { Logger } from "@zowe/imperative";
+import * as PATH from "path";
+import * as fs from "fs";
+
+import { IHandlerResponseApi, IHandlerResponseConsoleApi, IO, Logger } from "@zowe/imperative";
+import { StreamUtils } from "./StreamUtils";
+import { CoreUtils } from "./CoreUtils";
+
+export interface IDownloadFileOption {
+    size: number;
+    localFile?: string;
+    response?: IHandlerResponseApi;
+    transferType: string;
+}
+
+export interface IUploadFileOption {
+    content?: Buffer | string;
+    localFile?: string;
+    transferType: string;
+}
 
 export class UssUtils {
+
+    /**
+     * Lists files under the specified directory.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param directory - directory
+     * @returns file entries
+     */
+    public static async listFiles(connection: any, directory: string): Promise<any[]> {
+        this.log.debug("Listing USS files in the directory '%s'", directory);
+        const files = await connection.listDataset(directory);
+
+        this.log.debug("Found %d matching files", files.length);
+        const filteredFiles = files.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));
+        return filteredFiles;
+    }
+
+    /**
+     * Makes directory.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param directory - directory
+     */
+    public static async mkdirDirectory(connection: any, directory: string): Promise<void> {
+        this.log.debug("Attempting to make USS directory '%s'", directory);
+        await connection.makeDirectory(directory);
+    }
+
+    /**
+     * Renames file or directory.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param oldNanme - old name
+     * @param newName - new name
+     */
+    public static async renameFile(connection: any, oldNanme: string, newName: string): Promise<void> {
+        this.log.debug("Attempting to rename USS file or directory from '%s' to '%s'", oldNanme, newName);
+        await connection.rename(oldNanme, newName);
+    }
+
+    /**
+     * Deletes file or directory.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param fileOrDir - file or directory
+     * @param recursive - delete the sub directories recursively or not. False by default.
+     * @param console - console for printing the delete file/directory
+     */
+    public static async deleteFile(connection: any, fileOrDir: string, recursive = false, console?: IHandlerResponseConsoleApi): Promise<void> {
+        this.log.debug("Deleting USS file '%s'", fileOrDir);
+
+        if (recursive) {
+            await UssUtils.deleteDirectory(connection, fileOrDir, console);
+        } else {
+            await connection.deleteDataset(fileOrDir);
+        }
+    }
+
+    /**
+     * Downloads file.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param ussFile - file path name
+     * @param option - download option
+     */
+    public static async downloadFile(connection: any, ussFile: string, option: IDownloadFileOption): Promise<Buffer> {
+        const transferType = option.transferType || "ascii";
+
+        let buffer;
+        let length;
+        const stream = await connection.getDataset(ussFile, transferType, true);
+        if (option.localFile) {
+            this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s", ussFile, option.localFile, transferType);
+            IO.createDirsSyncFromFilePath(option.localFile);
+            const writable = fs.createWriteStream(option.localFile);
+            length = await StreamUtils.streamToStream(option.size, stream, writable, option.response);
+        } else {
+            this.log.debug("Downloading USS file '%s' in transfer mode '%s", ussFile, transferType);
+            buffer = await StreamUtils.streamToBuffer2(option.size, stream, option.response);
+            length = buffer.byteLength;
+        }
+        this.log.info("Successfully downloaded %d bytes of content from %s", length, ussFile);
+        return Promise.resolve(buffer);
+    }
+
+    /**
+     * Uploads file.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param ussFile - file path name
+     * @param option - upload option
+     */
+    public static async uploadFile(connection: any, ussFile: string, option: IUploadFileOption): Promise<void> {
+        const transferType = option.transferType || "ascii";
+        let content = option.content;
+        if (option.localFile) {
+            this.log.debug("Attempting to upload from local file '%s' to USS file '%s' in transfer mode '%s'",
+                option.localFile, ussFile, transferType);
+            content = IO.readFileSync(option.localFile, undefined, transferType === "binary");
+        } else {
+            this.log.debug("Attempting to upload from stdin to USS file'%s' in transfer mode '%s'", ussFile, transferType);
+        }
+        if (transferType !== "binary") {
+            // if we're not in binary mode, we need carriage returns to avoid errors
+            content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
+        }
+        await connection.uploadDataset(content, ussFile, transferType);
+    }
 
     /**
      * Try to make sure a unix path conforms to what ftp expects
@@ -44,6 +170,25 @@ export class UssUtils {
         } else {
             this.log.debug("Path was already normalized. Using the path as-is.");
             return path;
+        }
+    }
+
+    private static async deleteDirectory(connection: any, dir: string, response?: IHandlerResponseConsoleApi): Promise<any> {
+        const files = await connection.listDataset(dir);
+        for (const file of files) {
+            const filePath = PATH.join(dir, file.name);
+            if (file.isDirectory) {
+                await this.deleteDirectory(connection, filePath);
+            } else {
+                await connection.deleteDataset(filePath);
+                if (response) {
+                    response.log("Deleted %s", filePath);
+                }
+            }
+        }
+        await connection.deleteDataset(dir);
+        if (response) {
+            response.log("Deleted %s", dir);
         }
     }
 

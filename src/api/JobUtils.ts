@@ -1,3 +1,4 @@
+import { DownloadJobs, IJobFile } from "@zowe/cli";
 /*
  * This program and the accompanying materials are made available under the terms of the
  * Eclipse Public License v2.0 which accompanies this distribution, and is available at
@@ -11,7 +12,72 @@
 
 import { Logger } from "@zowe/imperative";
 
+export interface IGetSpoolByFileIdOption {
+    fileId: string;
+    jobName: string;
+    jobId: string;
+    owner: string;
+}
+
 export class JobUtils {
+
+    /**
+     * Lists jobs with the job name prefix.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param prefix - job name prefix
+     * @param owner - optional owner
+     * @returns job entries
+     */
+    public static async listJobs(connection: any, prefix: string, owner?: string): Promise<any[]> {
+        const option: any = {
+            jobName: prefix,
+        };
+        let debugMessage = `Listing jobs that match prefix ${prefix}`;
+        if (owner) {
+            option.owner = owner;
+            debugMessage += ` and are owned by ${option.owner}`;
+        }
+        this.log.debug(debugMessage);
+
+        const jobs = await connection.listJobs(option);
+        this.log.debug("List returned %d jobs", jobs.length);
+        const filteredJobs = JobUtils.parseJobDetails(jobs);
+        return filteredJobs;
+    }
+
+    /**
+     * Deletes the job with the job id.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param jobId - job id
+     */
+    public static async deleteJob(connection: any, jobId: string): Promise<void> {
+        this.log.debug("Deleting job with job id '%s'", jobId);
+        await connection.deleteJob(jobId);
+    }
+
+    /**
+     * Return the job spool files content of the specified job id and spool file id.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param option - option
+     * @returns spool file content
+     */
+    public static async getSpoolFileById(connection: any, option: IGetSpoolByFileIdOption): Promise<Buffer> {
+        return connection.getJobLog(option);
+    }
+
+    /**
+     * Submits job witht he specified JCL.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param jcl - jcl
+     * @returns job id
+     */
+    public static async submitJob(connection: any, jcl: string): Promise<string> {
+        return connection.submitJCL(jcl);
+    }
 
     /**
      * Identify a job by job ID
@@ -20,11 +86,9 @@ export class JobUtils {
      *                         note: you can't use the abbreviated version like j123. it must be the full job ID
      * @param connection - connection to zos-node-accessor
      */
-    public static async findJobByID(jobId: string, connection: any) {
+    public static async findJobByID(connection: any, jobId: string) {
         this.log.debug("Attempting to locate job by job ID %s", jobId);
-        jobId = jobId.toUpperCase();
-        const job = await connection.getJobStatus({jobId, owner: "*"});
-        return job;
+        return connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
     }
 
     public static parseJobDetails(jobs: string[]): any[] {

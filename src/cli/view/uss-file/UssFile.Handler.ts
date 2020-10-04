@@ -9,7 +9,6 @@
  *
  */
 
-import { StreamUtils } from "../../../api/StreamUtils";
 import { UssUtils } from "../../../api/UssUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
@@ -18,10 +17,8 @@ import { basename, dirname } from "path";
 export default class ViewUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        const transferType = params.arguments.binary ? "binary" : "ascii";
 
-
-        const files = await params.connection.listDataset(dirname(ussFile));
+        const files = await UssUtils.listFiles(params.connection, dirname(ussFile));
         const fileToDownload = files.find((f: any) => {
             return f.name === basename(ussFile);
         });
@@ -29,11 +26,12 @@ export default class ViewUssFileHandler extends FTPBaseHandler {
             throw new Error(`The file "${ussFile}" doesn't exist.`);
         }
 
-        let content: Buffer;
-
-        const contentStreamPromise = params.connection.getDataset(UssUtils.normalizeUnixPath(params.arguments.ussFile),
-            transferType, true);
-        content = await StreamUtils.streamToBuffer(fileToDownload.size, contentStreamPromise, params.response);
+        const options = {
+            transferType: params.arguments.binary ? "binary" : "ascii",
+            response: params.response,
+            size: fileToDownload.size,
+        };
+        const content = await UssUtils.downloadFile(params.connection, params.arguments.ussFile, options);
 
         params.response.data.setObj(content);
         params.response.console.log(content);

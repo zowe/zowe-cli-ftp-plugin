@@ -19,7 +19,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
         this.log.debug("Viewing all spool files for job id: " + params.arguments.jobid);
         const spoolFiles: any = [];
         const fullSpoolFiles: any = [];
-        const jobDetails = (await JobUtils.findJobByID(params.arguments.jobid, params.connection));
+        const jobDetails = (await JobUtils.findJobByID(params.connection, params.arguments.jobid));
         if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
             throw new ImperativeError({
                 msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
@@ -35,7 +35,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 owner: "*",
                 fileId: spoolFileToDownload.id
             };
-            const spoolFile = await params.connection.getJobLog(option);
+            const spoolFile = await JobUtils.getSpoolFileById(params.connection, option);
             spoolFiles.push(spoolFile);
             spoolFileToDownload.contents = spoolFile;
             fullSpoolFiles.push(spoolFileToDownload);

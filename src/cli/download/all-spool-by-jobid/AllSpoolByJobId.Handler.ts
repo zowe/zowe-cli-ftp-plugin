@@ -21,7 +21,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
         const spoolFiles: any = [];
         const fullSpoolFiles: any = [];
         const destination = params.arguments.directory == null ? "./output/" : params.arguments.directory;
-        const jobDetails = (await JobUtils.findJobByID(params.arguments.jobid, params.connection));
+        const jobDetails = (await JobUtils.findJobByID(params.connection, params.arguments.jobid));
         if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
             throw new ImperativeError({
                 msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
@@ -37,7 +37,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 owner: "*",
                 fileId: spoolFileToDownload.id
             };
-            const spoolFile = await params.connection.getJobLog(option);
+            const spoolFile = await JobUtils.getSpoolFileById(params.connection, option);
             spoolFiles.push(spoolFile);
             spoolFileToDownload.contents = spoolFile;
             fullSpoolFiles.push(spoolFileToDownload);
@@ -58,8 +58,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
             const destinationFile = DownloadJobs.getSpoolDownloadFile(mockJobFile, params.arguments.omitJobidDirectory, params.arguments.directory);
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
-            const content = await params.connection.getJobLog(option);
-            IO.writeFile(destinationFile, content);
+            IO.writeFile(destinationFile, spoolFile);
         }
         const successMessage = params.response.console.log("Successfully downloaded %d spool files to %s", fullSpoolFiles.length, destination);
         params.response.data.setMessage(successMessage);

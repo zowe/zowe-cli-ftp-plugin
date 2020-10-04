@@ -1,3 +1,4 @@
+import { JobUtils } from "../../../api/JobUtils";
 /*
  * This program and the accompanying materials are made available under the terms of the
  * Eclipse Public License v2.0 which accompanies this distribution, and is available at
@@ -27,7 +28,7 @@ export default class SpoolFileByIdHandler extends FTPBaseHandler {
             fileId: params.arguments.spoolfileid
         };
 
-        const content: string = await params.connection.getJobLog(option);
+        const content = await JobUtils.getSpoolFileById(params.connection, option);
         params.response.data.setObj(content);
         const successMessage = this.log.info(`Spool file "${params.arguments.spoolfileid}" content obtained for job ID "${params.arguments.jobid})"`);
         params.response.data.setMessage(successMessage);

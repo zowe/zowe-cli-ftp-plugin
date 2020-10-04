@@ -16,9 +16,8 @@ import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 export default class ListUssFilesHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const directory = UssUtils.normalizeUnixPath(params.arguments.directory);
-        let files: any[];
-        this.log.debug("Listing USS files in the directory '%s'", directory);
-        files = await params.connection.listDataset(directory);
+
+        const files = await UssUtils.listFiles(params.connection, directory);
 
         params.response.data.setMessage("Listed files in uss directory %s", directory);
         params.response.data.setObj(files);

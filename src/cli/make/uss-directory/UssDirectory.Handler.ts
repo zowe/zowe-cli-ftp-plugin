@@ -14,10 +14,11 @@ import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 
 export default class MakeUssDirectoryHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const ussDirectory = UssUtils.normalizeUnixPath(params.arguments.ussDirectory);
 
-        await params.connection.makeDirectory(ussDirectory);
+        await UssUtils.mkdirDirectory(params.connection, ussDirectory);
 
         const successMsg = params.response.console.log("Make USS directory %s successfully!", ussDirectory);
         params.response.data.setMessage(successMsg);

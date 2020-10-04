@@ -9,8 +9,6 @@
  *
  */
 
-import * as path from "path";
-
 import { UssUtils } from "../../../api/UssUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
@@ -19,32 +17,11 @@ export default class DeleteUSSFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        this.log.debug("Deleting USS file '%s'", ussFile);
-
-        if (params.arguments.recursive) {
-            await this.deleteDirectory(params, ussFile);
-        } else {
-            await params.connection.deleteDataset(ussFile);
-        }
+        await UssUtils.deleteFile(params.connection, ussFile, params.arguments.recursive, params.response.console);
 
         const successMsg = params.response.console.log("Successfully deleted USS file %s", ussFile);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
-    }
-
-    private async deleteDirectory(params: IFTPHandlerParams, ussFile: string): Promise<any> {
-        const files = await params.connection.listDataset(ussFile);
-        for (const file of files) {
-            const filePath = path.join(ussFile, file.name);
-            if (file.isDirectory) {
-                await this.deleteDirectory(params, filePath);
-            } else {
-                await params.connection.deleteDataset(filePath);
-                params.response.console.log("Deleted %s", filePath);
-            }
-        }
-        await params.connection.deleteDataset(ussFile);
-        params.response.console.log("Deleted %s", ussFile);
     }
 }
 

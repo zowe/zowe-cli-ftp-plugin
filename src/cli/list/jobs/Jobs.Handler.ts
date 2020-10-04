@@ -14,22 +14,11 @@ import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 
 export default class ListJobsHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        let jobs: string[];
-        const option: any = {
-            jobName: params.arguments.prefix,
-        };
-        let debugMessage = `Listing jobs that match prefix ${params.arguments.prefix}`;
-        if (params.arguments.owner) {
-            option.owner = params.arguments.owner;
-            debugMessage += ` and are owned by ${option.owner}`;
-        }
-        this.log.debug(debugMessage);
-        jobs = await params.connection.listJobs(option);
-        this.log.debug("List returned %d jobs", jobs.length);
-        const filteredJobs = JobUtils.parseJobDetails(jobs);
+        const filteredJobs = await JobUtils.listJobs(params.connection, params.arguments.prefix, params.arguments.owner);
         params.response.data.setObj(filteredJobs);
-        params.response.data.setMessage("Successfully listed %d matching jobs", jobs.length);
+        params.response.data.setMessage("Successfully listed %d matching jobs", filteredJobs.length);
         params.response.format.output({
             output: filteredJobs,
             format: "table",

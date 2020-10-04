@@ -21,7 +21,7 @@ export default class ListSpoolFilesByJobidHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         this.log.debug("Listing spool files for job ID %s", params.arguments.jobid);
-        const job: any = await JobUtils.findJobByID(params.arguments.jobid, params.connection);
+        const job: any = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
         const files: any = job.spoolFiles;
 
         const successMessage = this.log.info(`"${files.length}" spool files obtained for job "${job.jobname}(${job.jobid})"`);

@@ -18,19 +18,16 @@ export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        const transferType = params.arguments.binary ? "binary" : "ascii";
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        this.log.debug("Attempting to upload from stdin to USS file'%s' in transfer mode '%s'",
-            ussFile, transferType);
-        let content: Buffer | string = await CoreUtils.readStdin();
-        if (!params.arguments.binary) {
-            content = CoreUtils.addCarriageReturns(content.toString());
-        }
+        const content: Buffer | string = await CoreUtils.readStdin();
+
+        const options = {
+            content,
+            transferType: params.arguments.binary ? "binary" : "ascii",
+        };
+        await UssUtils.uploadFile(params.connection, ussFile, options);
 
         const uploadSource: string = "stdin";
-
-        await params.connection.uploadDataset(content, ussFile, transferType);
-
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
