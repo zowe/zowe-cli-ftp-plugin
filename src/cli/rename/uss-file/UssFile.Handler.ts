@@ -11,17 +11,15 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils } from "../../../api/UssUtils";
+import { UssUtils } from "../../../api/UssInterface";
 
 export default class RenameUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const oldUssFile = UssUtils.normalizeUnixPath(params.arguments.olduss);
         const newUssFile = UssUtils.normalizeUnixPath(params.arguments.newuss);
-        this.log.debug("Attempting to rename USS file or directory from '%s' to '%s'",
-            oldUssFile, newUssFile);
 
-        await params.connection.rename(oldUssFile, newUssFile);
+        await UssUtils.renameFile(params.connection, oldUssFile, newUssFile);
 
         const successMessage = params.response.console.log("Successfully renamed USS file or directory from '%s' to '%s'",
             oldUssFile, newUssFile);

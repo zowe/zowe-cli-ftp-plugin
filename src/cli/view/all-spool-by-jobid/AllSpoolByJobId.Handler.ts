@@ -9,39 +9,27 @@
  *
  */
 
-import { JobUtils } from "../../../api/JobUtils";
-import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { ImperativeError, TextUtils } from "@zowe/imperative";
 
+import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { JobUtils } from "../../../api/JobInterface";
+
 export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        this.log.debug("Viewing all spool files for job id: " + params.arguments.jobid);
-        const spoolFiles: any = [];
-        const fullSpoolFiles: any = [];
-        const jobDetails = (await JobUtils.findJobByID(params.arguments.jobid, params.connection));
-        if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
+        const jobId = params.arguments.jobid;
+        this.log.debug("Viewing all spool files for job id: " + jobId);
+
+        const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobId);
+        if (fullSpoolFiles.length === 0) {
             throw new ImperativeError({
-                msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
+                msg: TextUtils.formatMessage("No spool files were available for job %s. " +
                     "Try again after waiting a moment if the job is not yet in OUTPUT status.",
-                    jobDetails.jobname, jobDetails.jobid)
+                    jobId)
             });
         }
-        for (const spoolFileToDownload of jobDetails.spoolFiles) {
-            this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
-            const option = {
-                jobName: jobDetails.jobname,
-                jobId: jobDetails.jobid,
-                owner: "*",
-                fileId: spoolFileToDownload.id
-            };
-            const spoolFile = await params.connection.getJobLog(option);
-            spoolFiles.push(spoolFile);
-            spoolFileToDownload.contents = spoolFile;
-            fullSpoolFiles.push(spoolFileToDownload);
-        }
         params.response.data.setObj(fullSpoolFiles);
-        params.response.console.log(spoolFiles.join("\n"));
+        params.response.console.log(fullSpoolFiles.map((spoolFile) => spoolFile.contents).join("\n"));
     }
 }
-

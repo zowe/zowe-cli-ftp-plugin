@@ -9,38 +9,25 @@
  *
  */
 
-import * as fs from "fs";
-
-import { IO } from "@zowe/imperative";
-
-import { StreamUtils } from "../../../api/StreamUtils";
 import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { DataSetUtils } from "../../../api/DataSetInterface";
+import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
 
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        const transferType = params.arguments.binary ? "binary" : "ascii";
         const file = params.arguments.file == null ?
             ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
             params.arguments.file;
 
-        const files = await params.connection.listDataset(params.arguments.dataSet);
-        if (files === undefined || files.length === 0) {
-            throw new Error(`The dataset "${params.arguments.dataSet}" doesn't exist.`);
-        }
-
-        this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
-            params.arguments.dataSet, file, transferType);
-        IO.createDirsSyncFromFilePath(file);
-
-        const contentStreamPromise = params.connection.getDataset(params.arguments.dataSet, transferType, true);
-
-        const TRACK = 56664;
-        const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
-        const writable = fs.createWriteStream(file);
-        await StreamUtils.streamToStream(estimatedSize, contentStreamPromise, writable, params.response);
+        const options = {
+            localFile: file,
+            response: params.response,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
 
         const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message, file);
         this.log.info(successMsg);

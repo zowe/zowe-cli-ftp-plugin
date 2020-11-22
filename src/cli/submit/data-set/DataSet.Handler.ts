@@ -11,11 +11,16 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { SubmitJobHandler } from "../SubmitJobHandler";
+import { TRANSFER_TYPE_ASCII } from "../../../api/CoreUtils";
+import { DataSetUtils } from "../../../api/DataSetInterface";
 
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         this.log.debug("Submitting a job from data set '%s'. Downloading before submitting...", params.arguments.dataSet);
-        const dsContent = (await params.connection.getDataset("'" + params.arguments.dataSet + "'")).toString();
+        const options = {
+            transferType: TRANSFER_TYPE_ASCII,
+        };
+        const dsContent = (await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options)).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", params.arguments.dataSet);
         return this.submitJCL(dsContent, params);
     }

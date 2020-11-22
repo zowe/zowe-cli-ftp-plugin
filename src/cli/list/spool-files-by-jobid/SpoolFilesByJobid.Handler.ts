@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { JobUtils } from "../../../api/JobUtils";
+import { JobUtils } from "../../../api/JobInterface";
 
 /**
  * "zos-ftp list spool-files" command handler. Outputs a table of spool files.
@@ -21,8 +21,8 @@ export default class ListSpoolFilesByJobidHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         this.log.debug("Listing spool files for job ID %s", params.arguments.jobid);
-        const job: any = await JobUtils.findJobByID(params.arguments.jobid, params.connection);
-        const files: any = job.spoolFiles;
+        const job = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
+        const files = job.spoolFiles;
 
         const successMessage = this.log.info(`"${files.length}" spool files obtained for job "${job.jobname}(${job.jobid})"`);
         // Set the object, message, and log the prettified object

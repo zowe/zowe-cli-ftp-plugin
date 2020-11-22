@@ -11,27 +11,12 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { DataSetUtils } from "../../../api/DataSetInterface";
 
 export default class ListDataSetMembersHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        let members: any[];
-        this.log.debug("Listing members of dataset %s", params.arguments.dsname);
-        const datasetname = params.arguments.dsname + "(*)";
-        members = await params.connection.listDataset(datasetname);
-
-        this.log.debug("Found %d members", members.length);
-        const filteredMembers = members.map((file: any) => {
-            const result: any = {};
-            for (const key of Object.keys(file)) {
-                // turn the object into a similar format to that returned by
-                // z/osmf so that users who use the list ds command in main
-                // zowe can use the same filtering options
-                this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
-                result[key.toLowerCase()] = file[key];
-            }
-            return result;
-        });
+        const filteredMembers = await DataSetUtils.listMembers(params.connection, params.arguments.dsname);
         params.response.data.setObj(filteredMembers);
         const successMsg = params.response.console.log("Successfully listed %d members in data sets %s",
         filteredMembers.length, params.arguments.dsname);

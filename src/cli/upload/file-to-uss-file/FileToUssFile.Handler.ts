@@ -9,27 +9,22 @@
  *
  */
 
-import { IO } from "@zowe/imperative";
-import { UssUtils } from "../../../api/UssUtils";
-import { CoreUtils } from "../../../api/CoreUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
+import { UssUtils } from "../../../api/UssInterface";
 
 export default class UploadFileToUssFileHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        const transferType = params.arguments.binary ? "binary" : "ascii";
-        let content: Buffer = IO.readFileSync(params.arguments.file, undefined, params.arguments.binary);
-        const uploadSource: string = "local file '" + params.arguments.file + "'";
-        if (!params.arguments.binary) {
-            // if we're not in binary mode, we need carriage returns to avoid errors
-            content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
-        }
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        this.log.debug("Attempting to upload from local file '%s' to USS file '%s' in transfer mode '%s'",
-            params.arguments.file, ussFile, transferType);
+        const options = {
+            localFile: params.arguments.file,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        await UssUtils.uploadFile(params.connection, ussFile, options);
 
-        await params.connection.uploadDataset(content, ussFile, transferType);
-
+        const uploadSource: string = "local file '" + params.arguments.file + "'";
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);

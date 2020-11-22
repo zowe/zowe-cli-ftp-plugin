@@ -11,13 +11,12 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { DataSetUtils } from "../../../api/DataSetInterface";
 
 export default class RenameDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        this.log.debug("Attempting to rename data set from '%s' to '%s'",
-            params.arguments.oldDataSet, params.arguments.newDataSet);
-        await params.connection.rename(params.arguments.oldDataSet, params.arguments.newDataSet);
+        await DataSetUtils.renameDataSet(params.connection, params.arguments.oldDataSet, params.arguments.newDataSet);
 
         const successMessage = params.response.console.log("Successfully renamed data set from '%s' to '%s'",
             params.arguments.oldDataSet, params.arguments.newDataSet);

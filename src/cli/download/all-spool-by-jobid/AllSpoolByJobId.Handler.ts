@@ -9,19 +9,18 @@
  *
  */
 
-import { JobUtils } from "../../../api/JobUtils";
-import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { DownloadJobs, IJobFile } from "@zowe/cli";
 import { ImperativeError, IO, TextUtils } from "@zowe/imperative";
+import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { JobUtils } from "../../../api/JobInterface";
 
 export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         this.log.debug("Downloading all spool files for job id: " + params.arguments.jobid);
-        const spoolFiles: any = [];
-        const fullSpoolFiles: any = [];
+
         const destination = params.arguments.directory == null ? "./output/" : params.arguments.directory;
-        const jobDetails = (await JobUtils.findJobByID(params.arguments.jobid, params.connection));
+        const jobDetails = (await JobUtils.findJobByID(params.connection, params.arguments.jobid));
         if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
             throw new ImperativeError({
                 msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
@@ -29,18 +28,8 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                     jobDetails.jobname, jobDetails.jobid)
             });
         }
-        for (const spoolFileToDownload of jobDetails.spoolFiles) {
-            this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
-            const option = {
-                jobName: jobDetails.jobname,
-                jobId: jobDetails.jobid,
-                owner: "*",
-                fileId: spoolFileToDownload.id
-            };
-            const spoolFile = await params.connection.getJobLog(option);
-            spoolFiles.push(spoolFile);
-            spoolFileToDownload.contents = spoolFile;
-            fullSpoolFiles.push(spoolFileToDownload);
+        const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobid);
+        for (const spoolFileToDownload of fullSpoolFiles) {
             const mockJobFile: IJobFile = { // mock a job file to get the same format of download directories
                 "jobid": jobDetails.jobid, "jobname": jobDetails.jobname,
                 "recfm": "FB", "lrecl": 80, "byte-count": spoolFileToDownload.byteCount,
@@ -58,8 +47,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
             const destinationFile = DownloadJobs.getSpoolDownloadFile(mockJobFile, params.arguments.omitJobidDirectory, params.arguments.directory);
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
-            const content = await params.connection.getJobLog(option);
-            IO.writeFile(destinationFile, content);
+            IO.writeFile(destinationFile, spoolFileToDownload.contents);
         }
         const successMessage = params.response.console.log("Successfully downloaded %d spool files to %s", fullSpoolFiles.length, destination);
         params.response.data.setMessage(successMessage);
