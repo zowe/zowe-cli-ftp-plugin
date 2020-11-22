@@ -9,10 +9,9 @@
  *
  */
 
+import { Readable } from "stream";
 import SubmitJobFromLocalFileHandler from "../../../../../src/cli/submit/data-set/DataSet.Handler";
 import TestUtils from "../../TestUtils";
-import { doesNotThrow } from "assert";
-import { NONAME } from "dns";
 
 describe("Submit data set handler", () => {
 
@@ -29,9 +28,10 @@ describe("Submit data set handler", () => {
                 dataSet: "ds1"
             },
             connection: {
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(Buffer.from(""))),
+                getDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid1")),
-                getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails))
+                getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails)),
+                listDataset: jest.fn().mockReturnValue(Promise.resolve([''])),
             },
             response: mockResponse
         };
@@ -65,10 +65,11 @@ describe("Submit data set handler", () => {
                 wait: "5,10"
             },
             connection: {
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(Buffer.from(""))),
+                getDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid2")),
                 getJobStatus: jest.fn().mockReturnValueOnce(Promise.resolve(jobRuning)).mockReturnValueOnce(Promise.resolve(jobRuning))
-                .mockReturnValue(Promise.resolve(jobDetails))
+                .mockReturnValue(Promise.resolve(jobDetails)),
+                listDataset: jest.fn().mockReturnValue(Promise.resolve([''])),
             },
             response: mockResponse
         };
@@ -79,4 +80,10 @@ describe("Submit data set handler", () => {
         expect(mockResponse.console.log.mock.calls[1][0]).toBe("Waiting for job completion.");
     });
 
+    function getStream(): Readable {
+        const stream = new Readable();
+        stream.push(Buffer.from(""));
+        stream.push(null);
+        return stream;
+    }
 });

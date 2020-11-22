@@ -36,6 +36,7 @@ describe("List jobs handler", () => {
     it("should return correct message if the job is found.", async () => {
         const handler = new ListJobsHandler();
         const jobs: any[] = [
+            "JOBNAME, JOBID, OWNER, STATUS, CLASS",
             "JOBNAME1, JOBID1, OWNER1, STATUS1, CLASS1",
             "JOBNAME2, JOBID2, OWNER2, STATUS2, CLASS2"
         ];

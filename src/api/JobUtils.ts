@@ -145,9 +145,6 @@ export class JobUtils {
             const ownerIndex = 2;
             const statusIndex = 3;
             const classIndex = 4;
-            if (fields.length > classIndex + 1) {
-                // console.log("Failed to parse this line: " + job);
-            }
             return {
                 jobname: fields[jobNameIndex],
                 jobid: fields[jobIdIndex],

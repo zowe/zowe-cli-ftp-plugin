@@ -24,10 +24,11 @@ export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
             dcb: params.arguments.dcb,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
         };
-        await DataSetUtils.uploadDataSet(params.connection, params.arguments.dataSet, options);
+        const dataSet = params.arguments.dataSet.toUpperCase();
+        await DataSetUtils.uploadDataSet(params.connection, dataSet, options);
 
         const uploadSource = "stdin";
-        const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, params.arguments.dataSet);
+        const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, dataSet);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
     }
