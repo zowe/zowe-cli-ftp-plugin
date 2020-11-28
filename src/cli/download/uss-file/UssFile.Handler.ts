@@ -11,6 +11,7 @@
 
 import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
 import { UssUtils } from "../../../api/UssInterface";
@@ -31,11 +32,17 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             throw new Error(`The file "${ussFile}" doesn't exist.`);
         }
 
+        let progress;
+        if (params.response && params.response.progress) {
+            progress = new FTPProgressHandler(params.response.progress);
+        }
+
         const options = {
             size: fileToDownload.size,
             localFile: file,
             response: params.response,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            progress,
         };
         await UssUtils.downloadFile(params.connection, ussFile, options);
 

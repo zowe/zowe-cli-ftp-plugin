@@ -9,44 +9,38 @@
  *
  */
 
-import { IHandlerResponseApi, ITaskWithStatus, TaskStage, TextUtils } from "@zowe/imperative";
 import { Readable, Writable } from "stream";
+import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
 export class StreamUtils {
 
     /**
-     * @param estimatedSize - estimated file size
+     * @param size - file size
      * @param stream - readable stream
-     * @param response - response object from your handler, if you want a progress bar created
+     * @param progress - optional progress handler
      * @returns promise that resolves buffer when accomplished
      */
-    public static async streamToBuffer(estimatedSize: number, stream: Readable, response?: IHandlerResponseApi): Promise<Buffer> {
-        const PERCETAGE = 100;
+    public static async streamToBuffer(size: number, stream: Readable, progress?: IFTPProgressHandler): Promise<Buffer> {
         return new Promise<Buffer>((resolve, reject) => {
             let data: Buffer = Buffer.from([]);
-            const statusMessage = "Downloaded %d of %d (Estimated) bytes";
-            const task: ITaskWithStatus = {
-                statusMessage: "Starting transfer...",
-                percentComplete: 0,
-                stageName: TaskStage.IN_PROGRESS
-            };
-            if (response != null) {
-                response.progress.startBar({task});
+            if (progress != null) {
+                progress.start(size);
             }
             stream.on("data", (chunk: Buffer) => {
                 data = Buffer.concat([data, chunk]);
-                task.percentComplete = PERCETAGE * data.length / estimatedSize;
-                task.statusMessage = TextUtils.formatMessage(statusMessage, data.length, estimatedSize);
+                if (progress != null) {
+                    progress.worked(chunk.length);
+                }
             });
             stream.on("end", () => {
-                if (response != null) {
-                    response.progress.endBar();
+                if (progress != null) {
+                    progress.end();
                 }
                 resolve(data);
             });
             stream.on("error", (error: any) => {
-                if (response != null) {
-                    response.progress.endBar();
+                if (progress != null) {
+                    progress.end();
                 }
                 reject(error);
             });
@@ -60,42 +54,38 @@ export class StreamUtils {
      * @param estimatedSize - estimated file size
      * @param stremPromise - promise that will resolve to a readable stream
      * @param writable - writable stream
-     * @param response - response object from your handler, if you want a progress bar created
+     * @param progress - optional progress handler
      * @returns promise that resolves the downloaded bytes when accomplished
      */
     public static async streamToStream(
-        estimatedSize: number, stream: Readable, writable: Writable, response?: IHandlerResponseApi): Promise<number> {
+        size: number, stream: Readable, writable: Writable, progress?: IFTPProgressHandler): Promise<number> {
 
-        const PERCETAGE = 100;
         return new Promise<number>((resolve, reject) => {
             let downloadedBytes = 0;
             const statusMessage = "Downloaded %d of %d bytes";
-            const task: ITaskWithStatus = {
-                statusMessage: "Starting transfer...",
-                percentComplete: 0,
-                stageName: TaskStage.IN_PROGRESS
-            };
-            if (response != null) {
-                response.progress.startBar({task});
+            if (progress != null) {
+                progress.start(size);
             }
             stream.pipe(writable);
             stream.on("data", (chunk: Buffer) => {
                 downloadedBytes += chunk.length;
-                task.percentComplete = PERCETAGE * downloadedBytes / estimatedSize;
-                task.statusMessage = TextUtils.formatMessage(statusMessage, downloadedBytes, estimatedSize);
+                if (progress != null) {
+                    progress.worked(chunk.length);
+                }
             });
             stream.on("end", () => {
-                if (response != null) {
-                    response.progress.endBar();
+                if (progress != null) {
+                    progress.end();
                 }
                 resolve(downloadedBytes);
             });
             stream.on("error", (error: any) => {
-                if (response != null) {
-                    response.progress.endBar();
+                if (progress != null) {
+                    progress.end();
                 }
                 reject(error);
             });
         });
     }
+
 }

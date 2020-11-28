@@ -12,6 +12,7 @@
 import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { DataSetUtils } from "../../../api/DataSetInterface";
 import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
 
@@ -22,10 +23,15 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
             ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
             params.arguments.file;
 
+        let progress;
+        if (params.response && params.response.progress) {
+            progress = new FTPProgressHandler(params.response.progress, true);
+        }
         const options = {
             localFile: file,
             response: params.response,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            progress,
         };
         await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
 
@@ -34,4 +40,3 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
         params.response.data.setMessage(successMsg);
     }
 }
-

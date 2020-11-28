@@ -10,6 +10,7 @@
  */
 
 import { IHandlerResponseApi, IHandlerResponseConsoleApi } from "@zowe/imperative";
+import { IFTPProgressHandler } from "./IFTPProgressHandler";
 import { UssUtils } from "./UssUtils";
 
 export interface IDownloadFileOption {
@@ -21,7 +22,7 @@ export interface IDownloadFileOption {
     /**
      * Optional repsonse handler for progressing messages.
      */
-    response?: IHandlerResponseApi;
+    progress?: IFTPProgressHandler;
 
     /**
      * File size in bytes or estimated file size.

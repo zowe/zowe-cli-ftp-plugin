@@ -93,10 +93,10 @@ export class UssUtils {
             this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s", ussFile, option.localFile, transferType);
             IO.createDirsSyncFromFilePath(option.localFile);
             const writable = fs.createWriteStream(option.localFile);
-            length = await StreamUtils.streamToStream(option.size, stream, writable, option.response);
+            length = await StreamUtils.streamToStream(option.size, stream, writable, option.progress);
         } else {
             this.log.debug("Downloading USS file '%s' in transfer mode '%s", ussFile, transferType);
-            buffer = await StreamUtils.streamToBuffer(option.size, stream, option.response);
+            buffer = await StreamUtils.streamToBuffer(option.size, stream, option.progress);
             length = buffer.byteLength;
         }
         this.log.info("Successfully downloaded %d bytes of content from %s", length, ussFile);

@@ -102,10 +102,10 @@ export class DataSetUtils {
                 dsn, option.localFile, transferType);
             IO.createDirsSyncFromFilePath(option.localFile);
             const writable = fs.createWriteStream(option.localFile);
-            length = await StreamUtils.streamToStream(estimatedSize, stream, writable, option.response);
+            length = await StreamUtils.streamToStream(estimatedSize, stream, writable, option.progress);
         } else {
             this.log.debug("Downloading data set '%s' in transfer mode '%s'", dsn, transferType);
-            buffer = await StreamUtils.streamToBuffer(estimatedSize, stream, option.response);
+            buffer = await StreamUtils.streamToBuffer(estimatedSize, stream, option.progress);
             length = buffer.byteLength;
         }
         this.log.info("Successfully downloaded %d bytes of content from %s", length, dsn);
