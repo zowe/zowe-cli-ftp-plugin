@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../IFTPHandlerParams";
-import { JobUtils } from "../../api/JobInterface";
+import { JobUtils } from "../../api";
 
 const ONE_SECOND = 1000;
 const DEFAULT_INTERVAL = 3000;

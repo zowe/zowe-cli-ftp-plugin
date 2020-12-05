@@ -13,8 +13,7 @@ import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
-import { UssUtils } from "../../../api/UssInterface";
+import { UssUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY  } from "../../../api";
 
 export default class DownloadUssFileHandler extends FTPBaseHandler {
 

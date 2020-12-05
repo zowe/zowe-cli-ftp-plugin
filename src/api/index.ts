@@ -9,15 +9,11 @@
  *
  */
 
-/**
- * Additional parameters pre-populated for handlers
- * including a connection to FTP
- */
-import { IHandlerParameters } from "@zowe/imperative";
+export * from "./doc";
 
-export interface IFTPHandlerParams extends IHandlerParameters {
-    /**
-     * Connection to zos-node-accessor
-     */
-    connection: any;
-}
+export * from "./CoreUtils";
+export * from "./DataSetInterface";
+export * from "./FTPConfig";
+export * from "./IFTPProgressHandler";
+export * from "./JobInterface";
+export * from "./UssInterface";

@@ -11,8 +11,7 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { DataSetUtils } from "../../../api/DataSetUtils";
-import { TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api/CoreUtils";
+import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
 
 export default class UploadFileToDataSetHandler extends FTPBaseHandler {
 

@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { JobUtils } from "../../../api/JobInterface";
+import { JobUtils } from "../../../api";
 
 /**
  * "zos-ftp list spool-files" command handler. Outputs a table of spool files.

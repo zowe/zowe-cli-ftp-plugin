@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { JobUtils } from "../../../api/JobInterface";
+import { JobUtils } from "../../../api";
 
 export default class ViewJobStatusByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {

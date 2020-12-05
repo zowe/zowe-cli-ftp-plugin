@@ -10,7 +10,7 @@
  */
 
 import { IHandlerProgressApi, ITaskWithStatus, TaskStage, TextUtils } from "@zowe/imperative";
-import { IFTPProgressHandler } from "./api/IFTPProgressHandler";
+import { IFTPProgressHandler } from "./api";
 
 const PERCETAGE = 100;
 

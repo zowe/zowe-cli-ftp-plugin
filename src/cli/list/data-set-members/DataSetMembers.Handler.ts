@@ -11,7 +11,7 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { DataSetUtils } from "../../../api/DataSetInterface";
+import { DataSetUtils } from "../../../api";
 
 export default class ListDataSetMembersHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {

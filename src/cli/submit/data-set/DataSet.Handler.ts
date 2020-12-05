@@ -11,8 +11,7 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { SubmitJobHandler } from "../SubmitJobHandler";
-import { TRANSFER_TYPE_ASCII } from "../../../api/CoreUtils";
-import { DataSetUtils } from "../../../api/DataSetInterface";
+import { DataSetUtils, TRANSFER_TYPE_ASCII } from "../../../api";
 
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {

@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils } from "../../../api/UssInterface";
+import { UssUtils } from "../../../api";
 
 export default class DeleteUSSFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
