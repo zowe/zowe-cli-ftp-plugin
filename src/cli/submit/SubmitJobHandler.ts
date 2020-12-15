@@ -53,13 +53,13 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                 let time = interval / ONE_SECOND;
                 const timerId = setInterval(async () => {
                     try {
-                        const jobDetails1 = await JobUtils.findJobByID(params.connection, jobid);
-                        const status = jobDetails1.status.toString();
+                        const currentJobDetails = await JobUtils.findJobByID(params.connection, jobid);
+                        const status = currentJobDetails.status.toString();
                         if (status === "OUTPUT") {
-                            const successMsg = params.response.console.log("Job %s finished.", jobDetails1.jobid);
-                            params.response.data.setObj(jobDetails1);
+                            const successMsg = params.response.console.log("Job %s finished.", currentJobDetails.jobid);
+                            params.response.data.setObj(currentJobDetails);
                             params.response.format.output({
-                                output: jobDetails1,
+                                output: currentJobDetails,
                                 format: "object",
                                 fields: ["jobid", "jobname", "owner", "status", "rc"]
                             });
@@ -72,15 +72,15 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                             const runningMsg = params.response.console.log("Job is still running.");
                             this.log.info(runningMsg);
 
-                            params.response.data.setObj(jobDetails1);
+                            params.response.data.setObj(currentJobDetails);
                             params.response.format.output({
-                                output: jobDetails1,
+                                output: currentJobDetails,
                                 format: "object",
                                 fields: ["jobid", "jobname", "owner", "status"]
                             });
 
                             const tipMsg = params.response.console.log("\nPlease using the following command to check its status later: \n" +
-                                "    \"zowe zos-ftp view job-status-by-jobid", jobDetails1.jobid, "\"");
+                                "    \"zowe zos-ftp view job-status-by-jobid", currentJobDetails.jobid, "\"");
                             this.log.info(tipMsg);
                             setTimeout(() => {
                                 clearInterval(timerId);
@@ -89,9 +89,9 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                         } else if (status === "ACTIVE" && params.arguments.wfa) {
                             const activeMsg = params.response.console.log("Job is active.");
                             this.log.info(activeMsg);
-                            params.response.data.setObj(jobDetails);
+                            params.response.data.setObj(currentJobDetails);
                             params.response.format.output({
-                                output: jobDetails,
+                                output: currentJobDetails,
                                 format: "object",
                                 fields: ["jobid", "jobname", "owner", "status"]
                             });
