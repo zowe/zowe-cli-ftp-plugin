@@ -69,7 +69,7 @@ describe("submit job from local file command", () => {
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option = "--wait";
-        const wait = "3,5";
+        const wait = "3,10";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_local_file_wait.sh", testEnvironment, [jclFilePath,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
