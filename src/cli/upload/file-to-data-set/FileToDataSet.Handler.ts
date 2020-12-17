@@ -9,31 +9,24 @@
  *
  */
 
-import { IO } from "@zowe/imperative";
-import { CoreUtils } from "../../../api/CoreUtils";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
 
 export default class UploadFileToDataSetHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
+        const options = {
+            dcb: params.arguments.dcb,
+            localFile: params.arguments.file,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        await DataSetUtils.uploadDataSet(params.connection, params.arguments.dataSet, options);
 
-        const transferType = params.arguments.binary ? "binary" : "ascii";
         const uploadSource = "local file '" + params.arguments.file + "'";
-        this.log.debug("Attempting to upload from local file '%s' to data set '%s' in transfer mode '%s'",
-            params.arguments.file, params.arguments.dataSet, transferType);
-
-        let content: Buffer | string = IO.readFileSync(params.arguments.file, undefined, params.arguments.binary);
-        if (!params.arguments.binary) {
-            content = CoreUtils.addCarriageReturns(content.toString());
-        }
-
-        const dcb = params.arguments.dcb;
-        await params.connection.uploadDataset(content, "'" + params.arguments.dataSet + "'", transferType, dcb);
-
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, params.arguments.dataSet);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
-
     }
 }
 

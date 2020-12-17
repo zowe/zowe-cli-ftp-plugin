@@ -190,7 +190,7 @@ export class CreateDataset extends AbstractTemplatedJCL {
         await
             CoreUtils.sleep(jobWait); // have to wait for the job to show up in the list
         const jobDetails = await
-            JobUtils.findJobByID(jobid, connection);
+            JobUtils.findJobByID(connection, jobid);
         return "Job details: " + JSON.stringify(jobDetails, null, 2);
     }
 

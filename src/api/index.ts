@@ -9,4 +9,11 @@
  *
  */
 
-export * from "./api";
+export * from "./doc";
+
+export * from "./CoreUtils";
+export * from "./DataSetInterface";
+export * from "./FTPConfig";
+export * from "./IFTPProgressHandler";
+export * from "./JobInterface";
+export * from "./UssInterface";

@@ -11,7 +11,7 @@
 
 import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@zowe/imperative";
 import { IFTPHandlerParams } from "./IFTPHandlerParams";
-import { FTPConfig } from "./api/FTPConfig";
+import { FTPConfig } from "./api";
 
 /**
  * This class is used by the various zos-ftp handlers as the base class for their implementation.

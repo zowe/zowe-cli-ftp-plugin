@@ -10,7 +10,7 @@
  */
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { CoreUtils } from "../../../api/CoreUtils";
+import { CoreUtils } from "../../../api";
 import { SubmitJobHandler } from "../SubmitJobHandler";
 
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {

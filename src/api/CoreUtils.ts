@@ -12,6 +12,16 @@
 import { IImperativeError, Logger } from "@zowe/imperative";
 import { isNullOrUndefined } from "util";
 
+/**
+ * The data is transferred in text mode, in which encoding conversion like ASCII/EBCDIC will happen.
+ */
+export const TRANSFER_TYPE_ASCII = "ascii";
+
+/**
+ * The data is transferred in binary mode, in which no encoding conversion will happen.
+ */
+export const TRANSFER_TYPE_BINARY = "binary";
+
 export class CoreUtils {
 
     /**
@@ -66,6 +76,18 @@ export class CoreUtils {
                 reject(stdinReadError);
             });
         });
+    }
+
+    public static addLowerCaseKeysToObject(obj: any): any {
+        const result: any = {};
+        for (const key of Object.keys(obj)) {
+            // turn the object into a similar format to that returned by
+            // z/osmf so that users who use the list ds command in main
+            // zowe can use the same filtering options
+            this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
+            result[key.toLowerCase()] = obj[key];
+        }
+        return result;
     }
 
     protected static get log(): Logger {

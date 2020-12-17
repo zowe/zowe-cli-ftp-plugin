@@ -11,11 +11,12 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { JobUtils } from "../../../api";
 
 export default class DeleteJobHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        this.log.debug("Deleting job with job id '%s'", params.arguments.jobid);
-        await params.connection.deleteJob(params.arguments.jobid);
+        await JobUtils.deleteJob(params.connection, params.arguments.jobid);
         const successMsg = params.response.console.log("Successfully deleted job %s", params.arguments.jobid);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);

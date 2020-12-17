@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { JobUtils } from "../../../api/JobUtils";
+import { JobUtils } from "../../../api";
 
 /**
  * "zos-ftp view spool-by-id" command handler. Outputs a single spool DD contents.
@@ -32,9 +32,10 @@ export default class SpoolFileByIdHandler extends FTPBaseHandler {
          * to avoid the list spool-files-by-jobid command and view spool-file-by-id making two separate FTP sessions.
          * And ensure the correct spool file can be retrieved.
          */
+        const jobStatus = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
+        option.jobName = jobStatus.jobname;
 
-        await JobUtils.findJobByID(params.arguments.jobid, params.connection);
-        const content: string = await params.connection.getJobLog(option);
+        const content = await JobUtils.getSpoolFileContent(params.connection, option);
         params.response.data.setObj(content);
         const successMessage = this.log.info(`Spool file "${params.arguments.spoolfileid}" content obtained for job ID "${params.arguments.jobid})"`);
         params.response.data.setMessage(successMessage);

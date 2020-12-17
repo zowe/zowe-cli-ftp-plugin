@@ -9,26 +9,20 @@
  *
  */
 
-import { StreamUtils } from "../../../api/StreamUtils";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-
-const TRACK = 56664;
+import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
 
 export default class ViewDataSetHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        const transferMode = params.arguments.binary ? "binary" : "ascii";
+        const options = {
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            response: params.response,
+        };
+        this.log.debug("Attempting to view data set '%s' in transfer mode '%s'", params.arguments.dataSet, options.transferType);
+        const content = await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
 
-        const files = await params.connection.listDataset(params.arguments.dataSet);
-        if (files === undefined || files.length === 0) {
-            throw new Error(`The dataset "${params.arguments.dataSet}" doesn't exist.`);
-        }
-
-        let content: Buffer;
-        this.log.debug("Attempting to view data set '%s' in transfer mode '%s'", params.arguments.dataSet, transferMode);
-        const contentStreamPromise = params.connection.getDataset(params.arguments.dataSet, transferMode, true);
-        const size = parseInt(files[0].Used, 10) * TRACK;
-        content = await StreamUtils.streamToBuffer(size, contentStreamPromise, params.response);
         this.log.info("Successfully downloaded %d bytes of content from %s", content.length, params.arguments.dataSet);
         params.response.data.setObj(content);
         params.response.console.log(content);

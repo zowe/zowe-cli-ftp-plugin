@@ -47,6 +47,8 @@ describe("Download all spool by job id handler", () => {
             }
         ];
         const jobDetails = {
+            jobid: "jobid1",
+            jobname: "job1",
             spoolFiles
         };
 

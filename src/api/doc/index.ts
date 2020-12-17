@@ -9,4 +9,4 @@
  *
  */
 
-export * from "./api";
+export * from "./IZosFTPProfile";

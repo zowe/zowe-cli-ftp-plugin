@@ -9,27 +9,24 @@
  *
  */
 
-import { CoreUtils } from "../../../api/CoreUtils";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
+import { CoreUtils, DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
 
 export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
+
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
+        const content: Buffer | string = await CoreUtils.readStdin();
 
-        const transferType = params.arguments.binary ? "binary" : "ascii";
-        this.log.debug("Attempting to upload from stdin to data set '%s' in transfer mode '%s'",
-            params.arguments.dataSet, transferType);
-
-        let content: Buffer | string = await CoreUtils.readStdin();
-        if (!params.arguments.binary) {
-            content = CoreUtils.addCarriageReturns(content.toString());
-        }
+        const options = {
+            content,
+            dcb: params.arguments.dcb,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        const dataSet = params.arguments.dataSet.toUpperCase();
+        await DataSetUtils.uploadDataSet(params.connection, dataSet, options);
 
         const uploadSource = "stdin";
-        const dataSet = params.arguments.dataSet.toUpperCase();
-
-        await params.connection.uploadDataset(content, "'" + dataSet + "'", transferType);
-
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, dataSet);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);

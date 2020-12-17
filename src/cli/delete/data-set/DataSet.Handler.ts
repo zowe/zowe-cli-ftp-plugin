@@ -11,11 +11,11 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { DataSetUtils } from "../../../api";
 
 export default class DeleteDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        this.log.debug("Deleting data set '%s'", params.arguments.dataSet);
-        await params.connection.deleteDataset("'" + params.arguments.dataSet + "'");
+        await DataSetUtils.deleteDataSet(params.connection, params.arguments.dataSet);
         const successMsg = params.response.console.log("Successfully deleted data set file %s", params.arguments.dataSet);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);

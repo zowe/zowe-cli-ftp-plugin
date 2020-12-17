@@ -9,14 +9,14 @@
  *
  */
 
-import { JobUtils } from "../../../api/JobUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { JobUtils } from "../../../api";
 
 export default class ViewJobStatusByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         this.log.debug("Viewing all spool files for job id: " + params.arguments.jobid);
-        const jobDetails = await JobUtils.findJobByID(params.arguments.jobid, params.connection);
+        const jobDetails = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
         params.response.data.setObj(jobDetails);
         params.response.format.output(
             {
@@ -25,7 +25,6 @@ export default class ViewJobStatusByJobIdHandler extends FTPBaseHandler {
                 format: "object"
             }
         );
-
     }
 }
 

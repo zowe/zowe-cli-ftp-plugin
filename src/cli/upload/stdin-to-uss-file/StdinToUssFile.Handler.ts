@@ -9,28 +9,24 @@
  *
  */
 
-import { UssUtils } from "../../../api/UssUtils";
-import { CoreUtils } from "../../../api/CoreUtils";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { CoreUtils, UssUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
 
 export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        const transferType = params.arguments.binary ? "binary" : "ascii";
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        this.log.debug("Attempting to upload from stdin to USS file'%s' in transfer mode '%s'",
-            ussFile, transferType);
-        let content: Buffer | string = await CoreUtils.readStdin();
-        if (!params.arguments.binary) {
-            content = CoreUtils.addCarriageReturns(content.toString());
-        }
+        const content: Buffer | string = await CoreUtils.readStdin();
+
+        const options = {
+            content,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        await UssUtils.uploadFile(params.connection, ussFile, options);
 
         const uploadSource: string = "stdin";
-
-        await params.connection.uploadDataset(content, ussFile, transferType);
-
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
