@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.3.0`
 
 - Move the reusable code from handlers to api folder.
 
