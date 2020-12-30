@@ -14,10 +14,10 @@ import { ICommandDefinition } from "@zowe/imperative";
 
 export const AllocateDataSetDefinition: ICommandDefinition = {
     handler: __dirname + "/DataSet.Handler",
-    description: "Allocate a dataset",
+    description: "Allocate a sequential or partitioned dataset",
     type: "command",
     name: "data-set", aliases: ["ds"],
-    summary: "Allocate a dataset",
+    summary: "Allocate a sequential or partitioned dataset",
     examples: [
         {
             description: "Allocate a dataset \"IBMUSER.DATASET\"",

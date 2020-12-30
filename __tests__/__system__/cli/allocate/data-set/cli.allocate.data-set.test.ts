@@ -51,7 +51,7 @@ describe("allocate data set command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to allocate a data set with default attributes", async () => {
+    it("should be able to allocate a sequential data set with default attributes", async () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set.sh", testEnvironment,
@@ -61,7 +61,7 @@ describe("allocate data set command", () => {
         expect(result.stdout.toString()).toContain('Allocate dataset ' + destination + ' successfully!')
     });
 
-    it("should be able to allocate a data set with dcb options", async () => {
+    it("should be able to allocate a partitioned data set with dcb options", async () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const dcb = "LRECL=100 RECFM=FB DSORG=PO PRIMARY=10 SECONDARY=20 DIRECTORY=10";

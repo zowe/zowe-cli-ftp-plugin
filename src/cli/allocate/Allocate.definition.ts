@@ -15,8 +15,8 @@ import { FTPConfig } from "../../api/FTPConfig";
 
 const AllocateDefinition: ICommandDefinition = {
     name: "allocate", aliases: ["alloc"],
-    summary: "Allocate a dataset",
-    description: "Allocate a dataset",
+    summary: "Allocate a sequential or partitioned dataset",
+    description: "Allocate a sequential or partitioned dataset",
     type: "group",
     children: [AllocateDataSetDefinition],
     passOn: [
