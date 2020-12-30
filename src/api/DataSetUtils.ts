@@ -13,7 +13,7 @@ import * as fs from "fs";
 
 import { IO, Logger } from "@zowe/imperative";
 import { CoreUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "./CoreUtils";
-import { IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
+import { IAllocateDataSetOption, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
 
 export class DataSetUtils {
@@ -133,6 +133,18 @@ export class DataSetUtils {
             content = CoreUtils.addCarriageReturns(content.toString());
         }
         await connection.uploadDataset(content, "'" + dsn + "'", transferType, option.dcb);
+    }
+
+    /**
+     * Allocate dataset.
+     *
+     * @param connection - zos-node-accessor connection
+     * @param dsn - fully-qualified dataset name without quotes
+     * @param option - Allocate option
+     */
+    public static async allocateDataSet(connection: any, dsn: string, option: IAllocateDataSetOption): Promise<void> {
+        this.log.debug("Allocate data set '%s'", dsn);
+        await connection.allocateDataset(dsn, option.dcb);
     }
 
     private static get log(): Logger {
