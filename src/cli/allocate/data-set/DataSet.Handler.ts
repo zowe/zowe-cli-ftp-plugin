@@ -21,7 +21,7 @@ export default class AllocateDataSetHandler extends FTPBaseHandler {
         };
         await DataSetUtils.allocateDataSet(params.connection, params.arguments.datasetName, options);
 
-        const successMsg = params.response.console.log("Allocate dataset %s successfully!", params.arguments.datasetName);
+        const successMsg = params.response.console.log("Allocated dataset %s successfully!", params.arguments.datasetName);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
     }

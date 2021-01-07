@@ -58,7 +58,7 @@ describe("allocate data set command", () => {
         [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain('Allocate dataset ' + destination + ' successfully!')
+        expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!')
     });
 
     it("should be able to allocate a partitioned data set with dcb options", async () => {
@@ -69,7 +69,7 @@ describe("allocate data set command", () => {
         [destination, dcb]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain('Allocate dataset ' + destination + ' successfully!');
+        expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!');
 
         const attributes = await connection.listDataset(destination);
         expect(attributes[0].Dsorg).toEqual("PO");

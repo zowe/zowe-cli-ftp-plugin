@@ -28,7 +28,7 @@ describe("Allocate data set handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Allocate dataset %s successfully!");
+        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Allocated dataset %s successfully!");
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("dsname");
     });
 
