@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.4.0`
 
 - Add allocate command to allocate sequential or partitioned dataset.
 
