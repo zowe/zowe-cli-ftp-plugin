@@ -57,5 +57,13 @@ export interface IUploadDataSetOption {
     transferType?: string;
 }
 
+export interface IAllocateDataSetOption {
+
+    /**
+     * Data control block (DCB). Refer to https://github.com/IBM/zos-node-accessor/tree/1.0.7#allocate
+     */
+    dcb?: string;
+}
+
 // When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.
 export { DataSetUtils as DataSetUtils };

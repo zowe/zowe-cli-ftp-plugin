@@ -14,6 +14,7 @@ You can use the plug-in to perform various tasks, such as the following:
 * Delete z/OS dataset, USS file, or job.
 * Submit job from dataset, local file and stdin.
 * Make USS directory.
+* Allocate dataset.
 
 ## Software Requirements
 
