@@ -9,7 +9,6 @@
  *
  */
 
-import { explainAtCreateVariable } from "@zowe/provisioning-for-zowe-sdk";
 import ListJobsHandler from "../../../../../src/cli/list/jobs/Jobs.Handler";
 import TestUtils from "../../TestUtils";
 
