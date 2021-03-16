@@ -16,7 +16,10 @@ import { JobUtils } from "../../../api";
 export default class ListJobsHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        const filteredJobs = await JobUtils.listJobs(params.connection, params.arguments.prefix, params.arguments.owner);
+        const options = {
+            owner: params.arguments.owner
+        };
+        const filteredJobs = await JobUtils.listJobs(params.connection, params.arguments.prefix, options);
         params.response.data.setObj(filteredJobs);
         params.response.data.setMessage("Successfully listed %d matching jobs", filteredJobs.length);
         params.response.format.output({

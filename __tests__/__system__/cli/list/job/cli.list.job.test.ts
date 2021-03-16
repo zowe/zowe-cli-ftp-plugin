@@ -48,13 +48,14 @@ describe("list job ftp command", () => {
         expect(response.status).toBe(0);
         expect(response.stdout.toString()).toMatchSnapshot();
     });
-
-    it("should be able to list the jobs with prefix from the test properties file", async () => {
+  
+    it("should be able to list the jobs with prefix and owner from the test properties file", async () => {
         const pre = "\"*\"";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre]);
+        const owner ="\"*\"";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre, owner]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-       // expect(result.stdout.toString()).toContain(pre);
+        //expect(result.stdout.toString()).toContain("IBM");
     });
 
     it("should give a syntax error if the job pattern is omitted", async () => {
