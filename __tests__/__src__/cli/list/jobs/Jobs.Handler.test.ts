@@ -9,6 +9,7 @@
  *
  */
 
+import { explainAtCreateVariable } from "@zowe/provisioning-for-zowe-sdk";
 import ListJobsHandler from "../../../../../src/cli/list/jobs/Jobs.Handler";
 import TestUtils from "../../TestUtils";
 
@@ -44,7 +45,8 @@ describe("List jobs handler", () => {
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {
             arguments: {
-                prefix: "job*"
+                prefix: "job*",
+                owner: "*"
             },
             connection: {
                 listJobs: jest.fn().mockReturnValue(Promise.resolve(jobs))
@@ -54,6 +56,10 @@ describe("List jobs handler", () => {
         await handler.processFTP(mockParams);
         expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("Successfully listed %d matching jobs");
         expect(mockResponse.data.setMessage.mock.calls[0][1]).toBe(2);
+        expect(mockResponse.data.setObj.mock.calls[0][0][0].owner).toContain("OWNER1")
+        expect(mockResponse.data.setObj.mock.calls[0][0][1].owner).toContain("OWNER2")
+        const obj = Object.keys(mockResponse.data.setObj.mock.calls[0][0])
+        expect(obj.length).toBe(2)
     });
 
 });
