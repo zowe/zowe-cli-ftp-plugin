@@ -138,7 +138,7 @@ export class JobUtils {
             // turn the object into a similar format to that returned by
             // z/osmf so that users who use the list ds command in main
             // zowe can use the same filtering options
-            const fields = job.split(/ /g);
+            const fields = job.split(/\s+/g);
 
             const jobNameIndex = 0;
             const jobIdIndex = 1;
