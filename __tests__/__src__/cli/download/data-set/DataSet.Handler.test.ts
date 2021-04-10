@@ -33,7 +33,7 @@ describe("Download data set handler", () => {
         }
     });
 
-    it("should return correct message if the data set is deleted.", async () => {
+    it("should return correct message if the data set is downloaded.", async () => {
         const handler = new DownloadDataSetHandler();
         const files: any[] = [
             {
@@ -44,7 +44,9 @@ describe("Download data set handler", () => {
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {
             arguments: {
-                dataSet: "ds1"
+                dataSet: "ds1",
+                binary: true,
+                rdw: true,
             },
             connection: {
                 listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
@@ -55,5 +57,6 @@ describe("Download data set handler", () => {
         await handler.processFTP(mockParams);
         expect(mockResponse.console.log.mock.calls[0][0]).toBe("Data set downloaded successfully.\nDestination: %s");
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("ds1");
+        expect(mockParams.connection.getDataset.mock.calls[0][1]).toBe("binary_rdw");
     });
 });
