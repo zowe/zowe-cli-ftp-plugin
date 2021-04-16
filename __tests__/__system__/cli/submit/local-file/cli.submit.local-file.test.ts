@@ -75,6 +75,7 @@ describe("submit job from local file command", () => {
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
         expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("retcode:");
         expect(result.output.toString()).toContain("finished");
     });
 

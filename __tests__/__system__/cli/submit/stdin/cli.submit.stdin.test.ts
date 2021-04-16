@@ -67,12 +67,14 @@ describe("submit job from stdin command", () => {
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option ="--wait";
-        const wait = "3,5";
+        const wait = "3,10";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_stdin_wait.sh", testEnvironment, [jclFilePath,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
         expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("retcode:");
+        expect(result.output.toString()).toContain("finished");
     });
 
     it("should give a syntax error if the wait value is invalid", async () => {

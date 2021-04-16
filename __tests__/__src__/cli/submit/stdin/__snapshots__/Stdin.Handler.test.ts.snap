@@ -7,6 +7,7 @@ Array [
     "jobname": "jobname2",
     "owner": "owner2",
     "rc": 0,
+    "retcode": "RC 0000",
     "spoolFiles": Array [
       Object {
         "name": "file1",
@@ -29,6 +30,7 @@ Array [
       "owner",
       "status",
       "rc",
+      "retcode",
     ],
     "format": "object",
     "output": Object {
@@ -36,6 +38,7 @@ Array [
       "jobname": "jobname2",
       "owner": "owner2",
       "rc": 0,
+      "retcode": "RC 0000",
       "spoolFiles": Array [
         Object {
           "name": "file1",

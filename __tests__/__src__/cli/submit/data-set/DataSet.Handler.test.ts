@@ -48,7 +48,8 @@ describe("Submit data set handler", () => {
             jobname: "jobname2",
             owner: "owner2",
             status: "OUTPUT",
-            rc: 0
+            rc: 0,
+            retcode: "RC 0000",
         };
 
         const jobRuning = {

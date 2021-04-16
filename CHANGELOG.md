@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Latest Changes
+
+- Add `retcode` in the output of the `view job-status-by-jobid` and `submit` command to be consistent with ZOSMF plugin.
+
 ## `1.4.1`
 
 - Fixed list jobs problems.

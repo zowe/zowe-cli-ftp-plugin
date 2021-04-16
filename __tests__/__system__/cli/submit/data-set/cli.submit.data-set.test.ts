@@ -63,12 +63,13 @@ describe("submit job from data set command", () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
-        const wait = "3,5";
+        const wait = "3,10";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
         expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("retcode:");
         expect(result.output.toString()).toContain("finished");
     });
 
