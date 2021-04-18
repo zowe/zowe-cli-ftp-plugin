@@ -60,7 +60,7 @@ describe("submit job from stdin command", () => {
         expect(result.stdout.toString()).toContain("jobname");
     });
 
-    it("should be able to submit a job from a local file with wait option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
@@ -91,7 +91,7 @@ describe("submit job from stdin command", () => {
         expect(result.status).toEqual(0);
     });
 
-    it("should be able to submit a job from a local file but not finished within specified wait option", async () => {
+    it("should be able to submit a job from stdin but not finished within specified wait option", async () => {
 
         // download the appropriate JCL content from the data set
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
@@ -108,7 +108,7 @@ describe("submit job from stdin command", () => {
         expect(result.output.toString()).toContain("Please using the following command to check its status later:");
     });
 
-    it("should be able to submit a job from a local file with wait-for-output option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait-for-output option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
@@ -123,7 +123,7 @@ describe("submit job from stdin command", () => {
         expect(result.output.toString()).toContain("finished");
     });
 
-    it("should be able to submit a job from a local file with wait-for-active option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait-for-active option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();

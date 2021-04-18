@@ -14,7 +14,6 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { isNull } from "util";
 
 let user: string;
 let connection: any;
@@ -49,7 +48,7 @@ describe("submit job from data set command", () => {
         expect(response.stdout.toString()).toMatchSnapshot();
     });
 
-    it("should be able to submit a job from a local file and see the job name and job id", async () => {
+    it("should be able to submit a job from a data set and see the job name and job id", async () => {
 
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set.sh", testEnvironment, [iefbr14DataSet]);
@@ -59,7 +58,7 @@ describe("submit job from data set command", () => {
         expect(result.stdout.toString()).toContain("jobname");
     });
 
-    it("should be able to submit a job from a local file with wait option and get rc successfully", async () => {
+    it("should be able to submit a job from a data set with wait option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
@@ -84,7 +83,7 @@ describe("submit job from data set command", () => {
         expect(result.status).toEqual(0);
     });
 
-    it("should be able to submit a job from a local file but not finished within specified wait option", async () => {
+    it("should be able to submit a job from a data set but not finished within specified wait option", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
@@ -97,7 +96,7 @@ describe("submit job from data set command", () => {
         expect(result.output.toString()).toContain("Please using the following command to check its status later:");
     });
 
-    it("should be able to submit a job from a local file with wait-for-output option and get rc successfully", async () => {
+    it("should be able to submit a job from a data set with wait-for-output option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait-for-output";
@@ -109,7 +108,7 @@ describe("submit job from data set command", () => {
         expect(result.output.toString()).toContain("finished");
     });
 
-    it("should be able to submit a job from a local file with wait-for-active option and get rc successfully", async () => {
+    it("should be able to submit a job from a data set with wait-for-active option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait-for-active";

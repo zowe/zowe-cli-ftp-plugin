@@ -57,7 +57,7 @@ describe("Submit job from local file handler", () => {
             owner: "owner2",
             status: "OUTPUT",
             rc: 0,
-            retcode: "RC 0000",
+            retcode: "CC 0000",
             spoolFiles: [
                 {
                     name: "file1"
