@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## `1.5.0`
+
+- Expose meta data for Zowe Explorer FTP extension.
+
 ## `1.4.1`
 
 - Fixed list jobs problems.
