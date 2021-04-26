@@ -60,19 +60,21 @@ describe("submit job from stdin command", () => {
         expect(result.stdout.toString()).toContain("jobname");
     });
 
-    it("should be able to submit a job from a local file with wait option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option ="--wait";
-        const wait = "3,5";
+        const wait = "3,10";
         const result = runCliScript(__dirname + "/__scripts__/command/command_submit_stdin_wait.sh", testEnvironment, [jclFilePath,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
         expect(result.output.toString()).toContain("rc:");
+        expect(result.output.toString()).toContain("retcode:");
+        expect(result.output.toString()).toContain("finished");
     });
 
     it("should give a syntax error if the wait value is invalid", async () => {
@@ -89,7 +91,7 @@ describe("submit job from stdin command", () => {
         expect(result.status).toEqual(0);
     });
 
-    it("should be able to submit a job from a local file but not finished within specified wait option", async () => {
+    it("should be able to submit a job from stdin but not finished within specified wait option", async () => {
 
         // download the appropriate JCL content from the data set
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
@@ -106,7 +108,7 @@ describe("submit job from stdin command", () => {
         expect(result.output.toString()).toContain("Please using the following command to check its status later:");
     });
 
-    it("should be able to submit a job from a local file with wait-for-output option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait-for-output option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
@@ -121,7 +123,7 @@ describe("submit job from stdin command", () => {
         expect(result.output.toString()).toContain("finished");
     });
 
-    it("should be able to submit a job from a local file with wait-for-active option and get rc successfully", async () => {
+    it("should be able to submit a job from stdin with wait-for-active option and get rc successfully", async () => {
 
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const sleepContent = (await connection.getDataset(sleepDataSet)).toString();

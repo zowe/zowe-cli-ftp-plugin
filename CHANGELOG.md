@@ -5,6 +5,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 ## Recent Changes
 
 - Expose meta data for Zowe Explorer FTP extension.
+- Add `retcode` in the output of the `view job-status-by-jobid` and `submit` command to be consistent with ZOSMF plugin.
 
 ## `1.4.1`
 

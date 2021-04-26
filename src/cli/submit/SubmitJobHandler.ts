@@ -61,7 +61,7 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                             params.response.format.output({
                                 output: currentJobDetails,
                                 format: "object",
-                                fields: ["jobid", "jobname", "owner", "status", "rc"]
+                                fields: ["jobid", "jobname", "owner", "status", "rc", "retcode"]
                             });
                             this.log.info(successMsg);
                             setTimeout(() => {

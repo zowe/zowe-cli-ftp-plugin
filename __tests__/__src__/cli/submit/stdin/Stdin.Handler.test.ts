@@ -55,6 +55,7 @@ describe("Submit job from stdin handler", () => {
             owner: "owner2",
             status: "OUTPUT",
             rc: 0,
+            retcode: 'CC 0000',
             spoolFiles: [
                 {
                     name: "file1"

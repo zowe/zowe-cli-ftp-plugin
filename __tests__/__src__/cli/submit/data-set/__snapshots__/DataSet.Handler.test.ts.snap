@@ -6,6 +6,7 @@ Object {
   "jobname": "jobname2",
   "owner": "owner2",
   "rc": 0,
+  "retcode": "CC 0000",
   "status": "OUTPUT",
 }
 `;
@@ -18,6 +19,7 @@ Object {
     "owner",
     "status",
     "rc",
+    "retcode",
   ],
   "format": "object",
   "output": Object {
@@ -25,6 +27,7 @@ Object {
     "jobname": "jobname2",
     "owner": "owner2",
     "rc": 0,
+    "retcode": "CC 0000",
     "status": "OUTPUT",
   },
 }
