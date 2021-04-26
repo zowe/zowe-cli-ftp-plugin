@@ -9,7 +9,7 @@
  *
  */
 
-import { IImperativeError, Logger } from "@zowe/imperative";
+import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -88,6 +88,11 @@ export class CoreUtils {
             result[key.toLowerCase()] = obj[key];
         }
         return result;
+    }
+
+    public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
+        const ftpProfile = await require("../imperative").profiles as ICommandProfileTypeConfiguration[];
+        return ftpProfile;
     }
 
     protected static get log(): Logger {
