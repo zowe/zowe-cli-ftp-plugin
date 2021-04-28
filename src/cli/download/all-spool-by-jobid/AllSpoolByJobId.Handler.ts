@@ -37,7 +37,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 "record-count": 0,
                 "job-correlator": "", // most of these options don't matter for download
                 "class": "A", "ddname": spoolFileToDownload.ddname,
-                "id": spoolFileToDownload.id,
+                "id": parseInt(spoolFileToDownload.id, 10),
                 "records-url": "",
                 "subsystem": "JES2",
                 "stepname": spoolFileToDownload.stepname,

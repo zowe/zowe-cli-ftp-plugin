@@ -11,7 +11,7 @@
 
 import { Logger } from "@zowe/imperative";
 import { TRANSFER_TYPE_ASCII } from "./CoreUtils";
-import { IGetSpoolFileOption, IJobStatus, IListJobOption } from "./JobInterface";
+import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./JobInterface";
 
 export class JobUtils {
 
@@ -23,7 +23,7 @@ export class JobUtils {
      * @param option - list job option
      * @returns job entries
      */
-    public static async listJobs(connection: any, prefix: string, option?: IListJobOption): Promise<any[]> {
+    public static async listJobs(connection: any, prefix: string, option?: IListJobOption): Promise<IJob[]> {
         const accessorOption: any = {
             jobName: prefix,
         };
@@ -69,10 +69,9 @@ export class JobUtils {
      * @param jobId - job ID
      * @returns spool files with content
      */
-    public static async getSpoolFiles(connection: any, jobId: string): Promise<any[]> {
+    public static async getSpoolFiles(connection: any, jobId: string): Promise<ISpoolFile[]> {
         const jobDetails = (await JobUtils.findJobByID(connection, jobId));
-        const spoolFiles: any = [];
-        const fullSpoolFiles: any = [];
+        const fullSpoolFiles: ISpoolFile[] = [];
         for (const spoolFileToDownload of jobDetails.spoolFiles) {
             this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
             const option = {
@@ -82,7 +81,6 @@ export class JobUtils {
                 fileId: spoolFileToDownload.id
             };
             const spoolFile = await JobUtils.getSpoolFileContent(connection, option);
-            spoolFiles.push(spoolFile);
             spoolFileToDownload.contents = spoolFile;
             fullSpoolFiles.push(spoolFileToDownload);
         }
@@ -125,14 +123,19 @@ export class JobUtils {
      */
     public static async findJobByID(connection: any, jobId: string): Promise<IJobStatus> {
         this.log.debug("Attempting to locate job by job ID %s", jobId);
-        return connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
+        const jobStatus = await connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
+        if (jobStatus.retcode) {
+            // zos-node-accessor returns 'RC 0000', which need be converted to 'CC 0000'.
+            jobStatus.retcode = jobStatus.retcode.replace(/^RC /, "CC ");
+        }
+        return jobStatus;
     }
 
-    public static parseJobDetails(jobs: string[]): any[] {
+    public static parseJobDetails(jobs: string[]): IJob[] {
         if (jobs.length > 1) {
             jobs = jobs.slice(1);
         }
-        return jobs.map((job: any) => {
+        return jobs.map((job: string) => {
             // object looks like:
             // JOBNAME, JOBID, OWNER, STATUS, CLASS
             // turn the object into a similar format to that returned by

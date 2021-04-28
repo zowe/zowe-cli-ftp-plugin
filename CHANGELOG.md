@@ -6,6 +6,11 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 - Added --rdw to `download dataset` command to download variable-length dataset.
 
+## `1.5.0`
+
+- Expose meta data for Zowe Explorer FTP extension.
+- Add `retcode` in the output of the `view job-status-by-jobid` and `submit` command to be consistent with ZOSMF plugin.
+
 ## `1.4.1`
 
 - Fixed list jobs problems.

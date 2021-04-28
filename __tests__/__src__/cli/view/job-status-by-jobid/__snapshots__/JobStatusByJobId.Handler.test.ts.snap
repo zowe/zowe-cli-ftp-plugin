@@ -18,6 +18,7 @@ Object {
     "owner",
     "status",
     "rc",
+    "retcode",
   ],
   "format": "object",
   "output": Object {
