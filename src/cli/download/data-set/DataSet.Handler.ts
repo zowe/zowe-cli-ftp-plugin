@@ -13,7 +13,7 @@ import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
-import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY  } from "../../../api";
+import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_ASCII_RDW, TRANSFER_TYPE_BINARY, TRANSFER_TYPE_BINARY_RDW } from "../../../api";
 
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
@@ -26,10 +26,14 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
         if (params.response && params.response.progress) {
             progress = new FTPProgressHandler(params.response.progress, true);
         }
+        let transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII;
+        if (params.arguments.rdw) {
+            transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY_RDW : TRANSFER_TYPE_ASCII_RDW;
+        }
         const options = {
             localFile: file,
             response: params.response,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType,
             progress,
         };
         await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);

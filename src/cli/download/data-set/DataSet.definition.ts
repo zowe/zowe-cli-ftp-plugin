@@ -43,6 +43,12 @@ export const DownloadDataSetDefinition: ICommandDefinition = {
             description: "The path to the local file where you want to download the content. When you omit the option, " +
                 "the command generates a file name automatically for you.",
             type: "string"
+        },
+        {
+            name: "rdw",
+            description: "Download the variable-length data set with RECFM of V, VB, VBS, etc in rdw mode, in which " +
+                "the 4-byte RDW (Record Descriptor Word) is inserted at the begining of each record.",
+            type: "boolean"
         }
     ],
     profile:

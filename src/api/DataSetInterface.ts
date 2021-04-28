@@ -9,7 +9,6 @@
  *
  */
 
-import { IHandlerResponseApi } from "@zowe/imperative";
 import { DataSetUtils } from "./DataSetUtils";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
@@ -30,7 +29,7 @@ export interface IDownloadDataSetOption {
     progress?: IFTPProgressHandler;
 
     /**
-     * TRANSFER_TYPE_ASCII or TRANSFER_TYPE_BIANRY defined in CoreUtils.
+     * TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BIANRY, TRANSFER_TYPE_ASCII_RDW, or TRANSFER_TYPE_BINARY_RDW defined in CoreUtils.
      */
     transferType?: string;
 }
