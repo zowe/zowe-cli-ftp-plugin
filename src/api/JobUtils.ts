@@ -25,7 +25,7 @@ export class JobUtils {
      */
     public static async listJobs(connection: any, prefix: string, option?: IListJobOption): Promise<IJob[]> {
         const accessorOption: any = {
-            jobName: prefix,
+            jobName: prefix || "*",
         };
         let debugMessage = `Listing jobs that match prefix ${prefix}`;
         if (option && option.owner) {
