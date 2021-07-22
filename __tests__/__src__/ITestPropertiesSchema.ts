@@ -66,6 +66,10 @@ export interface ITestPropertiesSchema {
          * Data set name prefix
          */
         dsnPrefix: string;
+        /**
+         * LoadLib dataset name
+         */
+        dsnLoadLib:string;
     };
     jobs: {
 

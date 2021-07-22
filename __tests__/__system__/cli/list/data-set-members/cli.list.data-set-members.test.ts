@@ -57,6 +57,15 @@ describe("list data-set-members ftp command", () => {
         expect(result.stdout.toString()).toContain("Successfully");
     });
 
+    it("should be able to list Loadlib Members", async () => {
+        const expectedDS = testEnvironment.systemTestProperties.datasets.dsnLoadLib.toUpperCase();
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_data_set_members.sh", testEnvironment, [expectedDS]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).toContain(expectedDS);
+        expect(result.stdout.toString()).toContain("Successfully");
+    });
+    
     it("should give a syntax error if the data set pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_data_set_members.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
