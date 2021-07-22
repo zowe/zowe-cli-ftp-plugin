@@ -58,6 +58,13 @@ describe("list job ftp command", () => {
         //expect(result.stdout.toString()).toContain("IBM");
     });
 
+    it("should be able to list all jobs under the owner if not specified the prefix option", async () => {
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job_noprefix.sh", testEnvironment);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+
+    });
+
     it("should give a syntax error if the job pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, []);
         const stderr = result.stderr.toString();

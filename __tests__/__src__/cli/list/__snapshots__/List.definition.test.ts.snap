@@ -27,9 +27,9 @@ Object {
         Object {
           "aliases": Array [],
           "description": "Specify the job name prefix of the jobs you own and want to list. You can specify a wildcard, which is usually in the form \\"JOB*\\". 
- ",
+ If you don't specify this option all jobs under this owner will be listed by default.",
           "name": "prefix",
-          "required": true,
+          "required": false,
           "type": "string",
         },
         Object {
