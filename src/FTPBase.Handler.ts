@@ -36,7 +36,12 @@ export abstract class FTPBaseHandler implements ICommandHandler {
             await this.processFTP(additionalParameters);
         } catch (e) {
             this.log.error("Error encountered in FTP command:\n%s", require("util").inspect(e));
+            if (e.message.indexOf("PASS command failed") !== -1) {
+                const errMessage = "Username or password are not valid or expired.";
+                throw new ImperativeError({msg: errMessage, causeErrors: [e]});
+            } else {
             throw new ImperativeError({msg: e.message, causeErrors: [e]});
+            }
         } finally {
             // close the connection whether we saw an error or not
             if (connection != null) {
