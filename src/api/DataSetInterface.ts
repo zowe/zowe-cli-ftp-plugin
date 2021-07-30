@@ -9,7 +9,6 @@
  *
  */
 
-import { DataSetUtils } from "./DataSetUtils";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
 /**
@@ -65,4 +64,4 @@ export interface IAllocateDataSetOption {
 }
 
 // When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.
-export { DataSetUtils as DataSetUtils };
+// export { DataSetUtils as DataSetUtils };

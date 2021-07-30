@@ -25,7 +25,7 @@ node('zowe-jenkins-agent') {
 
     // Build admins, users that can approve the build and receieve emails for
     // all protected branch builds.
-    pipeline.admins.add("liangqi", "zfernand0", "mikebauerca")
+    pipeline.admins.add("liangqi", "gejohnston", "zfernand0", "mikebauerca", "markackert", "dkelosky", "awharn", "tjohnsonbcm")
 
     // Comma-separated list of emails that should receive notifications about these builds
     pipeline.emailList = "liangqi@cn.ibm.com, fernando.rijocedeno@broadcom.com"
