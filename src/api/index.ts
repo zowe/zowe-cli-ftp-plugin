@@ -17,3 +17,4 @@ export * from "./FTPConfig";
 export * from "./IFTPProgressHandler";
 export * from "./JobInterface";
 export * from "./UssInterface";
+export * from "./DataSetUtils";
