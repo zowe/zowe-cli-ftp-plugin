@@ -12,7 +12,7 @@ npm-shrinkwrap.json
 !/__tests__/__resources__/properties/default_properties.yaml
 
 node-report*
-/docs/typedoc/
+docs/typedoc/
 
 *.tgz
 ds1

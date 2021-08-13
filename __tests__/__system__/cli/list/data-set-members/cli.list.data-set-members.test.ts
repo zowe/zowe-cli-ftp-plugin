@@ -65,7 +65,7 @@ describe("list data-set-members ftp command", () => {
         expect(result.stdout.toString()).toContain(expectedDS);
         expect(result.stdout.toString()).toContain("Successfully");
     });
-    
+
     it("should give a syntax error if the data set pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_data_set_members.sh", testEnvironment, []);
         const stderr = result.stderr.toString();

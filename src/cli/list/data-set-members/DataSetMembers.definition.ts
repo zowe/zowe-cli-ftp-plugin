@@ -9,7 +9,7 @@
  *
  */
 
-import { ICommandDefinition, TextUtils } from "@zowe/imperative";
+import { ICommandDefinition } from "@zowe/imperative";
 
 
 export const ListDataSetMembersDefinition: ICommandDefinition = {

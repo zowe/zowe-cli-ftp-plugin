@@ -86,7 +86,7 @@ describe("Submit job from local file handler", () => {
             connection: {
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid2")),
                 getJobStatus: jest.fn().mockReturnValueOnce(Promise.resolve(jobRuning)).mockReturnValueOnce(Promise.resolve(jobRuning))
-                .mockReturnValue(Promise.resolve(jobDetails))
+                    .mockReturnValue(Promise.resolve(jobDetails))
             },
             response: mockResponse
         };

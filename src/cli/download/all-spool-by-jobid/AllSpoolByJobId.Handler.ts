@@ -25,7 +25,7 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
             throw new ImperativeError({
                 msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
                     "Try again after waiting a moment if the job is not yet in OUTPUT status.",
-                    jobDetails.jobname, jobDetails.jobid)
+                jobDetails.jobname, jobDetails.jobid)
             });
         }
         const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobid);

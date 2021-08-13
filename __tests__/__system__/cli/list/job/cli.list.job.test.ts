@@ -48,7 +48,7 @@ describe("list job ftp command", () => {
         expect(response.status).toBe(0);
         expect(response.stdout.toString()).toMatchSnapshot();
     });
-  
+
     it("should be able to list the jobs with prefix and owner from the test properties file", async () => {
         const pre = "\"*\"";
         const owner ="\"*\"";
@@ -68,7 +68,7 @@ describe("list job ftp command", () => {
     it("should give a syntax error if the job pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
-       
+
         expect(stderr).toContain("Syntax Error");
         expect(stderr).toContain("No value specified for option");
         expect(stderr).toContain("prefix");

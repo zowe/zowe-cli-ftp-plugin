@@ -26,9 +26,9 @@ export class CreateDataset extends AbstractTemplatedJCL {
      * @param  [options={}] - additional options for the creation of the data set
      */
     public static async create(connection: any, cmdType: CreateDataSetTypeEnum,
-                               dataSetName: string,
-                               jobCardFile: string,
-                               options ?: Partial<ICreateDataSetOptions>):
+        dataSetName: string,
+        jobCardFile: string,
+        options ?: Partial<ICreateDataSetOptions>):
         Promise<IZosFilesResponse> {
         let validCmdType = true;
 
@@ -66,52 +66,48 @@ export class CreateDataset extends AbstractTemplatedJCL {
         if (!validCmdType) {
             throw new ImperativeError({msg: ZosFilesMessages.unsupportedDatasetType.message});
         } else {
-            try {
-                // Handle the size option
-                if (!isNullOrUndefined(tempOptions.size)) {
-                    const tAlcunit = tempOptions.size.toString().match(/[a-zA-Z]+/g);
-                    if (!isNullOrUndefined(tAlcunit)) {
-                        tempOptions.alcunit = tAlcunit.join("").toUpperCase();
-                    }
-
-                    const tPrimary = tempOptions.size.toString().match(/[0-9]+/g);
-                    if (!isNullOrUndefined(tPrimary)) {
-                        tempOptions.primary = +(tPrimary.join(""));
-
-                        if (!secondarySpecified) {
-                            const TEN_PERCENT = 0.10;
-                            tempOptions.secondary = Math.round(tempOptions.primary * TEN_PERCENT);
-                        }
-                    }
-
-                    delete tempOptions.size;
+            // Handle the size option
+            if (!isNullOrUndefined(tempOptions.size)) {
+                const tAlcunit = tempOptions.size.toString().match(/[a-zA-Z]+/g);
+                if (!isNullOrUndefined(tAlcunit)) {
+                    tempOptions.alcunit = tAlcunit.join("").toUpperCase();
                 }
 
-                let response = "";
-                // Handle the print attributes option
-                if (!isNullOrUndefined(tempOptions.printAttributes)) {
-                    if (tempOptions.printAttributes) {
-                        delete tempOptions.printAttributes;
-                        response = TextUtils.prettyJson(tempOptions);
-                    } else {
-                        delete tempOptions.printAttributes;
+                const tPrimary = tempOptions.size.toString().match(/[0-9]+/g);
+                if (!isNullOrUndefined(tPrimary)) {
+                    tempOptions.primary = +(tPrimary.join(""));
+
+                    if (!secondarySpecified) {
+                        const TEN_PERCENT = 0.10;
+                        tempOptions.secondary = Math.round(tempOptions.primary * TEN_PERCENT);
                     }
                 }
 
-                response = await
-                    new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);
-                if (response.indexOf("RC=0000") >= 0) {
-                    response += "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message;
-                } else {
-                    response += "\nFailed to create data set";
-                }
-                return {
-                    success: true,
-                    commandResponse: response
-                };
-            } catch (error) {
-                throw error;
+                delete tempOptions.size;
             }
+
+            let response = "";
+            // Handle the print attributes option
+            if (!isNullOrUndefined(tempOptions.printAttributes)) {
+                if (tempOptions.printAttributes) {
+                    delete tempOptions.printAttributes;
+                    response = TextUtils.prettyJson(tempOptions);
+                } else {
+                    delete tempOptions.printAttributes;
+                }
+            }
+
+            response = await
+            new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);
+            if (response.indexOf("RC=0000") >= 0) {
+                response += "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message;
+            } else {
+                response += "\nFailed to create data set";
+            }
+            return {
+                success: true,
+                commandResponse: response
+            };
         }
     }
 
@@ -120,9 +116,9 @@ export class CreateDataset extends AbstractTemplatedJCL {
         "//{{createDD}}";
 
     private async createViaFTP(connection: any, dataSetName: string,
-                               options: ICreateDataSetOptions,
-                               jobCardFile: string,
-                               overrideTemplateFile ?: string) {
+        options: ICreateDataSetOptions,
+        jobCardFile: string,
+        overrideTemplateFile ?: string) {
         this.log.debug("Building jcl to create data set %s", dataSetName);
 
         let createDD: string = "NEWDATA DD ";
@@ -185,12 +181,12 @@ export class CreateDataset extends AbstractTemplatedJCL {
         const jcl = this.getJcl(jobCardFile, {createDD}, overrideTemplateFile);
         this.log.debug("Creating data set %s via JCL:\n %s", dataSetName, jcl);
         const jobid = await
-            connection.submitJCL(jcl);
+        connection.submitJCL(jcl);
         const jobWait = 500;
         await
-            CoreUtils.sleep(jobWait); // have to wait for the job to show up in the list
+        CoreUtils.sleep(jobWait); // have to wait for the job to show up in the list
         const jobDetails = await
-            JobUtils.findJobByID(connection, jobid);
+        JobUtils.findJobByID(connection, jobid);
         return "Job details: " + JSON.stringify(jobDetails, null, 2);
     }
 

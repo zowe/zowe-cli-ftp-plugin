@@ -10,7 +10,6 @@
  */
 
 import { IO } from "@zowe/imperative";
-import { UssUtils } from "../../../../../src/api/UssUtils";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import UploadFileToUssFileHandler from "../../../../../src/cli/upload/file-to-uss-file/FileToUssFile.Handler";
 import TestUtils from "../../TestUtils";

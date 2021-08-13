@@ -100,7 +100,8 @@ describe("upload file to data set command", () => {
         expect(result.status).toEqual(1);
     });
 
-    it("should be able to upload a file to a data set with the specified DCB parameters and verify that the data set exists and contains the right content", async () => {
+    it("should be able to upload a file to a data set with the specified DCB parameters and " +
+        "verify that the data set exists and contains the right content", async () => {
         const fileToUpload = __dirname + "/resources/file.txt";
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);

@@ -28,7 +28,7 @@ export abstract class AbstractTemplatedJCL {
     public getJcl(jobCardFile: string, substitutionValues: any, templateFile?: string) {
 
         let jcl = IO.readFileSync(jobCardFile).toString();
-        if (!/\r?\n\Z/.test(jcl)) {
+        if (!/\r?\nZ/.test(jcl)) {
             // add a newline to the end of the jcl if there is none
             jcl += "\r\n";
         }

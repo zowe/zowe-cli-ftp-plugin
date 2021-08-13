@@ -28,7 +28,7 @@ describe("Download uss file handler", () => {
         };
         try {
             await handler.processFTP(mockParams);
-            fail("Error is not thrown as expected.");
+            throw "Error is not thrown as expected.";
         } catch(err) {
             expect(err.message).toMatch("The file \"ussFile1\" doesn't exist");
         }
