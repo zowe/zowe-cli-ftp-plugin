@@ -15,7 +15,7 @@ describe("Rename definition", () => {
 
     it("should match the snapshot", () => {
         RenameDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
         });
         expect(RenameDefinition).toMatchSnapshot();
     });

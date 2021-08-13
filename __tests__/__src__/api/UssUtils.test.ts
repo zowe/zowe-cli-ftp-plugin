@@ -14,8 +14,8 @@ import { UssUtils } from "../../../src/api/UssUtils";
 describe("UssUtils", () => {
 
     it("should return the normalized path as is", () => {
-        let path = UssUtils.normalizeUnixPath("C:\Users\hello.text");
-        expect(path).toBe("C:\Users\hello.text");
+        let path = UssUtils.normalizeUnixPath("C:\\Users\\hello.text");
+        expect(path).toBe("C:\\Users\\hello.text");
 
         path = UssUtils.normalizeUnixPath("/home/user1/hello.text");
         expect(path).toBe("/home/user1/hello.text");

@@ -15,7 +15,7 @@ describe("View definition", () => {
 
     it("should match the snapshot", () => {
         ViewDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
         });
         expect(ViewDefinition).toMatchSnapshot();
     });

@@ -15,11 +15,12 @@ describe("List definition", () => {
 
     it("should match the snapshot", () => {
         ListDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
 
             // Remove console color control characters from snapshot.
             if (child.positionals && child.positionals.length > 0) {
                 const description = child.positionals[0].description;
+                // eslint-disable-next-line no-control-regex
                 child.positionals[0].description = description.replace(/\x1b\[33m/g, "").replace(/\x1b\[39m/g, "");
             }
         });

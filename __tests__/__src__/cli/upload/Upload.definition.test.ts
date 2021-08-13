@@ -15,7 +15,7 @@ describe("Upload definition", () => {
 
     it("should match the snapshot", () => {
         UploadDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
         });
         expect(UploadDefinition).toMatchSnapshot();
     });
