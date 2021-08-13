@@ -6,5 +6,4 @@ queries:
 paths:
   - src
 paths-ignore:
-  - src/node_modules
-  - '**/*.test.js'
+  - node_modules
