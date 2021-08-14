@@ -2,6 +2,9 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+- Support listing USS files with file name pattern containing *.
+
 ## `1.7.0`
 
 - Support listing loadlib members
