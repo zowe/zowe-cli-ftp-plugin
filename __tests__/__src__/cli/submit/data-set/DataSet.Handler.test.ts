@@ -69,7 +69,7 @@ describe("Submit data set handler", () => {
                 getDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid2")),
                 getJobStatus: jest.fn().mockReturnValueOnce(Promise.resolve(jobRuning)).mockReturnValueOnce(Promise.resolve(jobRuning))
-                .mockReturnValue(Promise.resolve(jobDetails)),
+                    .mockReturnValue(Promise.resolve(jobDetails)),
                 listDataset: jest.fn().mockReturnValue(Promise.resolve([''])),
             },
             response: mockResponse

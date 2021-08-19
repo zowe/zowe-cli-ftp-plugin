@@ -40,7 +40,7 @@ export abstract class FTPBaseHandler implements ICommandHandler {
                 const errMessage = "Username or password are not valid or expired.";
                 throw new ImperativeError({msg: errMessage, causeErrors: [e]});
             } else {
-            throw new ImperativeError({msg: e.message, causeErrors: [e]});
+                throw new ImperativeError({msg: e.message, causeErrors: [e]});
             }
         } finally {
             // close the connection whether we saw an error or not

@@ -60,7 +60,7 @@ describe("submit job from local file command", () => {
             [destination, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(IO.existsSync(downloadFilePath));
+        expect(IO.existsSync(downloadFilePath)).toBe(true);
         const downloadedContent = IO.readFileSync(downloadFilePath);
         expect(downloadedContent.toString()).toContain(uploadContent);
         IO.deleteFile(downloadFilePath);
@@ -77,7 +77,7 @@ describe("submit job from local file command", () => {
             [destination, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(IO.existsSync(downloadFilePath));
+        expect(IO.existsSync(downloadFilePath)).toBe(true);
         const uploadedContent = IO.readFileSync(downloadFilePath, undefined, true);
         const uploadedContentString = uploadedContent.toString("hex");
         expect(uploadedContentString).toEqual(randomContent.toString("hex"));

@@ -33,7 +33,7 @@ describe("Download all spool by job id handler", () => {
         };
         try {
             await handler.processFTP(mockParams);
-            fail("Error is not thrown as expected.");
+            throw "Error is not thrown as expected.";
         } catch(err) {
             expect(err.message).toContain("No spool files were available");
         }

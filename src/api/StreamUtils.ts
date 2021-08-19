@@ -62,7 +62,6 @@ export class StreamUtils {
 
         return new Promise<number>((resolve, reject) => {
             let downloadedBytes = 0;
-            const statusMessage = "Downloaded %d of %d bytes";
             if (progress != null) {
                 progress.start(size);
             }

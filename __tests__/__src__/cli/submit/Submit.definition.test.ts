@@ -15,7 +15,7 @@ describe("Submit definition", () => {
 
     it("should match the snapshot", () => {
         SubmitDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
         });
         expect(SubmitDefinition).toMatchSnapshot();
     });

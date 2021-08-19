@@ -55,10 +55,10 @@ describe("List jobs handler", () => {
         await handler.processFTP(mockParams);
         expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("Successfully listed %d matching jobs");
         expect(mockResponse.data.setMessage.mock.calls[0][1]).toBe(2);
-        expect(mockResponse.data.setObj.mock.calls[0][0][0].owner).toContain("OWNER1")
-        expect(mockResponse.data.setObj.mock.calls[0][0][1].owner).toContain("OWNER2")
-        const obj = Object.keys(mockResponse.data.setObj.mock.calls[0][0])
-        expect(obj.length).toBe(2)
+        expect(mockResponse.data.setObj.mock.calls[0][0][0].owner).toContain("OWNER1");
+        expect(mockResponse.data.setObj.mock.calls[0][0][1].owner).toContain("OWNER2");
+        const obj = Object.keys(mockResponse.data.setObj.mock.calls[0][0]);
+        expect(obj.length).toBe(2);
     });
 
 });

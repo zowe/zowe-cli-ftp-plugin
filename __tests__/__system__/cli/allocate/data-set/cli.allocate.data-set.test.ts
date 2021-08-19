@@ -14,7 +14,6 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
 import { generateRandomAlphaNumericString, runCliScript } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { ImperativeExpect } from "@zowe/imperative";
 
 let user: string;
 let connection: any;
@@ -55,10 +54,10 @@ describe("allocate data set command", () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set.sh", testEnvironment,
-        [destination]);
+            [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!')
+        expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!');
     });
 
     it("should be able to allocate a partitioned data set with dcb options", async () => {
@@ -66,7 +65,7 @@ describe("allocate data set command", () => {
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const dcb = "LRECL=100 RECFM=FB DSORG=PO PRIMARY=10 SECONDARY=20 DIRECTORY=10";
         const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set_dcb.sh", testEnvironment,
-        [destination, dcb]);
+            [destination, dcb]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!');

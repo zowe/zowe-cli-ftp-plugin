@@ -27,7 +27,7 @@ describe("Download data set handler", () => {
         };
         try {
             await handler.processFTP(mockParams);
-            fail("Error is not thrown as expected.");
+            throw "Error is not thrown as expected.";
         } catch(err) {
             expect(err.message).toMatch("The dataset \"ds1\" doesn't exist");
         }
