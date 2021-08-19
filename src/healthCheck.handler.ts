@@ -10,5 +10,5 @@
  */
 
 export = () => {
-  return true;
+    return true;
 };

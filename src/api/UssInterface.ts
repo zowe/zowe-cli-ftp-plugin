@@ -9,7 +9,7 @@
  *
  */
 
-import { IHandlerResponseApi, IHandlerResponseConsoleApi } from "@zowe/imperative";
+import { IHandlerResponseConsoleApi } from "@zowe/imperative";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 import { UssUtils } from "./UssUtils";
 

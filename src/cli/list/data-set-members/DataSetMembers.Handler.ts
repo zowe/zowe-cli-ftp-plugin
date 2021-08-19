@@ -19,7 +19,7 @@ export default class ListDataSetMembersHandler extends FTPBaseHandler {
         const filteredMembers = await DataSetUtils.listMembers(params.connection, params.arguments.dsname);
         params.response.data.setObj(filteredMembers);
         const successMsg = params.response.console.log("Successfully listed %d members in data sets %s",
-        filteredMembers.length, params.arguments.dsname);
+            filteredMembers.length, params.arguments.dsname);
         this.log.info(successMsg);
 
         params.response.data.setMessage("Successfully listed %d members in data sets %s",

@@ -59,7 +59,7 @@ describe("submit job from local file command", () => {
             [iefbr14DataSet, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(IO.existsSync(downloadFilePath));
+        expect(IO.existsSync(downloadFilePath)).toBe(true);
         const downloadedContent = IO.readFileSync(downloadFilePath);
         expect(downloadedContent.toString()).toContain(iefbr14Content);
         IO.deleteFile(downloadFilePath);
@@ -78,7 +78,7 @@ describe("submit job from local file command", () => {
             [binaryMember, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(IO.existsSync(downloadFilePath));
+        expect(IO.existsSync(downloadFilePath)).toBe(true);
         // binary upload to a fixed record  data set will fill a data set with zeroes for the remainder of the record
         // so we can trim the zeroes off and still be accurate
         const uploadedContent = IO.readFileSync(downloadFilePath, undefined, true);

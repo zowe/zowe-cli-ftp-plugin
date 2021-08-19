@@ -43,7 +43,8 @@ export const SubmitDataSetDefinition: ICommandDefinition = {
             name: "wait",
             aliases: ["w"],
             description: "Specify job query interval and max times of querying job status. " +
-            "The format of this option is comma-separated numeric values. For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
+                "The format of this option is comma-separated numeric values. " +
+                "For example, '5,12' means queries job status every 5 seconds for 12 times at most.",
             type: "string",
             required: false,
             conflictsWith: ["wait-for-active", "wait-for-output"]

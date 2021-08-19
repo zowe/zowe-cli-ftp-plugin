@@ -26,7 +26,7 @@ export const TRANSFER_TYPE_BINARY = "binary";
  * The data is transferred in text mode like TRANSFER_TYPE_ASCII, and 4-byte RDW is inserted at beginning of each record.
  */
 export const TRANSFER_TYPE_ASCII_RDW = "ascii_rdw";
- /**
+/**
   * The data is transferred in binary mode like TRANSFER_TYPE_BINARY, and 4-byte RDW is inserted at beginning of each record.
   */
 export const TRANSFER_TYPE_BINARY_RDW = "binary_rdw";

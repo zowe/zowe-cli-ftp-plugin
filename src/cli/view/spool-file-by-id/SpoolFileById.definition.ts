@@ -9,7 +9,7 @@
  *
  */
 
-import { Constants, ICommandDefinition } from "@zowe/imperative";
+import { ICommandDefinition } from "@zowe/imperative";
 
 export const ViewSpoolFileByIdDefinition: ICommandDefinition = {
     name: "spool-file-by-id",

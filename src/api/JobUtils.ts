@@ -10,7 +10,6 @@
  */
 
 import { Logger } from "@zowe/imperative";
-import { TRANSFER_TYPE_ASCII } from "./CoreUtils";
 import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./JobInterface";
 
 export class JobUtils {
@@ -106,9 +105,6 @@ export class JobUtils {
      * @returns job id
      */
     public static async submitJobFromDataset(connection: any, dsn: string): Promise<string> {
-        const options = {
-            transferType: TRANSFER_TYPE_ASCII,
-        };
         const dsContent = (await connection.getDataset("'" + dsn + "'")).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", dsn);
         return JobUtils.submitJob(connection, dsContent);

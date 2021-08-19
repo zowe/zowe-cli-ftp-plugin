@@ -15,7 +15,7 @@ describe("Delete definition", () => {
 
     it("should match the snapshot", () => {
         DeleteDefinition.children.forEach((child) => {
-            child.handler = child.handler.replace(/^.*[\\\/]/, "");
+            child.handler = child.handler.replace(/^.*[\\/]/, "");
         });
         expect(DeleteDefinition).toMatchSnapshot();
     });
