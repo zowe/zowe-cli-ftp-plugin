@@ -97,8 +97,7 @@ export class CreateDataset extends AbstractTemplatedJCL {
                 }
             }
 
-            response = await
-            new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);
+            response = await new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);
             if (response.indexOf("RC=0000") >= 0) {
                 response += "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message;
             } else {
@@ -180,13 +179,10 @@ export class CreateDataset extends AbstractTemplatedJCL {
 
         const jcl = this.getJcl(jobCardFile, {createDD}, overrideTemplateFile);
         this.log.debug("Creating data set %s via JCL:\n %s", dataSetName, jcl);
-        const jobid = await
-        connection.submitJCL(jcl);
+        const jobid = await connection.submitJCL(jcl);
         const jobWait = 500;
-        await
-        CoreUtils.sleep(jobWait); // have to wait for the job to show up in the list
-        const jobDetails = await
-        JobUtils.findJobByID(connection, jobid);
+        await CoreUtils.sleep(jobWait); // have to wait for the job to show up in the list
+        const jobDetails = await JobUtils.findJobByID(connection, jobid);
         return "Job details: " + JSON.stringify(jobDetails, null, 2);
     }
 
