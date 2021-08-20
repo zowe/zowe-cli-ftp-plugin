@@ -41,7 +41,7 @@ export class UssUtils {
             const lastPart = directory.substring(slashPosn + 1);
             if (lastPart.indexOf("*") !== -1) {
                 directoryToList = directory.substring(0, slashPosn);
-                const pattern = "^" + lastPart.replace("*", ".*") + "$";
+                const pattern = "^" + lastPart.replace(/\*/g, ".*") + "$";
                 filter = (fileName: string) => (fileName.match(pattern) != null);
                 this.log.debug("Listing USS files in the directory '%s' with pattern '%s'", directoryToList, pattern);
             }
