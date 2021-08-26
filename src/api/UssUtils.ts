@@ -28,7 +28,28 @@ export class UssUtils {
      */
     public static async listFiles(connection: any, directory: string): Promise<any[]> {
         this.log.debug("Listing USS files in the directory '%s'", directory);
-        const files = await connection.listDataset(directory);
+
+        // Only support wildcard matching in file names as follows.
+        //     "/dir1/dir2"
+        //     "/dir1/dir2/file*"       => /^file.*$/
+        //     "/dir1/dir2/*suffix"     => /^.*suffix$/
+        //     "/dir1/dir2/file*suffix" => /^file.*suffix$/
+        let directoryToList = directory;
+        const slashPosn = directory.lastIndexOf("/");
+        let filter: (fileName: string) => boolean;
+        if (slashPosn !== -1) {
+            const lastPart = directory.substring(slashPosn + 1);
+            if (lastPart.indexOf("*") !== -1) {
+                directoryToList = directory.substring(0, slashPosn);
+                const pattern = "^" + lastPart.replace(/\*/g, ".*") + "$";
+                filter = (fileName: string) => (fileName.match(pattern) != null);
+                this.log.debug("Listing USS files in the directory '%s' with pattern '%s'", directoryToList, pattern);
+            }
+        }
+        let files = await connection.listDataset(directoryToList);
+        if (filter) {
+            files = files.filter((file: any) => filter(file.name));
+        }
 
         this.log.debug("Found %d matching files", files.length);
         const filteredFiles = files.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));

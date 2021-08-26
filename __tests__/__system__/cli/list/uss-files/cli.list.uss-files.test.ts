@@ -62,6 +62,41 @@ describe("list data-set-classic ftp command", () => {
         await connection.deleteDataset(destination);
     });
 
+    it("should be able to upload a file to the test directory and be show that newly uploaded file with pattern in the list", async () => {
+        const CONTENT_LENGTH = 60;
+        const fileNameLength = 30;
+        const fileName = generateRandomAlphaNumericString(fileNameLength);
+        const destination = ussTestDir + "/" + "prefix_" + fileName + "_suffix.txt";
+        const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
+        await connection.uploadDataset(uploadContent, destination, "ascii"); // upload the USS file
+
+        const ussTestDirPattern1 = ussTestDir + "/" + "prefix_*";
+        let result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern1]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).toContain(path.basename(destination));
+
+        const ussTestDirPattern2 = ussTestDir + "/" + "*.txt";
+        result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern2]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).toContain(path.basename(destination));
+
+        const ussTestDirPattern3 = ussTestDir + "/" + "prefix_*.txt";
+        result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern3]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).toContain(path.basename(destination));
+
+        const ussTestDirPattern4 = ussTestDir + "/" + "bad_prefix_*";
+        result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern4]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).not.toContain(path.basename(destination));
+
+        await connection.deleteDataset(destination);
+    });
+
     it("should give a syntax error if the uss file pattern is omitted", async () => {
         const result = runCliScript(__dirname + "/__scripts__/command/command_list_uss_files.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
