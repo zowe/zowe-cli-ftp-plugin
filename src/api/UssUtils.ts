@@ -185,7 +185,7 @@ export class UssUtils {
     public static async deleteDirectory(connection: any, dir: string, response?: IHandlerResponseConsoleApi): Promise<void> {
         const files = await connection.listDataset(dir);
         for (const file of files) {
-            const filePath = PATH.join(dir, file.name);
+            const filePath = PATH.posix.join(dir, file.name);
             if (file.isDirectory) {
                 await this.deleteDirectory(connection, filePath, response);
             } else {
