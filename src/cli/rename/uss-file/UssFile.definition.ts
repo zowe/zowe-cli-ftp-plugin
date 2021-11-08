@@ -16,7 +16,7 @@ export const RenameUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFile.Handler",
     description: "Rename a USS file or directory",
     type: "command",
-    name: "uss-file", aliases: ["uss"],
+    name: "uss-file", aliases: ["uss","uf"],
     summary: "Rename a USS file or directory",
     examples: [
         {

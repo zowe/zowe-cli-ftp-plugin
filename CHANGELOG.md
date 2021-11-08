@@ -2,6 +2,9 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+- Add some second shortcuts to match with zowe core CLI options.
+
 ## `1.8.1`
 - Fix Windows path problem when using `delete uss-file` command.
 

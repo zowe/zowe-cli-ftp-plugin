@@ -48,6 +48,7 @@ Object {
     Object {
       "aliases": Array [
         "uss",
+        "uf",
       ],
       "description": "Rename a USS file or directory",
       "examples": Array [

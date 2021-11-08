@@ -103,6 +103,7 @@ Object {
     Object {
       "aliases": Array [
         "stuf",
+        "stu",
       ],
       "description": "Upload from stdin to a Unix System Services File",
       "examples": Array [
@@ -142,6 +143,7 @@ Object {
     Object {
       "aliases": Array [
         "ftuf",
+        "ftu",
       ],
       "description": "Upload contents of a local to a Unix System Services file.",
       "examples": Array [

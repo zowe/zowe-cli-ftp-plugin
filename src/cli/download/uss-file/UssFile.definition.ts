@@ -15,7 +15,7 @@ export const DownloadUSSFileDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFile.Handler",
     description: "Download the contents of a USS file to a local file",
     type: "command",
-    name: "uss-file", aliases: ["uss"],
+    name: "uss-file", aliases: ["uss","uf"],
     summary: "Download USS file content to a local file",
     examples: [
         {
