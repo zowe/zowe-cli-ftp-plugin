@@ -69,7 +69,7 @@ describe("view uss file command", () => {
         const fileName = generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const destination = ussTestDir + "/" + fileName;
         const destinationWithLink = ussTestDirLink + "/" + fileName;
-        
+
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         await connection.uploadDataset(uploadContent, destination, "ascii");
         const result = runCliScript(__dirname + "/__scripts__/command/command_view_uss_file.sh", testEnvironment,

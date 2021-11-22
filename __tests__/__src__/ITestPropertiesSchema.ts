@@ -88,6 +88,6 @@ export interface ITestPropertiesSchema {
         /**
          * Symbolic link of ussTestDirectory, created with "ln -s <ussTestDirectory> <ussTestDirectoryLink>"
          */
-         ussTestDirectoryLink: string;
+        ussTestDirectoryLink: string;
     }
 }
