@@ -59,3 +59,5 @@ jobs:
 uss:
   # directory to try to list, upload, download, delete files from
   ussTestDirectory: uss-dir
+  # symbolic link of ussTestDirectory, created with "ln -s <ussTestDirectory> <ussTestDirectoryLink>"
+  ussTestDirectoryLink: uss-dir-link

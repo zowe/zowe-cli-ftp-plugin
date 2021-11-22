@@ -84,5 +84,10 @@ export interface ITestPropertiesSchema {
          * Directory on USS on the system where files can be written, moved, deleted
          */
         ussTestDirectory: string;
+
+        /**
+         * Symbolic link of ussTestDirectory, created with "ln -s <ussTestDirectory> <ussTestDirectoryLink>"
+         */
+         ussTestDirectoryLink: string;
     }
 }

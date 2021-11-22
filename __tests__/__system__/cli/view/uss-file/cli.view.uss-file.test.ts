@@ -18,6 +18,7 @@ import * as path from "path";
 let user: string;
 let connection: any;
 let ussTestDir: string;
+let ussTestDirLink: string;
 
 let testEnvironment: ITestEnvironment;
 describe("view uss file command", () => {
@@ -32,6 +33,7 @@ describe("view uss file command", () => {
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
         user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
+        ussTestDirLink = testEnvironment.systemTestProperties.uss.ussTestDirectoryLink;
     });
 
     afterAll(async () => {
@@ -56,6 +58,22 @@ describe("view uss file command", () => {
         await connection.uploadDataset(uploadContent, destination, "ascii");
         const result = runCliScript(__dirname + "/__scripts__/command/command_view_uss_file.sh", testEnvironment,
             [destination]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.stdout.toString()).toContain(uploadContent);
+        expect(result.status).toEqual(0);
+    });
+
+    it("should be able to upload a file to a uss directory then view it from the directory symbolic link", async () => {
+        const CONTENT_LENGTH = 60;
+        const fileNameLength = 30;
+        const fileName = generateRandomAlphaNumericString(fileNameLength) + ".txt";
+        const destination = ussTestDir + "/" + fileName;
+        const destinationWithLink = ussTestDirLink + "/" + fileName;
+        
+        const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
+        await connection.uploadDataset(uploadContent, destination, "ascii");
+        const result = runCliScript(__dirname + "/__scripts__/command/command_view_uss_file.sh", testEnvironment,
+            [destinationWithLink]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.stdout.toString()).toContain(uploadContent);
         expect(result.status).toEqual(0);
