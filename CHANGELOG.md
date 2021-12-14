@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.8.2`
 - Add some second shortcuts to match with zowe core CLI options.
 
 ## `1.8.1`
