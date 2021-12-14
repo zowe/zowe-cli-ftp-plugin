@@ -118,6 +118,7 @@ Object {
     Object {
       "aliases": Array [
         "uss",
+        "uf",
       ],
       "description": "View the contents of a Unix System Services File",
       "examples": Array [

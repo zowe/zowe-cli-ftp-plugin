@@ -79,6 +79,7 @@ Object {
     Object {
       "aliases": Array [
         "uss",
+        "uf",
       ],
       "description": "Delete a USS file",
       "examples": Array [

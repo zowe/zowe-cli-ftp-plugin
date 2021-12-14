@@ -14,7 +14,7 @@ import { ICommandDefinition } from "@zowe/imperative";
 export const ListUssFilesDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFiles.Handler",
     type: "command",
-    name: "uss-files", aliases: ["uss"],
+    name: "uss-files", aliases: ["uss","uf"],
     summary: "List USS files in a directory",
     description: "List USS files and subdirectories in a directory. Optional file name pattern like " +
     "\"prefix*\", \"*suffix\", or \"prefix*suffix\" can be specified at the end of directory. " +

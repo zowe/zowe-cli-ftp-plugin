@@ -15,7 +15,7 @@ export const UploadFileToUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/FileToUssFile.Handler",
     description: "Upload contents of a local to a Unix System Services file.",
     type: "command",
-    name: "file-to-uss-file", aliases: ["ftuf"],
+    name: "file-to-uss-file", aliases: ["ftuf","ftu"],
     summary: "Upload a local file to a USS File",
     examples: [
         {

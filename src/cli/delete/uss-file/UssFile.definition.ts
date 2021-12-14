@@ -16,7 +16,7 @@ export const DeleteUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFile.Handler",
     description: "Delete a USS file",
     type: "command",
-    name: "uss-file", aliases: ["uss"],
+    name: "uss-file", aliases: ["uss","uf"],
     summary: "Delete a USS file",
     examples: [
         {

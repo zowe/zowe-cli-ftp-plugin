@@ -15,7 +15,7 @@ import { ICommandDefinition } from "@zowe/imperative";
 export const ListJobsDefinition: ICommandDefinition = {
     handler: __dirname + "/Jobs.Handler",
     type: "command",
-    name: "jobs", aliases: ["j"],
+    name: "jobs", aliases: ["j","js"],
     summary: "List jobs by prefix",
     description: "List all data sets that match a DSLEVEL pattern (see help below). ",
     examples: [

@@ -16,7 +16,7 @@ export const ViewUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/UssFile.Handler",
     description: "View the contents of a Unix System Services File",
     type: "command",
-    name: "uss-file", aliases: ["uss"],
+    name: "uss-file", aliases: ["uss","uf"],
     summary: "View  USS file content",
     examples: [
         {
