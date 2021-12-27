@@ -15,7 +15,7 @@ export const UploadStdinToUssFileDefinition: ICommandDefinition = {
     handler: __dirname + "/StdinToUssFile.Handler",
     description: "Upload from stdin to a Unix System Services File",
     type: "command",
-    name: "stdin-to-uss-file", aliases: ["stuf"],
+    name: "stdin-to-uss-file", aliases: ["stuf","stu"],
     summary: "Upload stdin to a USS File",
     examples: [
         {

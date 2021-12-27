@@ -9,6 +9,7 @@ Object {
     Object {
       "aliases": Array [
         "j",
+        "js",
       ],
       "description": "List all data sets that match a DSLEVEL pattern (see help below). ",
       "examples": Array [
@@ -151,6 +152,7 @@ However, the pattern cannot begin with any of these sequences.
     Object {
       "aliases": Array [
         "uss",
+        "uf",
       ],
       "description": "List USS files and subdirectories in a directory. Optional file name pattern like \\"prefix*\\", \\"*suffix\\", or \\"prefix*suffix\\" can be specified at the end of directory. See EXAMPLES section.
 

@@ -16,7 +16,7 @@ export const SubmitStdinDefinition: ICommandDefinition = {
     handler: __dirname + "/Stdin.Handler",
     description: "Submit a job from JCL written to the standard input (stdin) of this process.",
     type: "command",
-    name: "stdin", aliases: ["si"],
+    name: "stdin", aliases: ["si","in"],
     summary: "Submit a job from stdin",
     examples: [
         {

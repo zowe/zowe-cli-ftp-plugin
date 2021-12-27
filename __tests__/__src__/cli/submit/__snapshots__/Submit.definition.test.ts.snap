@@ -167,6 +167,7 @@ Object {
     Object {
       "aliases": Array [
         "si",
+        "in",
       ],
       "description": "Submit a job from JCL written to the standard input (stdin) of this process.",
       "examples": Array [
