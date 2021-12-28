@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.8.3`
 - Fix `download uss-file` and `view uss-file` the file under the directory of symbol link.
 
 ## `1.8.2`
