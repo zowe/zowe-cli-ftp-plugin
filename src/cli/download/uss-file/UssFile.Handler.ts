@@ -23,7 +23,8 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             basename(ussFile) : // default the destination file name to the basename of the uss file e.g. /u/users/ibmuser/hello.txt -> hello.txt
             params.arguments.file;
 
-        const files = await UssUtils.listFiles(params.connection, dirname(ussFile));
+        // Ensure to list directory if ussFile is under symbolic link of directory.
+        const files = await UssUtils.listFiles(params.connection, dirname(ussFile) + '/');
         const fileToDownload = files.find((f: any) => {
             return f.name === basename(ussFile);
         });

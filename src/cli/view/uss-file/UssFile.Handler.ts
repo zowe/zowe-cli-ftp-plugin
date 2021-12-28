@@ -18,7 +18,8 @@ export default class ViewUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
 
-        const files = await UssUtils.listFiles(params.connection, dirname(ussFile));
+        // Ensure to list directory if ussFile is under symbolic link of directory.
+        const files = await UssUtils.listFiles(params.connection, dirname(ussFile) + '/');
         const fileToDownload = files.find((f: any) => {
             return f.name === basename(ussFile);
         });
