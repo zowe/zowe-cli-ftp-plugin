@@ -6,7 +6,7 @@ results/
 __results__/
 __tests__/__results__/
 
-npm-shrinkwrap.json
+package-lock.json
 
 /__tests__/__resources__/properties/**
 !/__tests__/__resources__/properties/default_properties.yaml

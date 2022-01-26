@@ -60,7 +60,7 @@ node('zowe-jenkins-agent') {
     ]
 
     // Initialize the pipeline library, should create 5 steps
-    pipeline.setup(nodeJsVersion: 'v12.22.1')
+    pipeline.setup(nodeJsVersion: 'v16.13.1')
 
     // Create a custom lint stage that runs immediately after the setup.
     pipeline.createStage(

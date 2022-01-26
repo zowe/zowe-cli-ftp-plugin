@@ -18,6 +18,12 @@ jobs:
       NODE: ${{ matrix.node-version }}
       NODE_OPTIONS: --max_old_space_size=4096
 
+    timeout-minutes: 60
+
+    concurrency:
+      group: ${{ matrix.os }}-node-${{ matrix.node-version }}-ci-${{ github.ref }}
+      cancel-in-progress: true
+
     if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, '[ci skip]')
 
     steps:
@@ -29,9 +35,9 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Use NPM v7
-      id: npm7
-      run: npm install -g npm@^7
+    - name: Use NPM v8
+      id: npm8
+      run: npm install -g npm@^8
 
     - name: Install Node Package Dependencies
       id: install
@@ -44,7 +50,7 @@ jobs:
     - name: Unit Tests
       id: unit
       if: ${{ always() && steps.build.outcome == 'success' }}
-      run: npm run test:unit >> file.txt
+      run: npm run test:unit >> unit-tests.txt
 
     - name: Archive Results
       id: upload
@@ -52,7 +58,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.os }}-${{ matrix.node-version }}-results
-        path: __tests__/__results__/
+        path: |
+          __tests__/__results__/
+          unit-tests.txt
 
     - name: Upload Results to Codecov
       if: ${{ always() && steps.build.outcome == 'success' }}
