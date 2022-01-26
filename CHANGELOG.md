@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.8.4`
 
 - BugFix: Included an npm-shrinkwrap file to lock-down all transitive dependencies.
 
