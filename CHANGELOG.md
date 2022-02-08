@@ -5,6 +5,10 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 ## Recent Changes
 - Pick up `zos-node-accessor` v1.0.10 to fix listing single USS file or symbol link.
 
+## `1.8.5`
+
+- BugFix: Pruned dev dependencies from npm-shrinkwrap file.
+
 ## `1.8.4`
 
 - BugFix: Included an npm-shrinkwrap file to lock-down all transitive dependencies.
