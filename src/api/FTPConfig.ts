@@ -20,14 +20,12 @@ export class FTPConfig {
     public static OPTION_HOST: ICommandOptionDefinition = {
         type: "string",
         name: "host", aliases: ["H"],
-        required: true,
         description: "The hostname or IP address of the z/OS server to connect to."
     };
 
     public static OPTION_PORT: ICommandOptionDefinition = {
         type: "number",
         name: "port", aliases: ["P"],
-        required: true,
         description: "The port of the z/OS FTP server.",
         defaultValue: 21
     };
@@ -35,14 +33,12 @@ export class FTPConfig {
     public static OPTION_USER: ICommandOptionDefinition = {
         type: "string",
         name: "user", aliases: ["u"],
-        required: true,
         description: "Username for authentication on z/OS"
     };
 
     public static OPTION_PASSWORD: ICommandOptionDefinition = {
         type: "string",
         name: "password", aliases: ["p", "pass", "pw"],
-        required: true,
         description: "Password to authenticate to FTP."
     };
 
