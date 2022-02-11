@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Change the profile fields from required to optional to compatible with base profile.
+
 ## `1.8.5`
 
 - BugFix: Pruned dev dependencies from npm-shrinkwrap file.
