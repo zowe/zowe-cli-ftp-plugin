@@ -16,7 +16,7 @@ import { SubmitJobHandler } from "../SubmitJobHandler";
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         this.log.debug("Submitting a job from stdin %s");
-        const stdinContent = await CoreUtils.readStdin();
+        const stdinContent = await CoreUtils.readStdin(params.stdin);
         return this.submitJCL(stdinContent.toString(), params);
     }
 }

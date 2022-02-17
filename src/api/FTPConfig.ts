@@ -11,7 +11,7 @@
 
 import { isString } from "util";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
-import { ICommandOptionDefinition } from "@zowe/imperative";
+import { ConnectionPropsForSessCfg, ICommandOptionDefinition, ISession } from "@zowe/imperative";
 
 const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 
@@ -20,14 +20,12 @@ export class FTPConfig {
     public static OPTION_HOST: ICommandOptionDefinition = {
         type: "string",
         name: "host", aliases: ["H"],
-        required: true,
         description: "The hostname or IP address of the z/OS server to connect to."
     };
 
     public static OPTION_PORT: ICommandOptionDefinition = {
         type: "number",
         name: "port", aliases: ["P"],
-        required: true,
         description: "The port of the z/OS FTP server.",
         defaultValue: 21
     };
@@ -35,14 +33,12 @@ export class FTPConfig {
     public static OPTION_USER: ICommandOptionDefinition = {
         type: "string",
         name: "user", aliases: ["u"],
-        required: true,
         description: "Username for authentication on z/OS"
     };
 
     public static OPTION_PASSWORD: ICommandOptionDefinition = {
         type: "string",
         name: "password", aliases: ["p", "pass", "pw"],
-        required: true,
         description: "Password to authenticate to FTP."
     };
 
@@ -101,10 +97,25 @@ export class FTPConfig {
      * Convert a profile into a config object used to connect to
      * zos-node-accessor
      * @param arguments - the arguments passed by the user
+     * @param doPrompting - Whether to prompt for missing arguments (defaults to true)
      * @returns  the connection to zos-node-accessor's APIs
      */
-    public static async connectFromArguments(args: any) {
-        const ftpConfig = FTPConfig.createConfigFromArguments(args);
+    public static async connectFromArguments(args: any, doPrompting = true) {
+        const sessCfg: ISession = {
+            type: "basic",
+            hostname: args.host,
+            port: args.port,
+            user: args.user,
+            password: args.password
+        };
+        const sessCfgWithCreds = await ConnectionPropsForSessCfg.addPropsOrPrompt(sessCfg, args, {doPrompting});
+        const ftpConfig = FTPConfig.createConfigFromArguments({
+            ...args,
+            host: sessCfgWithCreds.hostname,
+            port: sessCfgWithCreds.port,
+            user: sessCfgWithCreds.user,
+            password: sessCfgWithCreds.password
+        });
         const zosAccessor = new (require("zos-node-accessor"))();
         return zosAccessor.connect(ftpConfig);
     }

@@ -10,6 +10,7 @@
  */
 
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
+import * as stream from "stream";
 import { isNullOrUndefined } from "util";
 
 /**
@@ -57,12 +58,13 @@ export class CoreUtils {
 
     /**
      * Read the complete contents of stdin
+     * @param stream - A custom stream to read stdin data from
      * @returns contents piped in to stdin
      */
-    public static async readStdin(): Promise<Buffer> {
+    public static async readStdin(stream?: stream.Readable): Promise<Buffer> {
         return new Promise<Buffer>((resolve, reject) => {
             let stdinContent: Buffer = Buffer.from([]);
-            const stream = process.stdin;
+            stream = stream || process.stdin;
             stream.resume();
 
             stream.on("data", (chunk: Buffer) => {

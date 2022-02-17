@@ -16,7 +16,7 @@ import { CoreUtils, DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } fr
 export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        const content: Buffer | string = await CoreUtils.readStdin();
+        const content: Buffer | string = await CoreUtils.readStdin(params.stdin);
 
         const options = {
             content,
