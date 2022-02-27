@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 
-bright zos-ftp list jobs
+zowe zos-ftp list jobs

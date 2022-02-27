@@ -2,4 +2,4 @@
 dsn=$1
 set -e
 
-bright zos-ftp list data-set-members "$dsn"
+zowe zos-ftp list data-set-members "$dsn"
