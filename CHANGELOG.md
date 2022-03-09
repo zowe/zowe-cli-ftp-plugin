@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `1.8.6`
 
 - BugFix: Refine error message of uploading partition dataset member.
           Refine description of parameter dcb of uploading sequential dataset.
