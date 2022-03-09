@@ -2,4 +2,4 @@
 dsn=$1
 set -e
 
-bright zos-ftp view ds "$dsn" -b
+zowe zos-ftp view ds "$dsn" -b

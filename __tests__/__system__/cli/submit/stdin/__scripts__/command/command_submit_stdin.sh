@@ -3,4 +3,4 @@ localFile=$1
 set -e
 set -o pipefail
 
-cat "$localFile" | bright zos-ftp submit stdin
+cat "$localFile" | zowe zos-ftp submit stdin

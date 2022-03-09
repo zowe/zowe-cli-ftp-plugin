@@ -2,4 +2,4 @@
 ussfile=$1
 set -e
 
-bright zos-ftp view uss-file  "$ussfile"
+zowe zos-ftp view uss-file  "$ussfile"

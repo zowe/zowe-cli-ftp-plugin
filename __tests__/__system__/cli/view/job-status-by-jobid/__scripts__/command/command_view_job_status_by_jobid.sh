@@ -2,4 +2,4 @@
 jobid=$1
 set -e
 
-bright zos-ftp view job-status-by-jobid "$jobid"
+zowe zos-ftp view job-status-by-jobid "$jobid"

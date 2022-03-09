@@ -2,7 +2,7 @@
 set -e
 
 echo "================z/OS VIEW DELETE JOB HELP==============="
-bright zos-ftp delete job --help
+zowe zos-ftp delete job --help
 
 echo "================z/OS FTP DELETE JOB HELP WITH RFJ==========="
-bright zos-ftp delete job --help --rfj
+zowe zos-ftp delete job --help --rfj

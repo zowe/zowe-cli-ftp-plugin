@@ -2,6 +2,12 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- BugFix: Refine error message of uploading partition dataset member.
+          Refine description of parameter dcb of uploading sequential dataset.
+- Change `bright` command to `zowe` in test scripts.
+
 ## `1.8.5`
 
 - BugFix: Pruned dev dependencies from npm-shrinkwrap file.
