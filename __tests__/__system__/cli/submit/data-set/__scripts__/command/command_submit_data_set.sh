@@ -2,4 +2,4 @@
 dsn=$1
 set -e
 
-bright zos-ftp submit data-set "$dsn"
+zowe zos-ftp submit data-set "$dsn"

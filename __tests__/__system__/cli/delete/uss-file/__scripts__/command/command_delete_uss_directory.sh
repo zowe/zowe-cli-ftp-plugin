@@ -2,4 +2,4 @@
 ussdir=$1
 set -e
 
-bright zos-ftp delete uss-file $ussdir -f
+zowe zos-ftp delete uss-file $ussdir -f

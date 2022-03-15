@@ -2,4 +2,4 @@
 ussdir=$1
 set -e
 
-bright zos-ftp list uss-files "$ussdir"
+zowe zos-ftp list uss-files "$ussdir"

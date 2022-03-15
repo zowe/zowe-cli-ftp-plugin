@@ -3,4 +3,4 @@ oldussfile=$1
 newussfile=$2
 set -e
 
-bright zos-ftp rename uss-file "$oldussfile" "$newussfile"
+zowe zos-ftp rename uss-file "$oldussfile" "$newussfile"
