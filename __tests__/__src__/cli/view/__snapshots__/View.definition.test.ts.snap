@@ -208,7 +208,6 @@ Object {
           ],
           "description": "The hostname or IP address of the z/OS server to connect to.",
           "name": "host",
-          "required": true,
           "type": "string",
         },
         Object {
@@ -218,7 +217,6 @@ Object {
           "defaultValue": 21,
           "description": "The port of the z/OS FTP server.",
           "name": "port",
-          "required": true,
           "type": "number",
         },
         Object {
@@ -227,7 +225,6 @@ Object {
           ],
           "description": "Username for authentication on z/OS",
           "name": "user",
-          "required": true,
           "type": "string",
         },
         Object {
@@ -238,7 +235,6 @@ Object {
           ],
           "description": "Password to authenticate to FTP.",
           "name": "password",
-          "required": true,
           "type": "string",
         },
         Object {

@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Change the profile fields from required to optional to compatible with base profile.
+
 ## `1.8.6`
 
 - BugFix: Refine error message of uploading partition dataset member.
