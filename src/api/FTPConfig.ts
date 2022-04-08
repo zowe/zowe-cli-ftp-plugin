@@ -11,7 +11,7 @@
 
 import { isString } from "util";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
-import { ConnectionPropsForSessCfg, ICommandOptionDefinition, ISession } from "@zowe/imperative";
+import { ConnectionPropsForSessCfg, ICommandOptionDefinition, IHandlerParameters, ISession } from "@zowe/imperative";
 
 const tlsConnectionOptionGroup: string = "TLS / Secure Connection options";
 
@@ -98,9 +98,10 @@ export class FTPConfig {
      * zos-node-accessor
      * @param arguments - the arguments passed by the user
      * @param doPrompting - Whether to prompt for missing arguments (defaults to true)
+     * @param {IHandlerParameters} handlerParams - The command parameters object for daemon mode prompting
      * @returns  the connection to zos-node-accessor's APIs
      */
-    public static async connectFromArguments(args: any, doPrompting = true) {
+    public static async connectFromArguments(args: any, doPrompting = true, handlerParams?: IHandlerParameters) {
         const sessCfg: ISession = {
             type: "basic",
             hostname: args.host,
@@ -108,7 +109,7 @@ export class FTPConfig {
             user: args.user,
             password: args.password
         };
-        const sessCfgWithCreds = await ConnectionPropsForSessCfg.addPropsOrPrompt(sessCfg, args, {doPrompting});
+        const sessCfgWithCreds = await ConnectionPropsForSessCfg.addPropsOrPrompt(sessCfg, args, { doPrompting, parms: handlerParams });
         const ftpConfig = FTPConfig.createConfigFromArguments({
             ...args,
             host: sessCfgWithCreds.hostname,
