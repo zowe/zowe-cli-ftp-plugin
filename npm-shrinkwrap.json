@@ -1,12 +1,12 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
-  "version": "2.0.0-next",
+  "version": "2.0.0-next.202204111437",
   "lockfileVersion": 2,
   "requires": true,
   "packages": {
     "": {
       "name": "@zowe/zos-ftp-for-zowe-cli",
-      "version": "2.0.0-next",
+      "version": "2.0.0-next.202204111437",
       "license": "EPL-2.0",
       "dependencies": {
         "zos-node-accessor": "1.0.9"
