@@ -9,11 +9,11 @@
  *
  */
 
-import { ITestEnvironment } from "../../../../__src__/environment/doc/response/ITestEnvironment";
+import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
+import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
-import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
+import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
@@ -22,8 +22,8 @@ let user: string;
 let connection: any;
 let testDataSet: string;
 let dsnPrefix: string;
+let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
-let testEnvironment: ITestEnvironment;
 describe("upload file to data set command", () => {
     // Create the unique test environment
     beforeAll(async () => {
@@ -33,8 +33,8 @@ describe("upload file to data set command", () => {
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
-        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
-        user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
+        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         dsnPrefix = testEnvironment.systemTestProperties.datasets.dsnPrefix;
     });

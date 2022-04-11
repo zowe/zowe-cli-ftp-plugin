@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Publish `@next` tag that is compatible with Zowe v2 daemon mode and team config profiles.
+
 ## `1.8.5`
 
 - BugFix: Pruned dev dependencies from npm-shrinkwrap file.

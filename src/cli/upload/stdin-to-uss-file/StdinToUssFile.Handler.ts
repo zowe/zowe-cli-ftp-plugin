@@ -18,7 +18,7 @@ export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        const content: Buffer | string = await CoreUtils.readStdin();
+        const content: Buffer | string = await CoreUtils.readStdin(params.stdin);
 
         const options = {
             content,
