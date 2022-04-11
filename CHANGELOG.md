@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `2.0.0-next.202204111437`
 
 - Publish `@next` tag that is compatible with Zowe v2 daemon mode and team config profiles.
 
