@@ -36,6 +36,7 @@ Object {
               ],
               "defaultValue": 10000,
               "description": "How long (in milliseconds) to wait for the control connection to be established.",
+              "group": "FTP Connection options",
               "name": "connection-timeout",
               "type": "number",
             },
@@ -47,6 +48,7 @@ Object {
                 "H",
               ],
               "description": "The hostname or IP address of the z/OS server to connect to.",
+              "group": "FTP Connection options",
               "name": "host",
               "type": "string",
             },
@@ -60,6 +62,7 @@ Object {
                 "pw",
               ],
               "description": "Password to authenticate to FTP.",
+              "group": "FTP Connection options",
               "name": "password",
               "type": "string",
             },
@@ -67,12 +70,14 @@ Object {
             "type": "string",
           },
           "port": Object {
+            "includeInTemplate": true,
             "optionDefinition": Object {
               "aliases": Array [
                 "P",
               ],
               "defaultValue": 21,
               "description": "The port of the z/OS FTP server.",
+              "group": "FTP Connection options",
               "name": "port",
               "type": "number",
             },
@@ -95,9 +100,11 @@ Object {
             ],
           },
           "secureFtp": Object {
+            "includeInTemplate": true,
             "optionDefinition": Object {
               "defaultValue": true,
               "description": "Set to true for both control and data connection encryption, 'control' for control connection encryption only, or 'implicit' for implicitly encrypted control connection (this mode is deprecated in modern times, but usually uses port 990). Note: Unfortunately, this plugin's functionality only works with FTP and FTPS, not 'SFTP' which is FTP over SSH.",
+              "group": "FTP Connection options",
               "name": "secure-ftp",
               "type": "boolean",
             },
@@ -128,6 +135,7 @@ Object {
                 "u",
               ],
               "description": "Username for authentication on z/OS",
+              "group": "FTP Connection options",
               "name": "user",
               "type": "string",
             },
