@@ -46,7 +46,7 @@ export const DownloadDataSetDefinition: ICommandDefinition = {
         },
         {
             name: "record",
-            aliases: ["rdw"],
+            aliases: ["r", "rdw"],
             description: "Download the variable-length data set with RECFM of V, VB, VBS, etc in rdw mode, in which " +
                 "the 4-byte RDW (Record Descriptor Word) is inserted at the begining of each record.",
             type: "boolean"
