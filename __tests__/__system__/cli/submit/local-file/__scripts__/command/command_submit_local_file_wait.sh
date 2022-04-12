@@ -6,7 +6,7 @@ set -e
 
 if [ "$2" == "--wait" ] 
 then
-bright zos-ftp submit local-file "$localFile" "$option" "$wait"
+zowe zos-ftp submit local-file "$localFile" "$option" "$wait"
 else
-bright zos-ftp submit local-file "$localFile" "$option"
+zowe zos-ftp submit local-file "$localFile" "$option"
 fi

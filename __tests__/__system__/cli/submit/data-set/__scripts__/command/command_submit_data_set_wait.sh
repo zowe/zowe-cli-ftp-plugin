@@ -5,7 +5,7 @@ wait=$3
 set -e
 if [ "$2" == "--wait" ] 
 then
-bright zos-ftp submit data-set "$dsn" "$option" "$wait"
+zowe zos-ftp submit data-set "$dsn" "$option" "$wait"
 else 
- bright zos-ftp submit data-set "$dsn" "$option"   
+zowe zos-ftp submit data-set "$dsn" "$option"   
 fi
