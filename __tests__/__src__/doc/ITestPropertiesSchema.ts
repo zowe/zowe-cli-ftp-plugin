@@ -17,7 +17,7 @@ export interface ITestPropertiesSchema {
 
     /**
      * Properties related to basic zos-ftp (zos-node-accessor package) connection
-     * see bright profiles create zftp --help for more info
+     * see zowe profiles create zftp --help for more info
      */
     zftp: {
         /**

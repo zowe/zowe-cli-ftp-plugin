@@ -39,6 +39,9 @@ export abstract class FTPBaseHandler implements ICommandHandler {
             if (e.message.indexOf("PASS command failed") !== -1) {
                 const errMessage = "Username or password are not valid or expired.";
                 throw new ImperativeError({msg: errMessage, causeErrors: [e]});
+            } else if (e.message.indexOf("requests a nonexistent partitioned data set.  Use MKD command to create it") !== -1) {
+                const errMessage = e.message.replace("Use MKD command", "Use allocate command");
+                throw new ImperativeError({msg: errMessage, causeErrors: [e]});
             } else {
                 throw new ImperativeError({msg: e.message, causeErrors: [e]});
             }

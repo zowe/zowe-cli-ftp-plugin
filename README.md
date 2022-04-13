@@ -121,7 +121,7 @@ To define access credentials to the server, copy the file named `.../__tests__/_
 
 For the z/OS LPAR where the system test will be ran for the first time, run the following command to prepare the required dataset:
 
-`bright zos-ftp upload file-to-data-set "$localfile" "$dataset" `
+`zowe zos-ftp upload file-to-data-set "$localfile" "$dataset" `
 
 where `$localfile` is an IEFBR14 JCL which is in `__tests__/__resources__/IEFBR14.JCL`, and `$dataset` is iefbr14Member which specified in custom_properties.yaml.
 

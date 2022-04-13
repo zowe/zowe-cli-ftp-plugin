@@ -3,4 +3,4 @@ dsn=$1
 dcb=$2
 set -e
 
-bright zos-ftp allocate data-set "$dsn" --dcb "$dcb"
+zowe zos-ftp allocate data-set "$dsn" --dcb "$dcb"

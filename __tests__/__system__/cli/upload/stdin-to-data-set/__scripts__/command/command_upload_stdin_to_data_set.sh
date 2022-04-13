@@ -4,4 +4,4 @@ dataset=$2
 set -e
 set -o pipefail
 
-cat "$localfile" | bright zos-ftp upload stdin-to-data-set  "$dataset"
+cat "$localfile" | zowe zos-ftp upload stdin-to-data-set  "$dataset"
