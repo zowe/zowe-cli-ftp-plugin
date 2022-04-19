@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - master
+      - zowe-v1-lts
       - next
   pull_request:
     branches:
       - master
+      - zowe-v1-lts
       - next
   # schedule:
   #   - cron: '0 10 * * *'
