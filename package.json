@@ -34,7 +34,7 @@
     "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
-    "@zowe/imperative": ">=5.0.0-next.202106221817 <5.0.0"
+    "@zowe/imperative": "^5.0.0"
   },
   "dependencies": {
     "zos-node-accessor": "1.0.9"
