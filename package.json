@@ -1,6 +1,7 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
   "version": "2.0.0-next.202204131412",
+  "author": "Zowe",
   "repository": {
     "type": "git",
     "url": "https://github.com/zowe/zowe-cli-ftp-plugin.git"
@@ -47,9 +48,9 @@
     "@types/yargs": "^8.0.4",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
-    "@zowe/cli": ">=7.0.0-next.202204111828 <8.0.0",
-    "@zowe/cli-test-utils": ">=7.0.0-next.202204011929 <8.0.0",
-    "@zowe/imperative": ">=5.0.0-next.202204111131 <6.0.0",
+    "@zowe/cli": "7.0.0",
+    "@zowe/cli-test-utils": "7.0.0",
+    "@zowe/imperative": "5.0.0",
     "chalk": "^2.3.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^24.4.0",
