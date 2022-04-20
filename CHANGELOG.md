@@ -2,6 +2,18 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Major: Updated for V2 compatibility. See the prerelease items below for more details.
+
+## `2.0.0-next.202204131412`
+
+- Updated the plug-in to meet Zowe v2 conformance criteria.
+
+## `2.0.0-next.202204111437`
+
+- Publish `@next` tag that is compatible with Zowe v2 daemon mode and team config profiles.
+
 ## `1.8.7`
 
 - Change the profile fields from required to optional to compatible with base profile.

@@ -1,6 +1,7 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
-  "version": "1.8.7",
+  "version": "2.0.0-next.202204131412",
+  "author": "Zowe",
   "repository": {
     "type": "git",
     "url": "https://github.com/zowe/zowe-cli-ftp-plugin.git"
@@ -34,8 +35,7 @@
     "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
-    "@zowe/cli": "^6.0.0",
-    "@zowe/imperative": "^4.0.0"
+    "@zowe/imperative": "^5.0.0"
   },
   "dependencies": {
     "zos-node-accessor": "1.0.9"
@@ -48,8 +48,9 @@
     "@types/yargs": "^8.0.4",
     "@typescript-eslint/eslint-plugin": "^4.29.0",
     "@typescript-eslint/parser": "^4.29.0",
-    "@zowe/cli": "6.40.0",
-    "@zowe/imperative": "4.18.2",
+    "@zowe/cli": "7.0.0",
+    "@zowe/cli-test-utils": "7.0.0",
+    "@zowe/imperative": "5.0.0",
     "chalk": "^2.3.0",
     "eslint": "^7.32.0",
     "eslint-plugin-jest": "^24.4.0",
@@ -75,7 +76,7 @@
       "__tests__/__snapshots__/"
     ],
     "setupFilesAfterEnv": [
-      "./__tests__/__src__/setUpJest.js"
+      "./__tests__/setUpJest.js"
     ],
     "testResultsProcessor": "jest-stare",
     "transform": {

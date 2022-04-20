@@ -29,7 +29,7 @@ export abstract class FTPBaseHandler implements ICommandHandler {
 
         let connection: any;
         try {
-            connection = await FTPConfig.connectFromArguments(commandParameters.arguments);
+            connection = await FTPConfig.connectFromArguments(commandParameters.arguments, true, commandParameters);
             this.log.info("Connected to FTP successfully");
             const additionalParameters: IFTPHandlerParams = commandParameters as IFTPHandlerParams;
             additionalParameters.connection = connection;

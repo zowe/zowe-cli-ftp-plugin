@@ -28,36 +28,39 @@ exports[`submit job from local file command should display download uss-file hel
  OPTIONS
  -------
 
-   --binary  | -b (boolean)
+   --binary | -b (boolean)
 
       Download the file content in binary mode, which means that no data conversion is
       performed. The data transfer process returns each line as-is, without
       translation. No delimiters are added between records.
 
-   --file  | -f (string)
+   --file | -f (string)
 
       The path to the local file where you want to download the content. When you omit
       the option, the command generates a file name automatically for you.
 
-   --host  | -H (string)
+ FTP CONNECTION OPTIONS
+ ----------------------
+
+   --host | -H (string)
 
       The hostname or IP address of the z/OS server to connect to.
 
-   --port  | -P (number)
+   --port | -P (number)
 
       The port of the z/OS FTP server.
 
       Default value: 21
 
-   --user  | -u (string)
+   --user | -u (string)
 
       Username for authentication on z/OS
 
-   --password  | -p | --pass | --pw (string)
+   --password | -p | --pass | --pw (string)
 
       Password to authenticate to FTP.
 
-   --secure-ftp  (boolean)
+   --secure-ftp (boolean)
 
       Set to true for both control and data connection encryption, 'control' for
       control connection encryption only, or 'implicit' for implicitly encrypted
@@ -67,7 +70,7 @@ exports[`submit job from local file command should display download uss-file hel
 
       Default value: true
 
-   --connection-timeout  | --ct (number)
+   --connection-timeout | --ct (number)
 
       How long (in milliseconds) to wait for the control connection to be established.
 
@@ -76,12 +79,12 @@ exports[`submit job from local file command should display download uss-file hel
  TLS / SECURE CONNECTION OPTIONS
  -------------------------------
 
-   --reject-unauthorized  | --ru (boolean)
+   --reject-unauthorized | --ru (boolean)
 
       Reject self-signed certificates. Only specify this if you are connecting to a
       secure FTP instance.
 
-   --server-name  | --sn (string)
+   --server-name | --sn (string)
 
       Server name for the SNI (Server Name Indication) TLS extension. Only specify if
       you are connecting securely
@@ -89,50 +92,50 @@ exports[`submit job from local file command should display download uss-file hel
  PROFILE OPTIONS
  ---------------
 
-   --zftp-profile  | --zftp-p (string)
+   --zftp-profile | --zftp-p (string)
 
       The name of a (zftp) profile to load for this command execution.
 
-   --base-profile  | --base-p (string)
+   --base-profile | --base-p (string)
 
       The name of a (base) profile to load for this command execution.
 
  BASE CONNECTION OPTIONS
  -----------------------
 
-   --token-type  | --tt (string)
+   --token-type | --tt (string)
 
       The type of token to get and use for the API. Omit this option to use the
       default token type, which is provided by 'zowe auth login'.
 
-   --token-value  | --tv (string)
+   --token-value | --tv (string)
 
       The value of the token to pass to the API.
 
-   --cert-file  (local file path)
+   --cert-file (local file path)
 
       The file path to a certificate file to use for authentication
 
-   --cert-key-file  (local file path)
+   --cert-key-file (local file path)
 
       The file path to a certificate key file to use for authentication
 
  GLOBAL OPTIONS
  --------------
 
-   --response-format-json  | --rfj (boolean)
+   --response-format-json | --rfj (boolean)
 
       Produce JSON formatted data from a command
 
-   --help  | -h (boolean)
+   --help | -h (boolean)
 
       Display help text
 
-   --help-examples  (boolean)
+   --help-examples (boolean)
 
       Display examples for all the commands in a group
 
-   --help-web  | --hw (boolean)
+   --help-web | --hw (boolean)
 
       Display HTML help in browser
 
@@ -149,8 +152,8 @@ exports[`submit job from local file command should display download uss-file hel
   \\"success\\": true,
   \\"exitCode\\": 0,
   \\"message\\": \\"The help was constructed for command: uss-file.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss | uf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a USS file to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp download uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The path to the USS file you would like to download.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file  | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp  (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile  | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type  | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value  | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file  (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file  (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the USS file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ zowe zos-ftp download uss-file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" -b -f main.obj\\\\n\\\\n\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss | uf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a USS file to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp download uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The path to the USS file you would like to download.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n FTP CONNECTION OPTIONS\\\\n ----------------------\\\\n\\\\n   --host | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the USS file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ zowe zos-ftp download uss-file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" -b -f main.obj\\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss | uf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a USS file to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp download uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The path to the USS file you would like to download.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary  | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file  | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp  (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile  | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type  | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value  | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file  (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file  (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the USS file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ zowe zos-ftp download uss-file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" -b -f main.obj\\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   uss-file | uss | uf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Download the contents of a USS file to a local file\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp download uss-file <ussFile> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   ussFile\\\\t\\\\t (string)\\\\n\\\\n      The path to the USS file you would like to download.\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --binary | -b (boolean)\\\\n\\\\n      Download the file content in binary mode, which means that no data conversion is\\\\n      performed. The data transfer process returns each line as-is, without\\\\n      translation. No delimiters are added between records.\\\\n\\\\n   --file | -f (string)\\\\n\\\\n      The path to the local file where you want to download the content. When you omit\\\\n      the option, the command generates a file name automatically for you.\\\\n\\\\n FTP CONNECTION OPTIONS\\\\n ----------------------\\\\n\\\\n   --host | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Download the USS file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" in binary\\\\n   mode to the local file \\\\\\"main.obj\\\\\\":\\\\n\\\\n      $ zowe zos-ftp download uss-file \\\\\\"/u/users/ibmuser/main.obj\\\\\\" -b -f main.obj\\\\n\\\\n\\"
 }"
 `;

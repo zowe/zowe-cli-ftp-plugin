@@ -9,18 +9,18 @@
  *
  */
 
-import { ITestEnvironment } from "../../../../__src__/environment/doc/response/ITestEnvironment";
+import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
+import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import { TestEnvironment } from "../../../../__src__/environment/TestEnvironment";
-import { generateRandomAlphaNumericString, generateRandomBytes, runCliScript } from "../../../../__src__/TestUtils";
+import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import * as path from "path";
 import { IO } from "@zowe/imperative";
 
 let dsname: string;
 let user: string;
 let connection: any;
+let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
-let testEnvironment: ITestEnvironment;
 describe("submit job from local file command", () => {
     // Create the unique test environment
     beforeAll(async () => {
@@ -30,8 +30,8 @@ describe("submit job from local file command", () => {
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
-        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zosftp);
-        user = testEnvironment.systemTestProperties.zosftp.user.trim().toUpperCase();
+        connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
 
     });
 
