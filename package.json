@@ -115,5 +115,6 @@
     "outputPath": "__tests__/__results__/results.html",
     "includeFailureMsg": true
   },
+  "author": "Zowe",
   "license": "EPL-2.0"
 }
