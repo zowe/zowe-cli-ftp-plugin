@@ -44,7 +44,8 @@ const config: IImperativeConfig = {
                     },
                     port: {
                         type: "number",
-                        optionDefinition: FTPConfig.OPTION_PORT
+                        optionDefinition: FTPConfig.OPTION_PORT,
+                        includeInTemplate: true
                     },
                     user: {
                         type: "string",
@@ -58,7 +59,8 @@ const config: IImperativeConfig = {
                     },
                     secureFtp: {
                         type: ["boolean", "null"],
-                        optionDefinition: FTPConfig.OPTION_SECURE_FTP
+                        optionDefinition: FTPConfig.OPTION_SECURE_FTP,
+                        includeInTemplate: true
                     },
                     rejectUnauthorized: {
                         type: ["boolean", "null"],

@@ -19,14 +19,14 @@
 #-- developers can use auto-complete when using the properties in test code --#
 
 #  see zowe profiles create zftp --help for more info
-zosftp:
-      user: &ftpuser my-user-name
-      password: &ftppass my-password
-      host: &ftphost ftp-host
-      port: &ftpport ftp-port
-      secureFtp: &ftpsecure null
-      connectionTimeout: &ftptimeout null
-      # a file containing a job card to be used when submitting jobs for you
+zftp:
+  user: &ftpuser my-user-name
+  password: &ftppass my-password
+  host: &ftphost ftp-host
+  port: &ftpport ftp-port
+  secureFtp: &ftpsecure null
+  connectionTimeout: &ftptimeout null
+  # a file containing a job card to be used when submitting jobs for you
 #-------------------------------------------------------------------------#
 #  Dataset tests                                                          #
 # If you have z/OSMF on the system, you can use core brightside to create #

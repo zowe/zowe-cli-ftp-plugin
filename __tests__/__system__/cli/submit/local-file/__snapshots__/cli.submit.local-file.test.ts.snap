@@ -28,21 +28,42 @@ exports[`submit job from local file command should display submit job from local
  OPTIONS
  -------
 
-   --wait  | -w (string)
+   --wait | -w (string)
 
       Specify job query interval and max times of querying job status. The format of
       this option is comma-separated numeric values. For example, '5,12' means queries
       job status every 5 seconds for 12 times at most.
 
-   --wait-for-output  | --wfo (boolean)
+   --wait-for-output | --wfo (boolean)
 
       Wait for the job to enter OUTPUT status before completing the command.
 
-   --wait-for-active  | --wfa (boolean)
+   --wait-for-active | --wfa (boolean)
 
       Wait for the job to enter ACTIVE status before completing the command.
 
-   --secure-ftp  (boolean)
+ FTP CONNECTION OPTIONS
+ ----------------------
+
+   --host | -H (string)
+
+      The hostname or IP address of the z/OS server to connect to.
+
+   --port | -P (number)
+
+      The port of the z/OS FTP server.
+
+      Default value: 21
+
+   --user | -u (string)
+
+      Username for authentication on z/OS
+
+   --password | -p | --pass | --pw (string)
+
+      Password to authenticate to FTP.
+
+   --secure-ftp (boolean)
 
       Set to true for both control and data connection encryption, 'control' for
       control connection encryption only, or 'implicit' for implicitly encrypted
@@ -52,42 +73,21 @@ exports[`submit job from local file command should display submit job from local
 
       Default value: true
 
-   --connection-timeout  | --ct (number)
+   --connection-timeout | --ct (number)
 
       How long (in milliseconds) to wait for the control connection to be established.
 
       Default value: 10000
 
- REQUIRED OPTIONS
- ----------------
-
-   --host  | -H (string)
-
-      The hostname or IP address of the z/OS server to connect to.
-
-   --port  | -P (number)
-
-      The port of the z/OS FTP server.
-
-      Default value: 21
-
-   --user  | -u (string)
-
-      Username for authentication on z/OS
-
-   --password  | -p | --pass | --pw (string)
-
-      Password to authenticate to FTP.
-
  TLS / SECURE CONNECTION OPTIONS
  -------------------------------
 
-   --reject-unauthorized  | --ru (boolean)
+   --reject-unauthorized | --ru (boolean)
 
       Reject self-signed certificates. Only specify this if you are connecting to a
       secure FTP instance.
 
-   --server-name  | --sn (string)
+   --server-name | --sn (string)
 
       Server name for the SNI (Server Name Indication) TLS extension. Only specify if
       you are connecting securely
@@ -95,38 +95,38 @@ exports[`submit job from local file command should display submit job from local
  PROFILE OPTIONS
  ---------------
 
-   --zftp-profile  | --zftp-p (string)
+   --zftp-profile | --zftp-p (string)
 
       The name of a (zftp) profile to load for this command execution.
 
-   --base-profile  | --base-p (string)
+   --base-profile | --base-p (string)
 
       The name of a (base) profile to load for this command execution.
 
  BASE CONNECTION OPTIONS
  -----------------------
 
-   --token-type  | --tt (string)
+   --token-type | --tt (string)
 
       The type of token to get and use for the API. Omit this option to use the
       default token type, which is provided by 'zowe auth login'.
 
-   --token-value  | --tv (string)
+   --token-value | --tv (string)
 
       The value of the token to pass to the API.
 
-   --cert-file  (local file path)
+   --cert-file (local file path)
 
       The file path to a certificate file to use for authentication
 
-   --cert-key-file  (local file path)
+   --cert-key-file (local file path)
 
       The file path to a certificate key file to use for authentication
 
  RESPONSE FORMAT OPTIONS
  -----------------------
 
-   --response-format-filter  | --rff (array)
+   --response-format-filter | --rff (array)
 
       Filter (include) fields in the response. Accepts an array of field/property
       names to include in the output response. You can filter JSON objects properties
@@ -134,7 +134,7 @@ exports[`submit job from local file command should display submit job from local
       with '--response-format-type' to reduce the output of a command to a single
       field/property or a list of a single field/property.
 
-   --response-format-type  | --rft (string)
+   --response-format-type | --rft (string)
 
       The command response output format type. Must be one of the following:
 
@@ -154,7 +154,7 @@ exports[`submit job from local file command should display submit job from local
 
       Allowed values: table, list, object, string
 
-   --response-format-header  | --rfh (boolean)
+   --response-format-header | --rfh (boolean)
 
       If \\"--response-format-type table\\" is specified, include the column headers in
       the output.
@@ -162,19 +162,19 @@ exports[`submit job from local file command should display submit job from local
  GLOBAL OPTIONS
  --------------
 
-   --response-format-json  | --rfj (boolean)
+   --response-format-json | --rfj (boolean)
 
       Produce JSON formatted data from a command
 
-   --help  | -h (boolean)
+   --help | -h (boolean)
 
       Display help text
 
-   --help-examples  (boolean)
+   --help-examples (boolean)
 
       Display examples for all the commands in a group
 
-   --help-web  | --hw (boolean)
+   --help-web | --hw (boolean)
 
       Display HTML help in browser
 
@@ -200,8 +200,8 @@ exports[`submit job from local file command should display submit job from local
   \\"success\\": true,
   \\"exitCode\\": 0,
   \\"message\\": \\"The help was constructed for command: local-file.\\",
-  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --wait  | -w (string)\\\\n\\\\n      Specify job query interval and max times of querying job status. The format of\\\\n      this option is comma-separated numeric values. For example, '5,12' means queries\\\\n      job status every 5 seconds for 12 times at most.\\\\n\\\\n   --wait-for-output  | --wfo (boolean)\\\\n\\\\n      Wait for the job to enter OUTPUT status before completing the command.\\\\n\\\\n   --wait-for-active  | --wfa (boolean)\\\\n\\\\n      Wait for the job to enter ACTIVE status before completing the command.\\\\n\\\\n   --secure-ftp  (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile  | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type  | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value  | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file  (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file  (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter  | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type  | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header  | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   wait for job complete.:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --wait 5,12\\\\n\\\\n\\",
+  \\"stdout\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --wait | -w (string)\\\\n\\\\n      Specify job query interval and max times of querying job status. The format of\\\\n      this option is comma-separated numeric values. For example, '5,12' means queries\\\\n      job status every 5 seconds for 12 times at most.\\\\n\\\\n   --wait-for-output | --wfo (boolean)\\\\n\\\\n      Wait for the job to enter OUTPUT status before completing the command.\\\\n\\\\n   --wait-for-active | --wfa (boolean)\\\\n\\\\n      Wait for the job to enter ACTIVE status before completing the command.\\\\n\\\\n FTP CONNECTION OPTIONS\\\\n ----------------------\\\\n\\\\n   --host | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   wait for job complete.:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --wait 5,12\\\\n\\\\n\\",
   \\"stderr\\": \\"\\",
-  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --wait  | -w (string)\\\\n\\\\n      Specify job query interval and max times of querying job status. The format of\\\\n      this option is comma-separated numeric values. For example, '5,12' means queries\\\\n      job status every 5 seconds for 12 times at most.\\\\n\\\\n   --wait-for-output  | --wfo (boolean)\\\\n\\\\n      Wait for the job to enter OUTPUT status before completing the command.\\\\n\\\\n   --wait-for-active  | --wfa (boolean)\\\\n\\\\n      Wait for the job to enter ACTIVE status before completing the command.\\\\n\\\\n   --secure-ftp  (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout  | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n REQUIRED OPTIONS\\\\n ----------------\\\\n\\\\n   --host  | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port  | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user  | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password  | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized  | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name  | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile  | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile  | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type  | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value  | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file  (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file  (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter  | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type  | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header  | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json  | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help  | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples  (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web  | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   wait for job complete.:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --wait 5,12\\\\n\\\\n\\"
+  \\"data\\": \\"\\\\n COMMAND NAME\\\\n ------------\\\\n\\\\n   local-file | lf\\\\n\\\\n DESCRIPTION\\\\n -----------\\\\n\\\\n   Submit a job from a local file containing JCL\\\\n\\\\n USAGE\\\\n -----\\\\n\\\\n   zowe zos-ftp submit local-file <file> [options]\\\\n\\\\n POSITIONAL ARGUMENTS\\\\n --------------------\\\\n\\\\n   file\\\\t\\\\t (local file path)\\\\n\\\\n      The file you would like to submit as jcl\\\\n\\\\n OPTIONS\\\\n -------\\\\n\\\\n   --wait | -w (string)\\\\n\\\\n      Specify job query interval and max times of querying job status. The format of\\\\n      this option is comma-separated numeric values. For example, '5,12' means queries\\\\n      job status every 5 seconds for 12 times at most.\\\\n\\\\n   --wait-for-output | --wfo (boolean)\\\\n\\\\n      Wait for the job to enter OUTPUT status before completing the command.\\\\n\\\\n   --wait-for-active | --wfa (boolean)\\\\n\\\\n      Wait for the job to enter ACTIVE status before completing the command.\\\\n\\\\n FTP CONNECTION OPTIONS\\\\n ----------------------\\\\n\\\\n   --host | -H (string)\\\\n\\\\n      The hostname or IP address of the z/OS server to connect to.\\\\n\\\\n   --port | -P (number)\\\\n\\\\n      The port of the z/OS FTP server.\\\\n\\\\n      Default value: 21\\\\n\\\\n   --user | -u (string)\\\\n\\\\n      Username for authentication on z/OS\\\\n\\\\n   --password | -p | --pass | --pw (string)\\\\n\\\\n      Password to authenticate to FTP.\\\\n\\\\n   --secure-ftp (boolean)\\\\n\\\\n      Set to true for both control and data connection encryption, 'control' for\\\\n      control connection encryption only, or 'implicit' for implicitly encrypted\\\\n      control connection (this mode is deprecated in modern times, but usually uses\\\\n      port 990). Note: Unfortunately, this plugin's functionality only works with FTP\\\\n      and FTPS, not 'SFTP' which is FTP over SSH.\\\\n\\\\n      Default value: true\\\\n\\\\n   --connection-timeout | --ct (number)\\\\n\\\\n      How long (in milliseconds) to wait for the control connection to be established.\\\\n\\\\n      Default value: 10000\\\\n\\\\n TLS / SECURE CONNECTION OPTIONS\\\\n -------------------------------\\\\n\\\\n   --reject-unauthorized | --ru (boolean)\\\\n\\\\n      Reject self-signed certificates. Only specify this if you are connecting to a\\\\n      secure FTP instance.\\\\n\\\\n   --server-name | --sn (string)\\\\n\\\\n      Server name for the SNI (Server Name Indication) TLS extension. Only specify if\\\\n      you are connecting securely\\\\n\\\\n PROFILE OPTIONS\\\\n ---------------\\\\n\\\\n   --zftp-profile | --zftp-p (string)\\\\n\\\\n      The name of a (zftp) profile to load for this command execution.\\\\n\\\\n   --base-profile | --base-p (string)\\\\n\\\\n      The name of a (base) profile to load for this command execution.\\\\n\\\\n BASE CONNECTION OPTIONS\\\\n -----------------------\\\\n\\\\n   --token-type | --tt (string)\\\\n\\\\n      The type of token to get and use for the API. Omit this option to use the\\\\n      default token type, which is provided by 'zowe auth login'.\\\\n\\\\n   --token-value | --tv (string)\\\\n\\\\n      The value of the token to pass to the API.\\\\n\\\\n   --cert-file (local file path)\\\\n\\\\n      The file path to a certificate file to use for authentication\\\\n\\\\n   --cert-key-file (local file path)\\\\n\\\\n      The file path to a certificate key file to use for authentication\\\\n\\\\n RESPONSE FORMAT OPTIONS\\\\n -----------------------\\\\n\\\\n   --response-format-filter | --rff (array)\\\\n\\\\n      Filter (include) fields in the response. Accepts an array of field/property\\\\n      names to include in the output response. You can filter JSON objects properties\\\\n      OR table columns/fields. In addition, you can use this option in conjunction\\\\n      with '--response-format-type' to reduce the output of a command to a single\\\\n      field/property or a list of a single field/property.\\\\n\\\\n   --response-format-type | --rft (string)\\\\n\\\\n      The command response output format type. Must be one of the following:\\\\n\\\\n      table: Formats output data as a table. Use this option when the output data is\\\\n      an array of homogeneous JSON objects. Each property of the object will become a\\\\n      column in the table.\\\\n\\\\n      list: Formats output data as a list of strings. Can be used on any data type\\\\n      (JSON objects/arrays) are stringified and a new line is added after each entry\\\\n      in an array.\\\\n\\\\n      object: Formats output data as a list of prettified objects (or single object).\\\\n      Can be used in place of \\\\\\"table\\\\\\" to change from tabular output to a list of\\\\n      prettified objects.\\\\n\\\\n      string: Formats output data as a string. JSON objects/arrays are stringified.\\\\n\\\\n      Allowed values: table, list, object, string\\\\n\\\\n   --response-format-header | --rfh (boolean)\\\\n\\\\n      If \\\\\\"--response-format-type table\\\\\\" is specified, include the column headers in\\\\n      the output.\\\\n\\\\n GLOBAL OPTIONS\\\\n --------------\\\\n\\\\n   --response-format-json | --rfj (boolean)\\\\n\\\\n      Produce JSON formatted data from a command\\\\n\\\\n   --help | -h (boolean)\\\\n\\\\n      Display help text\\\\n\\\\n   --help-examples (boolean)\\\\n\\\\n      Display examples for all the commands in a group\\\\n\\\\n   --help-web | --hw (boolean)\\\\n\\\\n      Display HTML help in browser\\\\n\\\\n EXAMPLES\\\\n --------\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\":\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\"\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   print only the job ID:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --rff jobid --rft string\\\\n\\\\n   - Submit a job from the local file \\\\\\"my_build_jcl.txt\\\\\\" and\\\\n   wait for job complete.:\\\\n\\\\n      $ zowe zos-ftp submit local-file \\\\\\"my_build_jcl.txt\\\\\\" --wait 5,12\\\\n\\\\n\\"
 }"
 `;

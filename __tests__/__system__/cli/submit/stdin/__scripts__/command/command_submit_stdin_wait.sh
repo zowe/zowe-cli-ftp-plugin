@@ -7,7 +7,7 @@ set -o pipefail
 
 if [ "$2" == "--wait" ] 
 then
-cat "$localFile" | bright zos-ftp submit stdin "$option" "$wait"
+cat "$localFile" | zowe zos-ftp submit stdin "$option" "$wait"
 else
-cat "$localFile" | bright zos-ftp submit stdin "$option"
+cat "$localFile" | zowe zos-ftp submit stdin "$option"
 fi

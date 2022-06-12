@@ -3,7 +3,29 @@
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
 ## Recent Changes
-- Pick up `zos-node-accessor` v1.0.10 to fix listing single USS file or symbol link.
+- Pick up `zos-node-accessor` v1.0.11 to fix listing single USS file or symbol link and update PDS dataset allocation.
+
+## `2.0.0`
+
+- Major: Updated for V2 compatibility. See the prerelease items below for more details.
+
+## `2.0.0-next.202204131412`
+
+- Updated the plug-in to meet Zowe v2 conformance criteria.
+
+## `2.0.0-next.202204111437`
+
+- Publish `@next` tag that is compatible with Zowe v2 daemon mode and team config profiles.
+
+## `1.8.7`
+
+- Change the profile fields from required to optional to compatible with base profile.
+
+## `1.8.6`
+
+- BugFix: Refine error message of uploading partition dataset member.
+          Refine description of parameter dcb of uploading sequential dataset.
+- Change `bright` command to `zowe` in test scripts.
 
 ## `1.8.5`
 

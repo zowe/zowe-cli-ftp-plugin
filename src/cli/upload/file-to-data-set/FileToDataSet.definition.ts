@@ -51,8 +51,8 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
         },
         {
             name: "dcb", aliases: [],
-            description: "DCB parameters for dataset allocation if not existing. " +
-            "It's space separated like RECFM=FB LRECL=326 BLKSIZE=23472",
+            description: "DCB parameters for sequential dataset (PS dataset) allocation if not existing. " +
+            "It is space separated like RECFM=FB LRECL=326 BLKSIZE=23472",
             type: "string"
         }
     ],

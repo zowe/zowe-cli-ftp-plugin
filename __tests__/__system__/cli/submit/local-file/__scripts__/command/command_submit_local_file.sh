@@ -2,4 +2,4 @@
 localFile=$1
 set -e
 
-bright zos-ftp submit local-file "$localFile"
+zowe zos-ftp submit local-file "$localFile"

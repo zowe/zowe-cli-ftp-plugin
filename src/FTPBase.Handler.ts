@@ -29,7 +29,7 @@ export abstract class FTPBaseHandler implements ICommandHandler {
 
         let connection: any;
         try {
-            connection = await FTPConfig.connectFromArguments(commandParameters.arguments);
+            connection = await FTPConfig.connectFromArguments(commandParameters.arguments, true, commandParameters);
             this.log.info("Connected to FTP successfully");
             const additionalParameters: IFTPHandlerParams = commandParameters as IFTPHandlerParams;
             additionalParameters.connection = connection;
@@ -38,6 +38,9 @@ export abstract class FTPBaseHandler implements ICommandHandler {
             this.log.error("Error encountered in FTP command:\n%s", require("util").inspect(e));
             if (e.message.indexOf("PASS command failed") !== -1) {
                 const errMessage = "Username or password are not valid or expired.";
+                throw new ImperativeError({msg: errMessage, causeErrors: [e]});
+            } else if (e.message.indexOf("requests a nonexistent partitioned data set.  Use MKD command to create it") !== -1) {
+                const errMessage = e.message.replace("Use MKD command", "Use allocate command");
                 throw new ImperativeError({msg: errMessage, causeErrors: [e]});
             } else {
                 throw new ImperativeError({msg: e.message, causeErrors: [e]});
