@@ -9,7 +9,7 @@
       "version": "1.8.5",
       "license": "EPL-2.0",
       "dependencies": {
-        "zos-node-accessor": "1.0.10"
+        "zos-node-accessor": "1.0.11"
       },
       "devDependencies": {
         "@types/fs-extra": "^5.0.5",
@@ -15270,9 +15270,9 @@
       }
     },
     "node_modules/zos-node-accessor": {
-      "version": "1.0.10",
-      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-1.0.10.tgz",
-      "integrity": "sha512-aCFrKllhCxZmd2dPCJ3bLFBQM9juvkquDR3DdhKqxLfZglEAa7YNfORZQXz2146ogOjYS5tkAjcr1Swf1HmBgw==",
+      "version": "1.0.11",
+      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-1.0.11.tgz",
+      "integrity": "sha512-McdHnpbURuoFOQFXIaxEknw03CMM31QvPCLEisVG+Qh0BKMKWWZPl5P2u58E3OdYv0RmvA9TxNUTTT7pqyFuAA==",
       "dependencies": {
         "debug": "~2.6.8",
         "ftp4": "~0.3.13",
@@ -26843,9 +26843,9 @@
       "dev": true
     },
     "zos-node-accessor": {
-      "version": "1.0.10",
-      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-1.0.10.tgz",
-      "integrity": "sha512-aCFrKllhCxZmd2dPCJ3bLFBQM9juvkquDR3DdhKqxLfZglEAa7YNfORZQXz2146ogOjYS5tkAjcr1Swf1HmBgw==",
+      "version": "1.0.11",
+      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-1.0.11.tgz",
+      "integrity": "sha512-McdHnpbURuoFOQFXIaxEknw03CMM31QvPCLEisVG+Qh0BKMKWWZPl5P2u58E3OdYv0RmvA9TxNUTTT7pqyFuAA==",
       "requires": {
         "debug": "~2.6.8",
         "ftp4": "~0.3.13",
