@@ -14,15 +14,19 @@ import { ICommandDefinition } from "@zowe/imperative";
 
 export const AllocateDataSetDefinition: ICommandDefinition = {
     handler: __dirname + "/DataSet.Handler",
-    description: "Allocate a sequential or partitioned dataset",
+    description: "Allocate a sequential dataset or partitioned dataset with '--dcb \"PDSTYPE=PDS\"'",
     type: "command",
     name: "data-set", aliases: ["ds"],
     summary: "Allocate a sequential or partitioned dataset",
     examples: [
         {
-            description: "Allocate a dataset \"IBMUSER.DATASET\"",
+            description: "Allocate a sequential dataset \"IBMUSER.DATASET\"",
             options: "\"IBMUSER.DATASET\""
+        }, {
+            description: "Allocate a partitioned dataset \"IBMUSER.DATASET\"",
+            options: "\"IBMUSER.DATASET\" --dcb \"PDSTYPE=PDS\""
         }
+
     ],
     positionals: [{
         name: "datasetName",
@@ -34,7 +38,9 @@ export const AllocateDataSetDefinition: ICommandDefinition = {
         {
             name: "dcb", aliases: [],
             description: "DCB parameters for dataset allocation. " +
-            "It's space separated like RECFM=FB LRECL=326 BLKSIZE=23472",
+            "It's space separated like \"RECFM=FB LRECL=326 BLKSIZE=23472\". " +
+            "For the list of possible DCB parameters, " +
+            "visit https://github.com/IBM/zos-node-accessor/tree/1.0.x#allocate.",
             type: "string"
         }
     ],
