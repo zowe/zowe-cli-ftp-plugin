@@ -92,11 +92,14 @@ export class DataSetUtils {
         }
 
         const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        if (option.codePage) {
+            option.codePage= "sbd=(" + option.codePage + ",ISO8859-1)";
+        }
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
 
         let buffer;
         let length;
-        const stream = await connection.getDataset(dsn, transferType, true);
+        const stream = await connection.getDataset(dsn, transferType, true, option.codePage);
         if (option.localFile) {
             this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
                 dsn, option.localFile, transferType);
@@ -122,6 +125,13 @@ export class DataSetUtils {
     public static async uploadDataSet(connection: any, dsn: string, option: IUploadDataSetOption): Promise<void> {
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
         let content = option.content;
+        let siteparm;
+        if (option.codePage) {
+            option.codePage = "sbd=(" + option.codePage + ",ISO8859-1)";
+            siteparm = option.dcb + " " + option.codePage;
+        } else {
+            siteparm = option.dcb;
+        }
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to data set '%s' in transfer mode '%s'",
                 option.localFile, dsn, transferType);
@@ -132,7 +142,7 @@ export class DataSetUtils {
         if (transferType === TRANSFER_TYPE_ASCII) {
             content = CoreUtils.addCarriageReturns(content.toString());
         }
-        await connection.uploadDataset(content, "'" + dsn + "'", transferType, option.dcb);
+        await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteparm);
     }
 
     /**

@@ -20,6 +20,7 @@ export default class UploadFileToDataSetHandler extends FTPBaseHandler {
             dcb: params.arguments.dcb,
             localFile: params.arguments.file,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            codePage: params.arguments.codePage
         };
         await DataSetUtils.uploadDataSet(params.connection, params.arguments.dataSet, options);
 

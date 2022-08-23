@@ -74,8 +74,12 @@ const config: IImperativeConfig = {
                         type: "number",
                         optionDefinition: FTPConfig.OPTION_CONNECTION_TIMEOUT
                     },
+                    codePage: {
+                        type: "string",
+                        optionDefinition: FTPConfig.OPTION_CODE_PAGE
+                    },
                 },
-                optional: ["host", "port", "user", "password"],
+                optional: ["host", "port", "user", "password","codePage"],
             },
         },
     ]

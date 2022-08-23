@@ -87,6 +87,14 @@ export class FTPConfig {
         group: ftpConnectionOptionGroup
     };
 
+    public static OPTION_CODE_PAGE: ICommandOptionDefinition = {
+        name: "codePage", aliases: ["cp"],
+        description: "Setting the codepage.",
+        defaultValue: null,
+        type: "string",
+        group: ftpConnectionOptionGroup
+    };
+
     /**
      * Shared options used by all FTP commands
      */
@@ -98,7 +106,8 @@ export class FTPConfig {
         FTPConfig.OPTION_SECURE_FTP,
         FTPConfig.OPTION_REJECT_UNAUTHORIZED,
         FTPConfig.OPTION_SERVER_NAME,
-        FTPConfig.OPTION_CONNECTION_TIMEOUT
+        FTPConfig.OPTION_CONNECTION_TIMEOUT,
+        FTPConfig.OPTION_CODE_PAGE
     ];
 
     /**

@@ -275,6 +275,16 @@ Object {
           "name": "connection-timeout",
           "type": "number",
         },
+        Object {
+          "aliases": Array [
+            "cp",
+          ],
+          "defaultValue": null,
+          "description": "Setting the codepage.",
+          "group": "FTP Connection options",
+          "name": "codePage",
+          "type": "string",
+        },
       ],
     },
   ],

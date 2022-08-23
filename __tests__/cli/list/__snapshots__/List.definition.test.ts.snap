@@ -279,6 +279,16 @@ The following values can be used with the --response-format-filter (--rff) argum
           "name": "connection-timeout",
           "type": "number",
         },
+        Object {
+          "aliases": Array [
+            "cp",
+          ],
+          "defaultValue": null,
+          "description": "Setting the codepage.",
+          "group": "FTP Connection options",
+          "name": "codePage",
+          "type": "string",
+        },
       ],
     },
   ],

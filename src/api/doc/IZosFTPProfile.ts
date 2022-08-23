@@ -36,4 +36,8 @@ export interface IZosFTPProfile extends IProfile {
     serverName?: string;
 
     jobCardFile?: string;
+    /**
+     * codePage setting
+     */
+    codePage?: string;
 }

@@ -27,8 +27,22 @@ Object {
           "port",
           "user",
           "password",
+          "codePage",
         ],
         "properties": Object {
+          "codePage": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "cp",
+              ],
+              "defaultValue": null,
+              "description": "Setting the codepage.",
+              "group": "FTP Connection options",
+              "name": "codePage",
+              "type": "string",
+            },
+            "type": "string",
+          },
           "connectionTimeout": Object {
             "optionDefinition": Object {
               "aliases": Array [
