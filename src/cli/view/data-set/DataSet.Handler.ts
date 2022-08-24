@@ -19,7 +19,7 @@ export default class ViewDataSetHandler extends FTPBaseHandler {
         const options = {
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
             response: params.response,
-            codePage: params.arguments.codePage
+            encoding: params.arguments.encoding
         };
         this.log.debug("Attempting to view data set '%s' in transfer mode '%s'", params.arguments.dataSet, options.transferType);
         const content = await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);

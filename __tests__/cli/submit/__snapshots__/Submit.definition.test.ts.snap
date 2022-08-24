@@ -323,12 +323,12 @@ Object {
         },
         Object {
           "aliases": Array [
-            "cp",
+            "ec",
           ],
           "defaultValue": null,
-          "description": "Setting the codepage.",
+          "description": "The encoding for download and upload of z/OS data set.",
           "group": "FTP Connection options",
-          "name": "codePage",
+          "name": "encoding",
           "type": "string",
         },
       ],

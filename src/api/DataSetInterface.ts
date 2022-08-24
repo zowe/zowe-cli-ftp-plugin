@@ -33,9 +33,9 @@ export interface IDownloadDataSetOption {
     transferType?: string;
 
     /**
-    * Optional setting for codePage
+    * Optional encoding for download and upload of z/OS data set
     */
-    codePage?: string;
+    encoding?: string;
 }
 
 export interface IUploadDataSetOption {
@@ -60,9 +60,9 @@ export interface IUploadDataSetOption {
     transferType?: string;
 
     /**
-    * Optional setting for codePage
+    * Optional encoding for download and upload of z/OS data set
     */
-    codePage?: string;
+    encoding?: string;
 }
 
 export interface IAllocateDataSetOption {

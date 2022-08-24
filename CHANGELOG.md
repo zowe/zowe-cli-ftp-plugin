@@ -3,7 +3,7 @@
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
 ## Recent Changes
-- Add codePage setting in profile.
+- Add encoding setting in profile.
 
 ## `2.0.2`
 - Refine help of partitioned dataset allocation.

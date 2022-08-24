@@ -87,9 +87,9 @@ export class FTPConfig {
         group: ftpConnectionOptionGroup
     };
 
-    public static OPTION_CODE_PAGE: ICommandOptionDefinition = {
-        name: "codePage", aliases: ["cp"],
-        description: "Setting the codepage.",
+    public static OPTION_ENCODING: ICommandOptionDefinition = {
+        name: "encoding", aliases: ["ec"],
+        description: "The encoding for download and upload of z/OS data set.",
         defaultValue: null,
         type: "string",
         group: ftpConnectionOptionGroup
@@ -107,7 +107,7 @@ export class FTPConfig {
         FTPConfig.OPTION_REJECT_UNAUTHORIZED,
         FTPConfig.OPTION_SERVER_NAME,
         FTPConfig.OPTION_CONNECTION_TIMEOUT,
-        FTPConfig.OPTION_CODE_PAGE
+        FTPConfig.OPTION_ENCODING
     ];
 
     /**
