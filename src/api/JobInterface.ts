@@ -38,6 +38,11 @@ export interface IListJobOption {
      * Job owner. If it's unspecified, `*` will be used.
      */
     owner?: string;
+
+    /**
+     * Job status. If it's unspecified, `*` will be used.
+     */
+    status?: string;
 }
 
 export interface IJob {

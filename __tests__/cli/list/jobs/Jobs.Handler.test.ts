@@ -45,7 +45,8 @@ describe("List jobs handler", () => {
         const mockParams: any = {
             arguments: {
                 prefix: "job*",
-                owner: "*"
+                owner: "*",
+                status: "*"
             },
             connection: {
                 listJobs: jest.fn().mockReturnValue(Promise.resolve(jobs))
@@ -57,6 +58,8 @@ describe("List jobs handler", () => {
         expect(mockResponse.data.setMessage.mock.calls[0][1]).toBe(2);
         expect(mockResponse.data.setObj.mock.calls[0][0][0].owner).toContain("OWNER1");
         expect(mockResponse.data.setObj.mock.calls[0][0][1].owner).toContain("OWNER2");
+        expect(mockResponse.data.setObj.mock.calls[0][0][0].status).toContain("STATUS1");
+        expect(mockResponse.data.setObj.mock.calls[0][0][1].status).toContain("STATUS2");
         const obj = Object.keys(mockResponse.data.setObj.mock.calls[0][0]);
         expect(obj.length).toBe(2);
     });

@@ -31,6 +31,10 @@ export class JobUtils {
             accessorOption.owner = option.owner;
             debugMessage += ` and are owned by ${accessorOption.owner}`;
         }
+        if(option && option.status) {
+            accessorOption.status = option.status;
+            debugMessage += ` and status is ${accessorOption.status}`;
+        }
         this.log.debug(debugMessage);
 
         const jobs = await connection.listJobs(accessorOption);

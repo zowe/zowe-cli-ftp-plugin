@@ -17,7 +17,8 @@ export default class ListJobsHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const options = {
-            owner: params.arguments.owner
+            owner: params.arguments.owner,
+            status: params.arguments.status
         };
         const filteredJobs = await JobUtils.listJobs(params.connection, params.arguments.prefix, options);
         params.response.data.setObj(filteredJobs);
