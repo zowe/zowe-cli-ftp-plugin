@@ -13,9 +13,7 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import * as path from "path";
-import { ImperativeExpect } from "@zowe/imperative";
 
-let dsname: string;
 let user: string;
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
