@@ -107,7 +107,6 @@ export class FTPConfig {
         FTPConfig.OPTION_REJECT_UNAUTHORIZED,
         FTPConfig.OPTION_SERVER_NAME,
         FTPConfig.OPTION_CONNECTION_TIMEOUT,
-        FTPConfig.OPTION_ENCODING
     ];
 
     /**

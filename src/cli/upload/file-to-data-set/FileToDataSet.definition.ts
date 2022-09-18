@@ -54,7 +54,15 @@ export const UploadFileToDataSetDefinition: ICommandDefinition = {
             description: "DCB parameters for sequential dataset (PS dataset) allocation if not existing. " +
             "It is space separated like RECFM=FB LRECL=326 BLKSIZE=23472",
             type: "string"
-        }
+        },
+        {
+            name: "encoding",
+            aliases: ["ec"],
+            description:
+                "The encoding for download and upload of z/OS data set.",
+            defaultValue: null,
+            type: "string",
+        },
     ],
     profile:
         {optional: ["zftp"]},

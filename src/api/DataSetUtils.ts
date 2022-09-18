@@ -101,7 +101,7 @@ export class DataSetUtils {
         let length;
         const stream = await connection.getDataset(dsn, transferType, true, option.encoding);
         if (option.localFile) {
-            this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
+            this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s'",
                 dsn, option.localFile, transferType);
             IO.createDirsSyncFromFilePath(option.localFile);
             const writable = fs.createWriteStream(option.localFile);
