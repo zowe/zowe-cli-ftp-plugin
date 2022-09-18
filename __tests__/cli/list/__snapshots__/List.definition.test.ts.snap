@@ -279,16 +279,6 @@ The following values can be used with the --response-format-filter (--rff) argum
           "name": "connection-timeout",
           "type": "number",
         },
-        Object {
-          "aliases": Array [
-            "ec",
-          ],
-          "defaultValue": null,
-          "description": "The encoding for download and upload of z/OS data set.",
-          "group": "FTP Connection options",
-          "name": "encoding",
-          "type": "string",
-        },
       ],
     },
   ],
