@@ -92,14 +92,15 @@ export class DataSetUtils {
         }
 
         const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        let encoding;
         if (option.encoding) {
-            option.encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
+            encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
         }
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
 
         let buffer;
         let length;
-        const stream = await connection.getDataset(dsn, transferType, true, option.encoding);
+        const stream = await connection.getDataset(dsn, transferType, true, encoding);
         if (option.localFile) {
             this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s'",
                 dsn, option.localFile, transferType);
@@ -126,9 +127,10 @@ export class DataSetUtils {
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
         let content = option.content;
         let siteparm;
+        let encoding;
         if (option.encoding) {
-            option.encoding = "sbd=(" + option.encoding + ",ISO8859-1)";
-            siteparm = option.dcb + " " + option.encoding;
+            encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
+            siteparm = option.dcb + " " + encoding;
         } else {
             siteparm = option.dcb;
         }
