@@ -38,7 +38,15 @@ export const ViewDataSetDefinition: ICommandDefinition = {
         name: "binary", aliases: ["b"],
         description: "View content in binary form without converting to ASCII text",
         type: "boolean"
-    }],
+    },
+    {
+        name: "encoding",
+        aliases: ["ec"],
+        description: "The encoding for download and upload of z/OS data set.",
+        defaultValue: null,
+        type: "string",
+    }
+],
     profile:
         {optional: ["zftp"]},
 };

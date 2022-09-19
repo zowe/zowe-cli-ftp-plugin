@@ -38,6 +38,15 @@ Object {
           "name": "dcb",
           "type": "string",
         },
+        Object {
+          "aliases": Array [
+            "ec",
+          ],
+          "defaultValue": null,
+          "description": "The encoding for download and upload of z/OS data set.",
+          "name": "encoding",
+          "type": "string",
+        },
       ],
       "positionals": Array [
         Object {
@@ -82,6 +91,15 @@ Object {
           "description": "Upload content in binary mode.",
           "name": "binary",
           "type": "boolean",
+        },
+        Object {
+          "aliases": Array [
+            "ec",
+          ],
+          "defaultValue": null,
+          "description": "The encoding for download and upload of z/OS data set.",
+          "name": "encoding",
+          "type": "string",
         },
       ],
       "positionals": Array [

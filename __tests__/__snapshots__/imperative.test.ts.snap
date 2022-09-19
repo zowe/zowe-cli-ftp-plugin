@@ -27,6 +27,7 @@ Object {
           "port",
           "user",
           "password",
+          "encoding",
         ],
         "properties": Object {
           "connectionTimeout": Object {
@@ -41,6 +42,19 @@ Object {
               "type": "number",
             },
             "type": "number",
+          },
+          "encoding": Object {
+            "optionDefinition": Object {
+              "aliases": Array [
+                "ec",
+              ],
+              "defaultValue": null,
+              "description": "The encoding for download and upload of z/OS data set.",
+              "group": "FTP Connection options",
+              "name": "encoding",
+              "type": "string",
+            },
+            "type": "string",
           },
           "host": Object {
             "optionDefinition": Object {

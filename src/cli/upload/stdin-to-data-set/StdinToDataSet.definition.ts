@@ -38,6 +38,13 @@ export const UploadStdinToDataSetDefinition: ICommandDefinition = {
             name: "binary", aliases: ["b"],
             description: "Upload content in binary mode.",
             type: "boolean"
+        },
+        {
+            name: "encoding",
+            aliases: ["ec"],
+            description: "The encoding for download and upload of z/OS data set.",
+            defaultValue: null,
+            type: "string",
         }
     ],
     profile:
