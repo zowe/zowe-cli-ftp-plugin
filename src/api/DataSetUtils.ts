@@ -92,13 +92,17 @@ export class DataSetUtils {
         }
 
         const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        let encoding;
+        if (option.encoding) {
+            encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
+        }
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
 
         let buffer;
         let length;
-        const stream = await connection.getDataset(dsn, transferType, true);
+        const stream = await connection.getDataset(dsn, transferType, true, encoding);
         if (option.localFile) {
-            this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s",
+            this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s'",
                 dsn, option.localFile, transferType);
             IO.createDirsSyncFromFilePath(option.localFile);
             const writable = fs.createWriteStream(option.localFile);
@@ -122,6 +126,14 @@ export class DataSetUtils {
     public static async uploadDataSet(connection: any, dsn: string, option: IUploadDataSetOption): Promise<void> {
         const transferType = option.transferType || TRANSFER_TYPE_ASCII;
         let content = option.content;
+        let siteparm;
+        let encoding;
+        if (option.encoding) {
+            encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
+            siteparm = option.dcb + " " + encoding;
+        } else {
+            siteparm = option.dcb;
+        }
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to data set '%s' in transfer mode '%s'",
                 option.localFile, dsn, transferType);
@@ -132,7 +144,7 @@ export class DataSetUtils {
         if (transferType === TRANSFER_TYPE_ASCII) {
             content = CoreUtils.addCarriageReturns(content.toString());
         }
-        await connection.uploadDataset(content, "'" + dsn + "'", transferType, option.dcb);
+        await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteparm);
     }
 
     /**

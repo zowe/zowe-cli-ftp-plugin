@@ -87,6 +87,15 @@ export class FTPConfig {
         group: ftpConnectionOptionGroup
     };
 
+
+    public static OPTION_ENCODING: ICommandOptionDefinition = {
+        name: "encoding", aliases: ["ec"],
+        description: "The encoding for download and upload of z/OS data set.",
+        defaultValue: null,
+        type: "string",
+        group: ftpConnectionOptionGroup
+    };
+
     /**
      * Shared options used by all FTP commands
      */

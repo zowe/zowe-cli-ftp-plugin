@@ -35,6 +35,7 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
             response: params.response,
             transferType,
             progress,
+            encoding: params.arguments.encoding
         };
         await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
 

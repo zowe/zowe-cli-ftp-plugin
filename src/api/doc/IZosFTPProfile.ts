@@ -36,4 +36,8 @@ export interface IZosFTPProfile extends IProfile {
     serverName?: string;
 
     jobCardFile?: string;
+    /**
+     * The encoding for download and upload of z/OS data set
+     */
+    encoding?: string;
 }

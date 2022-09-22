@@ -22,6 +22,7 @@ export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
             content,
             dcb: params.arguments.dcb,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            encoding: params.arguments.encoding
         };
         const dataSet = params.arguments.dataSet.toUpperCase();
         await DataSetUtils.uploadDataSet(params.connection, dataSet, options);
