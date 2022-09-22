@@ -25,7 +25,7 @@
     "test": "npm run test:unit && npm run test:integration && npm run test:system",
     "test:unit": "env-cmd -f __tests__/__resources__/env/unit.env jest .*/__unit__/.* --coverage",
     "test:integration": "env-cmd -f __tests__/__resources__/env/integration.env jest .*/__integration__/.* --no-coverage",
-    "test:system": "env-cmd -f __tests__/__resources__/env/system.env jest .*/__system__/.* --no-coverage",
+    "test:system": "env-cmd -f __tests__/__resources__/env/system.env jest .*/__system__/.* --no-coverage --runInBand",
     "installPlugin": "npm install && rimraf lib && npm run build && zowe plugins install .",
     "typedoc": "typedoc --out ./docs/typedoc/ ./src/ --disableOutputCheck"
   },
