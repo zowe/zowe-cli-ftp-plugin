@@ -41,6 +41,12 @@ export const ListJobsDefinition: ICommandDefinition = {
         "is the individual/user who submitted the job OR the user ID assigned to the job. \n ",
         type: "string",
         required: false
+    }, {
+        name: "status", aliases: ["s"],
+        description: "Specify the status of the jobs you want to list. The status is " +
+        "one of the following: INPUT, ACTIVE and OUTPUT. \n ",
+        type: "string",
+        required: false
     }],
     profile:
         {optional: ["zftp"]},

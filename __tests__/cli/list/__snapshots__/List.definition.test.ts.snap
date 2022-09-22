@@ -43,6 +43,16 @@ Object {
           "required": false,
           "type": "string",
         },
+        Object {
+          "aliases": Array [
+            "s",
+          ],
+          "description": "Specify the status of the jobs you want to list. The status is one of the following: INPUT, ACTIVE and OUTPUT. 
+ ",
+          "name": "status",
+          "required": false,
+          "type": "string",
+        },
       ],
       "outputFormatOptions": true,
       "profile": Object {

@@ -14,7 +14,6 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import * as path from "path";
 
-let dsname: string;
 let user: string;
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -51,7 +50,8 @@ describe("list job ftp command", () => {
     it("should be able to list the jobs with prefix and owner from the test properties file", async () => {
         const pre = "\"*\"";
         const owner ="\"*\"";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre, owner]);
+        const status = "\"*\"";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre, owner, status]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         //expect(result.stdout.toString()).toContain("IBM");
@@ -62,6 +62,18 @@ describe("list job ftp command", () => {
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
 
+    });
+
+    it("should be able to list the jobs with status from the test properties file", async () => {
+        const pre = "\"*\"";
+        const owner ="\"*\"";
+        const status = "ACTIVE";
+        const result = runCliScript(__dirname + "/__scripts__/command/command_list_job.sh", testEnvironment, [pre, owner, status]);
+        expect(result.stderr.toString()).toEqual("");
+        expect(result.status).toEqual(0);
+        expect(result.stdout.toString()).toContain("ACTIVE");
+        expect(result.stdout.toString()).not.toContain("OUTPUT");
+        //expect(result.stdout.toString()).toContain("IBM");
     });
 
     it("should give a syntax error if the job pattern is omitted", async () => {
