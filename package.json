@@ -43,34 +43,36 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
-    "@types/jest": "^20.0.5",
-    "@types/node": "^8.10.59",
+    "@types/jest": "^28.0.0",
+    "@types/node": "^12.12.24",
     "@types/stack-trace": "0.0.29",
     "@types/yargs": "^8.0.4",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
     "@zowe/cli": "^7.6.1",
     "@zowe/cli-test-utils": "^7.6.1",
     "@zowe/imperative": "^5.5.3",
     "chalk": "^2.3.0",
     "env-cmd": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-plugin-jest": "^24.4.0",
-    "eslint-plugin-unused-imports": "^1.1.2",
+    "eslint": "^8.22.0",
+    "eslint-plugin-jest": "^26.8.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.6",
-    "jest": "^26.6.3",
+    "jest": "^28.1.3",
+    "jest-cli": "^29.0.0",
+    "jest-environment-node": "^28.0.0",
     "jest-environment-node-debug": "^2.0.0",
-    "jest-html-reporter": "^3.3.0",
-    "jest-junit": "^3.6.0",
+    "jest-junit": "^6.3.0",
+    "jest-sonar-reporter": "^2.0.0",
     "jest-stare": "^2.2.0",
     "madge": "^5.0.1",
     "rimraf": "^2.6.3",
     "shebang-regex": "^2.0.0",
-    "ts-jest": "^26.4.4",
-    "ts-node": "^3.2.0",
-    "typedoc": "^0.20.36",
-    "typescript": "^3.8.3",
+    "ts-jest": "^28.0.8",
+    "ts-node": "^7.0.1",
+    "typedoc": "^0.23.10",
+    "typescript": "^4.0.0",
     "uuid": "^3.4.0"
   },
   "jest": {
@@ -105,18 +107,12 @@
   "jest-stare": {
     "resultDir": "__tests__/__results__/jest-stare",
     "additionalResultsProcessors": [
-      "jest-junit",
-      "jest-html-reporter"
+      "jest-junit"
     ],
     "coverageLink": "../unit/coverage/lcov-report/index.html"
   },
   "jest-junit": {
     "output": "__tests__/__results__/junit.xml"
-  },
-  "jest-html-reporter": {
-    "pageTitle": "Zowe CLI ZFTP Plugin Test Results",
-    "outputPath": "__tests__/__results__/results.html",
-    "includeFailureMsg": true
   },
   "license": "EPL-2.0"
 }

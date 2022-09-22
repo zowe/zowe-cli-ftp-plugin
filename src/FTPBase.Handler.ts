@@ -62,7 +62,7 @@ export abstract class FTPBaseHandler implements ICommandHandler {
      *
      * @returns  The response from the  create data set api call.
      */
-    public abstract async processFTP(
+    public abstract processFTP(
         additionalParameters: IFTPHandlerParams
     ): Promise<void>;
 
