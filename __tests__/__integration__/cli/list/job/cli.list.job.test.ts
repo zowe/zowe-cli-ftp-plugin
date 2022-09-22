@@ -21,7 +21,7 @@ describe("list job ftp command", () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
             testName: "zos_list_job",
-            skipProperties: true,
+            skipProperties: false,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

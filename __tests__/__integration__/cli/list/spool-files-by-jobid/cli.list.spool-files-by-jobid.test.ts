@@ -21,7 +21,7 @@ describe("list spool-files-by-jobid command", () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
             testName: "zos_ftp_list_sfbj",
-            skipProperties: true,
+            skipProperties: false,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

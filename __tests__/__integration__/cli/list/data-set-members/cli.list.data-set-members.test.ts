@@ -21,7 +21,7 @@ describe("list data-set-members ftp command", () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
             testName: "zos_list_data-set-members",
-            skipProperties: true,
+            skipProperties: false,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

@@ -21,7 +21,7 @@ describe("delete data set command", () => {
         testEnvironment = await TestEnvironment.setUp({
             tempProfileTypes: ["zftp"],
             testName: "zos_delete_data_set",
-            skipProperties: true,
+            skipProperties: false,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
