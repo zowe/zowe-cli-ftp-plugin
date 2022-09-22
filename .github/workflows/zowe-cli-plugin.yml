@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x]
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     env:
@@ -50,7 +50,7 @@ jobs:
     - name: Unit Tests
       id: unit
       if: ${{ always() && steps.build.outcome == 'success' }}
-      run: npm run test:unit >> unit-tests.txt
+      run: npm run test:unit
 
     - name: Archive Results
       id: upload
@@ -60,7 +60,6 @@ jobs:
         name: ${{ matrix.os }}-${{ matrix.node-version }}-results
         path: |
           __tests__/__results__/
-          unit-tests.txt
 
     - name: Upload Results to Codecov
       if: ${{ always() && steps.build.outcome == 'success' }}

@@ -12,12 +12,9 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import * as path from "path";
 import { IO } from "@zowe/imperative";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 
-let dsname: string;
-let user: string;
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -31,9 +28,6 @@ describe("download all-spool-by-jobid command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
-
     });
 
     afterAll(async () => {
@@ -41,24 +35,14 @@ describe("download all-spool-by-jobid command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display download all-spool-by-jobid help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "download_all_spool_by_jobid_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to submit an IEFBR14 job and then download the jobid", async () => {
-
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;
         await CoreUtils.sleep(JOB_WAIT);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_all_spool_by_jobid.sh", testEnvironment, [jobid]);
+        const result = runCliScript(__dirname + "/__scripts__/command_download_all_spool_by_jobid.sh", testEnvironment, [jobid]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("Success");
@@ -68,19 +52,16 @@ describe("download all-spool-by-jobid command", () => {
         expect(IO.existsSync(outputDir + "/" + jobid + "/JES2")).toEqual(true);
         expect(IO.existsSync(outputDir + "/" + jobid + "/JES2/JESJCL.txt")).toEqual(true);
         expect(IO.readFileSync(outputDir + "/" + jobid + "/JES2/JESJCL.txt").toString()).toContain("IEFBR14");
-
     });
 
-
     it("should be able to submit a job from a local file and then download the spool, omitting the jobid directory", async () => {
-
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;
         await CoreUtils.sleep(JOB_WAIT);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_all_spool_by_jobid_ojd.sh", testEnvironment, [jobid]);
+        const result = runCliScript(__dirname + "/__scripts__/command_download_all_spool_by_jobid_ojd.sh", testEnvironment, [jobid]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("Success");
@@ -90,11 +71,10 @@ describe("download all-spool-by-jobid command", () => {
         expect(IO.existsSync(outputDir + "/JES2")).toEqual(true);
         expect(IO.existsSync(outputDir + "/JES2/JESJCL.txt")).toEqual(true);
         expect(IO.readFileSync(outputDir + "/JES2/JESJCL.txt").toString()).toContain("IEFBR14");
-
     });
 
     it("should give a syntax error if the local file to submit is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_all_spool_by_jobid.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_download_all_spool_by_jobid.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("jobid");

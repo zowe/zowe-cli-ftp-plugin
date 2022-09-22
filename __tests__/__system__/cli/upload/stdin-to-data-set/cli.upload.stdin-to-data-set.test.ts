@@ -13,11 +13,9 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
-import * as path from "path";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
 
-let user: string;
 let connection: any;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -32,8 +30,6 @@ describe("upload stdin to data set command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
     });
 
@@ -42,20 +38,11 @@ describe("upload stdin to data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display upload stdin to data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "upload_stdin_to_data_set_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to upload stdin to a data set and verify that the content is correct", async () => {
         const fileToUpload = __dirname + "/resources/file.txt";
         const memberSuffixLength = 6;
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_stdin_to_data_set.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_stdin_to_data_set.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -76,7 +63,7 @@ describe("upload stdin to data set command", () => {
         const memberSuffixLength = 6;
         fs.writeFileSync(fileToUpload, randomContent);
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_stdin_to_data_set_binary.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_stdin_to_data_set_binary.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -90,7 +77,7 @@ describe("upload stdin to data set command", () => {
 
     it("should give a syntax error if the data set name is omitted", () => {
         const fileToUpload = __dirname + "/resources/file.txt";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_stdin_to_data_set.sh", testEnvironment, [fileToUpload]);
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_stdin_to_data_set.sh", testEnvironment, [fileToUpload]);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("data");

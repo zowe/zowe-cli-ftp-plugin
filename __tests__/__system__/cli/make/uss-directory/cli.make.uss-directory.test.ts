@@ -13,9 +13,7 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
-import * as path from "path";
 
-let user: string;
 let connection: any;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -30,7 +28,6 @@ describe("make uss directory command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
     });
 
@@ -39,26 +36,17 @@ describe("make uss directory command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display make uss directory help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "make_uss_directory_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to make a uss directory", async () => {
         const dirNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(dirNameLength);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_make_uss_directory.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_make_uss_directory.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
     });
 
     it("should give a syntax error if the uss directoey is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_make_uss_directory.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_make_uss_directory.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Syntax Error");
         expect(stderr).toContain("Missing Positional Argument");

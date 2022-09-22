@@ -12,10 +12,8 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import * as path from "path";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 
-let user: string;
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -29,8 +27,6 @@ describe("list spool-files-by-jobid command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
     });
 
     afterAll(async () => {
@@ -38,17 +34,7 @@ describe("list spool-files-by-jobid command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display list spool files by job id help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "list_spool_files_by_jobid_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to submit a job and then list spool files for the job ID", async () => {
-
         // download the appropriate JCL content from the data set
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
@@ -56,7 +42,7 @@ describe("list spool-files-by-jobid command", () => {
         const jobid = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;
         await CoreUtils.sleep(ONE_SECOND);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_spool_files_by_jobid.sh", testEnvironment, [jobid]);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, [jobid]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("JESJCL");
@@ -64,7 +50,7 @@ describe("list spool-files-by-jobid command", () => {
     });
 
     it("should give a syntax error if the job ID is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_spool_files_by_jobid.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("jobid");
