@@ -81,7 +81,7 @@ node('zowe-jenkins-agent') {
     ])
 
     def TEST_ROOT = "__tests__/__results__"
-    def UNIT_TEST_ROOT = "$TEST_ROOT"
+    def UNIT_TEST_ROOT = "$TEST_ROOT/unit"
     def UNIT_JUNIT_OUTPUT = "$UNIT_TEST_ROOT/junit.xml"
 
     // Perform a unit test and capture the results
