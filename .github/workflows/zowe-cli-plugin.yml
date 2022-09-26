@@ -52,11 +52,6 @@ jobs:
       if: ${{ always() && steps.build.outcome == 'success' }}
       run: npm run test:unit
 
-    - name: Create Dummy custom_properties.yaml
-      id: temporary-fix--wait-cli-update
-      if: ${{ always() && steps.build.outcome == 'success' }}
-      run: cp __tests__/__resources__/properties/default_properties.yaml __tests__/__resources__/properties/custom_properties.yaml
-
     - name: Integration Tests
       id: integration
       if: ${{ always() && steps.build.outcome == 'success' }}
