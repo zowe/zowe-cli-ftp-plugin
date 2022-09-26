@@ -19,9 +19,9 @@ describe("rename uss file command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
-            tempProfileTypes: ["zftp"],
+
             testName: "zos_rename_uss_file",
-            skipProperties: false,
+            skipProperties: true,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

@@ -19,9 +19,8 @@ describe("list data-set-classic ftp command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
-            tempProfileTypes: ["zftp"],
             testName: "zos_list_dataset",
-            skipProperties: false,
+            skipProperties: true,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

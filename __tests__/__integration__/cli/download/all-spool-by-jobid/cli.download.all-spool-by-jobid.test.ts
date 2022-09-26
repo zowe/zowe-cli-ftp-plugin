@@ -19,9 +19,8 @@ describe("download all-spool-by-jobid command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
-            tempProfileTypes: ["zftp"],
             testName: "zos_ftp_download_asbj",
-            skipProperties: false,
+            skipProperties: true,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();

@@ -19,9 +19,8 @@ describe("delete data set command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
-            tempProfileTypes: ["zftp"],
             testName: "zos_delete_data_set",
-            skipProperties: false,
+            skipProperties: true,
             installPlugin: true
         });
         expect(testEnvironment).toBeDefined();
