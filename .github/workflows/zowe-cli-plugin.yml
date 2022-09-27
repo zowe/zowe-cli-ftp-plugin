@@ -9,8 +9,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        os: [windows-latest, ubuntu-latest, macos-latest]
+        node-version: [18.x]
+        os: [ubuntu-latest]
     env:
       OS: ${{ matrix.os }}
       NODE: ${{ matrix.node-version }}
