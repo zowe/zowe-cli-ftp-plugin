@@ -8,7 +8,7 @@ module.exports = {
         {
             name: "zowe-v1-lts",
             level: "patch",
-            devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
+            devDependencies: ["@zowe/cli", "@zowe/imperative"]
         }
         // {
         //     name: "next",
@@ -24,7 +24,7 @@ module.exports = {
             aliasTags: {
                 latest: ["zowe-v2-lts", "next"]
             },
-            pruneShinkwrap: true
+            pruneShrinkwrap: true
         }],
         ["@octorelease/github", {
             checkPrLabels: true,
