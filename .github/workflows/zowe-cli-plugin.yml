@@ -51,9 +51,9 @@ jobs:
       if: ${{ always() && steps.build.outcome == 'success' }}
       run: npm run test:unit
 
-    - name: Integration Tests
-      if: ${{ always() && steps.build.outcome == 'success' }}
-      run: npm run test:integration
+    # - name: Integration Tests
+    #   if: ${{ always() && steps.build.outcome == 'success' }}
+    #   run: npm run test:integration
 
     - name: Archive Results
       if: ${{ always() && steps.build.outcome == 'success' }}
