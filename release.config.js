@@ -19,16 +19,14 @@ module.exports = {
     plugins: [
         "@octorelease/changelog",
         ["@octorelease/npm", {
-            npmPublish: false,
-            tarballDir: "dist",
             aliasTags: {
                 latest: ["zowe-v2-lts", "next"]
+                // latest: ["zowe-v2-lts"]
             },
             pruneShrinkwrap: true
         }],
         ["@octorelease/github", {
-            checkPrLabels: true,
-            assets: "dist/*.tgz"
+            checkPrLabels: true
         }],
         "@octorelease/git"
     ]
