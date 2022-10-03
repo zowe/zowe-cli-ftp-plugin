@@ -9,6 +9,12 @@ module.exports = {
             name: "zowe-v1-lts",
             level: "patch",
             devDependencies: ["@zowe/cli", "@zowe/imperative"]
+        },
+        {
+            name: "fix-system-test",
+            level: "patch",
+            prerelease: true,
+            devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         }
         // {
         //     name: "next",
