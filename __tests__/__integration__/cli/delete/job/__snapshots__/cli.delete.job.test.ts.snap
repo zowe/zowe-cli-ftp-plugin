@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`delete job command should display submit job from local file help 1`] = `
+exports[`delete job command should display delete job help 1`] = `
 "================z/OS VIEW DELETE JOB HELP===============
 
  COMMAND NAME

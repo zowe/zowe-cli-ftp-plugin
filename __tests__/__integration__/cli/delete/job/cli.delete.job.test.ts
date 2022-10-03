@@ -19,7 +19,6 @@ describe("delete job command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({
-
             testName: "zos_ftp_delete_job",
             skipProperties: true,
             installPlugin: true
@@ -31,7 +30,7 @@ describe("delete job command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display submit job from local file help", () => {
+    it("should display delete job help", () => {
         const shellScript = path.join(__dirname, "__scripts__", "delete_job_help.sh");
         const response = runCliScript(shellScript, testEnvironment);
         expect(response.stderr.toString()).toBe("");

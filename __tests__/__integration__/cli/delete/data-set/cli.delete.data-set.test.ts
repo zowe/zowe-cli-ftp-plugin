@@ -30,7 +30,7 @@ describe("delete data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display upload file to data set help", () => {
+    it("should display delete data set help", () => {
         const shellScript = path.join(__dirname, "__scripts__", "delete_data_set_help.sh");
         const response = runCliScript(shellScript, testEnvironment);
         expect(response.stderr.toString()).toBe("");

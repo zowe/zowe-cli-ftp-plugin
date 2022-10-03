@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`list data-set-classic ftp command should display list uss files help 1`] = `
+exports[`list uss-files ftp command should display list uss files help 1`] = `
 "================z/OS FTP LIST USS-FILES HELP===============
 
  COMMAND NAME

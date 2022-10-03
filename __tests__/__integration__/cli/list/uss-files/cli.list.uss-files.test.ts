@@ -15,7 +15,7 @@ import * as path from "path";
 
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
-describe("list data-set-classic ftp command", () => {
+describe("list uss-files ftp command", () => {
     // Create the unique test environment
     beforeAll(async () => {
         testEnvironment = await TestEnvironment.setUp({

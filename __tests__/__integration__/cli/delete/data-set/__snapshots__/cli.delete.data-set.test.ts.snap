@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`delete data set command should display upload file to data set help 1`] = `
+exports[`delete data set command should display delete data set help 1`] = `
 "================z/OS VIEW DELETE DATA-SET HELP===============
 
  COMMAND NAME
