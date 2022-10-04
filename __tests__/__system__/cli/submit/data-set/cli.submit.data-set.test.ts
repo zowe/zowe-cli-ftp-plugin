@@ -12,7 +12,6 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import * as path from "path";
 
 let user: string;
 let connection: any;
@@ -29,8 +28,6 @@ describe("submit job from data set command", () => {
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
         user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
-
     });
 
     afterAll(async () => {
@@ -38,19 +35,9 @@ describe("submit job from data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display submit job from data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "submit_data_set_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to submit a job from a data set and see the job name and job id", async () => {
-
         const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set.sh", testEnvironment, [iefbr14DataSet]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set.sh", testEnvironment, [iefbr14DataSet]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("jobid");
@@ -58,11 +45,10 @@ describe("submit job from data set command", () => {
     });
 
     it("should be able to submit a job from a data set with wait option and get rc successfully", async () => {
-
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
         const wait = "3,10";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
@@ -72,22 +58,20 @@ describe("submit job from data set command", () => {
     });
 
     it("should give a syntax error if the wait value is invalid", async () => {
-
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
         const wait = "3,";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
         expect(result.output.toString()).toContain("comma-separated numeric values");
         expect(result.output.toString()).toContain("Syntax error:");
         expect(result.status).toEqual(0);
     });
 
     it("should be able to submit a job from a data set but not finished within specified wait option", async () => {
-
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait";
         const wait = "1,2";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option,wait]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Submitted job successfully");
@@ -96,10 +80,9 @@ describe("submit job from data set command", () => {
     });
 
     it("should be able to submit a job from a data set with wait-for-output option and get rc successfully", async () => {
-
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait-for-output";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).toContain("Waiting for job completion.");
@@ -108,10 +91,9 @@ describe("submit job from data set command", () => {
     });
 
     it("should be able to submit a job from a data set with wait-for-active option and get rc successfully", async () => {
-
         const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
         const option = "--wait-for-active";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option]);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set_wait.sh", testEnvironment, [sleepDataSet,option]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.output.toString()).not.toContain("rc:");
@@ -119,7 +101,7 @@ describe("submit job from data set command", () => {
     });
 
     it("should give a syntax error if the data set to submit is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_submit_data_set.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_submit_data_set.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("data");

@@ -13,10 +13,8 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
-import * as path from "path";
 import { IO } from "@zowe/imperative";
 
-let user: string;
 let connection: any;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -31,23 +29,12 @@ describe("submit job from local file command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
     });
 
     afterAll(async () => {
         connection.close();
         await TestEnvironment.cleanUp(testEnvironment);
-    });
-
-    it("should display download uss-file help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "download_uss_file_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
     });
 
     it("should be able to download a uss file to a local file in text mode and verify the content", async () => {
@@ -57,7 +44,7 @@ describe("submit job from local file command", () => {
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         await connection.uploadDataset(uploadContent, destination, "ascii");
         const downloadFilePath = testEnvironment.workingDir + "/uss.txt";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_uss_file.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file.sh", testEnvironment,
             [destination, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -74,7 +61,7 @@ describe("submit job from local file command", () => {
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".bin";
         await connection.uploadDataset(randomContent, destination, "binary");
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_uss_file_binary.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file_binary.sh", testEnvironment,
             [destination, downloadFilePath]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -86,7 +73,7 @@ describe("submit job from local file command", () => {
     });
 
     it("should give a syntax error if the USS file name is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_download_uss_file.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file.sh", testEnvironment,
             ["", testEnvironment.workingDir + "/myfile.txt"]);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");

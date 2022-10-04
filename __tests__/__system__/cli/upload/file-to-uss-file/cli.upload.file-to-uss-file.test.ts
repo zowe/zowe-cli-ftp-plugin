@@ -13,11 +13,9 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
-import * as path from "path";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
 
-let user: string;
 let connection: any;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -32,7 +30,6 @@ describe("upload file to uss file command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
     });
 
@@ -41,20 +38,11 @@ describe("upload file to uss file command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display upload file to uss file help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "upload_file_to_uss_file_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to upload a file to a uss directory and verify that the file exists and contains the right content", async () => {
         const fileToUpload = __dirname + "/resources/file.txt";
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_uss_file.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_uss_file.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -68,7 +56,6 @@ describe("upload file to uss file command", () => {
         await connection.deleteDataset(destination);
     });
 
-
     it("should be able to upload stdin to a data set in binary mode and verify that the content is correct", async () => {
         const fileToUpload = testEnvironment.workingDir + "/binary.bin";
         const randomContentLength = 60;
@@ -76,7 +63,7 @@ describe("upload file to uss file command", () => {
         const fileNameLength = 30;
         fs.writeFileSync(fileToUpload, randomContent);
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".bin";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_uss_file_binary.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_uss_file_binary.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -87,11 +74,10 @@ describe("upload file to uss file command", () => {
     });
 
     it("should give a syntax error if the file and uss file are omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_uss_file.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_uss_file.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("uss");
-
         expect(stderr).toContain("file");
         expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);

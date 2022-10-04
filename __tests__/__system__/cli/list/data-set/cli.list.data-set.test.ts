@@ -12,10 +12,7 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
-import * as path from "path";
 
-let dsname: string;
-let user: string;
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -29,9 +26,6 @@ describe("list data-set-classic ftp command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-
-
     });
 
     afterAll(async () => {
@@ -39,25 +33,16 @@ describe("list data-set-classic ftp command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display list data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "list_ds_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to list the job data set from the test properties file", async () => {
         const expectedDS = testEnvironment.systemTestProperties.datasets.writablePDS.toUpperCase();
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_data_set.sh", testEnvironment, [expectedDS]);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_data_set.sh", testEnvironment, [expectedDS]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain(expectedDS);
     });
 
     it("should give a syntax error if the data set pattern is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_list_data_set.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_data_set.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("data set");

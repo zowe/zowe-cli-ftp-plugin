@@ -14,11 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
-import * as path from "path";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
 
-let user: string;
 let connection: any;
 let testDataSet: string;
 let dsnPrefix: string;
@@ -34,7 +32,6 @@ describe("upload file to data set command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         dsnPrefix = testEnvironment.systemTestProperties.datasets.dsnPrefix;
     });
@@ -44,20 +41,11 @@ describe("upload file to data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display upload file to data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "upload_file_to_data_set_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to upload a file to a data set and verify that the data set exists and contains the right content", async () => {
         const fileToUpload = __dirname + "/resources/file.txt";
         const memberSuffixLength = 6;
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_data_set.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -78,7 +66,7 @@ describe("upload file to data set command", () => {
         const memberSuffixLength = 6;
         fs.writeFileSync(fileToUpload, randomContent);
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set_binary.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_data_set_binary.sh", testEnvironment,
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -91,7 +79,7 @@ describe("upload file to data set command", () => {
     });
 
     it("should give a syntax error if the file and data set are omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_data_set.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("dataSet");
@@ -106,7 +94,7 @@ describe("upload file to data set command", () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const dcb = "LRECL=100 RECFM=FB PRIMARY=8 SECONDARY=3 TRACKS";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_upload_file_to_data_set_dcb.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_upload_file_to_data_set_dcb.sh", testEnvironment,
             [fileToUpload, destination, dcb]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -122,5 +110,4 @@ describe("upload file to data set command", () => {
         }
         await connection.deleteDataset(destination); // delete the temporary member
     });
-
 });

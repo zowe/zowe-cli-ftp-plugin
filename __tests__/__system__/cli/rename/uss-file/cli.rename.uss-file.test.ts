@@ -13,9 +13,7 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
-import * as path from "path";
 
-let user: string;
 let connection: any;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -30,22 +28,12 @@ describe("rename uss file command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         ussTestDir = testEnvironment.systemTestProperties.uss.ussTestDirectory;
     });
 
     afterAll(async () => {
         connection.close();
         await TestEnvironment.cleanUp(testEnvironment);
-    });
-
-    it("should display rename uss file help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "rename_uss_file_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
     });
 
     it("should be able to upload a file to a uss directory then rename", async () => {
@@ -55,7 +43,7 @@ describe("rename uss file command", () => {
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         await connection.uploadDataset(uploadContent, destination, "ascii"); // upload the USS file
         const renameDestination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_rename_uss_file.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_rename_uss_file.sh", testEnvironment,
             [destination, renameDestination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.stdout.toString()).toContain("renamed");
@@ -67,7 +55,7 @@ describe("rename uss file command", () => {
     });
 
     it("should give a syntax error if the uss file is omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_rename_uss_file.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_rename_uss_file.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("uss");

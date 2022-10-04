@@ -13,11 +13,8 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
-import * as path from "path";
 
-let user: string;
 let connection: any;
-let testDataSet: string;
 let dsnPrefix: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -31,8 +28,6 @@ describe("allocate data set command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
-        testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
         dsnPrefix = testEnvironment.systemTestProperties.datasets.dsnPrefix;
     });
 
@@ -41,19 +36,10 @@ describe("allocate data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display allocate data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "allocate_data_set_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to allocate a sequential data set with default attributes", async () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
-        const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_allocate_data_set.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -64,7 +50,7 @@ describe("allocate data set command", () => {
         const memberSuffixLength = 6;
         const destination = dsnPrefix + ".S" + generateRandomAlphaNumericString(memberSuffixLength);
         const dcb = "LRECL=100 RECFM=FB DSORG=PO PRIMARY=10 SECONDARY=20 DIRECTORY=10";
-        const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set_dcb.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_allocate_data_set_dcb.sh", testEnvironment,
             [destination, dcb]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -77,7 +63,7 @@ describe("allocate data set command", () => {
     });
 
     it("should give a syntax error if the data set are omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_allocate_data_set.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_allocate_data_set.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Syntax Error");
         expect(stderr).toContain("Missing Positional Argument: datasetName");

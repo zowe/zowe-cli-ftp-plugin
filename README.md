@@ -161,7 +161,7 @@ To learn about building new commands or a new plug-in for Zowe CLI, see [Develop
 Here is a script showing how you can submit JCL and download spool files via FTP remotely.
 
 ```bash
-#! /bin/env bash
+#!/bin/bash
 
 jobid=$(zowe zos-ftp submit local-file IEFBR14.jcl --rff jobid --rft string)
 if [ ! "$jobid" ];then

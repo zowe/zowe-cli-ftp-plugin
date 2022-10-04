@@ -13,9 +13,7 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
-import * as path from "path";
 
-let user: string;
 let connection: any;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -30,7 +28,6 @@ describe("delete data set command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
-        user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
     });
 
@@ -39,21 +36,12 @@ describe("delete data set command", () => {
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
-    it("should display upload file to data set help", () => {
-        const shellScript = path.join(__dirname, "__scripts__", "delete_data_set_help.sh");
-        const response = runCliScript(shellScript, testEnvironment);
-
-        expect(response.stderr.toString()).toBe("");
-        expect(response.status).toBe(0);
-        expect(response.stdout.toString()).toMatchSnapshot();
-    });
-
     it("should be able to delete a freshly uploaded member to the writable data set from the properties file", async () => {
         const memberSuffixLength = 6;
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
         const randomContentLength = 60;
         await connection.uploadDataset(generateRandomAlphaNumericString(randomContentLength), "'" + destination + "'", "ascii");
-        const result = runCliScript(__dirname + "/__scripts__/command/command_delete_data_set.sh", testEnvironment,
+        const result = runCliScript(__dirname + "/__scripts__/command_delete_data_set.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -61,7 +49,7 @@ describe("delete data set command", () => {
     });
 
     it("should give a syntax error if the file and data set are omitted", async () => {
-        const result = runCliScript(__dirname + "/__scripts__/command/command_delete_data_set.sh", testEnvironment, []);
+        const result = runCliScript(__dirname + "/__scripts__/command_delete_data_set.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
         expect(stderr).toContain("dataSet");
