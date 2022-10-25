@@ -4,7 +4,9 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, '[ci skip]')
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, '[ci skip]')  && github.ref_protected 
+    outputs:
+      npm-resolutions: ${{ steps.npm-update.outputs.result }}
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
