@@ -1,16 +1,18 @@
 name: zowe-cli-plugin
 
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
-
+    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, '[ci skip]')
     runs-on: ${{ matrix.os }}
+    outputs:
+      npm-resolutions: ${{ steps.npm-update.outputs.result }}
 
     strategy:
       fail-fast: false
       matrix:
-        node-version: [12.x, 14.x, 16.x]
+        node-version: [14.x, 16.x, 18.x]
         os: [windows-latest, ubuntu-latest, macos-latest]
 
     env:
@@ -24,46 +26,87 @@ jobs:
       group: ${{ matrix.os }}-node-${{ matrix.node-version }}-ci-${{ github.ref }}
       cancel-in-progress: true
 
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository) && !contains(github.event.head_commit.message, '[ci skip]')
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
 
     - name: Use NPM v8
-      id: npm8
       run: npm install -g npm@^8
 
-    - name: Install Node Package Dependencies
-      id: install
+    - name: Install Dependencies
       run: npm ci
+
+    - name: Update Dependencies
+      id: npm-update
+      uses: zowe-actions/octorelease-script@master
+      with:
+        script: npmUpdate
 
     - name: Build Source
       id: build
-      run: npm run build --if-present
+      run: npm run build
 
     - name: Unit Tests
-      id: unit
       if: ${{ always() && steps.build.outcome == 'success' }}
-      run: npm run test:unit >> unit-tests.txt
+      run: npm run test:unit
 
     - name: Archive Results
-      id: upload
       if: ${{ always() && steps.build.outcome == 'success' }}
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.os }}-${{ matrix.node-version }}-results
-        path: |
-          __tests__/__results__/
-          unit-tests.txt
+        path: __tests__/__results__/
 
     - name: Upload Results to Codecov
       if: ${{ always() && steps.build.outcome == 'success' }}
-      uses: codecov/codecov-action@v1.0.7
+      uses: codecov/codecov-action@v3
       with:
         env_vars: OS,NODE
+
+  release:
+    if: github.event_name == 'push' && github.ref_protected
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+        persist-credentials: false
+        ref: ${{ github.ref }}
+
+    - name: Use Node.js LTS
+      uses: actions/setup-node@v2
+      with:
+        node-version: 'lts/*'
+
+    - name: Install Dependencies
+      run: npm ci
+
+    - name: Update Dependencies
+      uses: zowe-actions/octorelease-script@master
+      env:
+        GIT_COMMITTER_NAME: ${{ secrets.ZOWE_ROBOT_USER }}
+        GIT_COMMITTER_EMAIL: ${{ secrets.ZOWE_ROBOT_EMAIL }}
+        NPM_RESOLUTIONS: ${{ needs.test.outputs.npm-resolutions }}
+      with:
+        script: npmUpdate
+
+    - name: Build Source
+      run: npm run build
+
+    - uses: zowe-actions/octorelease@master
+      env:
+        GIT_COMMITTER_NAME: ${{ secrets.ZOWE_ROBOT_USER }}
+        GIT_COMMITTER_EMAIL: ${{ secrets.ZOWE_ROBOT_EMAIL }}
+        GIT_CREDENTIALS: x-access-token:${{ secrets.ZOWE_ROBOT_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_USERNAME: ${{ secrets.ARTIFACTORY_USERNAME }}
+        NPM_PASSWORD: ${{ secrets.ARTIFACTORY_PASSWORD }}
+        NPM_EMAIL: ${{ secrets.ZOWE_ROBOT_EMAIL }}
