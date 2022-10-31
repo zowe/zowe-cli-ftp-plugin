@@ -82,7 +82,7 @@ jobs:
         ref: ${{ github.ref }}
 
     - name: Use Node.js LTS
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3
       with:
         node-version: 'lts/*'
 
