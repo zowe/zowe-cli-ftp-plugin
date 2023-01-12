@@ -39,7 +39,7 @@
     "@zowe/imperative": "^5.0.0"
   },
   "dependencies": {
-    "zos-node-accessor": "1.0.13"
+    "zos-node-accessor": "1.0.14"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
