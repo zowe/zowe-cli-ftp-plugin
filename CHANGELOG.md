@@ -2,8 +2,14 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Updated the  `zos-node-accessor` package to 1.0.14 for technical currency.
+
 ## `2.1.1`
+
 - Throw error when list jobs with invalid prefix or owner.
+
 ## `2.1.0`
 
 - Add encoding setting in profile.
