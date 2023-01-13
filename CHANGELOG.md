@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Updated the `zos-node-accessor` package to 1.0.14 for technical currency.
+
 ## `1.8.7`
 
 - Change the profile fields from required to optional to compatible with base profile.
