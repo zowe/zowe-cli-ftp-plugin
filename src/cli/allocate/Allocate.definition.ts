@@ -11,6 +11,7 @@
 
 import { ICommandDefinition } from "@zowe/imperative";
 import { AllocateDataSetDefinition } from "./data-set/DataSet.definition";
+import { LikeDataSetDefinition } from "./like-data-set/LikeDataSet.definition";
 import { FTPConfig } from "../../api/FTPConfig";
 
 const AllocateDefinition: ICommandDefinition = {
@@ -18,7 +19,10 @@ const AllocateDefinition: ICommandDefinition = {
     summary: "Allocate a sequential dataset or partitioned dataset with '--dcb \"PDSTYPE=PDS\"'",
     description: "Allocate a sequential or partitioned dataset",
     type: "group",
-    children: [AllocateDataSetDefinition],
+    children: [
+        AllocateDataSetDefinition,
+        LikeDataSetDefinition,
+    ],
     passOn: [
         {
             property: "options",

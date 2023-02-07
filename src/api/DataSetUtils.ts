@@ -159,6 +159,19 @@ export class DataSetUtils {
         await connection.allocateDataset(dsn, option.dcb);
     }
 
+    public static async allocateLikeDataSet(connection: any, dsn: string, like: string): Promise<void> {
+        this.log.debug("Allocate data set '%s' with similar attributes to '%s", dsn, like);
+        const files = await connection.listDataset(like);
+
+        this.log.debug("Found %d matching data sets", files.length);
+        if (files.length === 0) {
+            throw "No datasets found: " + like;
+        }
+        const option = files[0];
+        this.log.debug(JSON.stringify(option));
+        await connection.allocateDataset(dsn, option);
+    }
+
     private static get log(): Logger {
         return Logger.getAppLogger();
     }
