@@ -73,5 +73,12 @@ export interface IAllocateDataSetOption {
     dcb?: string;
 }
 
+export interface ICopyDataSetOptions {
+    fromDsn: string;
+    toDsn: string;
+    progress?: IFTPProgressHandler;
+    replace?: boolean;
+}
+
 // When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.
 // export { DataSetUtils as DataSetUtils };

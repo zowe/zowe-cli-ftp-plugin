@@ -16,13 +16,20 @@ import { DataSetUtils } from "../../../api";
 export default class AllocateDataSetHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
+        const pResp = params.response;
+        const pArgs = params.arguments;
         const options = {
-            dcb: params.arguments.dcb
+            dcb: pArgs.dcb
         };
-        await DataSetUtils.allocateDataSet(params.connection, params.arguments.datasetName, options);
-
-        const successMsg = params.response.console.log("Allocated dataset %s successfully!", params.arguments.datasetName);
-        params.response.data.setMessage(successMsg);
+        let successMsg: string = "";
+        if (pArgs.like) {
+            await DataSetUtils.allocateLikeDataSet(params.connection, pArgs.datasetName, pArgs.like);
+            successMsg = pResp.console.log("Allocated dataset %s like %s successfully!", pArgs.datasetName, pArgs.like);
+        } else {
+            await DataSetUtils.allocateDataSet(params.connection, pArgs.datasetName, options);
+            successMsg = pResp.console.log("Allocated dataset %s successfully!", pArgs.datasetName);
+        }
+        pResp.data.setMessage(successMsg);
         this.log.info(successMsg);
     }
 }
