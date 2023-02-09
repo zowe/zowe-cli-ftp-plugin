@@ -80,5 +80,13 @@ export interface ICopyDataSetOptions {
     replace?: boolean;
 }
 
+export interface IDataSetDetailedAllocationOptions {
+    volume?: string; // Not supported by connection.allocateDataset
+    recfm?: string;
+    BLOCKSIze?: string; // Strange mapping
+    lrecl?: string;
+    dsorg?: string;
+}
+
 // When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.
 // export { DataSetUtils as DataSetUtils };

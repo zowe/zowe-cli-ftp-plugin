@@ -11,9 +11,9 @@
 
 import * as fs from "fs";
 
-import { IO, Logger } from "@zowe/imperative";
+import { ImperativeError, IO, Logger } from "@zowe/imperative";
 import { CoreUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_ASCII_RDW, TRANSFER_TYPE_BINARY, TRANSFER_TYPE_BINARY_RDW } from "./CoreUtils";
-import { IAllocateDataSetOption, ICopyDataSetOptions, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
+import { IAllocateDataSetOption, ICopyDataSetOptions, IDataSetDetailedAllocationOptions, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
@@ -87,9 +87,9 @@ export class DataSetUtils {
      * @returns dataset contents in Buffer, if localFile is not provided in option. Otherwise, undefined will be returned.
      */
     public static async downloadDataSet(connection: any, dsn: string, option: IDownloadDataSetOption): Promise<Buffer> {
-        const files = await connection.listDataset(dsn);
-        if (files === undefined || files.length === 0) {
-            throw new Error(`The dataset "${dsn}" doesn't exist.`);
+        const files = await connection.listDataset(dsn) ?? [];
+        if (files.length === 0) {
+            throw new ImperativeError({msg: `The dataset "${dsn}" doesn't exist.`});
         }
 
         const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
@@ -148,7 +148,12 @@ export class DataSetUtils {
         await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteparm);
     }
 
-    public static mapAllocationOptions(ds: any): any {
+    /**
+     * Map the allocation details from a dataset returned from the zos-node-accessor package to IDs that it accepts for allocation purposes
+     * @param ds Descriptor for dataset allocation options
+     * @returns Object with mapping required for allocation purposes (BLOGKSIze vs blksz)
+     */
+    public static mapAllocationOptions(ds: any): IDataSetDetailedAllocationOptions {
         // supported options: https://github.com/IBM/zos-node-accessor/blob/1.0.x/lib/zosAccessor.js#LL122C68-L122C68
         return {
             volume: ds.volume, // Not supported by connection.allocateDataset
@@ -176,7 +181,16 @@ export class DataSetUtils {
         await connection.allocateDataset(dsn, option.dcb);
     }
 
-    public static async allocateLikeDataSet(connection: any, dsn: string, like: string): Promise<any> {
+    /**
+     * Allocate a dataset using the properties from another dataset
+     *
+     * @param connection zos-doce-accessor connection
+     * @param dsn fully-qualified dataset name without quotes to be allocated
+     * @param like fully-qualified dataset name without quotes to be modeled after
+     * @param options dataset allocation options to override the `like` dataset allocation details
+     * @returns
+     */
+    public static async allocateLikeDataSet(connection: any, dsn: string, like: string, options?: IDataSetDetailedAllocationOptions): Promise<IDataSetDetailedAllocationOptions> {
         const newDs = await connection.listDataset(dsn) ?? [];
         if (newDs.length !== 0) {
             this.log.debug("Dataset %s already exists", dsn);
@@ -189,34 +203,87 @@ export class DataSetUtils {
         this.log.debug("Found %d matching data sets", files.length);
         const filteredFiles: any[] = files?.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file)) ?? [];
         if (filteredFiles.length === 0) {
-            throw "No datasets found: " + like;
+            throw new ImperativeError({msg: "No datasets found: " + like});
         }
         const ds = filteredFiles.find((file: any) => file.dsname.toUpperCase() === like.toUpperCase());
-        const option = DataSetUtils.mapAllocationOptions(ds);
+        const option = { ...DataSetUtils.mapAllocationOptions(ds), ...(options ?? {})};
 
-        this.log.error(JSON.stringify(option));
+        this.log.debug("Allocation options to be used: %s", JSON.stringify(option));
         await connection.allocateDataset(dsn, option);
         return option;
     }
 
-    public static async copyDataSet(connection: any, options: ICopyDataSetOptions): Promise<void> {
-        const files = await connection.listDataset(options.fromDsn);
-        const filteredFiles: any[] = files?.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file)) ?? [];
-        if (filteredFiles.length === 0) {
-            throw new Error(`The dataset "${options.fromDsn}" doesn't exist.`);
+    /**
+     * Helper method to split the dataset name from the member name
+     *
+     * @param name fully-qualified dataset name without quotes
+     * @returns Object separating the dataset name and the member name
+     */
+    public static getDataSet(name: string): {dsn: string, member?: string} {
+        const parts = name.replace(')', '').split('(');
+        if (parts.length > 1) {
+            return {
+                dsn: parts[0],
+                member: parts[1]
+            };
+        } else {
+            return {
+                dsn: name
+            };
         }
-        const ds = filteredFiles.find((file: any) => file.dsname.toUpperCase() === options.fromDsn.toUpperCase());
+    }
 
-        // select the trasnfer type based on the record format
-        const transferType = ds.recfm[0] === "V" ? TRANSFER_TYPE_BINARY_RDW : ds.recfm[0] === "D" ? TRANSFER_TYPE_ASCII_RDW : TRANSFER_TYPE_BINARY;
+    /**
+     * Copy Dataset
+     *
+     * @param connection zos-node-accessor connection
+     * @param options All required options for copying a dataset
+     * @param options.fromDsn fully-qualified SOURCE dataset name without quotes
+     * @param options.toDsn fully-qualified TARGET dataset name without quotes
+     * @param options.progress Optional: Task used to indicate the progress of this operation (not used yet)
+     * @param options.replace Optional: Boolean used to force a dataset or member replacement
+     */
+    public static async copyDataSet(connection: any, options: ICopyDataSetOptions): Promise<void> {
+        const fromDsn = DataSetUtils.getDataSet(options.fromDsn);
+        this.log.debug("Source: %s", JSON.stringify(fromDsn));
+        const toDsn = DataSetUtils.getDataSet(options.toDsn);
+        this.log.debug("Target: %s", JSON.stringify(toDsn));
 
-        // download the contents of the source dataset
-        const stream = await connection.getDataset(options.fromDsn, transferType, false);
+        if (!options.replace) {
+            this.log.debug("Verify that the dataset (or member) does not already exist since we aren't allowed to replace it");
+            const newDs = await connection.listDataset(toDsn.dsn) ?? [];
+            if (newDs.length !== 0 && (await connection.listDataset(options.toDsn) ?? []).length !== 0) {
+                throw new ImperativeError({msg: `Dataset ${options.toDsn} already exists`});
+            }
+        }
 
-        // Make sure the new dataset is allocated
-        const option = await DataSetUtils.allocateLikeDataSet(connection, options.toDsn, options.fromDsn);
+        const dataset = (await connection.listDataset(fromDsn.member ? fromDsn.dsn : options.fromDsn))?.map((f: any) => CoreUtils.addLowerCaseKeysToObject(f)) ?? [];
+        if (dataset.length === 0) {
+            throw new ImperativeError({msg: `The dataset "${fromDsn.dsn}" doesn't exist.`});
+        }
 
-        // upload the contents to the new dataset
+        const content = dataset.find((file: any) => file.dsname.toUpperCase() === fromDsn.dsn.toUpperCase());
+        this.log.debug("Select the transfer type based on the soruce dataset RECFM");
+        let transferType = fromDsn.member ? TRANSFER_TYPE_ASCII : null;
+        switch (content.recfm[0]) {
+            case "V":
+                transferType = TRANSFER_TYPE_BINARY_RDW;
+                break;
+            case "D":
+                transferType = TRANSFER_TYPE_ASCII_RDW;
+                break;
+            default:
+                transferType = transferType ?? TRANSFER_TYPE_BINARY;
+                break;
+        }
+
+        this.log.debug("Download the contents of the source dataset: %s", JSON.stringify(options.fromDsn));
+        const stream = await connection.getDataset("'"+options.fromDsn+"'", transferType, false);
+
+        this.log.debug("Make sure the new dataset is allocated: %s", JSON.stringify(toDsn.dsn));
+        const option = await DataSetUtils.allocateLikeDataSet(connection, toDsn.dsn, fromDsn.dsn, toDsn.member ? {dsorg: "PO"} : {dsorg: "PS"});
+
+        this.log.debug("Upload the contents to the new dataset: %s", JSON.stringify(options.toDsn));
         await connection.uploadDataset(stream, "'"+options.toDsn+"'", transferType, option);
     }
 
