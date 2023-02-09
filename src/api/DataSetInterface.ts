@@ -73,19 +73,70 @@ export interface IAllocateDataSetOption {
     dcb?: string;
 }
 
+/**
+ * Copy Dataset Options
+ */
 export interface ICopyDataSetOptions {
+    /**
+     * Required: Name of the SOURCE dataset
+     */
     fromDsn: string;
+
+    /**
+     * Required: Name of the TARGET dataset
+     */
     toDsn: string;
+
+    /**
+     * Optional: Progress indicator object/task
+     */
     progress?: IFTPProgressHandler;
+
+    /**
+     * Optional: Indicator to force a replacement
+     */
     replace?: boolean;
 }
 
+/**
+ * Detailed allocation options for a dataset
+ */
 export interface IDataSetDetailedAllocationOptions {
+    /**
+     * Dataset volume serial
+     */
     volume?: string; // Not supported by connection.allocateDataset
+
+    /**
+     * Dataset record format
+     */
     recfm?: string;
+
+    /**
+     * Dataset block size
+     */
     BLOCKSIze?: string; // Strange mapping
+
+    /**
+     * Dataset record length
+     */
     lrecl?: string;
+
+    /**
+     * Dataset organization (PS vs PO)
+     */
     dsorg?: string;
+
+    /**
+     * The following values are not supported by the allocateDataset method of zos-node-accessor@v1
+     * However, they are return as allocation details for a dataset
+     */
+    // BLocks: ds.??? // Strage mapping + Not returned by connection.listDataset
+    // CYlinders: ds.??? // Strage mapping + Not returned by connection.listDataset
+    // TRacks: ds.??? // Strage mapping + Not returned by connection.listDataset
+    // Directory: ds.??? // Strage mapping + Not returned by connection.listDataset
+    // PRImary: ds.??? // Strage mapping + Not returned by connection.listDataset
+    // SECondary: ds.??? // Strage mapping + Not returned by connection.listDataset
 }
 
 // When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.

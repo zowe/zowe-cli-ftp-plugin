@@ -13,9 +13,15 @@ import * as fs from "fs";
 
 import { ImperativeError, IO, Logger } from "@zowe/imperative";
 import { CoreUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_ASCII_RDW, TRANSFER_TYPE_BINARY, TRANSFER_TYPE_BINARY_RDW } from "./CoreUtils";
-import { IAllocateDataSetOption, ICopyDataSetOptions, IDataSetDetailedAllocationOptions, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
+import {
+    IAllocateDataSetOption,
+    ICopyDataSetOptions,
+    IDataSetDetailedAllocationOptions,
+    IDownloadDataSetOption,
+    IUploadDataSetOption,
+    TRACK
+} from "./DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
-import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
 export class DataSetUtils {
 
@@ -161,14 +167,9 @@ export class DataSetUtils {
             BLOCKSIze: ds.blksz, // Strange mapping
             lrecl: ds.lrecl,
             dsorg: ds.dsorg,
-            // BLocks: ds.??? // Strage mapping + Not returned by connection.listDataset
-            // CYlinders: ds.??? // Strage mapping + Not returned by connection.listDataset
-            // TRacks: ds.??? // Strage mapping + Not returned by connection.listDataset
-            // Directory: ds.??? // Strage mapping + Not returned by connection.listDataset
-            // PRImary: ds.??? // Strage mapping + Not returned by connection.listDataset
-            // SECondary: ds.??? // Strage mapping + Not returned by connection.listDataset
         };
     }
+
     /**
      * Allocate dataset.
      *
@@ -190,7 +191,9 @@ export class DataSetUtils {
      * @param options dataset allocation options to override the `like` dataset allocation details
      * @returns
      */
-    public static async allocateLikeDataSet(connection: any, dsn: string, like: string, options?: IDataSetDetailedAllocationOptions): Promise<IDataSetDetailedAllocationOptions> {
+    public static async allocateLikeDataSet(
+        connection: any, dsn: string, like: string, options?: IDataSetDetailedAllocationOptions
+    ): Promise<IDataSetDetailedAllocationOptions> {
         const newDs = await connection.listDataset(dsn) ?? [];
         if (newDs.length !== 0) {
             this.log.debug("Dataset %s already exists", dsn);
@@ -244,24 +247,33 @@ export class DataSetUtils {
      * @param options.replace Optional: Boolean used to force a dataset or member replacement
      */
     public static async copyDataSet(connection: any, options: ICopyDataSetOptions): Promise<void> {
+        const numberOfServerCalls = 8;
+        const t = options.progress;
+        t?.start(numberOfServerCalls, `Copying dataset...`);
+
         const fromDsn = DataSetUtils.getDataSet(options.fromDsn);
         this.log.debug("Source: %s", JSON.stringify(fromDsn));
         const toDsn = DataSetUtils.getDataSet(options.toDsn);
         this.log.debug("Target: %s", JSON.stringify(toDsn));
 
+        t?.worked(1, `Checking if target location already exists...`);
         if (!options.replace) {
             this.log.debug("Verify that the dataset (or member) does not already exist since we aren't allowed to replace it");
             const newDs = await connection.listDataset(toDsn.dsn) ?? [];
+            t?.worked(1, `Checking if target location already exists...`);
             if (newDs.length !== 0 && (await connection.listDataset(options.toDsn) ?? []).length !== 0) {
                 throw new ImperativeError({msg: `Dataset ${options.toDsn} already exists`});
             }
         }
 
-        const dataset = (await connection.listDataset(fromDsn.member ? fromDsn.dsn : options.fromDsn))?.map((f: any) => CoreUtils.addLowerCaseKeysToObject(f)) ?? [];
+        t?.worked(1, `Checking if the source location exists...`);
+        const dataset = (await connection.listDataset(fromDsn.member ? fromDsn.dsn : options.fromDsn))
+            ?.map((f: any) => CoreUtils.addLowerCaseKeysToObject(f)) ?? [];
         if (dataset.length === 0) {
             throw new ImperativeError({msg: `The dataset "${fromDsn.dsn}" doesn't exist.`});
         }
 
+        t?.worked(1, `Selecting the transferType...`);
         const content = dataset.find((file: any) => file.dsname.toUpperCase() === fromDsn.dsn.toUpperCase());
         this.log.debug("Select the transfer type based on the soruce dataset RECFM");
         let transferType = fromDsn.member ? TRANSFER_TYPE_ASCII : null;
@@ -277,14 +289,20 @@ export class DataSetUtils {
                 break;
         }
 
+        t?.worked(1, `Downloading contents`);
         this.log.debug("Download the contents of the source dataset: %s", JSON.stringify(options.fromDsn));
         const stream = await connection.getDataset("'"+options.fromDsn+"'", transferType, false);
 
+        t?.worked(1, `Creating target location (if required)...`);
         this.log.debug("Make sure the new dataset is allocated: %s", JSON.stringify(toDsn.dsn));
         const option = await DataSetUtils.allocateLikeDataSet(connection, toDsn.dsn, fromDsn.dsn, toDsn.member ? {dsorg: "PO"} : {dsorg: "PS"});
 
+        t?.worked(1, `Uploading contents...`);
         this.log.debug("Upload the contents to the new dataset: %s", JSON.stringify(options.toDsn));
         await connection.uploadDataset(stream, "'"+options.toDsn+"'", transferType, option);
+
+        t?.worked(numberOfServerCalls, `Done.`);
+        t?.end();
     }
 
     private static get log(): Logger {

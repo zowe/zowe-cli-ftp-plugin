@@ -9,11 +9,10 @@
  *
  */
 
-import { ZosFilesMessages, ZosFilesUtils } from "@zowe/cli";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
-import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_ASCII_RDW, TRANSFER_TYPE_BINARY, TRANSFER_TYPE_BINARY_RDW } from "../../../api";
+import { DataSetUtils } from "../../../api";
 
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
