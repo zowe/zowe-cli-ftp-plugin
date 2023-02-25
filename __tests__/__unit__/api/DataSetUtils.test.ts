@@ -119,4 +119,30 @@ describe("DataSetUtils", () => {
             expect(caughtError.message).toContain("No datasets found");
         });
     });
+
+    describe("copyDataSet", () => {
+        it("should copy a dataset while updating the progress bar", async () => {
+            const connection = {
+                listDataset: jest.fn().mockResolvedValueOnce(undefined).mockResolvedValue([{dsname: "from"}]),
+                getDataset: jest.fn().mockResolvedValue("source.content"),
+                uploadDataset: jest.fn(),
+            };
+            jest.spyOn(DataSetUtils, "allocateLikeDataSet").mockResolvedValue({dsorg: "po"});
+
+            const progress = { start: jest.fn(), worked: jest.fn(), end: jest.fn() };
+            await DataSetUtils.copyDataSet(connection, { fromDsn: "from", toDsn: "to", progress });
+
+            expect(connection.listDataset).toHaveBeenCalledWith("to");
+            expect(connection.listDataset).toHaveBeenCalledWith("from");
+            expect(connection.getDataset).toHaveBeenCalledWith("'from'", "binary", false);
+            expect(connection.uploadDataset).toHaveBeenCalledWith("source.content", "'to'", "binary", {dsorg: "po"});
+
+            //Progress bar info
+            expect(progress.start).toHaveBeenCalledWith(8, expect.any(String));
+            expect(progress.worked).toHaveBeenCalledTimes(8);
+            expect(progress.worked).toHaveBeenCalledWith(1, expect.any(String));
+            expect(progress.worked).toHaveBeenCalledWith(8, expect.any(String));
+            expect(progress.end).toHaveBeenCalled();
+        });
+    });
 });

@@ -285,7 +285,7 @@ export class DataSetUtils {
         const content = dataset.find((file: any) => file.dsname.toUpperCase() === fromDsn.dsn.toUpperCase());
         this.log.debug("Select the transfer type based on the soruce dataset RECFM");
         let transferType = fromDsn.member ? TRANSFER_TYPE_ASCII : null;
-        switch (content.recfm[0]) {
+        switch (content.recfm?.[0]) {
             case "V":
                 transferType = TRANSFER_TYPE_BINARY_RDW;
                 break;
