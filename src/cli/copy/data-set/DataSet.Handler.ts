@@ -11,25 +11,23 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
+import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { DataSetUtils } from "../../../api";
 
-export default class AllocateDataSetHandler extends FTPBaseHandler {
-
+export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const pResp = params.response;
         const pArgs = params.arguments;
-        const options = {
-            dcb: pArgs.dcb
-        };
-        let successMsg: string = "";
-        if (pArgs.like) {
-            await DataSetUtils.allocateLikeDataSet(params.connection, pArgs.datasetName, pArgs.like);
-            successMsg = pResp.console.log("Allocated dataset %s like %s successfully!", pArgs.datasetName, pArgs.like);
-        } else {
-            await DataSetUtils.allocateDataSet(params.connection, pArgs.datasetName, options);
-            successMsg = pResp.console.log("Allocated dataset %s successfully!", pArgs.datasetName);
-        }
-        pResp.data.setMessage(successMsg);
+        const progress = new FTPProgressHandler(params.response.progress, true);
+        await DataSetUtils.copyDataSet(params.connection, {
+            fromDsn: pArgs.fromDataSetName,
+            toDsn: pArgs.toDataSetName,
+            progress,
+            replace: pArgs.replace ?? false,
+        });
+
+        const successMsg = pResp.console.log("Copied dataset %s to %s successfully!", pArgs.fromDataSetName, pArgs.toDataSetName);
         this.log.info(successMsg);
+        params.response.data.setMessage(successMsg);
     }
 }

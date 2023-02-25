@@ -10,16 +10,16 @@
  */
 
 import { ICommandDefinition } from "@zowe/imperative";
-import { AllocateDataSetDefinition } from "./data-set/DataSet.definition";
+import { CopyDataSetDefinition } from "./data-set/DataSet.definition";
 import { FTPConfig } from "../../api/FTPConfig";
 
-const AllocateDefinition: ICommandDefinition = {
-    name: "allocate", aliases: ["alloc"],
-    summary: "Allocate a sequential dataset or partitioned dataset with '--dcb \"PDSTYPE=PDS\"'",
-    description: "Allocate a sequential or partitioned dataset",
+const CopyDefinition: ICommandDefinition = {
+    name: "copy", aliases: ["cp"],
+    summary: "Copy datasets and dataset member content",
+    description: "Copy datasets and dataset member content",
     type: "group",
     children: [
-        AllocateDataSetDefinition,
+        CopyDataSetDefinition,
     ],
     passOn: [
         {
@@ -33,4 +33,4 @@ const AllocateDefinition: ICommandDefinition = {
     ]
 };
 
-export = AllocateDefinition;
+export = CopyDefinition;

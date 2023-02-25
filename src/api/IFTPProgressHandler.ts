@@ -16,14 +16,14 @@ export interface IFTPProgressHandler {
      *
      * @param total - total work size
      */
-    start(total: number): void;
+    start(total: number, message?: string): void;
 
     /**
      * Updates how much work is performed, so that the class implementing this interface can update progress bar for example.
      *
      * @param work - how much work is performed
      */
-    worked(work: number): void;
+    worked(work: number, message?: string): void;
 
     /**
      * The FTP task ends, either all work is completed or any error happens.

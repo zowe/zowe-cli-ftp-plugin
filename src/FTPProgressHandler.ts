@@ -29,7 +29,7 @@ export class FTPProgressHandler implements IFTPProgressHandler {
         this.estimated = estimated;
     }
 
-    public start(total: number): void {
+    public start(total: number, message?: string): void {
         this.total = total;
         this.processed = 0;
         if (this.estimated) {
@@ -38,17 +38,18 @@ export class FTPProgressHandler implements IFTPProgressHandler {
             this.statusMessage = "Downloaded %d of %d bytes";
         }
         this.task = {
-            statusMessage: "Starting transfer...",
+            statusMessage: message ?? "Starting transfer...",
             percentComplete: 0,
             stageName: TaskStage.IN_PROGRESS
         };
         this.progress.startBar({ task: this.task });
     }
 
-    public worked(work: number): void {
+    public worked(work: number, message?: string): void {
         this.processed += work;
+        this.processed = this.processed > this.total ? this.total : this.processed;
         this.task.percentComplete = PERCETAGE * this.processed / this.total;
-        this.task.statusMessage = TextUtils.formatMessage(this.statusMessage, this.processed, this.total);
+        this.task.statusMessage = message ?? TextUtils.formatMessage(this.statusMessage, this.processed, this.total);
     }
 
     public end(): void {

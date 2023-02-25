@@ -2,6 +2,14 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Enhancement: Added APIs and corresponding CLI commands to support the Copy Dataset feature in the Zowe Explorer ZFTP extension.
+- Enhancement: Added an API to allow dataset allocation while cloning attributes from another dataset (`allocateLikeDataSet`).
+- Enhancement: Added a CLI command option to expose the Allocate-Like functionality (`zowe zftp alloc ds "new" --like "old"`).
+- Enhancement: Added an API to allow copying dataset and dataset member contents (`copyDataSet`).
+- Enhancement: Added a CLI command to expose the copying-dataset/member functionality (`zowe zftp copy ds "FROM(optional)" "TO(optional)"`).
+
 ## `2.1.2`
 
 - Updated the  `zos-node-accessor` package to 1.0.14 for technical currency.
