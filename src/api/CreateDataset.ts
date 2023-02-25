@@ -9,7 +9,6 @@
  *
  */
 
-import { isNullOrUndefined } from "util";
 import { CreateDataSetTypeEnum, CreateDefaults, ICreateDataSetOptions, IZosFilesResponse, ZosFilesMessages } from "@zowe/cli";
 import { ImperativeError, ImperativeExpect, TextUtils } from "@zowe/imperative";
 import { JobUtils } from "./JobUtils";
@@ -33,8 +32,8 @@ export class CreateDataset extends AbstractTemplatedJCL {
         let validCmdType = true;
 
         // Removes undefined properties
-        let tempOptions = !isNullOrUndefined(options) ? JSON.parse(JSON.stringify(options)) : {};
-        const secondarySpecified = !isNullOrUndefined(tempOptions.secondary);
+        let tempOptions = options != null ? JSON.parse(JSON.stringify(options)) : {};
+        const secondarySpecified = tempOptions.secondary != null;
 
         // Required
         ImperativeExpect.toNotBeNullOrUndefined(cmdType, ZosFilesMessages.missingDatasetType.message);
@@ -67,14 +66,14 @@ export class CreateDataset extends AbstractTemplatedJCL {
             throw new ImperativeError({msg: ZosFilesMessages.unsupportedDatasetType.message});
         } else {
             // Handle the size option
-            if (!isNullOrUndefined(tempOptions.size)) {
+            if (tempOptions.size != null) {
                 const tAlcunit = tempOptions.size.toString().match(/[a-zA-Z]+/g);
-                if (!isNullOrUndefined(tAlcunit)) {
+                if (tAlcunit != null) {
                     tempOptions.alcunit = tAlcunit.join("").toUpperCase();
                 }
 
                 const tPrimary = tempOptions.size.toString().match(/[0-9]+/g);
-                if (!isNullOrUndefined(tPrimary)) {
+                if (tPrimary != null) {
                     tempOptions.primary = +(tPrimary.join(""));
 
                     if (!secondarySpecified) {
@@ -88,7 +87,7 @@ export class CreateDataset extends AbstractTemplatedJCL {
 
             let response = "";
             // Handle the print attributes option
-            if (!isNullOrUndefined(tempOptions.printAttributes)) {
+            if (tempOptions.printAttributes != null) {
                 if (tempOptions.printAttributes) {
                     delete tempOptions.printAttributes;
                     response = TextUtils.prettyJson(tempOptions);
@@ -99,14 +98,16 @@ export class CreateDataset extends AbstractTemplatedJCL {
 
             response = await new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);
             if (response.indexOf("RC=0000") >= 0) {
-                response += "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message;
+                return {
+                    success: true,
+                    commandResponse: response + "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message,
+                }
             } else {
-                response += "\nFailed to create data set";
+                return {
+                    success: false,
+                    commandResponse: response + "\nFailed to create data set",
+                }
             }
-            return {
-                success: true,
-                commandResponse: response
-            };
         }
     }
 
