@@ -89,11 +89,9 @@ export class CreateDataset extends AbstractTemplatedJCL {
             // Handle the print attributes option
             if (tempOptions.printAttributes != null) {
                 if (tempOptions.printAttributes) {
-                    delete tempOptions.printAttributes;
                     response = TextUtils.prettyJson(tempOptions);
-                } else {
-                    delete tempOptions.printAttributes;
                 }
+                delete tempOptions.printAttributes;
             }
 
             response = await new CreateDataset().createViaFTP(connection, dataSetName, tempOptions, jobCardFile);

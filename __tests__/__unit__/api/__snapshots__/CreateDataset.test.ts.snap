@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CreateDataset Should create datasets successfully C 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(1)),LRECL=260,
+//   RECFM=VB,BLKSIZE=32760,DSORG=PO"
+`;
+
+exports[`CreateDataset Should create datasets successfully binary 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(10)),
+//   LRECL=27998,RECFM=U,BLKSIZE=27998,DSORG=PO"
+`;
+
+exports[`CreateDataset Should create datasets successfully classic 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(1)),LRECL=80,
+//   RECFM=FB,BLKSIZE=6160,DSORG=PO"
+`;
+
+exports[`CreateDataset Should create datasets successfully partitioned 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(1)),LRECL=80,
+//   RECFM=FB,BLKSIZE=6160,DSORG=PO"
+`;
+
+exports[`CreateDataset Should create datasets successfully sequential 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(1)),LRECL=80,
+//   RECFM=FB,BLKSIZE=6160,DSORG=PS"
+`;
+
+exports[`CreateDataset should return succes:false if we failed to create the dataset 1`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(CYL,(1,0)),
+//   VOLSER=DUMMY,LRECL=27998,RECFM=U,BLKSIZE=27998,UNIT=DUMMY,
+//   DSORG=PO"
+`;
+
+exports[`CreateDataset should return succes:false if we failed to create the dataset 2`] = `
+"//JOBCARD
+//CREATE EXEC PGM=IEFBR14
+//NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(U,(1,1)),
+//   VOLSER=DUMMY,LRECL=27998,RECFM=U,BLKSIZE=27998,UNIT=DUMMY,
+//   DSORG=PO"
+`;

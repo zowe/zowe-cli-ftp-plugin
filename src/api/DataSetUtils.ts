@@ -161,13 +161,13 @@ export class DataSetUtils {
      */
     public static mapAllocationOptions(ds: any): IDataSetDetailedAllocationOptions {
         // supported options: https://github.com/IBM/zos-node-accessor/blob/1.0.x/lib/zosAccessor.js#LL122C68-L122C68
-        return {
+        return JSON.parse(JSON.stringify({
             volume: ds.volume, // Not supported by connection.allocateDataset
             recfm: ds.recfm,
             BLOCKSIze: ds.blksz, // Strange mapping
             lrecl: ds.lrecl,
             dsorg: ds.dsorg,
-        };
+        }));
     }
 
     /**
@@ -194,21 +194,29 @@ export class DataSetUtils {
     public static async allocateLikeDataSet(
         connection: any, dsn: string, like: string, options?: IDataSetDetailedAllocationOptions
     ): Promise<IDataSetDetailedAllocationOptions> {
-        const newDs = await connection.listDataset(dsn) ?? [];
-        if (newDs.length !== 0) {
+
+        const _getDs = async (dsname: string, mustExist: boolean): Promise<any> => {
+            const files = await connection.listDataset(dsname);
+
+            this.log.debug("Found %d matching data sets", files?.length ?? 0);
+            const filteredFiles: any[] = files?.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file)) ?? [];
+            const ds = filteredFiles.find((file: any) => file.dsname.toUpperCase() === dsname.toUpperCase());
+            if (ds == null && mustExist) {
+                throw new ImperativeError({msg: "No datasets found: " + dsname});
+            }
+
+            return ds;
+        };
+
+        const newDs = await _getDs(dsn, false);
+        if (newDs != null) {
             this.log.debug("Dataset %s already exists", dsn);
             return DataSetUtils.mapAllocationOptions(newDs);
         }
 
         this.log.debug("Allocate data set '%s' with similar attributes to '%s", dsn, like);
-        const files = await connection.listDataset(like);
-
-        this.log.debug("Found %d matching data sets", files.length);
-        const filteredFiles: any[] = files?.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file)) ?? [];
-        if (filteredFiles.length === 0) {
-            throw new ImperativeError({msg: "No datasets found: " + like});
-        }
-        const ds = filteredFiles.find((file: any) => file.dsname.toUpperCase() === like.toUpperCase());
+        const ds = await _getDs(like, true);
+        console.log(ds);
         const option = { ...DataSetUtils.mapAllocationOptions(ds), ...(options ?? {})};
 
         this.log.debug("Allocation options to be used: %s", JSON.stringify(option));
