@@ -216,7 +216,6 @@ export class DataSetUtils {
 
         this.log.debug("Allocate data set '%s' with similar attributes to '%s", dsn, like);
         const ds = await _getDs(like, true);
-        console.log(ds);
         const option = { ...DataSetUtils.mapAllocationOptions(ds), ...(options ?? {})};
 
         this.log.debug("Allocation options to be used: %s", JSON.stringify(option));

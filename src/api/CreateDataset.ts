@@ -99,12 +99,12 @@ export class CreateDataset extends AbstractTemplatedJCL {
                 return {
                     success: true,
                     commandResponse: response + "\n" + ZosFilesMessages.dataSetCreatedSuccessfully.message,
-                }
+                };
             } else {
                 return {
                     success: false,
                     commandResponse: response + "\nFailed to create data set",
-                }
+                };
             }
         }
     }

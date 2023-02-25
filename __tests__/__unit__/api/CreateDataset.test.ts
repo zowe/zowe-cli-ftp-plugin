@@ -45,7 +45,7 @@ describe("CreateDataset", () => {
         expect(response.commandResponse).toContain("Failed to create data set");
     });
 
-    it("should return succes:false if we failed to create the dataset", async () => {
+    it("should return succes:false if we failed to create the dataset with additional options", async () => {
         const connection = { submitJCL: jest.fn() };
         jest.spyOn(IO, "readFileSync").mockReturnValue(Buffer.from("//JOBCARD"));
         jest.spyOn(JobUtils, "findJobByID").mockResolvedValue("SOME ERROR" as any);
@@ -69,7 +69,7 @@ describe("CreateDataset", () => {
             expect(connection.submitJCL.mock.calls[0][0]).toMatchSnapshot();
             expect(response.commandResponse).toContain("Data set created successfully.");
             return response.success;
-        }
+        };
         it("partitioned", async () => {
             const ret = await testCreate(CreateDataSetTypeEnum.DATA_SET_PARTITIONED);
             expect(ret).toBe(true);

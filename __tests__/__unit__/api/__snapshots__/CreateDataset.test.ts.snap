@@ -43,7 +43,7 @@ exports[`CreateDataset should return succes:false if we failed to create the dat
 //   DSORG=PO"
 `;
 
-exports[`CreateDataset should return succes:false if we failed to create the dataset 2`] = `
+exports[`CreateDataset should return succes:false if we failed to create the dataset with additional options 1`] = `
 "//JOBCARD
 //CREATE EXEC PGM=IEFBR14
 //NEWDATA DD DSN=DSNAME,DISP=(NEW,CATLG),SPACE=(U,(1,1)),
