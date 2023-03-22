@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Update example of `upload file-to-data-set` command.
+
 ## `2.1.2`
 
 - Updated the  `zos-node-accessor` package to 1.0.14 for technical currency.
