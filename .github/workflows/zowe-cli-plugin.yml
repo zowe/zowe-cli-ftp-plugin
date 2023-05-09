@@ -33,9 +33,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Use NPM v8
-      run: npm install -g npm@^8
-
     - name: Install Node Package Dependencies
       run: npm ci
 
