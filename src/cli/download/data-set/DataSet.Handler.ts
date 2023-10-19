@@ -15,71 +15,47 @@ import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_ASCII_RDW, TRANSFER_TYPE_BINARY, TRANSFER_TYPE_BINARY_RDW } from "../../../api";
 import { ImperativeError } from "@zowe/imperative";
+import { Utilities } from "../../Utilities";
 
-function isValidFileName(fileName: string) {
-    //to prevent magic number eslint errors
-    //(valid characters deduced from https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
-    const iso8859_1_start_first = 32; // first valid code point for first chunk of valid characters in the ISO/IEC 8859-1 table
-    const iso8859_1_end_first = 127;
-    const iso8859_1_start_second = 160; //second chunk of valid characters
-    const iso8859_1_end_second = 255;
-    const binary = 2;
-    const hexadecimal = 16;
-
-    const unicodeString = fileName.split('').map(char => `U+${char.charCodeAt(0).toString(hexadecimal).toUpperCase()}`).join(' ');
-    const codePoints = unicodeString.split(' ');
-
-    for (const codePoint of codePoints) {
-        // Extract the decimal representation from the code point (e.g., ☻ = U+263B => 9787)
-        const decimalRepresentation = parseInt(codePoint.substring(binary), hexadecimal);
-
-        // Check if the code point is in the range of valid characters
-        const validRanges = [
-            { start: iso8859_1_start_first, end: iso8859_1_end_first },
-            { start: iso8859_1_start_second, end: iso8859_1_end_second }
-        ];
-
-        const isValidCharacter = validRanges.some(range => {
-            return decimalRepresentation >= range.start && decimalRepresentation <= range.end;
-        });
-
-        if (!isValidCharacter) {
-            return false;
-        }
-    }
-    return true;
-}
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-
         const file = params.arguments.file == null ?
-            ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
-            params.arguments.file;
+        ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
+        params.arguments.file;
+        try {
+            // Validate the destination file name before proceeding
+            if (!(await Utilities.isValidFileName(file))) {
+                throw new ImperativeError({ msg: "Invalid file name. Please check the file name for typos." });
+            }
 
-        // Validate the file name before proceeding
-        if (!isValidFileName(file)) {
-            throw new ImperativeError({msg: "Invalid file name. Please check the file name for typos."});
-        }
+            let progress;
+            if (params.response && params.response.progress) {
+                progress = new FTPProgressHandler(params.response.progress, true);
+            }
+            let transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII;
+            if (params.arguments.rdw) {
+                transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY_RDW : TRANSFER_TYPE_ASCII_RDW;
+            }
+            const options = {
+                localFile: file,
+                response: params.response,
+                transferType,
+                progress,
+                encoding: params.arguments.encoding
+            };
+            await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
 
-        let progress;
-        if (params.response && params.response.progress) {
-            progress = new FTPProgressHandler(params.response.progress, true);
+            const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message, file);
+            this.log.info(successMsg);
+            params.response.data.setMessage(successMsg);
         }
-        let transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII;
-        if (params.arguments.rdw) {
-            transferType = params.arguments.binary ? TRANSFER_TYPE_BINARY_RDW : TRANSFER_TYPE_ASCII_RDW;
+        catch (e) {
+            if (e instanceof ImperativeError){
+                throw e;
+            }
+            throw new ImperativeError({
+                msg: `An error was encountered while trying to download your dataset '${file}'.\nError details: ${e.message}`
+            });
         }
-        const options = {
-            localFile: file,
-            response: params.response,
-            transferType,
-            progress,
-            encoding: params.arguments.encoding
-        };
-        await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options);
-
-        const successMsg = params.response.console.log(ZosFilesMessages.datasetDownloadedSuccessfully.message, file);
-        this.log.info(successMsg);
-        params.response.data.setMessage(successMsg);
     }
 }
