@@ -17,35 +17,20 @@ export class Utilities{
      * @memberof Utilities
      */
     public static async isValidFileName(fileName: string): Promise<boolean> {
-        //to prevent magic number eslint errors
-        //(valid characters deduced from https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
-        const iso8859_1_start_first = 32; // first valid code point for first chunk of valid characters in the ISO/IEC 8859-1 table
-        const iso8859_1_end_first = 127;
-        const iso8859_1_start_second = 160; //second chunk of valid characters
-        const iso8859_1_end_second = 255;
-        const binary = 2;
-        const hexadecimal = 16;
+        // Define valid character ranges for ISO/IEC 8859-1 https://en.wikipedia.org/wiki/ISO/IEC_8859-1
+        const validRanges = [
+            { start: 32, end: 127 },   // First chunk of valid characters
+            { start: 160, end: 255 }  // Second chunk of valid characters
+        ];
 
-        const unicodeString = fileName.split('').map(char => `U+${char.charCodeAt(0).toString(hexadecimal).toUpperCase()}`).join(' ');
-        const codePoints = unicodeString.split(' ');
-        for (const codePoint of codePoints) {
-            // Extract the decimal representation from the code point (e.g., ☻ = U+263B => 9787)
-            const decimalRepresentation = parseInt(codePoint.substring(binary), hexadecimal);
-
-            // Check if the code point is in the range of valid characters
-            const validRanges = [
-                { start: iso8859_1_start_first, end: iso8859_1_end_first },
-                { start: iso8859_1_start_second, end: iso8859_1_end_second }
-            ];
-
-            const isValidCharacter = validRanges.some(range => {
-                return decimalRepresentation >= range.start && decimalRepresentation <= range.end;
-            });
-
-            if (!isValidCharacter) {
+        // Check if each character in the filename is within a valid range
+        for (const char of fileName) {
+            const charCode = char.charCodeAt(0);
+            if (!validRanges.some(range => charCode >= range.start && charCode <= range.end)) {
                 return false;
             }
         }
+
         return true;
     }
 }
