@@ -18,6 +18,7 @@ import { ImperativeError } from "@zowe/imperative";
 
 function isValidFileName(fileName: string) {
     //to prevent magic number eslint errors
+    //(valid characters deduced from https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
     const iso8859_1_start_first = 32; // first valid code point for first chunk of valid characters in the ISO/IEC 8859-1 table
     const iso8859_1_end_first = 127;
     const iso8859_1_start_second = 160; //second chunk of valid characters
@@ -32,11 +33,17 @@ function isValidFileName(fileName: string) {
         // Extract the decimal representation from the code point (e.g., ☻ = U+263B => 9787)
         const decimalRepresentation = parseInt(codePoint.substring(binary), hexadecimal);
 
-        // Check if the code point is in the range of valid characters (valid numbers deduced from https://en.wikipedia.org/wiki/ISO/IEC_8859-1)
-        if ((decimalRepresentation >= iso8859_1_start_first && decimalRepresentation <= iso8859_1_end_first) ||
-            (decimalRepresentation >= iso8859_1_start_second && decimalRepresentation <= iso8859_1_end_second))
-        {
-            // If any invalid code point is found, return false
+        // Check if the code point is in the range of valid characters
+        const validRanges = [
+            { start: iso8859_1_start_first, end: iso8859_1_end_first },
+            { start: iso8859_1_start_second, end: iso8859_1_end_second }
+        ];
+
+        const isValidCharacter = validRanges.some(range => {
+            return decimalRepresentation >= range.start && decimalRepresentation <= range.end;
+        });
+
+        if (!isValidCharacter) {
             return false;
         }
     }
