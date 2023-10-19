@@ -20,8 +20,8 @@ import { Utilities } from "../../Utilities";
 export default class DownloadDataSetHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const file = params.arguments.file == null ?
-        ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
-        params.arguments.file;
+            ZosFilesUtils.getDirsFromDataSet(params.arguments.dataSet) :
+            params.arguments.file;
         try {
             // Validate the destination file name before proceeding
             if (!(await Utilities.isValidFileName(file))) {
