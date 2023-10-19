@@ -55,7 +55,7 @@ describe("Download data set handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Data set downloaded successfully.\nDestination: %s");
+        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Data set downloaded successfully.");
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("ds1");
         expect(mockParams.connection.getDataset.mock.calls[0][1]).toBe("binary_rdw");
     });
