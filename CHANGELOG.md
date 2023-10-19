@@ -2,6 +2,9 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+- BugFix: Provide new utility function that checks file names for valid characters [143](https://github.com/zowe/zowe-cli-ftp-plugin/issues/143).
+
 ## `2.1.3`
 
 - Update example of `upload file-to-data-set` command.
