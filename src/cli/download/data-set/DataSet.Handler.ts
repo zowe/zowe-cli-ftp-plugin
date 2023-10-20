@@ -25,7 +25,7 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
         try {
             // Validate the destination file name before proceeding
             if (!(await Utilities.isValidFileName(file))) {
-                throw new ImperativeError({ msg: "Invalid file name. Please check the file name for typos." });
+                throw new ImperativeError({ msg: ZosFilesMessages.invalidFileName.message });
             }
 
             let progress;
@@ -54,7 +54,7 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
                 throw e;
             }
             throw new ImperativeError({
-                msg: `An error was encountered while trying to download your dataset '${file}'.\nError details: ${e.message}`
+                msg: `An error was encountered while trying to download your file '${file}'.\nError details: ${e.message}`
             });
         }
     }

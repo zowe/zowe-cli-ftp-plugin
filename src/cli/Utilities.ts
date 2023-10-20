@@ -16,7 +16,7 @@ export class Utilities{
      * @returns {Promise<boolean>} - promise that resolves to true if filename contains valid characters
      * @memberof Utilities
      */
-    public static async isValidFileName(fileName: string): Promise<boolean> {
+    public static isValidFileName(fileName: string): boolean {
         // Define valid character ranges for ISO/IEC 8859-1 https://en.wikipedia.org/wiki/ISO/IEC_8859-1
         const validRanges = [
             { start: 32, end: 127 },   // First chunk of valid characters
