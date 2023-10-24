@@ -24,7 +24,7 @@ export default class DownloadDataSetHandler extends FTPBaseHandler {
             params.arguments.file;
         try {
             // Validate the destination file name before proceeding
-            if (!(await Utilities.isValidFileName(file))) {
+            if (!(Utilities.isValidFileName(file))) {
                 throw new ImperativeError({ msg: ZosFilesMessages.invalidFileName.message });
             }
 
