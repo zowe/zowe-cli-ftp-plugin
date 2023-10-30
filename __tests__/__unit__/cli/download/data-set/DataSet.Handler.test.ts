@@ -9,10 +9,44 @@
  *
  */
 
+import { ZosFilesMessages } from "@zowe/cli";
 import DownloadDataSetHandler from "../../../../../src/cli/download/data-set/DataSet.Handler";
 import TestUtils from "../../TestUtils";
+import { ImperativeError } from "@zowe/imperative";
+import { Utilities } from "../../../../../src/cli/Utilities";
 
 describe("Download data set handler", () => {
+
+    it ("should throw ImperativeError for invalid file name", async () => {
+        const handler = new DownloadDataSetHandler();
+        const files: any[] = [
+            {
+                Used: 100
+            }
+        ];
+
+        const mockResponse = TestUtils.getMockResponse();
+        const mockParams: any = {
+            arguments: {
+                dataSet: "ds1",
+                file: "invalid.txt☻"
+            },
+            connection: {
+                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
+                getDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
+            },
+            response: mockResponse
+        };
+
+        jest.spyOn(Utilities, "isValidFileName").mockReturnValueOnce(false);
+
+        try {
+            await handler.processFTP(mockParams);
+        } catch(err) {
+            expect(err instanceof ImperativeError).toEqual(true);
+            expect(err.message).toContain(ZosFilesMessages.invalidFileName.message);
+        }
+    });
 
     it("should throw error if no data set is found.", async () => {
         const handler = new DownloadDataSetHandler();
@@ -55,7 +89,7 @@ describe("Download data set handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Data set downloaded successfully.");
+        expect(mockResponse.console.log.mock.calls[0][0]).toBe(ZosFilesMessages.datasetDownloadedSuccessfully.message);
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("ds1");
         expect(mockParams.connection.getDataset.mock.calls[0][1]).toBe("binary_rdw");
     });
