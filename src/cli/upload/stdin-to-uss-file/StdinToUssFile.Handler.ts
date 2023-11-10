@@ -18,19 +18,25 @@ export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        const content: Buffer | string = await CoreUtils.readStdin(params.stdin);
+        if (!ussFile.startsWith('/')) {
+            const errMsg = params.response.console.log("Please check the uss file path. The full file path is required.");
+            params.response.data.setMessage(errMsg);
+            this.log.info(errMsg);
+        } else {
+            const content: Buffer | string = await CoreUtils.readStdin(params.stdin);
 
-        const options = {
-            content,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
-        };
-        await UssUtils.uploadFile(params.connection, ussFile, options);
+            const options = {
+                content,
+                transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            };
+            await UssUtils.uploadFile(params.connection, ussFile, options);
 
-        const uploadSource: string = "stdin";
-        const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
-        params.response.data.setMessage(successMsg);
-        this.log.info(successMsg);
+            const uploadSource: string = "stdin";
+            const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
+            params.response.data.setMessage(successMsg);
+            this.log.info(successMsg);
 
+        }
     }
 }
 

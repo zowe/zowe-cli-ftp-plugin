@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Add checking the uss file path when upload file or stdin to uss file.
+
 ## `2.1.4`
 - BugFix: Provide new utility function that checks file names for valid characters [143](https://github.com/zowe/zowe-cli-ftp-plugin/issues/143).
 
