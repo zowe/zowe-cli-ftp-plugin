@@ -12,7 +12,7 @@
 import * as PATH from "path";
 import * as fs from "fs";
 
-import { IHandlerResponseConsoleApi, IO, Logger } from "@zowe/imperative";
+import { IHandlerResponseConsoleApi, IO, ImperativeError, Logger } from "@zowe/imperative";
 import { CoreUtils, TRANSFER_TYPE_ASCII } from "./CoreUtils";
 import { StreamUtils } from "./StreamUtils";
 import { IDeleteFileOption, IDownloadFileOption, IUploadFileOption } from "./UssInterface";
@@ -198,6 +198,14 @@ export class UssUtils {
         await connection.deleteDataset(dir);
         if (response) {
             response.log("Deleted %s", dir);
+        }
+    }
+
+    public static checkAbsoluteFilePath(filePath: string) {
+        if (!filePath.startsWith('/')) {
+            throw new ImperativeError({ msg: "Please check the uss file path. The full file path is required."});
+        } else {
+            return filePath;
         }
     }
 

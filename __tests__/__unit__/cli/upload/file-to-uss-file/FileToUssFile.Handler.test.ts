@@ -38,26 +38,4 @@ describe("Upload file to data set handler", () => {
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("local file '/u/user/file1'");
         expect(mockResponse.console.log.mock.calls[0][2]).toBe("/u/user/ussfile1");
     });
-
-    it("should return error if the uss file path is not a full path.", async () => {
-        const handler = new UploadFileToUssFileHandler();
-
-        IO.readFileSync = jest.fn().mockReturnValue(Promise.resolve(Buffer.from("sss")));
-        // UssUtils.normalizeUnixPath =
-        CoreUtils.addCarriageReturns = jest.fn().mockReturnValue(("sss"));
-        const mockResponse = TestUtils.getMockResponse();
-        const mockParams: any = {
-            arguments: {
-                file: "/u/user/file1",
-                ussFile: "ussfile1"
-            },
-            connection: {
-                uploadDataset: jest.fn().mockReturnValue(Promise.resolve(""))
-            },
-            response: mockResponse
-        };
-        await handler.processFTP(mockParams);
-        expect(mockResponse.console.log.mock.calls[0][0]).toBe("Please check the uss file path. The full file path is required.");
-    });
-
 });

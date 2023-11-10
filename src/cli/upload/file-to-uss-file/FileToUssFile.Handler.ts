@@ -17,22 +17,17 @@ export default class UploadFileToUssFileHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        if (!ussFile.startsWith('/')) {
-            const errMsg = params.response.console.log("Please check the uss file path. The full file path is required.");
-            params.response.data.setMessage(errMsg);
-            this.log.info(errMsg);
-        } else {
-            const options = {
-                localFile: params.arguments.file,
-                transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
-            };
-            await UssUtils.uploadFile(params.connection, ussFile, options);
+        UssUtils.checkAbsoluteFilePath(ussFile);
+        const options = {
+            localFile: params.arguments.file,
+            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+        };
+        await UssUtils.uploadFile(params.connection, ussFile, options);
 
-            const uploadSource: string = "local file '" + params.arguments.file + "'";
-            const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
-            params.response.data.setMessage(successMsg);
-            this.log.info(successMsg);
-        }
+        const uploadSource: string = "local file '" + params.arguments.file + "'";
+        const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
+        params.response.data.setMessage(successMsg);
+        this.log.info(successMsg);
     }
 }
 
