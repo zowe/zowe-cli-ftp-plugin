@@ -20,7 +20,7 @@
         "@typescript-eslint/eslint-plugin": "^5.33.0",
         "@typescript-eslint/parser": "^5.33.0",
         "@zowe/cli": "^7.18.8",
-        "@zowe/cli-test-utils": "^7.18.7",
+        "@zowe/cli-test-utils": "^7.18.11",
         "@zowe/imperative": "^5.18.3",
         "chalk": "^2.3.0",
         "env-cmd": "^10.1.0",
@@ -2469,9 +2469,9 @@
       }
     },
     "node_modules/@zowe/cli-test-utils": {
-      "version": "7.18.7",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-7.18.7.tgz",
-      "integrity": "sha512-1o4nNi7r/rrGngEomGdEVfMRDKdVzEki4M4wEgJCfraCeIG8vr/3INaWUHJX5vjpEIp+yvHH4NN+wSkNzQ7OQw==",
+      "version": "7.18.11",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-7.18.11.tgz",
+      "integrity": "sha512-uaCd+u2vYKonN47wRNseX8YQypjfaCO1+q3DXPkatXPWuAPuUOxpDKmPWq42fXdzKJoBdycmarKe4SwkbjEsvw==",
       "dev": true,
       "dependencies": {
         "find-up": "^5.0.0",
@@ -15351,9 +15351,9 @@
       }
     },
     "@zowe/cli-test-utils": {
-      "version": "7.18.7",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-7.18.7.tgz",
-      "integrity": "sha512-1o4nNi7r/rrGngEomGdEVfMRDKdVzEki4M4wEgJCfraCeIG8vr/3INaWUHJX5vjpEIp+yvHH4NN+wSkNzQ7OQw==",
+      "version": "7.18.11",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-7.18.11.tgz",
+      "integrity": "sha512-uaCd+u2vYKonN47wRNseX8YQypjfaCO1+q3DXPkatXPWuAPuUOxpDKmPWq42fXdzKJoBdycmarKe4SwkbjEsvw==",
       "dev": true,
       "requires": {
         "find-up": "^5.0.0",

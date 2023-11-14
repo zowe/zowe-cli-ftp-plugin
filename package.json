@@ -50,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "@zowe/cli": "^7.18.8",
-    "@zowe/cli-test-utils": "^7.18.7",
+    "@zowe/cli-test-utils": "^7.18.11",
     "@zowe/imperative": "^5.18.3",
     "chalk": "^2.3.0",
     "env-cmd": "^10.1.0",
