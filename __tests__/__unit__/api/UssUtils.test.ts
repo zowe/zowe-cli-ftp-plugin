@@ -9,6 +9,7 @@
  *
  */
 
+import { ImperativeError } from "@zowe/imperative";
 import { UssUtils } from "../../../src/api/UssUtils";
 
 describe("UssUtils", () => {
@@ -27,5 +28,13 @@ describe("UssUtils", () => {
 
         path = UssUtils.normalizeUnixPath("//home/user1/hello.text");
         expect(path).toBe("/home/user1/hello.text");
+    });
+
+    it("should throw error when the uss file path is not absolute file Path", () => {
+        const path = "test.txt";
+        const result = () => {
+            UssUtils.checkAbsoluteFilePath(path);
+        };
+        expect(result).toThrow(ImperativeError);
     });
 });

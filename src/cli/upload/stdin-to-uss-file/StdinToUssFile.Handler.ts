@@ -18,6 +18,7 @@ export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
+        UssUtils.checkAbsoluteFilePath(ussFile);
         const content: Buffer | string = await CoreUtils.readStdin(params.stdin);
 
         const options = {
@@ -30,7 +31,7 @@ export default class UploadStdinToUssFileHandler extends FTPBaseHandler {
         const successMsg = params.response.console.log("Uploaded from %s to %s ", uploadSource, ussFile);
         params.response.data.setMessage(successMsg);
         this.log.info(successMsg);
-
     }
+
 }
 

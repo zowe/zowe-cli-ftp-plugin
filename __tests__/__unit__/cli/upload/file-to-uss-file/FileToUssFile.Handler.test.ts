@@ -38,5 +38,4 @@ describe("Upload file to data set handler", () => {
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("local file '/u/user/file1'");
         expect(mockResponse.console.log.mock.calls[0][2]).toBe("/u/user/ussfile1");
     });
-
 });

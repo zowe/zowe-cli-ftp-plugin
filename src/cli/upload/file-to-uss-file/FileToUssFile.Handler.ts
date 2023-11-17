@@ -17,6 +17,7 @@ export default class UploadFileToUssFileHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
+        UssUtils.checkAbsoluteFilePath(ussFile);
         const options = {
             localFile: params.arguments.file,
             transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,

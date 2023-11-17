@@ -36,5 +36,4 @@ describe("Upload file to data set handler", () => {
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("stdin");
         expect(mockResponse.console.log.mock.calls[0][2]).toBe("/u/user/ussfile1");
     });
-
 });
