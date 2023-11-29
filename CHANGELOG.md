@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- BugFix: Add missing npm-shrinkwrap
+
 ## `2.1.5`
 
 - Add checking the uss file path when upload file or stdin to uss file.
