@@ -2,6 +2,11 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Update the version of zos-node-accessor to 1.0.16
+
+
 ## `2.1.6`
 
 - BugFix: Add missing npm-shrinkwrap
