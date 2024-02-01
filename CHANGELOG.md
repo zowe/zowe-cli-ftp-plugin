@@ -2,6 +2,12 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+
+## Recent Changes
+
+- Simplify the preparation for JCL system tests
+
+
 ## `2.1.7`
 
 - Update the version of zos-node-accessor to 1.0.16
