@@ -13,9 +13,11 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("delete job command", () => {
     // Create the unique test environment
@@ -27,16 +29,18 @@ describe("delete job command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to submit a job from a local file and then delete the job", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobID = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;

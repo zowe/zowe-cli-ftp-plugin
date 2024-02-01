@@ -14,9 +14,11 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("submit job from local file command", () => {
     // Create the unique test environment
@@ -28,16 +30,18 @@ describe("submit job from local file command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_data_set.sh", testEnvironment,
