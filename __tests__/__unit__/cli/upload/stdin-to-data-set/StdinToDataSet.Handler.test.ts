@@ -13,7 +13,7 @@ import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import UploadStdinToDataSetHandler from "../../../../../src/cli/upload/stdin-to-data-set/StdinToDataSet.Handler";
 import TestUtils from "../../TestUtils";
 
-describe("Upload stdio to data set handler", () => {
+describe("Upload stdin to data set handler", () => {
 
     it("should return no data set if the data set is not found.", async () => {
         const handler = new UploadStdinToDataSetHandler();

@@ -13,9 +13,9 @@ import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import UploadStdinToUssFileHandler from "../../../../../src/cli/upload/stdin-to-uss-file/StdinToUssFile.Handler";
 import TestUtils from "../../TestUtils";
 
-describe("Upload file to data set handler", () => {
+describe("Upload stdin to USS file handler", () => {
 
-    it("should return no data set if the data set is not found.", async () => {
+    it("should return no data set if the USS file is not found.", async () => {
         const handler = new UploadStdinToUssFileHandler();
 
         CoreUtils.readStdin = jest.fn().mockReturnValue(Promise.resolve(Buffer.from("sss")));
