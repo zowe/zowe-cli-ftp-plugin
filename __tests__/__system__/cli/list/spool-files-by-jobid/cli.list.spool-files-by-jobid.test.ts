@@ -13,9 +13,11 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("list spool-files-by-jobid command", () => {
     // Create the unique test environment
@@ -27,16 +29,18 @@ describe("list spool-files-by-jobid command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to submit a job and then list spool files for the job ID", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         expect(iefbr14Content).toContain("IEFBR14");
         const jobid = await connection.submitJCL(iefbr14Content);

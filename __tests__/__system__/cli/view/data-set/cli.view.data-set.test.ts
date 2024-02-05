@@ -13,10 +13,12 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("view data-set command", () => {
     // Create the unique test environment
@@ -29,15 +31,17 @@ describe("view data-set command", () => {
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
         testDataSet = testEnvironment.systemTestProperties.datasets.writablePDS;
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to view the job data set from the test properties file", async () => {
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member.toUpperCase();
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const result = runCliScript(__dirname + "/__scripts__/command_view_data_set.sh", testEnvironment, [iefbr14DataSet]);
         expect(result.stderr.toString()).toEqual("");

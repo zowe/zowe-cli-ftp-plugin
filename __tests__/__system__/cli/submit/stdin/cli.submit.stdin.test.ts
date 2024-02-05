@@ -13,9 +13,14 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { IO } from "@zowe/imperative";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
+let sleepDataSet: string;
+let iefbr14Content: string;
+let sleepContent: string;
 
 describe("submit job from stdin command", () => {
     // Create the unique test environment
@@ -27,16 +32,20 @@ describe("submit job from stdin command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
+        sleepDataSet = await prepareTestJclDataSet(connection, pds, "SLEEP");
+        iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        sleepContent = (await connection.getDataset(sleepDataSet)).toString();
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to submit a job from standard in and see the job name and job id", async () => {
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         await IO.writeFileAsync(jclFilePath, iefbr14Content);
         const result = runCliScript(__dirname + "/__scripts__/command_submit_stdin.sh", testEnvironment, [jclFilePath]);
@@ -47,8 +56,6 @@ describe("submit job from stdin command", () => {
     });
 
     it("should be able to submit a job from stdin with wait option and get rc successfully", async () => {
-        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option ="--wait";
@@ -63,8 +70,6 @@ describe("submit job from stdin command", () => {
     });
 
     it("should give a syntax error if the wait value is invalid", async () => {
-        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option ="--wait";
@@ -77,8 +82,6 @@ describe("submit job from stdin command", () => {
 
     it("should be able to submit a job from stdin but not finished within specified wait option", async () => {
         // download the appropriate JCL content from the data set
-        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option ="--wait";
@@ -92,8 +95,6 @@ describe("submit job from stdin command", () => {
     });
 
     it("should be able to submit a job from stdin with wait-for-output option and get rc successfully", async () => {
-        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option = "--wait-for-output";
@@ -106,8 +107,6 @@ describe("submit job from stdin command", () => {
     });
 
     it("should be able to submit a job from stdin with wait-for-active option and get rc successfully", async () => {
-        const sleepDataSet = testEnvironment.systemTestProperties.jobs.sleepMember;
-        const sleepContent = (await connection.getDataset(sleepDataSet)).toString();
         const jclFilePath = testEnvironment.workingDir + "/sleep.txt";
         await IO.writeFileAsync(jclFilePath, sleepContent);
         const option = "--wait-for-active";
