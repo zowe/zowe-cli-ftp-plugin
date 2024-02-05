@@ -14,9 +14,11 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { IO } from "@zowe/imperative";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let connection: any;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("download all-spool-by-jobid command", () => {
     // Create the unique test environment
@@ -28,16 +30,18 @@ describe("download all-spool-by-jobid command", () => {
         });
         expect(testEnvironment).toBeDefined();
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to submit an IEFBR14 job and then download the jobid", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;
@@ -56,7 +60,6 @@ describe("download all-spool-by-jobid command", () => {
 
     it("should be able to submit a job from a local file and then download the spool, omitting the jobid directory", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member;
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;

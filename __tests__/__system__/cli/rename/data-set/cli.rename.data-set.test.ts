@@ -14,11 +14,13 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, randomDsName } from "../../../../__src__/TestUtils";
 import { inspect } from "util";
+import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
 
 let user: string;
 let connection: any;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
+let iefbr14DataSet: string;
 
 describe("rename data set command", () => {
     // Create the unique test environment
@@ -32,15 +34,17 @@ describe("rename data set command", () => {
         connection = await FTPConfig.connectFromArguments(testEnvironment.systemTestProperties.zftp);
         user = testEnvironment.systemTestProperties.zftp.user.trim().toUpperCase();
         testDataSet = testEnvironment.systemTestProperties.datasets.renamablePDS;
+
+        const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
+        iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
     });
 
     afterAll(async () => {
-        connection.close();
+        connection?.close();
         await TestEnvironment.cleanUp(testEnvironment);
     });
 
     it("should be able to upload a file to a data set member then rename the member", async () => {
-        const iefbr14DataSet = testEnvironment.systemTestProperties.jobs.iefbr14Member.toUpperCase();
         const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
         const memberSuffixLength = 6;
         const originalMember = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
