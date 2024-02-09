@@ -142,7 +142,7 @@ export class DataSetUtils {
             this.log.debug("Attempting to upload to data set '%s' in transfer mode '%s'", dsn, option.transferType);
         }
         if (transferType === TRANSFER_TYPE_ASCII) {
-            content = CoreUtils.addCarriageReturns(content.toString());
+            content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
         await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteparm);
     }

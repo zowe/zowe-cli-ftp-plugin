@@ -5,6 +5,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## Recent Changes
 
+- BugFix: Upload dataset using Buffer, stead of string. [2533](https://github.com/zowe/vscode-extension-for-zowe/issues/2533)
 - Simplify the preparation for JCL system tests
 
 
