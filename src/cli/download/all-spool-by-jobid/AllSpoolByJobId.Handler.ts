@@ -44,7 +44,11 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 "procstep": spoolFileToDownload.procstep === "N/A" || spoolFileToDownload.procstep == null ?
                     undefined : spoolFileToDownload.procstep,
             };
-            const destinationFile = DownloadJobs.getSpoolDownloadFile(mockJobFile, params.arguments.omitJobidDirectory, params.arguments.directory);
+            const destinationFile = DownloadJobs.getSpoolDownloadFilePath({
+                jobFile: mockJobFile,
+                omitJobidDirectory: params.arguments.omitJobidDirectory,
+                outDir: params.arguments.directory
+            });
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
             IO.writeFile(destinationFile, spoolFileToDownload.contents);

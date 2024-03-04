@@ -9,17 +9,10 @@ Object {
   "pluginAliases": Array [
     "zftp",
   ],
-  "pluginHealthCheck": "./lib/healthCheck.handler",
   "pluginSummary": "z/OS Files and jobs via FTP",
   "productDisplayName": "z/OS FTP Plugin",
   "profiles": Array [
     Object {
-      "createProfileExamples": Array [
-        Object {
-          "description": "Create a zftp profile called 'myprofile' with default settings (port, timeout, etc.) to connect with the host system 123.",
-          "options": "myprofile -u ibmuser -p ibmp4ss -H sys123",
-        },
-      ],
       "schema": Object {
         "description": "Configuration profile for z/OS FTP",
         "optional": Array [

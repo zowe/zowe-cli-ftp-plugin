@@ -23,16 +23,10 @@ const config: IImperativeConfig = {
     productDisplayName: "z/OS FTP Plugin",
     pluginAliases: ["zftp"],
     pluginSummary: "z/OS Files and jobs via FTP",
-    pluginHealthCheck: "./lib/healthCheck.handler",
     name: "zos-ftp",
     profiles: [
         {
             type: "zftp",
-            createProfileExamples: [{
-                options: "myprofile -u ibmuser -p ibmp4ss -H sys123",
-                description: "Create a zftp profile called 'myprofile' with default settings (port" +
-                ", timeout, etc.) to connect with the host system 123."
-            }],
             schema: {
                 type: "object",
                 title: "Configuration profile for z/OS FTP",
