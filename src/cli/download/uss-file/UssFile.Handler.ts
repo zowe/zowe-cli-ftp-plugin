@@ -13,7 +13,7 @@ import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { CoreUtils, IDatasetEntry, UssUtils } from "../../../api";
+import { CoreUtils, IUSSEntry, UssUtils } from "../../../api";
 
 export default class DownloadUssFileHandler extends FTPBaseHandler {
 
@@ -25,7 +25,7 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
 
         // Ensure to list directory if ussFile is under symbolic link of directory.
         const files = await UssUtils.listFiles(params.connection, dirname(ussFile) + '/');
-        const fileToDownload = files.find((f: IDatasetEntry) => {
+        const fileToDownload = files.find((f: IUSSEntry) => {
             return f.name === basename(ussFile);
         });
         if (fileToDownload === undefined) {

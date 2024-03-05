@@ -12,6 +12,9 @@
 import { IHandlerResponseConsoleApi } from "@zowe/imperative";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 import { ITransferMode } from "./constants";
+import { USSEntry } from "zos-node-accessor/lib/interfaces/USSEntry";
+
+export interface IUSSEntry extends USSEntry {}
 
 export interface IDownloadFileOption {
     /**

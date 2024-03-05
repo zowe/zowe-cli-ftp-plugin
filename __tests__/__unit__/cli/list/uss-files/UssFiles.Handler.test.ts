@@ -24,7 +24,7 @@ describe("List uss files handler", () => {
                 directory: "/u/user"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listFiles: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };
@@ -52,7 +52,7 @@ describe("List uss files handler", () => {
                 directory: "/u/user"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listFiles: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };
@@ -78,7 +78,7 @@ describe("List uss files handler", () => {
                 directory: "/u/user/ds*"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listFiles: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };

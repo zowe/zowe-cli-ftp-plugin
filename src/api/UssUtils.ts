@@ -15,10 +15,9 @@ import * as fs from "fs";
 import { IHandlerResponseConsoleApi, IO, ImperativeError, Logger } from "@zowe/imperative";
 import { CoreUtils } from "./CoreUtils";
 import { StreamUtils } from "./StreamUtils";
-import { IDeleteFileOption, IDownloadFileOption, IUploadFileOption } from "./doc/UssInterface";
+import { IDeleteFileOption, IDownloadFileOption, IUSSEntry, IUploadFileOption } from "./doc/UssInterface";
 import { TransferMode, ZosAccessor } from "zos-node-accessor";
 import { ReadStream } from "fs";
-import { IDatasetEntry } from "./doc/DataSetInterface";
 import { ITransferMode } from "./doc/constants";
 
 export class UssUtils {
@@ -30,7 +29,7 @@ export class UssUtils {
      * @param directory - directory to list
      * @returns file entries
      */
-    public static async listFiles(connection: ZosAccessor, directory: string): Promise<IDatasetEntry[]> {
+    public static async listFiles(connection: ZosAccessor, directory: string): Promise<IUSSEntry[]> {
         this.log.debug("Listing USS files in the directory '%s'", directory);
 
         // Only support wildcard matching in file names as follows.
@@ -50,14 +49,14 @@ export class UssUtils {
                 this.log.debug("Listing USS files in the directory '%s' with pattern '%s'", directoryToList, pattern);
             }
         }
-        let files = await connection.listDatasets(directoryToList);
+        let files = await connection.listFiles(directoryToList);
         if (filter) {
-            files = files.filter((file: IDatasetEntry) => filter(file.name));
+            files = files.filter((file: IUSSEntry) => filter(file.name));
         }
 
         this.log.debug("Found %d matching files", files.length);
-        const filteredFiles = files.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
-        return filteredFiles;
+        const filteredFiles = files.map((file: IUSSEntry) => CoreUtils.addLowerCaseKeysToObject(file));
+        return filteredFiles as IUSSEntry[];
     }
 
     /**

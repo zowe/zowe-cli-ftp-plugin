@@ -73,7 +73,7 @@ export class JobUtils {
      * @returns spool files with content
      */
     public static async getSpoolFiles(connection: ZosAccessor, jobId: string): Promise<ISpoolFile[]> {
-        const jobDetails = (await JobUtils.findJobByID(connection, jobId));
+        const jobDetails = await JobUtils.findJobByID(connection, jobId);
         const fullSpoolFiles: ISpoolFile[] = [];
         for (const spoolFileToDownload of jobDetails.spoolFiles) {
             this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobName, jobDetails.jobId, spoolFileToDownload.id);

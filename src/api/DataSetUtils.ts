@@ -33,7 +33,7 @@ export class DataSetUtils {
 
         this.log.debug("Found %d matching data sets", files.length);
         const filteredFiles = files.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
-        return filteredFiles;
+        return filteredFiles as IDatasetEntry[];
     }
 
     /**
@@ -52,7 +52,7 @@ export class DataSetUtils {
         this.log.debug("Found %d members", members.length);
         const filteredMembers = members.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
 
-        return filteredMembers;
+        return filteredMembers as IDatasetEntry[];
     }
 
     /**

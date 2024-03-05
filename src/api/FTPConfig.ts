@@ -175,6 +175,6 @@ export class FTPConfig {
      * @returns true if the user has specified any secure connection options
      */
     private static profileHasSecureOptions(args: Partial<ICommandArguments>): boolean {
-        return (args.rejectUnauthorized != null) || (args.serverName !== null);
+        return (args.rejectUnauthorized != null) || (args.serverName != null);
     }
 }

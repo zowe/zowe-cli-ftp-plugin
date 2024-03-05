@@ -12,7 +12,7 @@
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
 import { IDatasetEntry } from "./doc/DataSetInterface";
-import { ITransferMode } from "./doc";
+import { ITransferMode, IUSSEntry } from "./doc";
 
 export class CoreUtils {
 
@@ -71,7 +71,8 @@ export class CoreUtils {
         });
     }
 
-    public static addLowerCaseKeysToObject(obj: IDatasetEntry): IDatasetEntry {
+    public static addLowerCaseKeysToObject(obj: IDatasetEntry | IUSSEntry): IDatasetEntry | IUSSEntry {
+
         const result: { [key: string]: string } = {};
         for (const key of Object.keys(obj)) {
             // turn the object into a similar format to that returned by
@@ -80,7 +81,7 @@ export class CoreUtils {
             this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
             result[key.toLowerCase()] = obj[key];
         }
-        return result as IDatasetEntry;
+        return result as typeof obj;
     }
 
     public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
