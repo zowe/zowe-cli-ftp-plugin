@@ -13,8 +13,9 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 

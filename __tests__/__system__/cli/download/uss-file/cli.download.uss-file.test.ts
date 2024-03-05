@@ -44,7 +44,7 @@ describe("submit job from local file command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadDataset(uploadContent, destination, ITransferMode.ASCII);
+        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII);
         const downloadFilePath = testEnvironment.workingDir + "/uss.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file.sh", testEnvironment,
             [destination, downloadFilePath]);
@@ -54,6 +54,7 @@ describe("submit job from local file command", () => {
         const downloadedContent = IO.readFileSync(downloadFilePath);
         expect(downloadedContent.toString()).toContain(uploadContent);
         IO.deleteFile(downloadFilePath);
+        await connection.deleteFile(destination);
     });
 
     it("should be able to download a USS file to a  local file in binary mode and verify the content", async () => {
@@ -61,7 +62,7 @@ describe("submit job from local file command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".bin";
-        await connection.uploadDataset(randomContent, destination, ITransferMode.BINARY);
+        await connection.uploadFile(randomContent, destination, ITransferMode.BINARY);
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file_binary.sh", testEnvironment,
             [destination, downloadFilePath]);
@@ -71,7 +72,7 @@ describe("submit job from local file command", () => {
         const uploadedContent = IO.readFileSync(downloadFilePath, undefined, true);
         const uploadedContentString = uploadedContent.toString("hex");
         expect(uploadedContentString).toEqual(randomContent.toString("hex"));
-        await connection.deleteDataset(destination);
+        await connection.deleteFile(destination);
     });
 
     it("should give a syntax error if the USS file name is omitted", async () => {

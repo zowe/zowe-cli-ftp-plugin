@@ -13,8 +13,10 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
+import { ZosAccessor } from "zos-node-accessor";
+import { ITransferMode } from "../../../../../src/api";
 
-let connection: any;
+let connection: ZosAccessor;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -40,7 +42,7 @@ describe("delete data set command", () => {
         const memberSuffixLength = 6;
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
         const randomContentLength = 60;
-        await connection.uploadDataset(generateRandomAlphaNumericString(randomContentLength), "'" + destination + "'", "ascii");
+        await connection.uploadDataset(generateRandomAlphaNumericString(randomContentLength), "'" + destination + "'", ITransferMode.ASCII);
         const result = runCliScript(__dirname + "/__scripts__/command_delete_data_set.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");

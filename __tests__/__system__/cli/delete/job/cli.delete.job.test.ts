@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 
@@ -41,7 +42,7 @@ describe("delete job command", () => {
 
     it("should be able to submit a job from a local file and then delete the job", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const jobID = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;
         await CoreUtils.sleep(ONE_SECOND);

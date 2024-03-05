@@ -13,8 +13,10 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
+import { ZosAccessor } from "zos-node-accessor";
+import { ITransferMode } from "../../../../../src/api";
 
-let connection: any;
+let connection: ZosAccessor;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -41,7 +43,7 @@ describe("rename uss file command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadDataset(uploadContent, destination, "ascii"); // upload the USS file
+        await connection.uploadDataset(uploadContent, destination, ITransferMode.ASCII); // upload the USS file
         const renameDestination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const result = runCliScript(__dirname + "/__scripts__/command_rename_uss_file.sh", testEnvironment,
             [destination, renameDestination]);
@@ -49,7 +51,7 @@ describe("rename uss file command", () => {
         expect(result.stdout.toString()).toContain("renamed");
         expect(result.stdout.toString()).toContain("Success");
         expect(result.status).toEqual(0);
-        const renamedContent = (await connection.getDataset(renameDestination)).toString();
+        const renamedContent = (await connection.downloadFile(renameDestination)).toString();
         expect(renamedContent.trim()).toEqual(uploadContent);
         await connection.deleteDataset(renameDestination);
     });

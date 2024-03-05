@@ -14,8 +14,10 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
+import { ITransferMode } from "../../../../../src/api";
 
-let connection: any;
+let connection: ZosAccessor;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
@@ -42,7 +44,7 @@ describe("view data-set command", () => {
     });
 
     it("should be able to view the job data set from the test properties file", async () => {
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const result = runCliScript(__dirname + "/__scripts__/command_view_data_set.sh", testEnvironment, [iefbr14DataSet]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -56,12 +58,12 @@ describe("view data-set command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const memberSuffixLength = 6;
         const destination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        await connection.uploadDataset(randomContent, "'" + destination + "'", "binary");
+        await connection.uploadDataset(randomContent, "'" + destination + "'", ITransferMode.BINARY);
         const result = runCliScript(__dirname + "/__scripts__/command_view_data_set_binary.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset("'" + destination + "'", "binary"));
+        const uploadedContent = (await connection.downloadDataset("'" + destination + "'", ITransferMode.BINARY));
         // binary upload to a fixed record  data set will fill a data set with zeroes for the remainder of the record
         // so we can trim the zeroes off and still be accurate
         const uploadedContentString = uploadedContent.toString("hex").replace(/0+$/g, "");

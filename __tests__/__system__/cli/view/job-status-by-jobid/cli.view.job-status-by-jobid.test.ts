@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 let iefbr14Content: string;
@@ -33,7 +34,7 @@ describe("view job-status-by-jobid command", () => {
 
         const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
         iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
-        iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
     });
 
     afterAll(async () => {
