@@ -18,6 +18,7 @@ overrides:
         jest/no-standalone-expect: off
         jest/no-try-expect: off
         unused-imports/no-unused-vars: off
+        "@typescript-eslint/no-explicit-any": off
         "@typescript-eslint/no-magic-numbers": off
 parser: "@typescript-eslint/parser"
 parserOptions:

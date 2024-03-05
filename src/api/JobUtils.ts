@@ -23,8 +23,8 @@ export class JobUtils {
      * @param option - list job option
      * @returns job entries
      */
-    public static async listJobs(connection: any, prefix: string, option?: IListJobOption): Promise<IJob[]> {
-        const accessorOption: any = {
+    public static async listJobs(connection: ZosAccessor, prefix: string, option?: IListJobOption): Promise<IJob[]> {
+        const accessorOption: IListJobOption = {
             jobName: prefix || "*",
         };
         let debugMessage = `Listing jobs that match prefix ${prefix}`;
@@ -40,8 +40,7 @@ export class JobUtils {
 
         const jobs = await connection.listJobs(accessorOption);
         this.log.debug("List returned %d jobs", jobs.length);
-        const filteredJobs = JobUtils.parseJobDetails(jobs);
-        return filteredJobs;
+        return jobs;
     }
 
     /**
@@ -50,9 +49,9 @@ export class JobUtils {
      * @param connection - zos-node-accessor connection
      * @param jobId - job id
      */
-    public static async deleteJob(connection: any, jobId: string): Promise<void> {
+    public static async deleteJob(connection: ZosAccessor, jobId: string): Promise<void> {
         this.log.debug("Deleting job with job id '%s'", jobId);
-        await connection.deleteJob(jobId);
+        await connection.deleteJob({ jobId });
     }
 
     /**
@@ -130,34 +129,6 @@ export class JobUtils {
             jobStatus.retcode = jobStatus.retcode.replace(/^RC /, "CC ");
         }
         return jobStatus;
-    }
-
-    public static parseJobDetails(jobs: string[]): IJob[] {
-        if (jobs.length > 1) {
-            jobs = jobs.slice(1);
-        }
-        return jobs.map((job: string) => {
-            // object looks like:
-            // JOBNAME, JOBID, OWNER, STATUS, CLASS
-            // turn the object into a similar format to that returned by
-            // z/osmf so that users who use the list ds command in main
-            // zowe can use the same filtering options
-            const fields = job.split(/\s+/g);
-
-            const jobNameIndex = 0;
-            const jobIdIndex = 1;
-            const ownerIndex = 2;
-            const statusIndex = 3;
-            const classIndex = 4;
-            return {
-                jobname: fields[jobNameIndex],
-                jobid: fields[jobIdIndex],
-                owner: fields[ownerIndex],
-                status: fields[statusIndex],
-                class: fields[classIndex],
-                originalFtpResult: job
-            };
-        });
     }
 
     private static get log(): Logger {

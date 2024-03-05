@@ -212,13 +212,6 @@ export class UssUtils {
         }
     }
 
-    /**
-     * @internal
-     */
-    public static getBinaryTransferModeOrDefault(isBinary: boolean): ITransferMode {
-        return (isBinary ? ITransferMode.BINARY : ITransferMode.ASCII) as unknown as ITransferMode
-    }
-
     private static get log(): Logger {
         return Logger.getAppLogger();
     }

@@ -11,23 +11,30 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `IListJobOption.jobName`
     - `IListJobOption.jobId`
     - `ITransferMode`
-      - For a full list of transfer modes, see [TransferMode by zos-node-accessor](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/zosAccessor.ts#L67)
+      - For a full list of transfer modes, see [TransferMode by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/zosAccessor.ts#L67)
+    - `IConnectionOption`
+      - For a full list of transfer modes, see [ConnectionOption by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/ConnectionOption.ts#L17)
 - **Breaking**:
   - Removed the following constants, interfaces, and other values:
     - `IGetSpoolFileOption.jobName`
+    - `JobUtils.parseJobDetails`
   - Added proper typing to the parameters of the following functions:
     - `CoreUtils.addLowerCaseKeysToObject`
       - Return type changed: `any --> IDatasetEntry`
     - `CreateDataset.create`
     - `DataSetUtils.listDataSets`
     - `FTPConfig.connectFromArguments`
+      - Return type changed: `Promise<any> --> Promise<ZosAccessor>`
     - `FTPConfig.createConfigFromArguments`
+      - Return type changed: `any --> IConnectionOption`
     - `JobUtils.getSpoolFileContent`
       - Return type changed: `Promise<Buffer> --> Promise<string>`
     - `JobUtils.getSpoolFiles`
     - `JobUtils.submitJob`
     - `JobUtils.submitJobFromDataset`
     - `JobUtils.findJobByID`
+    - `JobUtils.listJobs`
+    - `JobUtils.deleteJob`
     - `UssUtils.listFiles`
       - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
     - `UssUtils.makeDirectory`
@@ -36,9 +43,20 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `UssUtils.downloadFile`
     - `UssUtils.uploadFile`
     - `UssUtils.deleteDirectory`
+    - `DataSetUtils.listDataSets`
+      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+    - `DataSetUtils.listMembers`
+      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+    - `DataSetUtils.deleteDataSet`
+    - `DataSetUtils.renameDataSet`
+    - `DataSetUtils.downloadDataSet`
+    - `DataSetUtils.uploadDataSet`
+    - `DataSetUtils.allocateDataSet`
+    - `AbstractTemplatedJCL.getJcl`
   - The properties in the interfaces below have changed:
     - `IDownloadFileOption.transferType?: string` to `IDownloadFileOption.transferType?: ITransferMode`
     - `IUploadFileOption.transferType?: string` to `IUploadFileOption.transferType?: ITransferMode`
+    - `IUploadDataSetOption.transferType?: string` to `IUploadDataSetOption.transferType?: ITransferMode`
     - `ISpoolFile.id: string` to `ISpoolFile.id: number`
     - `ISpoolFile.stepname: string` to `ISpoolFile.stepName: string`
     - `ISpoolFile.procstep: string` to `ISpoolFile.procStep: string`

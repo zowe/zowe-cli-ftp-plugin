@@ -9,11 +9,9 @@
  *
  */
 
-import { ZosAccessor} from "zos-node-accessor";
-import { ConnectionOption } from "zos-node-accessor/lib/interfaces/ConnectionOption";
-// import { ZosAccessor, ConnectionOption } from "zos-node-accessor";
-import { IZosFTPProfile } from "./doc/IZosFTPProfile";
+import { ZosAccessor } from "zos-node-accessor";
 import { ConnectionPropsForSessCfg, ICommandArguments, ICommandOptionDefinition, IHandlerParameters, ISession } from "@zowe/imperative";
+import { IConnectionOption } from "./doc";
 
 const ftpConnectionOptionGroup: string = "FTP Connection options";
 
@@ -146,9 +144,9 @@ export class FTPConfig {
      * @param arguments - the profile created by the user
      * @returns the config object for zos-node-accessor's ftp connection
      */
-    public static createConfigFromArguments(args: ICommandArguments): ConnectionOption {
+    public static createConfigFromArguments(args: ICommandArguments): IConnectionOption {
         // build the options argument for zos-node-accessor
-        const result: ConnectionOption = {
+        const result: IConnectionOption = {
             host: args.host,
             user: args.user,
             password: args.password,

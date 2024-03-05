@@ -12,6 +12,7 @@
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
 import { IDatasetEntry } from "./doc/DataSetInterface";
+import { ITransferMode } from "./doc";
 
 export class CoreUtils {
 
@@ -71,7 +72,7 @@ export class CoreUtils {
     }
 
     public static addLowerCaseKeysToObject(obj: IDatasetEntry): IDatasetEntry {
-        const result: IDatasetEntry = {} as any;
+        const result: { [key: string]: string } = {};
         for (const key of Object.keys(obj)) {
             // turn the object into a similar format to that returned by
             // z/osmf so that users who use the list ds command in main
@@ -79,7 +80,7 @@ export class CoreUtils {
             this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
             result[key.toLowerCase()] = obj[key];
         }
-        return result;
+        return result as IDatasetEntry;
     }
 
     public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
@@ -91,4 +92,10 @@ export class CoreUtils {
         return Logger.getAppLogger();
     }
 
+    /**
+     * @internal
+     */
+    public static getBinaryTransferModeOrDefault(isBinary: boolean): ITransferMode {
+        return (isBinary ? ITransferMode.BINARY : ITransferMode.ASCII) as unknown as ITransferMode;
+    }
 }

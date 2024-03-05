@@ -43,7 +43,7 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
 
         const jobid = await JobUtils.submitJob(params.connection, jcl);
         const jobDetails = await JobUtils.findJobByID(params.connection, jobid);
-        const subMsg = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobname, jobDetails.jobid);
+        const subMsg = params.response.console.log("Submitted job successfully, jobname(jobid): %s(%s)", jobDetails.jobName, jobDetails.jobId);
         this.log.info(subMsg);
         if (params.arguments.wait || params.arguments.wfo || params.arguments.wfa) {
             const waitMsg = params.response.console.log("Waiting for job completion.");
@@ -56,7 +56,7 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                         const currentJobDetails = await JobUtils.findJobByID(params.connection, jobid);
                         const status = currentJobDetails.status.toString();
                         if (status === "OUTPUT") {
-                            const successMsg = params.response.console.log("Job %s finished.", currentJobDetails.jobid);
+                            const successMsg = params.response.console.log("Job %s finished.", currentJobDetails.jobId);
                             params.response.data.setObj(currentJobDetails);
                             params.response.format.output({
                                 output: currentJobDetails,
@@ -80,7 +80,7 @@ export abstract class SubmitJobHandler extends FTPBaseHandler {
                             });
 
                             const tipMsg = params.response.console.log("\nPlease using the following command to check its status later: \n" +
-                                "    \"zowe zos-ftp view job-status-by-jobid", currentJobDetails.jobid, "\"");
+                                "    \"zowe zos-ftp view job-status-by-jobid", currentJobDetails.jobId, "\"");
                             this.log.info(tipMsg);
                             setTimeout(() => {
                                 clearInterval(timerId);

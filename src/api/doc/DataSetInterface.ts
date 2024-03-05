@@ -11,6 +11,7 @@
 
 import { DatasetEntry } from "zos-node-accessor/lib/interfaces/DatasetEntry";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
+import { ITransferMode } from "./constants";
 
 export interface IDatasetEntry extends DatasetEntry {}
 
@@ -55,7 +56,7 @@ export interface IUploadDataSetOption {
     /**
      * TRANSFER_TYPE_ASCII or TRANSFER_TYPE_BIANRY defined in CoreUtils.
      */
-    transferType?: string;
+    transferType?: ITransferMode;
 
     /**
     * Optional encoding for download and upload of z/OS data set

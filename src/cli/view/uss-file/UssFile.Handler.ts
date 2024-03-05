@@ -12,7 +12,7 @@
 import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils, IDatasetEntry, ITransferMode } from "../../../api";
+import { UssUtils, IDatasetEntry, CoreUtils } from "../../../api";
 
 export default class ViewUssFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
@@ -28,7 +28,7 @@ export default class ViewUssFileHandler extends FTPBaseHandler {
         }
 
         const options = {
-            transferType: UssUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             response: params.response,
             size: fileToDownload.size,
         };
