@@ -144,7 +144,7 @@ export class FTPConfig {
      * @param arguments - the profile created by the user
      * @returns the config object for zos-node-accessor's ftp connection
      */
-    public static createConfigFromArguments(args: ICommandArguments): IConnectionOption {
+    public static createConfigFromArguments(args: Partial<ICommandArguments>): IConnectionOption {
         // build the options argument for zos-node-accessor
         const result: IConnectionOption = {
             host: args.host,
@@ -174,7 +174,7 @@ export class FTPConfig {
      * @param args - the profile loaded from the user
      * @returns true if the user has specified any secure connection options
      */
-    private static profileHasSecureOptions(args: ICommandArguments): boolean {
+    private static profileHasSecureOptions(args: Partial<ICommandArguments>): boolean {
         return (args.rejectUnauthorized != null) || (args.serverName !== null);
     }
 }

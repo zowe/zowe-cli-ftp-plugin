@@ -9,16 +9,16 @@
  *
  */
 
+import { ITransferMode, IUploadDataSetOption } from "../../../src/api";
 import { DataSetUtils } from "../../../src/api/DataSetUtils";
-import { TRANSFER_TYPE_ASCII } from "../../../src/api/CoreUtils";
 
 export async function prepareTestJclDataSet(connection: any, pds: string, jclName: string): Promise<string> {
     const datasetName = `${pds}(${jclName})`;
     const filteredMembers = await DataSetUtils.listMembers(connection, pds);
-    if (filteredMembers.find(member => member === jclName) === undefined) {
-        const options = {
+    if (filteredMembers.find(member => member.name === jclName) === undefined) {
+        const options: IUploadDataSetOption = {
             localFile: `${__dirname}/../../../__tests__/__resources__/${jclName}.JCL`,
-            transferType: TRANSFER_TYPE_ASCII,
+            transferType: ITransferMode.ASCII as unknown as ITransferMode,
         };
         await DataSetUtils.uploadDataSet(connection, datasetName, options);
     }

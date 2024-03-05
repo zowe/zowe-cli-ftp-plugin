@@ -42,7 +42,7 @@ describe("list spool-files-by-jobid command", () => {
 
     it("should be able to submit a job and then list spool files for the job ID", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         expect(iefbr14Content).toContain("IEFBR14");
         const jobid = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;

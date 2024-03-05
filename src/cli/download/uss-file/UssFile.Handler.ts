@@ -13,7 +13,7 @@ import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { IDatasetEntry, UssUtils } from "../../../api";
+import { CoreUtils, IDatasetEntry, UssUtils } from "../../../api";
 
 export default class DownloadUssFileHandler extends FTPBaseHandler {
 
@@ -41,7 +41,7 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             size: fileToDownload.size,
             localFile: file,
             response: params.response,
-            transferType: UssUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             progress,
         };
         await UssUtils.downloadFile(params.connection, ussFile, options);
