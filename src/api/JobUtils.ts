@@ -10,7 +10,8 @@
  */
 
 import { Logger } from "@zowe/imperative";
-import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./JobInterface";
+import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./doc/JobInterface";
+import { ZosAccessor } from "zos-node-accessor";
 
 export class JobUtils {
 
@@ -61,7 +62,7 @@ export class JobUtils {
      * @param option - option
      * @returns spool file content
      */
-    public static async getSpoolFileContent(connection: any, option: IGetSpoolFileOption): Promise<Buffer> {
+    public static async getSpoolFileContent(connection: ZosAccessor, option: IGetSpoolFileOption): Promise<string> {
         return connection.getJobLog(option);
     }
 
@@ -72,14 +73,14 @@ export class JobUtils {
      * @param jobId - job ID
      * @returns spool files with content
      */
-    public static async getSpoolFiles(connection: any, jobId: string): Promise<ISpoolFile[]> {
+    public static async getSpoolFiles(connection: ZosAccessor, jobId: string): Promise<ISpoolFile[]> {
         const jobDetails = (await JobUtils.findJobByID(connection, jobId));
         const fullSpoolFiles: ISpoolFile[] = [];
         for (const spoolFileToDownload of jobDetails.spoolFiles) {
-            this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
+            this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobName, jobDetails.jobId, spoolFileToDownload.id);
             const option = {
-                jobName: jobDetails.jobname,
-                jobId: jobDetails.jobid,
+                jobName: jobDetails.jobName,
+                jobId: jobDetails.jobId,
                 owner: "*",
                 fileId: spoolFileToDownload.id
             };
@@ -97,7 +98,7 @@ export class JobUtils {
      * @param jcl - jcl
      * @returns job id
      */
-    public static async submitJob(connection: any, jcl: string): Promise<string> {
+    public static async submitJob(connection: ZosAccessor, jcl: string): Promise<string> {
         return connection.submitJCL(jcl);
     }
 
@@ -108,8 +109,8 @@ export class JobUtils {
      * @param dsn - fully-qualified JCL dataset name without quotes
      * @returns job id
      */
-    public static async submitJobFromDataset(connection: any, dsn: string): Promise<string> {
-        const dsContent = (await connection.getDataset("'" + dsn + "'")).toString();
+    public static async submitJobFromDataset(connection: ZosAccessor, dsn: string): Promise<string> {
+        const dsContent = (await connection.downloadDataset("'" + dsn + "'")).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", dsn);
         return JobUtils.submitJob(connection, dsContent);
     }
@@ -121,7 +122,7 @@ export class JobUtils {
      *                         note: you can't use the abbreviated version like j123. it must be the full job ID
      * @param connection - connection to zos-node-accessor
      */
-    public static async findJobByID(connection: any, jobId: string): Promise<IJobStatus> {
+    public static async findJobByID(connection: ZosAccessor, jobId: string): Promise<IJobStatus> {
         this.log.debug("Attempting to locate job by job ID %s", jobId);
         const jobStatus = await connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
         if (jobStatus.retcode) {

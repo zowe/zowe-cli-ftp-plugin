@@ -9,9 +9,11 @@
  *
  */
 
-import { isString } from "util";
+import { ZosAccessor} from "zos-node-accessor";
+import { ConnectionOption } from "zos-node-accessor/lib/interfaces/ConnectionOption";
+// import { ZosAccessor, ConnectionOption } from "zos-node-accessor";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
-import { ConnectionPropsForSessCfg, ICommandOptionDefinition, IHandlerParameters, ISession } from "@zowe/imperative";
+import { ConnectionPropsForSessCfg, ICommandArguments, ICommandOptionDefinition, IHandlerParameters, ISession } from "@zowe/imperative";
 
 const ftpConnectionOptionGroup: string = "FTP Connection options";
 
@@ -118,7 +120,7 @@ export class FTPConfig {
      * @param {IHandlerParameters} handlerParams - The command parameters object for daemon mode prompting
      * @returns  the connection to zos-node-accessor's APIs
      */
-    public static async connectFromArguments(args: any, doPrompting = true, handlerParams?: IHandlerParameters) {
+    public static async connectFromArguments(args: ICommandArguments, doPrompting = true, handlerParams?: IHandlerParameters): Promise<ZosAccessor> {
         const sessCfg: ISession = {
             type: "basic",
             hostname: args.host,
@@ -134,7 +136,7 @@ export class FTPConfig {
             user: sessCfgWithCreds.user,
             password: sessCfgWithCreds.password
         });
-        const zosAccessor = new (require("zos-node-accessor"))();
+        const zosAccessor = new ZosAccessor();
         return zosAccessor.connect(ftpConfig);
     }
 
@@ -144,9 +146,9 @@ export class FTPConfig {
      * @param arguments - the profile created by the user
      * @returns the config object for zos-node-accessor's ftp connection
      */
-    public static createConfigFromArguments(args: any): any {
+    public static createConfigFromArguments(args: ICommandArguments): ConnectionOption {
         // build the options argument for zos-node-accessor
-        const result: any = {
+        const result: ConnectionOption = {
             host: args.host,
             user: args.user,
             password: args.password,
@@ -154,7 +156,7 @@ export class FTPConfig {
             connTimeout: args.connectionTimeout
         };
         if (args.secureFtp != null) {
-            if (isString(args.secureFtp) && args.secureFtp.trim().toLowerCase() === "true") {
+            if (typeof args.secureFtp === "string" && args.secureFtp.trim().toLowerCase() === "true") {
                 result.secure = true;
             } else {
                 result.secure = args.secureFtp;
@@ -174,7 +176,7 @@ export class FTPConfig {
      * @param args - the profile loaded from the user
      * @returns true if the user has specified any secure connection options
      */
-    private static profileHasSecureOptions(args: IZosFTPProfile): boolean {
+    private static profileHasSecureOptions(args: ICommandArguments): boolean {
         return (args.rejectUnauthorized != null) || (args.serverName !== null);
     }
 }

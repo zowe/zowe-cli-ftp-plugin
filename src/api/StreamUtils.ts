@@ -10,7 +10,7 @@
  */
 
 import { Readable, Writable } from "stream";
-import { IFTPProgressHandler } from "./IFTPProgressHandler";
+import { IFTPProgressHandler } from "./doc/IFTPProgressHandler";
 
 export class StreamUtils {
 
@@ -38,7 +38,7 @@ export class StreamUtils {
                 }
                 resolve(data);
             });
-            stream.on("error", (error: any) => {
+            stream.on("error", (error: Error) => {
                 if (progress != null) {
                     progress.end();
                 }
@@ -78,7 +78,7 @@ export class StreamUtils {
                 }
                 resolve(downloadedBytes);
             });
-            stream.on("error", (error: any) => {
+            stream.on("error", (error: Error) => {
                 if (progress != null) {
                     progress.end();
                 }

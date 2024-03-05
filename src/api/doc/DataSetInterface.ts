@@ -9,12 +9,10 @@
  *
  */
 
+import { DatasetEntry } from "zos-node-accessor/lib/interfaces/DatasetEntry";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 
-/**
- * Bytes per track.
- */
-export const TRACK = 56664;
+export interface IDatasetEntry extends DatasetEntry {}
 
 export interface IDownloadDataSetOption {
     /**
@@ -73,5 +71,3 @@ export interface IAllocateDataSetOption {
     dcb?: string;
 }
 
-// When DataSetUtilsV2 for zos-node-accessor v2 is ready, alias DataSetUtilsV2 to DataSetUtils.
-// export { DataSetUtils as DataSetUtils };

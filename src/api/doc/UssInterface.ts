@@ -11,11 +11,11 @@
 
 import { IHandlerResponseConsoleApi } from "@zowe/imperative";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
-import { UssUtils } from "./UssUtils";
+import { ITransferMode } from "./constants";
 
 export interface IDownloadFileOption {
     /**
-     * Optional local file that the dowloaded file will be saved to.
+     * Optional local file that the downloaded file will be saved to.
      */
     localFile?: string;
 
@@ -30,9 +30,9 @@ export interface IDownloadFileOption {
     size: number;
 
     /**
-     * TRANSFER_TYPE_ASCII or TRANSFER_TYPE_BIANRY defined in CoreUtils.
+     * The type of transfer used to download the USS file
      */
-    transferType?: string;
+    transferType?: ITransferMode;
 }
 
 export interface IUploadFileOption {
@@ -47,9 +47,9 @@ export interface IUploadFileOption {
     localFile?: string;
 
     /**
-     * TRANSFER_TYPE_ASCII or TRANSFER_TYPE_BIANRY defined in CoreUtils.
+     * The type of transfer used to download the USS file
      */
-    transferType?: string;
+    transferType?: ITransferMode;
 }
 
 export interface IDeleteFileOption {
@@ -64,6 +64,3 @@ export interface IDeleteFileOption {
      */
     recursive?: boolean;
 }
-
-// When UssUtilsV2 for zos-node-accessor v2 is ready, alias UssUtilsV2 to UssUtils.
-export { UssUtils as UssUtils };

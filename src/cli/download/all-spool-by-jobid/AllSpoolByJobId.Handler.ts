@@ -25,31 +25,35 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
             throw new ImperativeError({
                 msg: TextUtils.formatMessage("No spool files were available for job %s(%s). " +
                     "Try again after waiting a moment if the job is not yet in OUTPUT status.",
-                jobDetails.jobname, jobDetails.jobid)
+                jobDetails.jobName, jobDetails.jobId)
             });
         }
-        const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobid);
+        const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobId);
         for (const spoolFileToDownload of fullSpoolFiles) {
             const mockJobFile: IJobFile = { // mock a job file to get the same format of download directories
-                "jobid": jobDetails.jobid, "jobname": jobDetails.jobname,
-                "recfm": "FB", "lrecl": 80, "byte-count": spoolFileToDownload.byteCount,
+                jobid: jobDetails.jobId,
+                jobname: jobDetails.jobName,
+                recfm: "FB",
+                lrecl: 80,
+                "byte-count": spoolFileToDownload.byteCount,
                 // todo is recfm or lrecl available? FB 80 could be wrong
                 "record-count": 0,
                 "job-correlator": "", // most of these options don't matter for download
-                "class": "A", "ddname": spoolFileToDownload.ddname,
-                "id": parseInt(spoolFileToDownload.id, 10),
+                class: "A",
+                ddname: spoolFileToDownload.ddName,
+                id: spoolFileToDownload.id,
                 "records-url": "",
-                "subsystem": "JES2",
-                "stepname": spoolFileToDownload.stepname,
-                "procstep": spoolFileToDownload.procstep === "N/A" || spoolFileToDownload.procstep == null ?
-                    undefined : spoolFileToDownload.procstep,
+                subsystem: "JES2",
+                stepname: spoolFileToDownload.stepName,
+                procstep: spoolFileToDownload.procStep === "N/A" || spoolFileToDownload.procStep == null ?
+                    undefined : spoolFileToDownload.procStep,
             };
             const destinationFile = DownloadJobs.getSpoolDownloadFilePath({
                 jobFile: mockJobFile,
                 omitJobidDirectory: params.arguments.omitJobidDirectory,
                 outDir: params.arguments.directory
             });
-            this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
+            this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddName, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
             IO.writeFile(destinationFile, spoolFileToDownload.contents);
         }

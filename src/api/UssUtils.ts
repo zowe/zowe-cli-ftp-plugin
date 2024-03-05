@@ -13,9 +13,13 @@ import * as PATH from "path";
 import * as fs from "fs";
 
 import { IHandlerResponseConsoleApi, IO, ImperativeError, Logger } from "@zowe/imperative";
-import { CoreUtils, TRANSFER_TYPE_ASCII } from "./CoreUtils";
+import { CoreUtils } from "./CoreUtils";
 import { StreamUtils } from "./StreamUtils";
-import { IDeleteFileOption, IDownloadFileOption, IUploadFileOption } from "./UssInterface";
+import { IDeleteFileOption, IDownloadFileOption, IUploadFileOption } from "./doc/UssInterface";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
+import { ReadStream } from "fs";
+import { IDatasetEntry } from "./doc/DataSetInterface";
+import { ITransferMode } from "./doc/constants";
 
 export class UssUtils {
 
@@ -26,7 +30,7 @@ export class UssUtils {
      * @param directory - directory to list
      * @returns file entries
      */
-    public static async listFiles(connection: any, directory: string): Promise<any[]> {
+    public static async listFiles(connection: ZosAccessor, directory: string): Promise<IDatasetEntry[]> {
         this.log.debug("Listing USS files in the directory '%s'", directory);
 
         // Only support wildcard matching in file names as follows.
@@ -46,13 +50,13 @@ export class UssUtils {
                 this.log.debug("Listing USS files in the directory '%s' with pattern '%s'", directoryToList, pattern);
             }
         }
-        let files = await connection.listDataset(directoryToList);
+        let files = await connection.listDatasets(directoryToList);
         if (filter) {
-            files = files.filter((file: any) => filter(file.name));
+            files = files.filter((file: IDatasetEntry) => filter(file.name));
         }
 
         this.log.debug("Found %d matching files", files.length);
-        const filteredFiles = files.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));
+        const filteredFiles = files.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
         return filteredFiles;
     }
 
@@ -62,7 +66,7 @@ export class UssUtils {
      * @param connection - zos-node-accessor connection
      * @param directory - directory to make
      */
-    public static async makeDirectory(connection: any, directory: string): Promise<void> {
+    public static async makeDirectory(connection: ZosAccessor, directory: string): Promise<void> {
         this.log.debug("Attempting to make USS directory '%s'", directory);
         await connection.makeDirectory(directory);
     }
@@ -74,9 +78,9 @@ export class UssUtils {
      * @param oldNanme - old name of file or directory
      * @param newName - new name of file or directory
      */
-    public static async renameFile(connection: any, oldNanme: string, newName: string): Promise<void> {
+    public static async renameFile(connection: ZosAccessor, oldNanme: string, newName: string): Promise<void> {
         this.log.debug("Attempting to rename USS file or directory from '%s' to '%s'", oldNanme, newName);
-        await connection.rename(oldNanme, newName);
+        await connection.renameFile(oldNanme, newName);
     }
 
     /**
@@ -86,7 +90,7 @@ export class UssUtils {
      * @param fileOrDir - file or directory
      * @param option - delete file option
      */
-    public static async deleteFile(connection: any, fileOrDir: string, option?: IDeleteFileOption): Promise<void> {
+    public static async deleteFile(connection: ZosAccessor, fileOrDir: string, option?: IDeleteFileOption): Promise<void> {
         this.log.debug("Deleting USS file '%s'", fileOrDir);
 
         if (option && option.recursive) {
@@ -104,12 +108,11 @@ export class UssUtils {
      * @param option - download option
      * @returns promise to return buffer when accomplished. If `localFile` is specified, return undefined.
      */
-    public static async downloadFile(connection: any, ussFile: string, option: IDownloadFileOption): Promise<Buffer> {
-        const transferType = option.transferType || TRANSFER_TYPE_ASCII;
-
+    public static async downloadFile(connection: ZosAccessor, ussFile: string, option: IDownloadFileOption): Promise<Buffer> {
+        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
         let buffer;
         let length;
-        const stream = await connection.getDataset(ussFile, transferType, true);
+        const stream = await connection.downloadFile(ussFile, transferType, true) as ReadStream;
         if (option.localFile) {
             this.log.debug("Downloading USS file '%s' to local file '%s' in transfer mode '%s", ussFile, option.localFile, transferType);
             IO.createDirsSyncFromFilePath(option.localFile);
@@ -131,17 +134,17 @@ export class UssUtils {
      * @param ussFile - file path name
      * @param option - upload option
      */
-    public static async uploadFile(connection: any, ussFile: string, option: IUploadFileOption): Promise<void> {
-        const transferType = option.transferType || TRANSFER_TYPE_ASCII;
+    public static async uploadFile(connection: ZosAccessor, ussFile: string, option: IUploadFileOption): Promise<void> {
+        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
         let content = option.content;
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to USS file '%s' in transfer mode '%s'",
                 option.localFile, ussFile, transferType);
-            content = IO.readFileSync(option.localFile, undefined, transferType === "binary");
+            content = IO.readFileSync(option.localFile, undefined, transferType === ITransferMode.BINARY);
         } else {
             this.log.debug("Attempting to upload to USS file'%s' in transfer mode '%s'", ussFile, transferType);
         }
-        if (transferType === TRANSFER_TYPE_ASCII) {
+        if (transferType === ITransferMode.ASCII) {
             // if we're in ascii mode, we need carriage returns to avoid errors
             content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
@@ -182,8 +185,8 @@ export class UssUtils {
         }
     }
 
-    public static async deleteDirectory(connection: any, dir: string, response?: IHandlerResponseConsoleApi): Promise<void> {
-        const files = await connection.listDataset(dir);
+    public static async deleteDirectory(connection: ZosAccessor, dir: string, response?: IHandlerResponseConsoleApi): Promise<void> {
+        const files = await connection.listDatasets(dir);
         for (const file of files) {
             const filePath = PATH.posix.join(dir, file.name);
             if (file.isDirectory) {
@@ -201,12 +204,19 @@ export class UssUtils {
         }
     }
 
-    public static checkAbsoluteFilePath(filePath: string) {
+    public static checkAbsoluteFilePath(filePath: string): string {
         if (!filePath.startsWith('/')) {
-            throw new ImperativeError({ msg: "Please check the uss file path. The full file path is required."});
+            throw new ImperativeError({ msg: "Please check the uss file path. The full file path is required." });
         } else {
             return filePath;
         }
+    }
+
+    /**
+     * @internal
+     */
+    public static getBinaryTransferModeOrDefault(isBinary: boolean): ITransferMode {
+        return (isBinary ? ITransferMode.BINARY : ITransferMode.ASCII) as unknown as ITransferMode
     }
 
     private static get log(): Logger {

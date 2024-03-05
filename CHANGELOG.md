@@ -6,6 +6,51 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 - Major: Zowe V3 release
 
+- **Enhancements**:
+  - The following properties, interfaces, and/or functions were added:
+    - `IListJobOption.jobName`
+    - `IListJobOption.jobId`
+    - `ITransferMode`
+      - For a full list of transfer modes, see [TransferMode by zos-node-accessor](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/zosAccessor.ts#L67)
+- **Breaking**:
+  - Removed the following constants, interfaces, and other values:
+    - `IGetSpoolFileOption.jobName`
+  - Added proper typing to the parameters of the following functions:
+    - `CoreUtils.addLowerCaseKeysToObject`
+      - Return type changed: `any --> IDatasetEntry`
+    - `CreateDataset.create`
+    - `DataSetUtils.listDataSets`
+    - `FTPConfig.connectFromArguments`
+    - `FTPConfig.createConfigFromArguments`
+    - `JobUtils.getSpoolFileContent`
+      - Return type changed: `Promise<Buffer> --> Promise<string>`
+    - `JobUtils.getSpoolFiles`
+    - `JobUtils.submitJob`
+    - `JobUtils.submitJobFromDataset`
+    - `JobUtils.findJobByID`
+    - `UssUtils.listFiles`
+      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+    - `UssUtils.makeDirectory`
+    - `UssUtils.renameFile`
+    - `UssUtils.deleteFile`
+    - `UssUtils.downloadFile`
+    - `UssUtils.uploadFile`
+    - `UssUtils.deleteDirectory`
+  - The properties in the interfaces below have changed:
+    - `IDownloadFileOption.transferType?: string` to `IDownloadFileOption.transferType?: ITransferMode`
+    - `IUploadFileOption.transferType?: string` to `IUploadFileOption.transferType?: ITransferMode`
+    - `ISpoolFile.id: string` to `ISpoolFile.id: number`
+    - `ISpoolFile.stepname: string` to `ISpoolFile.stepName: string`
+    - `ISpoolFile.procstep: string` to `ISpoolFile.procStep: string`
+    - `ISpoolFile.ddname: string` to `ISpoolFile.ddName: string`
+    - `ISpoolFile.ddname: string` to `ISpoolFile.ddName: string`
+    - `IJobStatus.jobname: string` to `IJobStatus.jobName: string`
+    - `IJobStatus.jobid: string` to `IJobStatus.jobId: string`
+    - `IJob.jobname: string` to `IJob.jobName: string`
+    - `IJob.jobid: string` to `IJob.jobId: string`
+    - `IGetSpoolFileOption.fileId: string` to `IGetSpoolFileOption.fileId: number`
+    -
+
 ## `2.1.8`
 
 - BugFix: Upload dataset using Buffer, stead of string. [2533](https://github.com/zowe/vscode-extension-for-zowe/issues/2533)

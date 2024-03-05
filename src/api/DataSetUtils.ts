@@ -13,8 +13,10 @@ import * as fs from "fs";
 
 import { IO, Logger } from "@zowe/imperative";
 import { CoreUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "./CoreUtils";
-import { IAllocateDataSetOption, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
+import { IAllocateDataSetOption, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./doc/DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
+import { ZosAccessor } from "zos-node-accessor";
+import { DatasetEntry } from "zos-node-accessor/lib/interfaces/DatasetEntry";
 
 export class DataSetUtils {
 
@@ -25,12 +27,12 @@ export class DataSetUtils {
      * @param pattern - dataset name pattern
      * @returns dataset entries
      */
-    public static async listDataSets(connection: any, pattern: string): Promise<any[]> {
+    public static async listDataSets(connection: ZosAccessor, pattern: string): Promise<any[]> {
         this.log.debug("Listing data sets matching pattern '%s' via FTP", pattern);
-        const files = await connection.listDataset(pattern);
+        const files = await connection.listDatasets(pattern);
 
         this.log.debug("Found %d matching data sets", files.length);
-        const filteredFiles = files.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));
+        const filteredFiles = files.map((file: DatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
         return filteredFiles;
     }
 

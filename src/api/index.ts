@@ -12,9 +12,7 @@
 export * from "./doc";
 
 export * from "./CoreUtils";
-export * from "./DataSetInterface";
 export * from "./FTPConfig";
-export * from "./IFTPProgressHandler";
-export * from "./JobInterface";
-export * from "./UssInterface";
+export * from "./JobUtils";
 export * from "./DataSetUtils";
+export * from "./UssUtils";

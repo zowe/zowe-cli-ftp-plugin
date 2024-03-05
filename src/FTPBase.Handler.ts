@@ -12,6 +12,7 @@
 import { ICommandHandler, IHandlerParameters, ImperativeError, Logger } from "@zowe/imperative";
 import { IFTPHandlerParams } from "./IFTPHandlerParams";
 import { FTPConfig } from "./api";
+import { ZosAccessor } from "zos-node-accessor";
 
 /**
  * This class is used by the various zos-ftp handlers as the base class for their implementation.
@@ -27,7 +28,7 @@ export abstract class FTPBaseHandler implements ICommandHandler {
      */
     public async process(commandParameters: IHandlerParameters) {
 
-        let connection: any;
+        let connection: ZosAccessor;
         try {
             connection = await FTPConfig.connectFromArguments(commandParameters.arguments, true, commandParameters);
             this.log.info("Connected to FTP successfully");
