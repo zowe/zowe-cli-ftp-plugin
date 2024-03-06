@@ -10,11 +10,15 @@
  */
 
 import { TransferMode } from "zos-node-accessor";
+import { FileType } from "zos-node-accessor/lib/interfaces/USSEntry";
 
 /**
  * Bytes per track.
  */
 export const TRACK = 56664;
+
+export const IFileType = { ...FileType };
+export type IFileType = typeof IFileType;
 
 export const ITransferMode = { ...TransferMode };
 export type ITransferMode = typeof ITransferMode;

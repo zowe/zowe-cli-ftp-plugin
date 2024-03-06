@@ -18,7 +18,7 @@ import { StreamUtils } from "./StreamUtils";
 import { IDeleteFileOption, IDownloadFileOption, IUSSEntry, IUploadFileOption } from "./doc/UssInterface";
 import { TransferMode, ZosAccessor } from "zos-node-accessor";
 import { ReadStream } from "fs";
-import { ITransferMode } from "./doc/constants";
+import { IFileType, ITransferMode } from "./doc/constants";
 
 export class UssUtils {
 
@@ -92,10 +92,10 @@ export class UssUtils {
     public static async deleteFile(connection: ZosAccessor, fileOrDir: string, option?: IDeleteFileOption): Promise<void> {
         this.log.debug("Deleting USS file '%s'", fileOrDir);
 
-        if (option && option.recursive) {
+        if (option?.recursive) {
             await UssUtils.deleteDirectory(connection, fileOrDir, option.console);
         } else {
-            await connection.deleteDataset(fileOrDir);
+            await connection.deleteFile(fileOrDir);
         }
     }
 
@@ -147,7 +147,7 @@ export class UssUtils {
             // if we're in ascii mode, we need carriage returns to avoid errors
             content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
-        await connection.uploadDataset(content, ussFile, transferType);
+        await connection.uploadFile(content, ussFile, transferType);
     }
 
     /**
@@ -185,19 +185,19 @@ export class UssUtils {
     }
 
     public static async deleteDirectory(connection: ZosAccessor, dir: string, response?: IHandlerResponseConsoleApi): Promise<void> {
-        const files = await connection.listDatasets(dir);
+        const files = await connection.listFiles(dir);
         for (const file of files) {
             const filePath = PATH.posix.join(dir, file.name);
-            if (file.isDirectory) {
+            if (file.fileType === IFileType.DIRECTORY) {
                 await this.deleteDirectory(connection, filePath, response);
             } else {
-                await connection.deleteDataset(filePath);
+                await connection.deleteFile(filePath);
                 if (response) {
                     response.log("Deleted %s", filePath);
                 }
             }
         }
-        await connection.deleteDataset(dir);
+        await connection.deleteFile(dir);
         if (response) {
             response.log("Deleted %s", dir);
         }

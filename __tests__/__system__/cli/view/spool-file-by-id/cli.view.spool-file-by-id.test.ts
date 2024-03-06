@@ -49,7 +49,7 @@ describe("view spool-file-by-id command", () => {
         const jobStatus = await connection.getJobStatus({jobId});
         let jesJCLID;
         for (const file of jobStatus.spoolFiles ?? []) {
-            if (file.ddname === "JESJCL") {
+            if (file.ddName === "JESJCL") {
                 jesJCLID = file.id;
                 break;
             }

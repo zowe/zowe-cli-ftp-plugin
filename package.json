@@ -75,7 +75,6 @@
     "setupFilesAfterEnv": [
       "./__tests__/setUpJest.js"
     ],
-    "testResultsProcessor": "jest-stare",
     "transform": {
       ".(ts)": "ts-jest"
     },

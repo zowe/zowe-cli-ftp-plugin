@@ -58,9 +58,9 @@ describe("allocate data set command", () => {
         expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!');
 
         const attributes = await connection.listDatasets(destination);
-        expect(attributes[0].Dsorg).toEqual("PO");
-        expect(attributes[0].Lrecl).toEqual("100");
-        expect(attributes[0].Recfm).toEqual("FB");
+        expect(attributes[0].dsOrg).toEqual("PO");
+        expect(attributes[0].recordLength).toEqual(100);
+        expect(attributes[0].recordFormat).toEqual("FB");
     });
 
     it("should give a syntax error if the data set are omitted", async () => {

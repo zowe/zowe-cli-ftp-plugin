@@ -11,13 +11,13 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils } from "../../../api";
+import { IDeleteFileOption, UssUtils } from "../../../api";
 
 export default class DeleteUSSFileHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
         const ussFile = UssUtils.normalizeUnixPath(params.arguments.ussFile);
-        const option = {
+        const option: IDeleteFileOption = {
             console: params.response.console,
             recursive: params.arguments.recursive,
         };

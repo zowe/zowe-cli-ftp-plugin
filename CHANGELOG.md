@@ -14,6 +14,10 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
       - For a full list of transfer modes, see [TransferMode by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/zosAccessor.ts#L67)
     - `IConnectionOption`
       - For a full list of transfer modes, see [ConnectionOption by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/ConnectionOption.ts#L17)
+    - `IDatasetEntry`
+      - For a full list of transfer modes, see [DatasetEntry by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/DatasetEntry.ts#L17)
+    - `IUSSEntry`
+      - For a full list of transfer modes, see [USSEntry by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/USSEntry.ts#L19)
 - **Breaking**:
   - Removed the following constants, interfaces, and other values:
     - `IGetSpoolFileOption.jobName`
@@ -36,7 +40,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `JobUtils.listJobs`
     - `JobUtils.deleteJob`
     - `UssUtils.listFiles`
-      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+      - Return type changed: `Promise<any[]> --> Promise<IUSSEntry[]>`
     - `UssUtils.makeDirectory`
     - `UssUtils.renameFile`
     - `UssUtils.deleteFile`

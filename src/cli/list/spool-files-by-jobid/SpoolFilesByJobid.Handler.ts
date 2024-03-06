@@ -31,9 +31,9 @@ export default class ListSpoolFilesByJobidHandler extends FTPBaseHandler {
 
         // Format & print the response
         params.response.format.output({
-            fields: ["id", "ddname", "procstep", "stepname"],
+            fields: ["id", "ddName", "procStep", "stepName"],
             output: files,
-            format: "table"
+            format: "table",
         });
     }
 }

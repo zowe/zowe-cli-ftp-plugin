@@ -44,10 +44,10 @@ describe("list spool-files-by-jobid command", () => {
         // download the appropriate JCL content from the data set
         const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         expect(iefbr14Content).toContain("IEFBR14");
-        const jobid = await connection.submitJCL(iefbr14Content);
+        const jobId = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;
         await CoreUtils.sleep(ONE_SECOND);
-        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, [jobid]);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, [jobId]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("JESJCL");

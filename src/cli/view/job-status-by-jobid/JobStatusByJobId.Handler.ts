@@ -15,12 +15,12 @@ import { JobUtils } from "../../../api";
 
 export default class ViewJobStatusByJobIdHandler extends FTPBaseHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
-        this.log.debug("Viewing all spool files for job id: " + params.arguments.jobid);
-        const jobDetails = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
+        this.log.debug("Viewing all spool files for job id: " + params.arguments.jobId);
+        const jobDetails = await JobUtils.findJobByID(params.connection, params.arguments.jobId);
         params.response.data.setObj(jobDetails);
         params.response.format.output(
             {
-                fields: ["jobname", "jobid", "owner", "status", "rc", "retcode"],
+                fields: ["jobName", "jobId", "owner", "status", "rc", "retcode"],
                 output: jobDetails,
                 format: "object"
             }

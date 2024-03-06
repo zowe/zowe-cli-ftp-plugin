@@ -50,8 +50,8 @@ describe("view job-status-by-jobid command", () => {
         const result = runCliScript(__dirname + "/__scripts__/command_view_job_status_by_jobid.sh", testEnvironment, [jobID]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain("jobname");
-        expect(result.stdout.toString()).toContain("jobid");
+        expect(result.stdout.toString()).toContain("jobName");
+        expect(result.stdout.toString()).toContain("jobId");
         expect(result.stdout.toString()).toContain(jobID);
     });
 
@@ -59,7 +59,7 @@ describe("view job-status-by-jobid command", () => {
         const result = runCliScript(__dirname + "/__scripts__/command_view_job_status_by_jobid.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
-        expect(stderr).toContain("jobid");
+        expect(stderr).toContain("jobId");
         expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);
     });

@@ -79,7 +79,7 @@ describe("rename data set command", () => {
             const renameDataSetListResults: any[] = await connection.listDatasets(renameDestination);
             let renamedDataSet: any;
             for (const dataSet of renameDataSetListResults) {
-                if (dataSet.Dsname === renameDestination.toUpperCase()) {
+                if (dataSet.name === renameDestination.toUpperCase()) {
                     renamedDataSet = dataSet;
                     break;
                 }
@@ -97,7 +97,7 @@ describe("rename data set command", () => {
             const resetNameResults: any[] = await connection.listDatasets(originalName);
             let resetDataset: any;
             for (const dataSet of resetNameResults) {
-                if (dataSet.Dsname === originalName.toUpperCase()) {
+                if (dataSet.name === originalName.toUpperCase()) {
                     resetDataset = dataSet;
                 }
             }
@@ -105,7 +105,7 @@ describe("rename data set command", () => {
 
         } catch (e) {
             throw new Error("Warning! Rename of data set from your custom_properties file did not succeed!\nAttempted to rename from '" + originalName
-                + "' to '" + renameDestination + "'You may have to manually rename " +
+                + "' to '" + renameDestination + "'\nYou may have to manually rename " +
                 "or re-create the data set! Error encountered while renaming: \n" + inspect(e));
         }
     });
