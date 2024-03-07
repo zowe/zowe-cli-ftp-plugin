@@ -23,7 +23,7 @@ describe("Delete uss file handler", () => {
                 ussFile: "ussFile1"
             },
             connection: {
-                deleteDataset: jest.fn().mockReturnValue(Promise.resolve(""))
+                deleteFile: jest.fn().mockReturnValue(Promise.resolve(""))
             },
             response: mockResponse
         };

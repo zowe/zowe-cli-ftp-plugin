@@ -4,9 +4,9 @@ exports[`List spool files by job id handler should return correct message if at 
 Object {
   "fields": Array [
     "id",
-    "ddname",
-    "procstep",
-    "stepname",
+    "ddName",
+    "procStep",
+    "stepName",
   ],
   "format": "table",
   "output": Array [
@@ -35,9 +35,9 @@ exports[`List spool files by job id handler should return correct message if at 
 Object {
   "fields": Array [
     "id",
-    "ddname",
-    "procstep",
-    "stepname",
+    "ddName",
+    "procStep",
+    "stepName",
   ],
   "format": "table",
   "output": Array [
@@ -57,9 +57,9 @@ exports[`List spool files by job id handler should return no spool file if the n
 Object {
   "fields": Array [
     "id",
-    "ddname",
-    "procstep",
-    "stepname",
+    "ddName",
+    "procStep",
+    "stepName",
   ],
   "format": "table",
   "output": Array [],

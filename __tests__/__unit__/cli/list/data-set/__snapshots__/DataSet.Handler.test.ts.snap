@@ -14,7 +14,7 @@ Array [
 exports[`List data set handler should return correct message if the data set is found. 2`] = `
 Object {
   "fields": Array [
-    "dsname",
+    "name",
   ],
   "format": "table",
   "output": Array [
@@ -33,7 +33,7 @@ exports[`List data set handler should return no data set if the data set is not 
 exports[`List data set handler should return no data set if the data set is not found. 2`] = `
 Object {
   "fields": Array [
-    "dsname",
+    "name",
   ],
   "format": "table",
   "output": Array [],

@@ -111,7 +111,7 @@ Object {
       "positionals": Array [
         Object {
           "description": "The ID of the jobfor which you would like to list spool files",
-          "name": "jobid",
+          "name": "jobId",
           "required": true,
           "type": "string",
         },
