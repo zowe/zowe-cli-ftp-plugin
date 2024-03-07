@@ -87,26 +87,27 @@ Before you install the plug-in, meet the following requirements:
 
 5.  [Create a user profile](#create-a-user-profile).
 
-## Create a User Profile
+## Creating a user profile
 
-You can create a `zftp` user profile to avoid typing your connection details on every command. A `zftp` profile contains the host, port, username, and password for the z/OS you will connect. You can create multiple profiles and switch between them as needed.
+After you install the plug-in, you create an FTP profile. An FTP profile is recommended to issue commands to via FTP. FTP profiles contain your host, port, user name, and password for connect to z/OS using FTP. You can create multiple profiles and switch between them as needed.
 
 **Follow these steps:**
-1.  Create a zftp profile:
+1.  Install the z/OS FTP Plug-in for Zowe CLI
+2.  Create an FTP profile:
 
     ```
-    zowe profiles create zftp <profile name> -H <host> -u <user> -p <password> -P <port> --secure-ftp true
+    zowe config init
     ```
+3.  If using a non-standard port, set the port number to your FTP connection:
 
-    The result of the command displays as a success or failure message. You can use your profile when you issue commands in the zftp command group.
+    ```
+    zowe config set profiles.zftp.properties.port <port number>
+    ```
+4. If using a insecure connection, set the secureFtp value to false:
 
-**Notice** The option `--secure-ftp true` is strongly recommended if FTPS (FTP over SSL) is enabled in z/OS FTP service. This is not the same as SFTP (FTP over SSH).
-
-**Tip:** For more information about the syntax, actions, and options, for a profiles create command, open Zowe CLI and issue the following command:
-
-```
-zowe profiles create zftp -h
-```
+    ```
+    zowe config set profiles.zftp.properties.secureFtp false
+    ```
 
 ## Running tests
 
