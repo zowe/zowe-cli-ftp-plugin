@@ -13,7 +13,7 @@ import * as fs from "fs";
 
 import { IO, Logger } from "@zowe/imperative";
 import { CoreUtils } from "./CoreUtils";
-import { IAllocateDataSetOption, IDatasetEntry, IDownloadDataSetOption, IUploadDataSetOption } from "./doc/DataSetInterface";
+import { IAllocateDataSetOption, IDatasetEntry, IDatasetMemberEntry, IDownloadDataSetOption, IUploadDataSetOption } from "./doc/DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
 import { TransferMode, ZosAccessor } from "zos-node-accessor";
 import { ITransferMode, TRACK } from "./doc";
@@ -32,8 +32,7 @@ export class DataSetUtils {
         const files = await connection.listDatasets(pattern);
 
         this.log.debug("Found %d matching data sets", files.length);
-        const filteredFiles = files.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
-        return filteredFiles as IDatasetEntry[];
+        return files;
     }
 
     /**
@@ -43,16 +42,14 @@ export class DataSetUtils {
      * @param dsn - fully-qualified dataset name without quotes
      * @returns member entries
      */
-    public static async listMembers(connection: ZosAccessor, dsn: string): Promise<IDatasetEntry[]> {
+    public static async listMembers(connection: ZosAccessor, dsn: string): Promise<IDatasetMemberEntry[]> {
         this.log.debug("List members of %s", dsn);
 
         const datasetname = dsn + "(*)";
         const members = await connection.listDatasets(datasetname);
 
         this.log.debug("Found %d members", members.length);
-        const filteredMembers = members.map((file: IDatasetEntry) => CoreUtils.addLowerCaseKeysToObject(file));
-
-        return filteredMembers as IDatasetEntry[];
+        return members;
     }
 
     /**

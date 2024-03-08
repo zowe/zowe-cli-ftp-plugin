@@ -11,8 +11,7 @@
 
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
-import { IDatasetEntry } from "./doc/DataSetInterface";
-import { ITransferMode, IUSSEntry } from "./doc";
+import { ITransferMode } from "./doc";
 
 export class CoreUtils {
 
@@ -71,19 +70,6 @@ export class CoreUtils {
         });
     }
 
-    public static addLowerCaseKeysToObject(obj: IDatasetEntry | IUSSEntry): IDatasetEntry | IUSSEntry {
-
-        const result: { [key: string]: string } = {};
-        for (const key of Object.keys(obj)) {
-            // turn the object into a similar format to that returned by
-            // z/osmf so that users who use the list ds command in main
-            // zowe can use the same filtering options
-            this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
-            result[key.toLowerCase()] = obj[key];
-        }
-        return result as typeof obj;
-    }
-
     public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
         const ftpProfile = await require("../imperative").profiles as ICommandProfileTypeConfiguration[];
         return ftpProfile;
@@ -93,10 +79,10 @@ export class CoreUtils {
         return Logger.getAppLogger();
     }
 
-    /**
-     * @internal
-     */
-    public static getBinaryTransferModeOrDefault(isBinary: boolean): ITransferMode {
-        return (isBinary ? ITransferMode.BINARY : ITransferMode.ASCII) as unknown as ITransferMode;
+    public static getBinaryTransferModeOrDefault(isBinary: boolean, rdw = false): ITransferMode {
+        return (isBinary ?
+            (rdw ? ITransferMode.BINARY_RDW : ITransferMode.BINARY) :
+            (rdw ? ITransferMode.ASCII_RDW : ITransferMode.ASCII)
+        ) as unknown as ITransferMode;
     }
 }

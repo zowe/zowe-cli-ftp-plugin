@@ -22,9 +22,8 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
   - Removed the following constants, interfaces, and other values:
     - `IGetSpoolFileOption.jobName`
     - `JobUtils.parseJobDetails`
-  - Added proper typing to the parameters of the following functions:
     - `CoreUtils.addLowerCaseKeysToObject`
-      - Return type changed: `any --> IDatasetEntry`
+  - Added proper typing to the parameters of the following functions:
     - `CreateDataset.create`
     - `DataSetUtils.listDataSets`
     - `FTPConfig.connectFromArguments`

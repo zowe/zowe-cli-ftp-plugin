@@ -55,8 +55,7 @@ export class UssUtils {
         }
 
         this.log.debug("Found %d matching files", files.length);
-        const filteredFiles = files.map((file: IUSSEntry) => CoreUtils.addLowerCaseKeysToObject(file));
-        return filteredFiles as IUSSEntry[];
+        return files;
     }
 
     /**

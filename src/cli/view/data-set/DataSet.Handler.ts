@@ -11,13 +11,13 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
+import { CoreUtils, DataSetUtils } from "../../../api";
 
 export default class ViewDataSetHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         const options = {
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             response: params.response,
             encoding: params.arguments.encoding
         };

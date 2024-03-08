@@ -12,8 +12,10 @@
 import { DatasetEntry } from "zos-node-accessor/lib/interfaces/DatasetEntry";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
 import { ITransferMode } from "./constants";
+import { DatasetMemberEntry } from "zos-node-accessor/lib/interfaces/DatasetMemberEntry";
 
 export interface IDatasetEntry extends DatasetEntry {}
+export interface IDatasetMemberEntry extends DatasetMemberEntry {}
 
 export interface IDownloadDataSetOption {
     /**
@@ -29,7 +31,7 @@ export interface IDownloadDataSetOption {
     /**
      * TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BIANRY, TRANSFER_TYPE_ASCII_RDW, or TRANSFER_TYPE_BINARY_RDW defined in CoreUtils.
      */
-    transferType?: string;
+    transferType?: ITransferMode;
 
     /**
     * Optional encoding for download and upload of z/OS data set
