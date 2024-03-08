@@ -70,7 +70,7 @@ export class CoreUtils {
         });
     }
 
-    public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
+    public static async getProfileSchema(): Promise<ICommandProfileTypeConfiguration[]> {
         const ftpProfile = await require("../imperative").profiles as ICommandProfileTypeConfiguration[];
         return ftpProfile;
     }
