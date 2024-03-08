@@ -124,13 +124,13 @@ For the z/OS LPAR where the system test will be run for the first time, issue th
 zowe zos-ftp upload file-to-data-set "$localfile" "$data-set" `
 ```
 
-    - `$localfile`:
+  - `$localfile`:
 
-        Specifies an IEFBR14 job located in `__tests__/__resources__/IEFBR14.JCL`
+    Specifies an IEFBR14 job located in `__tests__/__resources__/IEFBR14.JCL`
 
-    - `$data-set`:
+  - `$data-set`:
 
-        Specifies an IEFBR14 data set determined by the iefbr14Member option in `custom_properties.yaml`
+    Specifies an IEFBR14 data set determined by the iefbr14Member option in `custom_properties.yaml`
 
 **Note:** Information about how to customize the `custom_properties.yaml` file is provided in the yaml file itself.
 
