@@ -8,7 +8,7 @@ This plug-in uses the [zos-node-accessor package](https://github.com/IBM/zos-nod
 
 You can use the plug-in to perform various tasks:
 
-* List, view, rename, or download a z/OS data set, partitioned dataset members or USS file.
+* List, view, rename, or download a z/OS data set, partitioned data set members or USS file.
 * Upload a local file or the standard input (stdin) to a z/OS data set or USS file.
 * List, view or download a job status and job spool files.
 * Delete z/OS data sets, USS files, or jobs.
@@ -87,7 +87,7 @@ Before you install the plug-in, meet the following requirements:
 
 ## Creating a user profile
 
-After you install the plug-in, create an FTP profile. An FTP profile is recommended to issue commands to via FTP. FTP profiles contain your host, port, user name, and password for connect to z/OS using FTP. You can create multiple profiles and switch between them as needed.
+After you install the plug-in, create an FTP profile. An FTP profile is recommended to issue commands via FTP. FTP profiles contain your host, port, user name, and password to connect to z/OS using FTP. You can create multiple profiles and switch between them as needed.
 
 **Follow these steps:**
 1.  Install the z/OS FTP Plug-in for Zowe CLI

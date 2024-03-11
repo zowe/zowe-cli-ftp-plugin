@@ -60,7 +60,7 @@ export class DataSetUtils {
      */
     public static async deleteDataSet(connection: ZosAccessor, dsn: string): Promise<void> {
         this.log.debug("Deleting data set '%s'", dsn);
-        await connection.deleteDataset("'" + dsn + "'");
+        await connection.deleteDataset(dsn);
     }
 
     /**
