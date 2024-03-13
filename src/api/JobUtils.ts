@@ -9,8 +9,11 @@
  *
  */
 
-import { Logger } from "@zowe/imperative";
-import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./doc/JobInterface";
+import { Logger, IO } from "@zowe/imperative";
+import {
+    IDownloadSpoolContentParms, IGetSpoolDownloadFilePath, IGetSpoolFileOption, IJob,
+    IJobStatus, IListJobOption, ISpoolFile
+} from "./doc/JobInterface";
 import { ZosAccessor } from "zos-node-accessor";
 
 export class JobUtils {
@@ -32,7 +35,7 @@ export class JobUtils {
             accessorOption.owner = option.owner;
             debugMessage += ` and are owned by ${accessorOption.owner}`;
         }
-        if(option && option.status) {
+        if (option && option.status) {
             accessorOption.status = option.status;
             debugMessage += ` and status is ${accessorOption.status}`;
         }
@@ -123,13 +126,48 @@ export class JobUtils {
      */
     public static async findJobByID(connection: ZosAccessor, jobId: string): Promise<IJobStatus> {
         this.log.debug("Attempting to locate job by job ID %s", jobId);
-        const jobStatus = await connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
+        const jobStatus = await connection.getJobStatus({ jobId: jobId.toUpperCase(), owner: "*" });
         if (jobStatus.retcode) {
             // zos-node-accessor returns 'RC 0000', which need be converted to 'CC 0000'.
             jobStatus.retcode = jobStatus.retcode.replace(/^RC /, "CC ");
         }
         return jobStatus;
     }
+
+    public static async downloadSpoolContent(connection: ZosAccessor, parms: IDownloadSpoolContentParms): Promise<void> {
+        if (parms.binary) {
+            throw new Error("Unable to download spool content in binary format");
+        }
+        const jobDetails = await JobUtils.findJobByID(connection, parms.jobId);
+        if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
+            throw new Error("No spool files were available.");
+        }
+        const fullSpoolFiles = await JobUtils.getSpoolFiles(connection, jobDetails.jobId);
+        for (const spool of fullSpoolFiles) {
+            const destinationFile = JobUtils.getSpoolDownloadFilePath({
+                ...parms,
+                ddName: spool.ddName,
+                stepName: spool.stepName,
+                procStep: spool.procStep === "N/A" ? undefined : spool.procStep,
+            });
+            IO.createDirsSyncFromFilePath(destinationFile);
+            IO.writeFile(destinationFile, spool.contents);
+        }
+    }
+
+    public static getSpoolDownloadFilePath(parms: IGetSpoolDownloadFilePath): string {
+        this.log.trace("getSpoolDownloadFilePath called with %s", JSON.stringify(parms));
+        let directory: string = (parms.outDir ?? "./output") + IO.FILE_DELIM + parms.jobId;
+        if (parms.procStep != null) {
+            directory += IO.FILE_DELIM + parms.procStep;
+        }
+        if (parms.stepName != null) {
+            directory += IO.FILE_DELIM + parms.stepName;
+        }
+        const extension = parms.extension ?? ".txt";
+        return directory + IO.FILE_DELIM + parms.ddName + extension;
+    }
+
 
     private static get log(): Logger {
         return Logger.getAppLogger();

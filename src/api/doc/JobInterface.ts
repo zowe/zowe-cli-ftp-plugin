@@ -41,3 +41,20 @@ export interface IJobStatus extends JobStatus, IJob {
     spoolFiles?: ISpoolFile[];
     // Need to keep the above property in case we add content to `ISpoolFile`
 }
+/**
+ * Properties required for downloading spool contents
+ */
+export interface IDownloadSpoolContentParms {
+    binary?: boolean;
+    outDir?: string;
+    extension?: string;
+    jobId: string;
+}
+/**
+ * Properties representing the file path of a download-spool operation
+ */
+export interface IGetSpoolDownloadFilePath extends IDownloadSpoolContentParms {
+    ddName: string;
+    procStep?: string;
+    stepName?: string;
+}
