@@ -10,7 +10,7 @@
  */
 
 export * as zosNodeAccessor from "zos-node-accessor";
-export * as zna from "zos-node-accessor";
+export { TransferMode } from "zos-node-accessor";
 
 export * from "./doc";
 

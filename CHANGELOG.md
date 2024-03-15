@@ -8,7 +8,8 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 - **Enhancements**:
   - The following properties, interfaces, and/or functions were added:
-    - `zosNodeAccessor` and `zna` as namespaces for the entire `zos-node-accessor` package.
+    - `zosNodeAccessor` as namespaces for the entire `zos-node-accessor` package.
+    - `TransferMode` from the `zos-node-accessor` package.
     - `JobUtils.downloadSpoolContent`
     - `JobUtils.getSpoolDownloadFilePath`
     - `IListJobOption.jobName`
