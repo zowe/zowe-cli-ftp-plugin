@@ -15,8 +15,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, randomDsName } from "../../../../__src__/TestUtils";
 import { inspect } from "util";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let user: string;
@@ -50,7 +49,7 @@ describe("rename data set command", () => {
         const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const memberSuffixLength = 6;
         const originalMember = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        await connection.uploadDataset(iefbr14Content, "'" + originalMember + "'", ITransferMode.ASCII); // upload the USS file
+        await connection.uploadDataset(iefbr14Content, "'" + originalMember + "'", TransferMode.ASCII); // upload the USS file
         const renameDestination = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
         const result = runCliScript(__dirname + "/__scripts__/command_rename_data_set.sh", testEnvironment,
             [originalMember, renameDestination]);

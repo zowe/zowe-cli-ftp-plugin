@@ -16,7 +16,7 @@ import { CoreUtils } from "./CoreUtils";
 import { IAllocateDataSetOption, IDatasetEntry, IDatasetMemberEntry, IDownloadDataSetOption, IUploadDataSetOption } from "./doc/DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
 import { TransferMode, ZosAccessor } from "zos-node-accessor";
-import { ITransferMode, TRACK } from "./doc";
+import { TRACK } from "./doc";
 
 export class DataSetUtils {
 
@@ -95,7 +95,7 @@ export class DataSetUtils {
         if (option.encoding) {
             encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
         }
-        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
+        const transferType = option.transferType || TransferMode.ASCII;
 
         let buffer;
         let length;
@@ -123,7 +123,7 @@ export class DataSetUtils {
      * @param option - upload option
      */
     public static async uploadDataSet(connection: ZosAccessor, dsn: string, option: IUploadDataSetOption): Promise<void> {
-        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
+        const transferType = option.transferType || TransferMode.ASCII;
         let content = option.content;
         let siteParm;
         let encoding;
@@ -136,11 +136,11 @@ export class DataSetUtils {
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to data set '%s' in transfer mode '%s'",
                 option.localFile, dsn, transferType);
-            content = IO.readFileSync(option.localFile, undefined, transferType === ITransferMode.BINARY);
+            content = IO.readFileSync(option.localFile, undefined, transferType === TransferMode.BINARY);
         } else {
             this.log.debug("Attempting to upload to data set '%s' in transfer mode '%s'", dsn, option.transferType);
         }
-        if (transferType === ITransferMode.ASCII) {
+        if (transferType === TransferMode.ASCII) {
             content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
         await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteParm);

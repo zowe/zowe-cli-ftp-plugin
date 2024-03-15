@@ -13,8 +13,7 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let ussTestDir: string;
@@ -45,7 +44,7 @@ describe("view uss file command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII);
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII);
         const result = runCliScript(__dirname + "/__scripts__/command_view_uss_file.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
@@ -60,7 +59,7 @@ describe("view uss file command", () => {
         const destination = ussTestDir + "/" + fileName;
         const destinationWithLink = ussTestDirLink + "/" + fileName;
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII);
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII);
         const result = runCliScript(__dirname + "/__scripts__/command_view_uss_file.sh", testEnvironment,
             [destinationWithLink]);
         expect(result.stderr.toString()).toEqual("");
@@ -75,12 +74,12 @@ describe("view uss file command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".bin";
-        await connection.uploadFile(randomContent, destination, ITransferMode.BINARY);
+        await connection.uploadFile(randomContent, destination, TransferMode.BINARY);
         const result = runCliScript(__dirname + "/__scripts__/command_view_uss_file_binary.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.downloadFile(destination, ITransferMode.BINARY));
+        const uploadedContent = (await connection.downloadFile(destination, TransferMode.BINARY));
         const uploadedContentString = uploadedContent.toString("hex");
         expect(uploadedContentString).toEqual(randomContent.toString("hex"));
         await connection.deleteFile(destination);

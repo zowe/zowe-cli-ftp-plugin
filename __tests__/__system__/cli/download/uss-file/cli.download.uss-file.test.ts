@@ -14,8 +14,7 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let ussTestDir: string;
@@ -44,7 +43,7 @@ describe("submit job from local file command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII);
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII);
         const downloadFilePath = testEnvironment.workingDir + "/uss.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file.sh", testEnvironment,
             [destination, downloadFilePath]);
@@ -62,7 +61,7 @@ describe("submit job from local file command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".bin";
-        await connection.uploadFile(randomContent, destination, ITransferMode.BINARY);
+        await connection.uploadFile(randomContent, destination, TransferMode.BINARY);
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_uss_file_binary.sh", testEnvironment,
             [destination, downloadFilePath]);

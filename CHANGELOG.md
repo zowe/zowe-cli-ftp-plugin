@@ -8,10 +8,11 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 - **Enhancements**:
   - The following properties, interfaces, and/or functions were added:
+    - `zosNodeAccessor` and `zna` as namespaces for the entire `zos-node-accessor` package.
+    - `JobUtils.downloadSpoolContent`
+    - `JobUtils.getSpoolDownloadFilePath`
     - `IListJobOption.jobName`
     - `IListJobOption.jobId`
-    - `ITransferMode`
-      - For a full list of transfer modes, see [TransferMode by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/zosAccessor.ts#L67)
     - `IConnectionOption`
       - For a full list of transfer modes, see [ConnectionOption by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/ConnectionOption.ts#L17)
     - `IDatasetEntry`
@@ -57,9 +58,9 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `DataSetUtils.allocateDataSet`
     - `AbstractTemplatedJCL.getJcl`
   - The properties in the interfaces below have changed:
-    - `IDownloadFileOption.transferType?: string` to `IDownloadFileOption.transferType?: ITransferMode`
-    - `IUploadFileOption.transferType?: string` to `IUploadFileOption.transferType?: ITransferMode`
-    - `IUploadDataSetOption.transferType?: string` to `IUploadDataSetOption.transferType?: ITransferMode`
+    - `IDownloadFileOption.transferType?: string` to `IDownloadFileOption.transferType?: zna.TransferMode`
+    - `IUploadFileOption.transferType?: string` to `IUploadFileOption.transferType?: zna.TransferMode`
+    - `IUploadDataSetOption.transferType?: string` to `IUploadDataSetOption.transferType?: zna.TransferMode`
     - `ISpoolFile.id: string` to `ISpoolFile.id: number`
     - `ISpoolFile.stepname: string` to `ISpoolFile.stepName: string`
     - `ISpoolFile.procstep: string` to `ISpoolFile.procStep: string`
@@ -70,7 +71,6 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `IJob.jobname: string` to `IJob.jobName: string`
     - `IJob.jobid: string` to `IJob.jobId: string`
     - `IGetSpoolFileOption.fileId: string` to `IGetSpoolFileOption.fileId: number`
-    -
 
 ## `2.1.8`
 

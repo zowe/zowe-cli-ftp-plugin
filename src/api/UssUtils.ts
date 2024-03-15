@@ -18,7 +18,7 @@ import { StreamUtils } from "./StreamUtils";
 import { IDeleteFileOption, IDownloadFileOption, IUSSEntry, IUploadFileOption } from "./doc/UssInterface";
 import { TransferMode, ZosAccessor } from "zos-node-accessor";
 import { ReadStream } from "fs";
-import { IFileType, ITransferMode } from "./doc/constants";
+import { FileType } from "zos-node-accessor/lib/interfaces/USSEntry";
 
 export class UssUtils {
 
@@ -38,12 +38,12 @@ export class UssUtils {
         //     "/dir1/dir2/*suffix"     => /^.*suffix$/
         //     "/dir1/dir2/file*suffix" => /^file.*suffix$/
         let directoryToList = directory;
-        const slashPosn = directory.lastIndexOf("/");
+        const slashPosN = directory.lastIndexOf("/");
         let filter: (fileName: string) => boolean;
-        if (slashPosn !== -1) {
-            const lastPart = directory.substring(slashPosn + 1);
+        if (slashPosN !== -1) {
+            const lastPart = directory.substring(slashPosN + 1);
             if (lastPart.indexOf("*") !== -1) {
-                directoryToList = directory.substring(0, slashPosn);
+                directoryToList = directory.substring(0, slashPosN);
                 const pattern = "^" + lastPart.replace(/\*/g, ".*") + "$";
                 filter = (fileName: string) => (fileName.match(pattern) != null);
                 this.log.debug("Listing USS files in the directory '%s' with pattern '%s'", directoryToList, pattern);
@@ -107,7 +107,7 @@ export class UssUtils {
      * @returns promise to return buffer when accomplished. If `localFile` is specified, return undefined.
      */
     public static async downloadFile(connection: ZosAccessor, ussFile: string, option: IDownloadFileOption): Promise<Buffer> {
-        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
+        const transferType = option.transferType || TransferMode.ASCII;
         let buffer;
         let length;
         const stream = await connection.downloadFile(ussFile, transferType, true) as ReadStream;
@@ -133,16 +133,16 @@ export class UssUtils {
      * @param option - upload option
      */
     public static async uploadFile(connection: ZosAccessor, ussFile: string, option: IUploadFileOption): Promise<void> {
-        const transferType = (option.transferType || ITransferMode.ASCII) as TransferMode;
+        const transferType = option.transferType || TransferMode.ASCII;
         let content = option.content;
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to USS file '%s' in transfer mode '%s'",
                 option.localFile, ussFile, transferType);
-            content = IO.readFileSync(option.localFile, undefined, transferType === ITransferMode.BINARY);
+            content = IO.readFileSync(option.localFile, undefined, transferType === TransferMode.BINARY);
         } else {
             this.log.debug("Attempting to upload to USS file'%s' in transfer mode '%s'", ussFile, transferType);
         }
-        if (transferType === ITransferMode.ASCII) {
+        if (transferType === TransferMode.ASCII) {
             // if we're in ascii mode, we need carriage returns to avoid errors
             content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
@@ -187,7 +187,7 @@ export class UssUtils {
         const files = await connection.listFiles(dir);
         for (const file of files) {
             const filePath = PATH.posix.join(dir, file.name);
-            if (file.fileType === IFileType.DIRECTORY) {
+            if (file.fileType === FileType.DIRECTORY) {
                 await this.deleteDirectory(connection, filePath, response);
             } else {
                 await connection.deleteFile(filePath);

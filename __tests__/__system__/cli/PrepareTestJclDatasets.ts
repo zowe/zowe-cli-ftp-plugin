@@ -9,7 +9,8 @@
  *
  */
 
-import { ITransferMode, IUploadDataSetOption } from "../../../src/api";
+import { TransferMode } from "zos-node-accessor";
+import { IUploadDataSetOption } from "../../../src/api";
 import { DataSetUtils } from "../../../src/api/DataSetUtils";
 
 export async function prepareTestJclDataSet(connection: any, pds: string, jclName: string): Promise<string> {
@@ -18,7 +19,7 @@ export async function prepareTestJclDataSet(connection: any, pds: string, jclNam
     if (filteredMembers.find(member => member.name === jclName) === undefined) {
         const options: IUploadDataSetOption = {
             localFile: `${__dirname}/../../../__tests__/__resources__/${jclName}.JCL`,
-            transferType: ITransferMode.ASCII as unknown as ITransferMode,
+            transferType: TransferMode.ASCII,
         };
         await DataSetUtils.uploadDataSet(connection, datasetName, options);
     }

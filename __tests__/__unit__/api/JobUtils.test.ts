@@ -11,7 +11,7 @@
 
 import { IO } from "@zowe/imperative";
 import { JobUtils } from "../../../src/api/JobUtils";
-import { join } from "path";
+import { posix } from "path";
 
 describe("JobUtils", () => {
     const jobId = "test-job-id";
@@ -22,7 +22,7 @@ describe("JobUtils", () => {
     describe("getSpoolDownloadFilePath", () => {
         it("should return a simple path", () => {
             const res = JobUtils.getSpoolDownloadFilePath({ jobId, ddName  });
-            expect(res).toEqual("./" + join("output", jobId, ddName + ".txt"));
+            expect(res).toEqual("./" + posix.join("output", jobId, ddName + ".txt"));
         });
         it("should return a fully qualified path", () => {
             const res = JobUtils.getSpoolDownloadFilePath({ jobId, ddName,
@@ -30,7 +30,7 @@ describe("JobUtils", () => {
                 outDir: "myDir",
                 procStep, stepName,
             });
-            expect(res).toEqual(join("myDir", jobId, procStep, stepName, ddName + ".omg"));
+            expect(res).toEqual(posix.join("myDir", jobId, procStep, stepName, ddName + ".omg"));
         });
     });
 

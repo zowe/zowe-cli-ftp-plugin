@@ -11,7 +11,7 @@
 
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
-import { ITransferMode } from "./doc";
+import { TransferMode } from "zos-node-accessor";
 
 export class CoreUtils {
 
@@ -79,10 +79,10 @@ export class CoreUtils {
         return Logger.getAppLogger();
     }
 
-    public static getBinaryTransferModeOrDefault(isBinary: boolean, rdw = false): ITransferMode {
+    public static getBinaryTransferModeOrDefault(isBinary: boolean, rdw = false): TransferMode {
         return (isBinary ?
-            (rdw ? ITransferMode.BINARY_RDW : ITransferMode.BINARY) :
-            (rdw ? ITransferMode.ASCII_RDW : ITransferMode.ASCII)
-        ) as unknown as ITransferMode;
+            (rdw ? TransferMode.BINARY_RDW : TransferMode.BINARY) :
+            (rdw ? TransferMode.ASCII_RDW : TransferMode.ASCII)
+        );
     }
 }

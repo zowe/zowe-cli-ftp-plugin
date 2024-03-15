@@ -15,8 +15,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let ussTestDir: string;
@@ -69,7 +68,7 @@ describe("upload stdin to uss file command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.downloadFile(destination, ITransferMode.BINARY));
+        const uploadedContent = (await connection.downloadFile(destination, TransferMode.BINARY));
         const uploadedContentString = uploadedContent.toString("hex");
         expect(uploadedContentString).toEqual(randomContent.toString("hex"));
         await connection.deleteFile(destination);

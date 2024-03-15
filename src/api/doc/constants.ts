@@ -10,34 +10,27 @@
  */
 
 import { TransferMode } from "zos-node-accessor";
-import { FileType } from "zos-node-accessor/lib/interfaces/USSEntry";
 
 /**
  * Bytes per track.
  */
 export const TRACK = 56664;
 
-export const IFileType = { ...FileType };
-export type IFileType = typeof IFileType;
-
-export const ITransferMode = { ...TransferMode };
-export type ITransferMode = typeof ITransferMode;
-
 /**
  * The data is transferred in text mode, in which encoding conversion like ASCII/EBCDIC will happen.
  */
-export const TRANSFER_TYPE_ASCII = ITransferMode.ASCII;
+export const TRANSFER_TYPE_ASCII = TransferMode.ASCII;
 
 /**
  * The data is transferred in binary mode, in which no encoding conversion will happen.
  */
-export const TRANSFER_TYPE_BINARY = ITransferMode.BINARY;
+export const TRANSFER_TYPE_BINARY = TransferMode.BINARY;
 
 /**
  * The data is transferred in text mode like TRANSFER_TYPE_ASCII, and 4-byte RDW is inserted at beginning of each record.
  */
-export const TRANSFER_TYPE_ASCII_RDW = ITransferMode.ASCII_RDW;
+export const TRANSFER_TYPE_ASCII_RDW = TransferMode.ASCII_RDW;
 /**
   * The data is transferred in binary mode like TRANSFER_TYPE_BINARY, and 4-byte RDW is inserted at beginning of each record.
   */
-export const TRANSFER_TYPE_BINARY_RDW = ITransferMode.BINARY_RDW;
+export const TRANSFER_TYPE_BINARY_RDW = TransferMode.BINARY_RDW;

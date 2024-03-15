@@ -14,8 +14,7 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
 import * as path from "path";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let ussTestDir: string;
@@ -44,7 +43,7 @@ describe("list data-set-classic ftp command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII); // upload the USS file
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII); // upload the USS file
         const result = runCliScript(__dirname + "/__scripts__/command_list_uss_files.sh", testEnvironment, [ussTestDir]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
@@ -58,7 +57,7 @@ describe("list data-set-classic ftp command", () => {
         const fileName = generateRandomAlphaNumericString(fileNameLength);
         const destination = ussTestDir + "/" + "prefix_" + fileName + "_suffix.txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadFile(uploadContent, destination, ITransferMode.ASCII); // upload the USS file
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII); // upload the USS file
 
         const ussTestDirPattern1 = ussTestDir + "/" + "prefix_*";
         let result = runCliScript(__dirname + "/__scripts__/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern1]);

@@ -11,8 +11,8 @@
 
 import { IHandlerResponseConsoleApi } from "@zowe/imperative";
 import { IFTPProgressHandler } from "./IFTPProgressHandler";
-import { ITransferMode } from "./constants";
 import { USSEntry } from "zos-node-accessor/lib/interfaces/USSEntry";
+import { TransferMode } from "zos-node-accessor";
 
 export interface IUSSEntry extends USSEntry {}
 
@@ -35,7 +35,7 @@ export interface IDownloadFileOption {
     /**
      * The type of transfer used to download the USS file
      */
-    transferType?: ITransferMode;
+    transferType?: TransferMode;
 }
 
 export interface IUploadFileOption {
@@ -52,7 +52,7 @@ export interface IUploadFileOption {
     /**
      * The type of transfer used to download the USS file
      */
-    transferType?: ITransferMode;
+    transferType?: TransferMode;
 }
 
 export interface IDeleteFileOption {

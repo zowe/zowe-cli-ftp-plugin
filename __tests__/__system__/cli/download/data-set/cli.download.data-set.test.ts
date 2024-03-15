@@ -15,8 +15,7 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
-import { ZosAccessor } from "zos-node-accessor";
-import { ITransferMode } from "../../../../../src/api";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
 let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
@@ -63,7 +62,7 @@ describe("submit job from local file command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const memberSuffixLength = 6;
         const binaryMember = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        await connection.uploadDataset(randomContent, "'" + binaryMember + "'", ITransferMode.BINARY);
+        await connection.uploadDataset(randomContent, "'" + binaryMember + "'", TransferMode.BINARY);
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_data_set_binary.sh", testEnvironment,
             [binaryMember, downloadFilePath]);
