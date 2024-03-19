@@ -13,8 +13,9 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let dsnPrefix: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -56,10 +57,10 @@ describe("allocate data set command", () => {
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain('Allocated dataset ' + destination + ' successfully!');
 
-        const attributes = await connection.listDataset(destination);
-        expect(attributes[0].Dsorg).toEqual("PO");
-        expect(attributes[0].Lrecl).toEqual("100");
-        expect(attributes[0].Recfm).toEqual("FB");
+        const attributes = await connection.listDatasets(destination);
+        expect(attributes[0].dsOrg).toEqual("PO");
+        expect(attributes[0].recordLength).toEqual(100);
+        expect(attributes[0].recordFormat).toEqual("FB");
     });
 
     it("should give a syntax error if the data set are omitted", async () => {

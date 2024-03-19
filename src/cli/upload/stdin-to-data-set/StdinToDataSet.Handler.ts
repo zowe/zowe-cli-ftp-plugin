@@ -11,7 +11,7 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { CoreUtils, DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
+import { CoreUtils, DataSetUtils } from "../../../api";
 
 export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
 
@@ -21,7 +21,7 @@ export default class UploadStdinToDataSetHandler extends FTPBaseHandler {
         const options = {
             content,
             dcb: params.arguments.dcb,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             encoding: params.arguments.encoding
         };
         const dataSet = params.arguments.dataSet.toUpperCase();

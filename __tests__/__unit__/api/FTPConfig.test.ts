@@ -9,20 +9,18 @@
  *
  */
 
+import { ICommandArguments } from "@zowe/imperative";
 import { FTPConfig } from "../../../src/api/FTPConfig";
 
 describe("FTPConfig", () => {
 
     it("should return the correct non-secure config", () => {
-        const args = {
+        const args: Partial<ICommandArguments> = {
             host: "host1",
             user: "user1",
             password: "password1",
             port: 210,
             connectionTimeout: 600,
-            secureFtp: null as string,
-            rejectUnauthorized: null as string,
-            serverName: null as string
         };
         const config = FTPConfig.createConfigFromArguments(args);
         expect(config).toMatchSnapshot();

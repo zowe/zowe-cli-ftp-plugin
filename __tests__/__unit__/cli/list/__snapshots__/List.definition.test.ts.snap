@@ -146,7 +146,7 @@ However, the pattern cannot begin with any of these sequences.
       "positionals": Array [
         Object {
           "description": "The z/OS JOBID of the job with the spool files you want to list. No pre-validation of the JOBID is performed.",
-          "name": "jobid",
+          "name": "jobId",
           "required": true,
           "type": "string",
         },

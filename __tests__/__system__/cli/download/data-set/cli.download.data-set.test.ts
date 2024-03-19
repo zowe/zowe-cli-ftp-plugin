@@ -15,8 +15,9 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 
@@ -42,7 +43,7 @@ describe("submit job from local file command", () => {
 
     it("should be able to download a data set to a  local file in text mode and verify the content", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_data_set.sh", testEnvironment,
             [iefbr14DataSet, downloadFilePath]);
@@ -61,7 +62,7 @@ describe("submit job from local file command", () => {
         const randomContent = await generateRandomBytes(randomContentLength);
         const memberSuffixLength = 6;
         const binaryMember = testDataSet + "(R" + generateRandomAlphaNumericString(memberSuffixLength) + ")";
-        await connection.uploadDataset(randomContent, "'" + binaryMember + "'", "binary");
+        await connection.uploadDataset(randomContent, "'" + binaryMember + "'", TransferMode.BINARY);
         const downloadFilePath = testEnvironment.workingDir + "/iefbr14.txt";
         const result = runCliScript(__dirname + "/__scripts__/command_download_data_set_binary.sh", testEnvironment,
             [binaryMember, downloadFilePath]);

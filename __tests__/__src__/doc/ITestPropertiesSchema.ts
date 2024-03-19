@@ -9,6 +9,8 @@
  *
  */
 
+import { ICommandArguments } from "@zowe/imperative";
+
 /**
  * Interface representing the values in the custom_properties.yaml file
  * see example_properties.yaml for descriptions and more details
@@ -19,37 +21,7 @@ export interface ITestPropertiesSchema {
      * Properties related to basic zos-ftp (zos-node-accessor package) connection
      * see zowe profiles create zftp --help for more info
      */
-    zftp: {
-        /**
-         * user ID to connect to FTP with
-         */
-        user: string,
-        /**
-         * Password to connect to FTP with
-         */
-        password: string,
-        /**
-         * host name for FTP
-         */
-        host: string,
-        /**
-         * Port for FTP connection
-         */
-        port?: number,
-        /**
-         * See zos-node-accessor doc - specification for secure FTP transfer
-         */
-        secureFtp?: string,
-        /**
-         * How long to wait after attempting to connect before FTP connection times out
-         */
-        connectionTimeout?: number
-        /**
-         * Local file containing a job card for submitting jobs for commands such as
-         * create data set
-         */
-        jobCardFile: string;
-    };
+    zftp: ICommandArguments;
     datasets: {
         /**
          * A PDS (partitioned data set) that new members can be written to

@@ -22,8 +22,8 @@ describe("View data set handler", () => {
                 dataSet: "ds1"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(""))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(""))
             }
         };
         try {
@@ -46,8 +46,8 @@ describe("View data set handler", () => {
                 dataSet: "ds1"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
             },
             response: mockResponse
         };

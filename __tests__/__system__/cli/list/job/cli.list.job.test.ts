@@ -12,8 +12,9 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
 describe("list job ftp command", () => {
@@ -50,8 +51,8 @@ describe("list job ftp command", () => {
     });
 
     it("should be able to list the jobs with status from the test properties file", async () => {
-        const pre = "\"*\"";
-        const owner ="\"*\"";
+        const pre = '*';
+        const owner = '*';
         const status = "ACTIVE";
         const result = runCliScript(__dirname + "/__scripts__/command_list_job.sh", testEnvironment, [pre, owner, status]);
         expect(result.stderr.toString()).toEqual("");

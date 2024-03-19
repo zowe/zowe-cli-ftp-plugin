@@ -25,7 +25,7 @@ describe("Rename data set handler", () => {
                 newDataSet: "newname"
             },
             connection: {
-                rename: jest.fn().mockReturnValue(Promise.resolve(files))
+                renameDataset: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };

@@ -13,7 +13,7 @@ import { basename, dirname } from "path";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { FTPProgressHandler } from "../../../FTPProgressHandler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY  } from "../../../api";
+import { CoreUtils, IUSSEntry, UssUtils } from "../../../api";
 
 export default class DownloadUssFileHandler extends FTPBaseHandler {
 
@@ -25,7 +25,7 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
 
         // Ensure to list directory if ussFile is under symbolic link of directory.
         const files = await UssUtils.listFiles(params.connection, dirname(ussFile) + '/');
-        const fileToDownload = files.find((f: any) => {
+        const fileToDownload = files.find((f: IUSSEntry) => {
             return f.name === basename(ussFile);
         });
         if (fileToDownload === undefined) {
@@ -41,7 +41,7 @@ export default class DownloadUssFileHandler extends FTPBaseHandler {
             size: fileToDownload.size,
             localFile: file,
             response: params.response,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             progress,
         };
         await UssUtils.downloadFile(params.connection, ussFile, options);

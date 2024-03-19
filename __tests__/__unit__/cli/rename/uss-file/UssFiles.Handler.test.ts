@@ -25,7 +25,7 @@ describe("Rename uss files handler", () => {
                 newuss: "newname"
             },
             connection: {
-                rename: jest.fn().mockReturnValue(Promise.resolve(files))
+                renameFile: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };

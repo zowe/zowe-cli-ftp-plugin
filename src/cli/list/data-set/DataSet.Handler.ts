@@ -23,7 +23,7 @@ export default class ListDataSetsHandler extends FTPBaseHandler {
         params.response.format.output({
             output: filteredFiles,
             format: "table",
-            fields: ["dsname"]
+            fields: ["name"]
         });
     }
 }

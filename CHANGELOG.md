@@ -2,6 +2,76 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Major: Zowe V3 release
+
+- **Enhancements**:
+  - The following properties, interfaces, and/or functions were added:
+    - `zosNodeAccessor` as namespaces for the entire `zos-node-accessor` package.
+    - `TransferMode` from the `zos-node-accessor` package.
+    - `JobUtils.downloadSpoolContent`
+    - `JobUtils.getSpoolDownloadFilePath`
+    - `IListJobOption.jobName`
+    - `IListJobOption.jobId`
+    - `IConnectionOption`
+      - For a full list of transfer modes, see [ConnectionOption by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/ConnectionOption.ts#L17)
+    - `IDatasetEntry`
+      - For a full list of transfer modes, see [DatasetEntry by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/DatasetEntry.ts#L17)
+    - `IUSSEntry`
+      - For a full list of transfer modes, see [USSEntry by `zos-node-accessor`](https://github.com/IBM/zos-node-accessor/blob/faf55873f37cc40e927f1b1c19f697de8cf08b95/src/interfaces/USSEntry.ts#L19)
+- **Breaking**:
+  - Removed the following constants, interfaces, and other values:
+    - `IGetSpoolFileOption.jobName`
+    - `JobUtils.parseJobDetails`
+    - `CoreUtils.addLowerCaseKeysToObject`
+  - Added proper typing to the parameters of the following functions:
+    - `CreateDataset.create`
+    - `DataSetUtils.listDataSets`
+    - `FTPConfig.connectFromArguments`
+      - Return type changed: `Promise<any> --> Promise<ZosAccessor>`
+    - `FTPConfig.createConfigFromArguments`
+      - Return type changed: `any --> IConnectionOption`
+    - `JobUtils.getSpoolFileContent`
+      - Return type changed: `Promise<Buffer> --> Promise<string>`
+    - `JobUtils.getSpoolFiles`
+    - `JobUtils.submitJob`
+    - `JobUtils.submitJobFromDataset`
+    - `JobUtils.findJobByID`
+    - `JobUtils.listJobs`
+    - `JobUtils.deleteJob`
+    - `UssUtils.listFiles`
+      - Return type changed: `Promise<any[]> --> Promise<IUSSEntry[]>`
+    - `UssUtils.makeDirectory`
+    - `UssUtils.renameFile`
+    - `UssUtils.deleteFile`
+    - `UssUtils.downloadFile`
+    - `UssUtils.uploadFile`
+    - `UssUtils.deleteDirectory`
+    - `DataSetUtils.listDataSets`
+      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+    - `DataSetUtils.listMembers`
+      - Return type changed: `Promise<any[]> --> Promise<IDatasetEntry[]>`
+    - `DataSetUtils.deleteDataSet`
+    - `DataSetUtils.renameDataSet`
+    - `DataSetUtils.downloadDataSet`
+    - `DataSetUtils.uploadDataSet`
+    - `DataSetUtils.allocateDataSet`
+    - `AbstractTemplatedJCL.getJcl`
+  - The properties in the interfaces below have changed:
+    - `IDownloadFileOption.transferType?: string` to `IDownloadFileOption.transferType?: zna.TransferMode`
+    - `IUploadFileOption.transferType?: string` to `IUploadFileOption.transferType?: zna.TransferMode`
+    - `IUploadDataSetOption.transferType?: string` to `IUploadDataSetOption.transferType?: zna.TransferMode`
+    - `ISpoolFile.id: string` to `ISpoolFile.id: number`
+    - `ISpoolFile.stepname: string` to `ISpoolFile.stepName: string`
+    - `ISpoolFile.procstep: string` to `ISpoolFile.procStep: string`
+    - `ISpoolFile.ddname: string` to `ISpoolFile.ddName: string`
+    - `ISpoolFile.ddname: string` to `ISpoolFile.ddName: string`
+    - `IJobStatus.jobname: string` to `IJobStatus.jobName: string`
+    - `IJobStatus.jobid: string` to `IJobStatus.jobId: string`
+    - `IJob.jobname: string` to `IJob.jobName: string`
+    - `IJob.jobid: string` to `IJob.jobId: string`
+    - `IGetSpoolFileOption.fileId: string` to `IGetSpoolFileOption.fileId: number`
 
 ## `2.1.8`
 

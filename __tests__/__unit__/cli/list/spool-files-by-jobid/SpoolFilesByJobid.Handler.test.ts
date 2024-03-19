@@ -18,15 +18,15 @@ describe("List spool files by job id handler", () => {
         const handler = new ListSpoolFilesByJobidHandler();
         const files: any[] = [];
         const jobDetails = {
-            jobname: "jobname1",
-            jobid: "jobid1",
+            jobName: "jobName1",
+            jobId: "jobId1",
             spoolFiles: files
         };
 
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {
             arguments: {
-                jobid: "jobid1"
+                jobId: "jobId1"
             },
             connection: {
                 getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails))
@@ -34,7 +34,7 @@ describe("List spool files by job id handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("\"0\" spool files obtained for job \"jobname1(jobid1)\"");
+        expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("\"0\" spool files obtained for job \"jobName1(jobId1)\"");
         expect(mockResponse.data.setObj.mock.calls[0][0]).toMatchSnapshot();
         expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();
     });
@@ -42,8 +42,8 @@ describe("List spool files by job id handler", () => {
     it("should return correct message if at least one spool file is found.", async () => {
         const handler = new ListSpoolFilesByJobidHandler();
         const jobDetails = {
-            jobname: "jobname1",
-            jobid: "jobid1",
+            jobName: "jobName1",
+            jobId: "jobId1",
             spoolFiles: [
                 {
                     name: "file1"
@@ -57,7 +57,7 @@ describe("List spool files by job id handler", () => {
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {
             arguments: {
-                jobid: "jobid1"
+                jobId: "jobId1"
             },
             connection: {
                 getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails))
@@ -65,7 +65,7 @@ describe("List spool files by job id handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("\"2\" spool files obtained for job \"jobname1(jobid1)\"");
+        expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("\"2\" spool files obtained for job \"jobName1(jobId1)\"");
         expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();
         expect(mockResponse.data.setObj.mock.calls[0][0]).toMatchSnapshot();
         expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();

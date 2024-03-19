@@ -11,7 +11,7 @@
 
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
-import { UssUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
+import { UssUtils, CoreUtils } from "../../../api";
 
 export default class UploadFileToUssFileHandler extends FTPBaseHandler {
 
@@ -20,7 +20,7 @@ export default class UploadFileToUssFileHandler extends FTPBaseHandler {
         UssUtils.checkAbsoluteFilePath(ussFile);
         const options = {
             localFile: params.arguments.file,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
         };
         await UssUtils.uploadFile(params.connection, ussFile, options);
 

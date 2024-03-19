@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
 import * as path from "path";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -42,12 +43,12 @@ describe("list data-set-classic ftp command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadDataset(uploadContent, destination, "ascii"); // upload the USS file
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII); // upload the USS file
         const result = runCliScript(__dirname + "/__scripts__/command_list_uss_files.sh", testEnvironment, [ussTestDir]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain(path.basename(destination));
-        await connection.deleteDataset(destination);
+        await connection.deleteFile(destination);
     });
 
     it("should be able to upload a file to the test directory and be show that newly uploaded file with pattern in the list", async () => {
@@ -56,7 +57,7 @@ describe("list data-set-classic ftp command", () => {
         const fileName = generateRandomAlphaNumericString(fileNameLength);
         const destination = ussTestDir + "/" + "prefix_" + fileName + "_suffix.txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadDataset(uploadContent, destination, "ascii"); // upload the USS file
+        await connection.uploadFile(uploadContent, destination, TransferMode.ASCII); // upload the USS file
 
         const ussTestDirPattern1 = ussTestDir + "/" + "prefix_*";
         let result = runCliScript(__dirname + "/__scripts__/command_list_uss_files.sh", testEnvironment, [ussTestDirPattern1]);
@@ -81,7 +82,7 @@ describe("list data-set-classic ftp command", () => {
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).not.toContain(path.basename(destination));
-        await connection.deleteDataset(destination);
+        await connection.deleteFile(destination);
     });
 
     it("should give a syntax error if the uss file pattern is omitted", async () => {

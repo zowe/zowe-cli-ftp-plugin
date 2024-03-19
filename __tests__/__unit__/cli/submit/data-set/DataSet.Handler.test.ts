@@ -28,10 +28,10 @@ describe("Submit data set handler", () => {
                 dataSet: "ds1"
             },
             connection: {
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid1")),
                 getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails)),
-                listDataset: jest.fn().mockReturnValue(Promise.resolve([''])),
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve([''])),
             },
             response: mockResponse
         };
@@ -66,11 +66,11 @@ describe("Submit data set handler", () => {
                 wait: "5,10"
             },
             connection: {
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(getStream())),
                 submitJCL: jest.fn().mockReturnValue(Promise.resolve("jobid2")),
                 getJobStatus: jest.fn().mockReturnValueOnce(Promise.resolve(jobRuning)).mockReturnValueOnce(Promise.resolve(jobRuning))
                     .mockReturnValue(Promise.resolve(jobDetails)),
-                listDataset: jest.fn().mockReturnValue(Promise.resolve([''])),
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve([''])),
             },
             response: mockResponse
         };

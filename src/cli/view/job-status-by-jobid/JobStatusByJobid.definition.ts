@@ -27,7 +27,7 @@ export const ViewJobStatusByJobidDefinition: ICommandDefinition = {
     ],
     positionals: [
         {
-            name: "jobid",
+            name: "jobId",
             description: "The ID of the job" +
             "for which you would like to list spool files",
             type: "string",

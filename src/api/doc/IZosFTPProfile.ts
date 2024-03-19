@@ -10,6 +10,9 @@
  */
 
 import { IProfile } from "@zowe/imperative";
+import { ConnectionOption } from "zos-node-accessor/lib/interfaces/ConnectionOption";
+
+export interface IConnectionOption extends ConnectionOption {}
 
 /**
  * Typescript representation of a loaded zos-ftp profile

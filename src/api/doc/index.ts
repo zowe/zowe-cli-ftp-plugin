@@ -9,4 +9,9 @@
  *
  */
 
+export * from "./constants";
 export * from "./IZosFTPProfile";
+export * from "./IFTPProgressHandler";
+export * from "./JobInterface";
+export * from "./DataSetInterface";
+export * from "./UssInterface";

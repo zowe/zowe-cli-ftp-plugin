@@ -18,8 +18,8 @@ describe("View job status by jobid handler", () => {
         const handler = new ViewJobStatusByJobIdHandler();
 
         const jobDetails = {
-            jobname: "jobname1",
-            jobid: "jobid1",
+            jobName: "jobName1",
+            jobId: "jobId1",
             owner: "owner1",
             status: "success",
             rc: 0
@@ -28,7 +28,7 @@ describe("View job status by jobid handler", () => {
         const mockResponse = TestUtils.getMockResponse();
         const mockParams: any = {
             arguments: {
-                jobid: "jobID1"
+                jobId: "jobID1"
             },
             connection: {
                 getJobStatus: jest.fn().mockReturnValue(Promise.resolve(jobDetails))
