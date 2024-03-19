@@ -16,8 +16,8 @@
         "@types/node": "^18.19.21",
         "@typescript-eslint/eslint-plugin": "^7.1.1",
         "@typescript-eslint/parser": "^7.1.1",
-        "@zowe/cli": "^8.0.0-next.202403061549",
-        "@zowe/cli-test-utils": "^8.0.0-next.202403061549",
+        "@zowe/cli": "^8.0.0-next.202403141949",
+        "@zowe/cli-test-utils": "^8.0.0-next.202403141949",
         "@zowe/imperative": "^8.0.0-next.202403061549",
         "env-cmd": "^10.1.0",
         "eslint": "^8.57.0",
@@ -2421,23 +2421,23 @@
       "dev": true
     },
     "node_modules/@zowe/cli": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli/-/@zowe/cli-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-7h3SfrtF21R1gG8xGc0/gMffpMHGTrJd0HDvgzKd2NdriPzc5bqDTkjFYgjOWu0fxPFKB3ZLoLQR6Jg6mpYkMA==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli/-/@zowe/cli-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-G7IxmdXY+rqjflbJhO2YM66ff0JAwtUGNfGfm21Hcwb3gAYCV3uXDl9EDwKL22UR0P7UnVMy8Jvtp1PuuOV4uA==",
       "dev": true,
       "hasInstallScript": true,
       "dependencies": {
-        "@zowe/core-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/imperative": "8.0.0-next.202403061549",
-        "@zowe/provisioning-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-console-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-jobs-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-logs-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-tso-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-uss-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zos-workflows-for-zowe-sdk": "8.0.0-next.202403061549",
-        "@zowe/zosmf-for-zowe-sdk": "8.0.0-next.202403061549",
+        "@zowe/core-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/imperative": "8.0.0-next.202403141949",
+        "@zowe/provisioning-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-console-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-jobs-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-logs-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-tso-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-uss-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zos-workflows-for-zowe-sdk": "8.0.0-next.202403141949",
+        "@zowe/zosmf-for-zowe-sdk": "8.0.0-next.202403141949",
         "find-process": "1.4.7",
         "lodash": "4.17.21",
         "minimatch": "9.0.3",
@@ -2450,13 +2450,13 @@
         "node": ">=18.12.0"
       },
       "optionalDependencies": {
-        "@zowe/secrets-for-zowe-sdk": "8.0.0-next.202403061549"
+        "@zowe/secrets-for-zowe-sdk": "8.0.0-next.202403141949"
       }
     },
     "node_modules/@zowe/cli-test-utils": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-v07jJxTaxEyJOhMq50i28f/ydw8kPWw1R/xQduB5ICNf8lK6s01iZy4gTNIaiqe/3bVRcsAFwhF4/Xr08qpSPA==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/cli-test-utils/-/@zowe/cli-test-utils-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-ldan11HYGeI5iBR7l3eF790pUbpCd+Y9/Tl4L4DkE3E8x23X2tYqjKZkATRwbtxuil70UbMqoz/lqjzEtre6eQ==",
       "dev": true,
       "dependencies": {
         "find-up": "^5.0.0",
@@ -2554,9 +2554,9 @@
       }
     },
     "node_modules/@zowe/core-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/core-for-zowe-sdk/-/@zowe/core-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-/fZCXX5em6Clg7rU66VE7LF5GQzpTvq1x+Ssi95go0nZmRzGo2inEdsCxjY8uiB/soELeG2JbfBTTc7cJ8gHLQ==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/core-for-zowe-sdk/-/@zowe/core-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-z/lwPIXkTOZNCotHfzkFqae5007TypIrx76rwOzRSNfGyu0U/jnfCI9l31wLTTneZIMlauu+PmGL5bgke6vFGA==",
       "dev": true,
       "dependencies": {
         "comment-json": "~4.2.3",
@@ -2570,9 +2570,9 @@
       }
     },
     "node_modules/@zowe/imperative": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/imperative/-/@zowe/imperative-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-G4ffGKdQKd676IZxTYyC3u2s5b0+29wCpdHA7Tve7TlpNUlwM3pNUQriQpkTuDG6+MqLtqQh2y6cVwVHR57V8w==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/imperative/-/@zowe/imperative-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-2N+f+UGJVGH3jn7afMm16OmpKJUkYiLCqwlCm45kBEgnoC2SaX15Y9o/EpgNoTKvVjm1Ara/5nJXDOZ+V5PvsA==",
       "dev": true,
       "dependencies": {
         "@types/yargs": "^17.0.32",
@@ -2701,9 +2701,9 @@
       }
     },
     "node_modules/@zowe/provisioning-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/provisioning-for-zowe-sdk/-/@zowe/provisioning-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-oKYlquBmcoWvWrerudLEsfp0YBtfl/xEL9kmRXyylouj2rWLKk9W78jzvZwsONm/qlpsSBz8/Hm/r0cw9IMeQw==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/provisioning-for-zowe-sdk/-/@zowe/provisioning-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-h0eaXm9aPQ+F+ryoo7HPiartHlDCZm9tKyE3EGo6OhDNftZbwaZQgd0h+BHMr/mbzLm6sfM1eJhFNzpk/tkrHg==",
       "dev": true,
       "dependencies": {
         "js-yaml": "^4.1.0"
@@ -2717,9 +2717,9 @@
       }
     },
     "node_modules/@zowe/secrets-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/secrets-for-zowe-sdk/-/@zowe/secrets-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-v9zxQyWh36+rWCMemgDfqSVsxEE113k/QAkwZRqFCwQipmM75/ezfHI24nsTuTn9D2xWrhitQ/t/T2SbmPFFpg==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/secrets-for-zowe-sdk/-/@zowe/secrets-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-JYvvIDLrGlaHK5C2cpS4nBoGhpRcAZn7x6fPlWvkBYXXjkj0Dng1XggSIXUVi+JoLmlScx7cf0wyE2KoIwHdFw==",
       "dev": true,
       "hasInstallScript": true,
       "optional": true,
@@ -2728,9 +2728,9 @@
       }
     },
     "node_modules/@zowe/zos-console-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-console-for-zowe-sdk/-/@zowe/zos-console-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-l7JDX1S9/XGVwCdV3TRVdY4DPlnREvSqiMyAD614FHnjTQbA2bmxXCLdpiSlUz7att1WmWHfuNLBoW0j9cCJog==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-console-for-zowe-sdk/-/@zowe/zos-console-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-Db1HAlf8WGAmtE+voHUdHYM1HJaOWSce88oZPiCuOZ5Oxdu2DMnZs6LIXAPwiyHzpRrJe0/VgsCo2oAl+9f7VA==",
       "dev": true,
       "engines": {
         "node": ">=18.12.0"
@@ -2741,9 +2741,9 @@
       }
     },
     "node_modules/@zowe/zos-files-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-files-for-zowe-sdk/-/@zowe/zos-files-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-7ZZkIbAbYZHn5jSPbDi3jVs9/YPpGBp9S1MDik+qIhbu6VUGyd8zZ7Xq0DTiZHfYOmOMAweHq8ATwOY/zcmlWg==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-files-for-zowe-sdk/-/@zowe/zos-files-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-G1wd6ejcHbD/Kc8bmF/3/8Ocqy7B3DXfyMk+nulNPZHxa3gtSTEkxFHJZRjwCsrwgahoRVvMUOmWsXbrblvtZA==",
       "dev": true,
       "dependencies": {
         "minimatch": "^9.0.3"
@@ -2781,12 +2781,12 @@
       }
     },
     "node_modules/@zowe/zos-jobs-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-jobs-for-zowe-sdk/-/@zowe/zos-jobs-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-a3wwbLWynvlHEj904HGp3GoWcXTDG/3bxOoltvbYtWIXywFd0VzVeAkLM+jcOzNEIKQ8tAtFPis3WMl3Ffvpvg==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-jobs-for-zowe-sdk/-/@zowe/zos-jobs-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-Sfry7P5KkH5bUOk8IcEHKu6DnVdpp3C0b5cwt4GTEwnczbGjjElORi2q49P8Na7eSUdnmccF5p20GbrjtdLRsA==",
       "dev": true,
       "dependencies": {
-        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403061549"
+        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403141949"
       },
       "engines": {
         "node": ">=18.12.0"
@@ -2797,9 +2797,9 @@
       }
     },
     "node_modules/@zowe/zos-logs-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-logs-for-zowe-sdk/-/@zowe/zos-logs-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-K20onBjwExpzJKWxmU+hCH5XGHq2RCUguQeEiFvX94fS9yOmKUxBW5PSYHVFEJS6Gqj2L/ZLRkZbwD8TNGEOIA==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-logs-for-zowe-sdk/-/@zowe/zos-logs-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-szv1kjwJt2EoYgy1d/OHsYeTf0TwsoERcjRh1InNtLkv+0tqxFbLGqSU3Hkhhb/jZx8pRsivu+1S0Z9I+iZ/LQ==",
       "dev": true,
       "engines": {
         "node": ">=18.12.0"
@@ -2810,12 +2810,12 @@
       }
     },
     "node_modules/@zowe/zos-tso-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-tso-for-zowe-sdk/-/@zowe/zos-tso-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-V7lDBYpo3/EWU8WlG9A8Ym++0d3008tBe5xX1+TRNUT+Kh/OFEcJF74kgSHZbQxnlyBnQBM0c98txa8KUgY4nQ==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-tso-for-zowe-sdk/-/@zowe/zos-tso-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-EvI0tgA8oC9R8NigMQA4DEpS4dS+G9hVtznZt1I4htOD2+VnwSOIx5NYRK5eIRlgGWloKVGq+v6Lc8scL+Rc7Q==",
       "dev": true,
       "dependencies": {
-        "@zowe/zosmf-for-zowe-sdk": "8.0.0-next.202403061549"
+        "@zowe/zosmf-for-zowe-sdk": "8.0.0-next.202403141949"
       },
       "engines": {
         "node": ">=18.12.0"
@@ -2826,9 +2826,9 @@
       }
     },
     "node_modules/@zowe/zos-uss-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-uss-for-zowe-sdk/-/@zowe/zos-uss-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-mAQJBXXi67MCPVtPeNHQpHiJpTV6agnQNuvQNQfY0yrPhp5AoOX1XP5Yj+7aTN7fHcofP6SQ23Rad/ZS6xhKPA==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-uss-for-zowe-sdk/-/@zowe/zos-uss-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-c99fbRahatsOyE8sk5wNreh4X2UL+wAi7/hV0uXCbMWlomS2TDYmQRVdidGMxVNG3QdhF86VPTCkwUGk/Xhy0w==",
       "dev": true,
       "dependencies": {
         "ssh2": "^1.15.0"
@@ -2841,12 +2841,12 @@
       }
     },
     "node_modules/@zowe/zos-workflows-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-workflows-for-zowe-sdk/-/@zowe/zos-workflows-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-Q0y/FBHJbZpM5WGnOi0u+wX9ykePc/ujxZPxfkhVWbQa768DU4w1anKWjNYd6NC+r4AwiRBtJOgU2bH92aWurQ==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zos-workflows-for-zowe-sdk/-/@zowe/zos-workflows-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-m4JE2aON1Nyogxhw4GTaQxR/BElWXup9HYeqSbJnn+hpWLTEQ5Mp74Xdt3epBLEVXa+Or1HpffxT0gTvcr+F0g==",
       "dev": true,
       "dependencies": {
-        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403061549"
+        "@zowe/zos-files-for-zowe-sdk": "8.0.0-next.202403141949"
       },
       "engines": {
         "node": ">=18.12.0"
@@ -2857,9 +2857,9 @@
       }
     },
     "node_modules/@zowe/zosmf-for-zowe-sdk": {
-      "version": "8.0.0-next.202403061549",
-      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zosmf-for-zowe-sdk/-/@zowe/zosmf-for-zowe-sdk-8.0.0-next.202403061549.tgz",
-      "integrity": "sha512-IHGyt+FIMpqxpAUFyE1hdMr4RDCXdqeSCdhN/VnIoyibcPYyBjFVGnun6ceib1q6qXdMls1/wNAEPJuBVE96Bg==",
+      "version": "8.0.0-next.202403141949",
+      "resolved": "https://zowe.jfrog.io/zowe/api/npm/npm-release/@zowe/zosmf-for-zowe-sdk/-/@zowe/zosmf-for-zowe-sdk-8.0.0-next.202403141949.tgz",
+      "integrity": "sha512-s+BX+KhWkx+wgngrYqog9JBADMv+C8QjEyXuRsAQ2mwJ9Q94gdP6OFapwXPqkSCcArizoYpzJG04HgCZfCqZfw==",
       "dev": true,
       "engines": {
         "node": ">=18.12.0"
