@@ -77,7 +77,7 @@ export class JobUtils {
         const fullSpoolFiles: ISpoolFile[] = [];
         if (jobDetails.spoolFiles) {
             for (const spoolFileToDownload of jobDetails.spoolFiles) {
-                this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", 
+                this.log.debug("Requesting spool files for job %s(%s) spool file ID %d",
                     jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
                 const option = {
                     jobName: jobDetails.jobname,
