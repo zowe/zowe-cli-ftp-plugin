@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `2.1.9`
 
 - Fix issue #156 to return proper message for active job.
 
