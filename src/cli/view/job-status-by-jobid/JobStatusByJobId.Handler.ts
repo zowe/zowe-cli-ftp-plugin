@@ -20,7 +20,7 @@ export default class ViewJobStatusByJobIdHandler extends FTPBaseHandler {
         params.response.data.setObj(jobDetails);
         params.response.format.output(
             {
-                fields: ["jobName", "jobId", "owner", "status", "rc", "retcode"],
+                fields: ["jobName", "jobId", "owner", "status", "rc", "retcode", "extra"],
                 output: jobDetails,
                 format: "object"
             }
