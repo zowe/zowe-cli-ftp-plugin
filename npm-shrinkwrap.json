@@ -9,7 +9,7 @@
       "version": "3.0.0-next.202403191358",
       "license": "EPL-2.0",
       "dependencies": {
-        "zos-node-accessor": "2.0.9"
+        "zos-node-accessor": "2.0.11"
       },
       "devDependencies": {
         "@types/jest": "^29.5.12",
@@ -10234,9 +10234,9 @@
       }
     },
     "node_modules/zos-node-accessor": {
-      "version": "2.0.9",
-      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-2.0.9.tgz",
-      "integrity": "sha512-AkliQcdGlHAQSzBYMCZPNf7KMwQ8b5jDUjQtZ9ce6LQ++u7iVyMYEgUrbCsKi16Jhw6bgVGuN1J5kffQlSdt5w==",
+      "version": "2.0.11",
+      "resolved": "https://registry.npmjs.org/zos-node-accessor/-/zos-node-accessor-2.0.11.tgz",
+      "integrity": "sha512-SLGFqVTudzhtZyYXnrGnMdGwgo3I8jk3ZnownxqnXkR5k6N0/GkxpLiqkjsTRhl6go3S/8Jwmbpj6JgeTQ1x4g==",
       "dependencies": {
         "ftp4": "~0.3.13",
         "q": "~1.4.1"

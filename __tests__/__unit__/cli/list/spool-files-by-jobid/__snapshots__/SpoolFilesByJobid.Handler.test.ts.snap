@@ -50,18 +50,3 @@ Object {
   ],
 }
 `;
-
-exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 1`] = `Array []`;
-
-exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 2`] = `
-Object {
-  "fields": Array [
-    "id",
-    "ddName",
-    "procStep",
-    "stepName",
-  ],
-  "format": "table",
-  "output": Array [],
-}
-`;
