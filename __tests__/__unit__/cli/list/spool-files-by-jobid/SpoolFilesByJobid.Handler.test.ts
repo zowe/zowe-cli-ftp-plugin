@@ -14,6 +14,7 @@ import TestUtils from "../../TestUtils";
 
 describe("List spool files by job id handler", () => {
 
+    // eslint-disable-next-line jest/no-focused-tests
     it("should return no spool file if the no spool file is not found.", async () => {
         const handler = new ListSpoolFilesByJobidHandler();
         const files: any[] = [];
@@ -34,9 +35,7 @@ describe("List spool files by job id handler", () => {
             response: mockResponse
         };
         await handler.processFTP(mockParams);
-        expect(mockResponse.data.setMessage.mock.calls[0][0]).toBe("\"0\" spool files obtained for job \"jobName1(jobId1)\"");
-        expect(mockResponse.data.setObj.mock.calls[0][0]).toMatchSnapshot();
-        expect(mockResponse.format.output.mock.calls[0][0]).toMatchSnapshot();
+        expect(mockResponse.console.log.mock.calls[0]).toContain("No spool file.");
     });
 
     it("should return correct message if at least one spool file is found.", async () => {

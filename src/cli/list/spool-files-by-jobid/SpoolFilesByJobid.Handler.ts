@@ -23,7 +23,7 @@ export default class ListSpoolFilesByJobidHandler extends FTPBaseHandler {
         this.log.debug("Listing spool files for job ID %s", params.arguments.jobId);
         const job = await JobUtils.findJobByID(params.connection, params.arguments.jobId);
         const files = job.spoolFiles;
-        if (files) {
+        if (files?.length > 0) {
             const successMessage = this.log.info(`"${files.length}" spool files obtained for job "${job.jobName}(${job.jobId})"`);
             // Set the object, message, and log the prettified object
             params.response.data.setObj(files);
