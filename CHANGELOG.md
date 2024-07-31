@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Update: See `2.1.9` for details
+
 ## `3.0.0-next.202406041826`
 
 - Fix list spool file hang problem.
