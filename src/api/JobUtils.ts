@@ -78,17 +78,20 @@ export class JobUtils {
     public static async getSpoolFiles(connection: ZosAccessor, jobId: string): Promise<ISpoolFile[]> {
         const jobDetails = await JobUtils.findJobByID(connection, jobId);
         const fullSpoolFiles: ISpoolFile[] = [];
-        for (const spoolFileToDownload of jobDetails.spoolFiles) {
-            this.log.debug("Requesting spool files for job %s(%s) spool file ID %d", jobDetails.jobName, jobDetails.jobId, spoolFileToDownload.id);
-            const option = {
-                jobName: jobDetails.jobName,
-                jobId: jobDetails.jobId,
-                owner: "*",
-                fileId: spoolFileToDownload.id
-            };
-            const spoolFile = await JobUtils.getSpoolFileContent(connection, option);
-            spoolFileToDownload.contents = spoolFile;
-            fullSpoolFiles.push(spoolFileToDownload);
+        if (jobDetails.spoolFiles) {
+            for (const spoolFileToDownload of jobDetails.spoolFiles) {
+                this.log.debug("Requesting spool files for job %s(%s) spool file ID %d",
+                    jobDetails.jobName, jobDetails.jobId, spoolFileToDownload.id);
+                const option = {
+                    jobName: jobDetails.jobName,
+                    jobId: jobDetails.jobId,
+                    owner: "*",
+                    fileId: spoolFileToDownload.id
+                };
+                const spoolFile = await JobUtils.getSpoolFileContent(connection, option);
+                spoolFileToDownload.contents = spoolFile;
+                fullSpoolFiles.push(spoolFileToDownload);
+            }
         }
         return fullSpoolFiles;
     }

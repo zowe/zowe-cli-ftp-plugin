@@ -77,6 +77,10 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
     - `IJob.jobid: string` to `IJob.jobId: string`
     - `IGetSpoolFileOption.fileId: string` to `IGetSpoolFileOption.fileId: number`
 
+## `2.1.9`
+
+- Fix issue #156 to return proper message for active job.
+
 ## `2.1.8`
 
 - BugFix: Upload dataset using Buffer, stead of string. [2533](https://github.com/zowe/vscode-extension-for-zowe/issues/2533)
