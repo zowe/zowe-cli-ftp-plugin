@@ -24,7 +24,7 @@ module.exports = {
         {
             name: "next",
             prerelease: true,
-            level: "none",
+            level: "next",
             devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         }
     ],
