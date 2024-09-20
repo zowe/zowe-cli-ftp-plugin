@@ -14,8 +14,8 @@ module.exports = {
         {
             name: "master",
             prerelease: true,
-            level: "next",
-            channel: "none",
+            level: "none",
+            channel: "next",
             devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         },
         {
