@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Update: Final prerelease
+
 ## `3.0.0-next.202407311518`
 
 - Update: See `2.1.9` for details
