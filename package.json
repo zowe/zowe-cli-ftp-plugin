@@ -37,7 +37,7 @@
     "registry": "https://zowe.jfrog.io/zowe/api/npm/npm-local-release/"
   },
   "peerDependencies": {
-    "@zowe/imperative": ">=8.0.0-next.0 <8.0.0"
+    "@zowe/imperative": "^8.0.0"
   },
   "dependencies": {
     "zos-node-accessor": "2.0.11"
@@ -47,9 +47,9 @@
     "@types/node": "^18.19.21",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "@zowe/cli": "^8.0.0-next.202409091603",
-    "@zowe/cli-test-utils": "^8.0.0-next.202409091603",
-    "@zowe/imperative": "^8.0.0-next.202403061549",
+    "@zowe/cli": "^8.0.0",
+    "@zowe/cli-test-utils": "^8.0.0",
+    "@zowe/imperative": "^8.0.0",
     "env-cmd": "^10.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-jest": "^27.9.0",
