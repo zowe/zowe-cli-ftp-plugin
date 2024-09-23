@@ -33,7 +33,7 @@ export default class SpoolFileByIdHandler extends FTPBaseHandler {
          * And ensure the correct spool file can be retrieved.
          */
         const jobStatus = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
-        option.jobName = jobStatus.jobname;
+        option.jobName = jobStatus.jobName;
 
         const content = await JobUtils.getSpoolFileContent(params.connection, option);
         params.response.data.setObj(content);

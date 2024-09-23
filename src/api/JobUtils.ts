@@ -9,8 +9,12 @@
  *
  */
 
-import { Logger } from "@zowe/imperative";
-import { IGetSpoolFileOption, IJob, IJobStatus, IListJobOption, ISpoolFile } from "./JobInterface";
+import { Logger, IO } from "@zowe/imperative";
+import {
+    IDownloadSpoolContentParms, IGetSpoolDownloadFilePath, IGetSpoolFileOption, IJob,
+    IJobStatus, IListJobOption, ISpoolFile
+} from "./doc/JobInterface";
+import { ZosAccessor } from "zos-node-accessor";
 
 export class JobUtils {
 
@@ -22,8 +26,8 @@ export class JobUtils {
      * @param option - list job option
      * @returns job entries
      */
-    public static async listJobs(connection: any, prefix: string, option?: IListJobOption): Promise<IJob[]> {
-        const accessorOption: any = {
+    public static async listJobs(connection: ZosAccessor, prefix: string, option?: IListJobOption): Promise<IJob[]> {
+        const accessorOption: IListJobOption = {
             jobName: prefix || "*",
         };
         let debugMessage = `Listing jobs that match prefix ${prefix}`;
@@ -31,7 +35,7 @@ export class JobUtils {
             accessorOption.owner = option.owner;
             debugMessage += ` and are owned by ${accessorOption.owner}`;
         }
-        if(option && option.status) {
+        if (option && option.status) {
             accessorOption.status = option.status;
             debugMessage += ` and status is ${accessorOption.status}`;
         }
@@ -39,8 +43,7 @@ export class JobUtils {
 
         const jobs = await connection.listJobs(accessorOption);
         this.log.debug("List returned %d jobs", jobs.length);
-        const filteredJobs = JobUtils.parseJobDetails(jobs);
-        return filteredJobs;
+        return jobs;
     }
 
     /**
@@ -49,9 +52,9 @@ export class JobUtils {
      * @param connection - zos-node-accessor connection
      * @param jobId - job id
      */
-    public static async deleteJob(connection: any, jobId: string): Promise<void> {
+    public static async deleteJob(connection: ZosAccessor, jobId: string): Promise<void> {
         this.log.debug("Deleting job with job id '%s'", jobId);
-        await connection.deleteJob(jobId);
+        await connection.deleteJob({ jobId });
     }
 
     /**
@@ -61,7 +64,7 @@ export class JobUtils {
      * @param option - option
      * @returns spool file content
      */
-    public static async getSpoolFileContent(connection: any, option: IGetSpoolFileOption): Promise<Buffer> {
+    public static async getSpoolFileContent(connection: ZosAccessor, option: IGetSpoolFileOption): Promise<string> {
         return connection.getJobLog(option);
     }
 
@@ -72,16 +75,16 @@ export class JobUtils {
      * @param jobId - job ID
      * @returns spool files with content
      */
-    public static async getSpoolFiles(connection: any, jobId: string): Promise<ISpoolFile[]> {
-        const jobDetails = (await JobUtils.findJobByID(connection, jobId));
+    public static async getSpoolFiles(connection: ZosAccessor, jobId: string): Promise<ISpoolFile[]> {
+        const jobDetails = await JobUtils.findJobByID(connection, jobId);
         const fullSpoolFiles: ISpoolFile[] = [];
         if (jobDetails.spoolFiles) {
             for (const spoolFileToDownload of jobDetails.spoolFiles) {
                 this.log.debug("Requesting spool files for job %s(%s) spool file ID %d",
-                    jobDetails.jobname, jobDetails.jobid, spoolFileToDownload.id);
+                    jobDetails.jobName, jobDetails.jobId, spoolFileToDownload.id);
                 const option = {
-                    jobName: jobDetails.jobname,
-                    jobId: jobDetails.jobid,
+                    jobName: jobDetails.jobName,
+                    jobId: jobDetails.jobId,
                     owner: "*",
                     fileId: spoolFileToDownload.id
                 };
@@ -100,7 +103,7 @@ export class JobUtils {
      * @param jcl - jcl
      * @returns job id
      */
-    public static async submitJob(connection: any, jcl: string): Promise<string> {
+    public static async submitJob(connection: ZosAccessor, jcl: string): Promise<string> {
         return connection.submitJCL(jcl);
     }
 
@@ -111,8 +114,8 @@ export class JobUtils {
      * @param dsn - fully-qualified JCL dataset name without quotes
      * @returns job id
      */
-    public static async submitJobFromDataset(connection: any, dsn: string): Promise<string> {
-        const dsContent = (await connection.getDataset("'" + dsn + "'")).toString();
+    public static async submitJobFromDataset(connection: ZosAccessor, dsn: string): Promise<string> {
+        const dsContent = (await connection.downloadDataset("'" + dsn + "'")).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", dsn);
         return JobUtils.submitJob(connection, dsContent);
     }
@@ -124,9 +127,9 @@ export class JobUtils {
      *                         note: you can't use the abbreviated version like j123. it must be the full job ID
      * @param connection - connection to zos-node-accessor
      */
-    public static async findJobByID(connection: any, jobId: string): Promise<IJobStatus> {
+    public static async findJobByID(connection: ZosAccessor, jobId: string): Promise<IJobStatus> {
         this.log.debug("Attempting to locate job by job ID %s", jobId);
-        const jobStatus = await connection.getJobStatus({jobId: jobId.toUpperCase(), owner: "*"});
+        const jobStatus = await connection.getJobStatus({ jobId: jobId.toUpperCase(), owner: "*" });
         if (jobStatus.retcode) {
             // zos-node-accessor returns 'RC 0000', which need be converted to 'CC 0000'.
             jobStatus.retcode = jobStatus.retcode.replace(/^RC /, "CC ");
@@ -134,33 +137,40 @@ export class JobUtils {
         return jobStatus;
     }
 
-    public static parseJobDetails(jobs: string[]): IJob[] {
-        if (jobs.length > 1) {
-            jobs = jobs.slice(1);
+    public static async downloadSpoolContent(connection: ZosAccessor, parms: IDownloadSpoolContentParms): Promise<void> {
+        if (parms.binary) {
+            throw new Error("Unable to download spool content in binary format");
         }
-        return jobs.map((job: string) => {
-            // object looks like:
-            // JOBNAME, JOBID, OWNER, STATUS, CLASS
-            // turn the object into a similar format to that returned by
-            // z/osmf so that users who use the list ds command in main
-            // zowe can use the same filtering options
-            const fields = job.split(/\s+/g);
-
-            const jobNameIndex = 0;
-            const jobIdIndex = 1;
-            const ownerIndex = 2;
-            const statusIndex = 3;
-            const classIndex = 4;
-            return {
-                jobname: fields[jobNameIndex],
-                jobid: fields[jobIdIndex],
-                owner: fields[ownerIndex],
-                status: fields[statusIndex],
-                class: fields[classIndex],
-                originalFtpResult: job
-            };
-        });
+        const jobDetails = await JobUtils.findJobByID(connection, parms.jobId);
+        if (jobDetails.spoolFiles == null || jobDetails.spoolFiles.length === 0) {
+            throw new Error("No spool files were available.");
+        }
+        const fullSpoolFiles = await JobUtils.getSpoolFiles(connection, jobDetails.jobId);
+        for (const spool of fullSpoolFiles) {
+            const destinationFile = JobUtils.getSpoolDownloadFilePath({
+                ...parms,
+                ddName: spool.ddName,
+                stepName: spool.stepName,
+                procStep: spool.procStep === "N/A" ? undefined : spool.procStep,
+            });
+            IO.createDirsSyncFromFilePath(destinationFile);
+            IO.writeFile(destinationFile, spool.contents);
+        }
     }
+
+    public static getSpoolDownloadFilePath(parms: IGetSpoolDownloadFilePath): string {
+        this.log.trace("getSpoolDownloadFilePath called with %s", JSON.stringify(parms));
+        let directory: string = (parms.outDir ?? "./output") + IO.FILE_DELIM + parms.jobId;
+        if (parms.procStep != null) {
+            directory += IO.FILE_DELIM + parms.procStep;
+        }
+        if (parms.stepName != null) {
+            directory += IO.FILE_DELIM + parms.stepName;
+        }
+        const extension = parms.extension ?? ".txt";
+        return directory + IO.FILE_DELIM + parms.ddName + extension;
+    }
+
 
     private static get log(): Logger {
         return Logger.getAppLogger();

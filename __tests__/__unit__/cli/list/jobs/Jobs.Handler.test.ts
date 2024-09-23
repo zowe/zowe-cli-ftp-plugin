@@ -9,10 +9,14 @@
  *
  */
 
+import { Job } from "zos-node-accessor/lib/interfaces/Job";
 import ListJobsHandler from "../../../../../src/cli/list/jobs/Jobs.Handler";
 import TestUtils from "../../TestUtils";
 
 describe("List jobs handler", () => {
+    beforeEach(() => {
+        jest.restoreAllMocks();
+    });
 
     it("should return no job if the job is not found.", async () => {
         const handler = new ListJobsHandler();
@@ -35,10 +39,9 @@ describe("List jobs handler", () => {
 
     it("should return correct message if the job is found.", async () => {
         const handler = new ListJobsHandler();
-        const jobs: any[] = [
-            "JOBNAME, JOBID, OWNER, STATUS, CLASS",
-            "JOBNAME1, JOBID1, OWNER1, STATUS1, CLASS1",
-            "JOBNAME2, JOBID2, OWNER2, STATUS2, CLASS2"
+        const jobs: Job[] = [
+            { jobName: "JOBNAME1", jobId: "JOBID1", owner: "OWNER1", status: "STATUS1", class: "CLASS1" },
+            { jobName: "JOBNAME2", jobId: "JOBID2", owner: "OWNER2", status: "STATUS2", class: "CLASS2" },
         ];
 
         const mockResponse = TestUtils.getMockResponse();

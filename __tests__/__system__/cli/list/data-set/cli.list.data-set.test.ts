@@ -12,8 +12,9 @@
 import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-utils";
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
 describe("list data-set-classic ftp command", () => {

@@ -11,26 +11,7 @@
 
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
-import { isNullOrUndefined } from "util";
-
-/**
- * The data is transferred in text mode, in which encoding conversion like ASCII/EBCDIC will happen.
- */
-export const TRANSFER_TYPE_ASCII = "ascii";
-
-/**
- * The data is transferred in binary mode, in which no encoding conversion will happen.
- */
-export const TRANSFER_TYPE_BINARY = "binary";
-
-/**
- * The data is transferred in text mode like TRANSFER_TYPE_ASCII, and 4-byte RDW is inserted at beginning of each record.
- */
-export const TRANSFER_TYPE_ASCII_RDW = "ascii_rdw";
-/**
-  * The data is transferred in binary mode like TRANSFER_TYPE_BINARY, and 4-byte RDW is inserted at beginning of each record.
-  */
-export const TRANSFER_TYPE_BINARY_RDW = "binary_rdw";
+import { TransferMode } from "zos-node-accessor";
 
 export class CoreUtils {
 
@@ -82,26 +63,14 @@ export class CoreUtils {
                 const stdinReadError: IImperativeError = {
                     msg: "Error encountered while reading from stdin",
                     causeErrors: error,
-                    additionalDetails: (isNullOrUndefined(error)) ? undefined : error.message
+                    additionalDetails: error?.message
                 };
                 reject(stdinReadError);
             });
         });
     }
 
-    public static addLowerCaseKeysToObject(obj: any): any {
-        const result: any = {};
-        for (const key of Object.keys(obj)) {
-            // turn the object into a similar format to that returned by
-            // z/osmf so that users who use the list ds command in main
-            // zowe can use the same filtering options
-            this.log.trace("Remapping key for data set to match core CLI. Old key '%s' New key '%s'", key, key.toLowerCase());
-            result[key.toLowerCase()] = obj[key];
-        }
-        return result;
-    }
-
-    public static async getProfileMeta(): Promise<ICommandProfileTypeConfiguration[]> {
+    public static async getProfileSchema(): Promise<ICommandProfileTypeConfiguration[]> {
         const ftpProfile = await require("../imperative").profiles as ICommandProfileTypeConfiguration[];
         return ftpProfile;
     }
@@ -110,4 +79,10 @@ export class CoreUtils {
         return Logger.getAppLogger();
     }
 
+    public static getBinaryTransferModeOrDefault(isBinary: boolean, rdw = false): TransferMode {
+        return (isBinary ?
+            (rdw ? TransferMode.BINARY_RDW : TransferMode.BINARY) :
+            (rdw ? TransferMode.ASCII_RDW : TransferMode.ASCII)
+        );
+    }
 }

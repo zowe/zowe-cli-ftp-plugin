@@ -33,7 +33,7 @@ require("glob")("{__mocks__,src,gulp,__tests__,jenkins,scripts}{/**/*.js,/**/*.t
                 alreadyContainedCopyright++;
                 continue; // already has copyright
             }
-            const shebangPattern = require("shebang-regex");
+            const shebangPattern = /^#!(.*)/;
             let usedShebang = "";
             result = result.replace(shebangPattern, function (fullMatch) {
                 usedShebang = fullMatch + "\n"; // save the shebang that was used, if any

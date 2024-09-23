@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 let iefbr14Content: string;
@@ -33,7 +34,7 @@ describe("view spool-file-by-id command", () => {
 
         const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
         iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
-        iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
     });
 
     afterAll(async () => {
@@ -42,19 +43,19 @@ describe("view spool-file-by-id command", () => {
     });
 
     it("should be able to submit a job and then view the JESJCL DD by ID", async () => {
-        const jobID = await connection.submitJCL(iefbr14Content);
+        const jobId = await connection.submitJCL(iefbr14Content);
         const FIVE_SECOND = 5000;
         await CoreUtils.sleep(FIVE_SECOND);
-        const jobStatus = await connection.getJobStatus(jobID);
-        let jesJCLID: string;
-        for (const file  of jobStatus.spoolFiles) {
-            if (file.ddname === "JESJCL") {
+        const jobStatus = await connection.getJobStatus({jobId});
+        let jesJCLID;
+        for (const file of jobStatus.spoolFiles ?? []) {
+            if (file.ddName === "JESJCL") {
                 jesJCLID = file.id;
                 break;
             }
         }
         expect(jesJCLID).toBeDefined();
-        const result = runCliScript(__dirname + "/__scripts__/command_view_spool_file_by_id.sh", testEnvironment, [jobID, jesJCLID]);
+        const result = runCliScript(__dirname + "/__scripts__/command_view_spool_file_by_id.sh", testEnvironment, [jobId, jesJCLID]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         const stdout = result.stdout.toString();
@@ -69,7 +70,7 @@ describe("view spool-file-by-id command", () => {
             // but it's modified slightly like expanded procedures etc. so we can't just put "toContain"
             expect(stdout).toContain(word);
         }
-        expect(result.stdout.toString()).toContain(jobID);
+        expect(result.stdout.toString()).toContain(jobId);
     });
 
     it("should give a syntax error if the jobid and spool ID are omitted", async () => {

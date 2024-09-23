@@ -12,9 +12,11 @@
 import * as fs from "fs";
 
 import { IO, Logger } from "@zowe/imperative";
-import { CoreUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "./CoreUtils";
-import { IAllocateDataSetOption, IDownloadDataSetOption, IUploadDataSetOption, TRACK } from "./DataSetInterface";
+import { CoreUtils } from "./CoreUtils";
+import { IAllocateDataSetOption, IDatasetEntry, IDatasetMemberEntry, IDownloadDataSetOption, IUploadDataSetOption } from "./doc/DataSetInterface";
 import { StreamUtils } from "./StreamUtils";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
+import { TRACK } from "./doc";
 
 export class DataSetUtils {
 
@@ -25,13 +27,12 @@ export class DataSetUtils {
      * @param pattern - dataset name pattern
      * @returns dataset entries
      */
-    public static async listDataSets(connection: any, pattern: string): Promise<any[]> {
+    public static async listDataSets(connection: ZosAccessor, pattern: string): Promise<IDatasetEntry[]> {
         this.log.debug("Listing data sets matching pattern '%s' via FTP", pattern);
-        const files = await connection.listDataset(pattern);
+        const files = await connection.listDatasets(pattern);
 
         this.log.debug("Found %d matching data sets", files.length);
-        const filteredFiles = files.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));
-        return filteredFiles;
+        return files;
     }
 
     /**
@@ -41,16 +42,14 @@ export class DataSetUtils {
      * @param dsn - fully-qualified dataset name without quotes
      * @returns member entries
      */
-    public static async listMembers(connection: any, dsn: string): Promise<any[]> {
+    public static async listMembers(connection: ZosAccessor, dsn: string): Promise<IDatasetMemberEntry[]> {
         this.log.debug("List members of %s", dsn);
 
         const datasetname = dsn + "(*)";
-        const members = await connection.listDataset(datasetname);
+        const members = await connection.listDatasets(datasetname);
 
         this.log.debug("Found %d members", members.length);
-        const filteredMembers = members.map((file: any) => CoreUtils.addLowerCaseKeysToObject(file));
-
-        return filteredMembers;
+        return members;
     }
 
     /**
@@ -59,9 +58,9 @@ export class DataSetUtils {
      * @param connection - zos-node-accessor connection
      * @param dsn - fully-qualified dataset name without quotes
      */
-    public static async deleteDataSet(connection: any, dsn: string): Promise<void> {
+    public static async deleteDataSet(connection: ZosAccessor, dsn: string): Promise<void> {
         this.log.debug("Deleting data set '%s'", dsn);
-        await connection.deleteDataset("'" + dsn + "'");
+        await connection.deleteDataset(dsn);
     }
 
     /**
@@ -71,9 +70,9 @@ export class DataSetUtils {
      * @param oldDsn - old fully-qualified dataset name without quotes
      * @param newDsn - new fully-qualified dataset name without quotes
      */
-    public static async renameDataSet(connection: any, oldDsn: string, newDsn: string): Promise<void> {
+    public static async renameDataSet(connection: ZosAccessor, oldDsn: string, newDsn: string): Promise<void> {
         this.log.debug("Attempting to rename data set from '%s' to '%s'", oldDsn, newDsn);
-        await connection.rename(oldDsn, newDsn);
+        await connection.renameDataset(oldDsn, newDsn);
     }
 
     /**
@@ -85,22 +84,22 @@ export class DataSetUtils {
      * @param option - download option
      * @returns dataset contents in Buffer, if localFile is not provided in option. Otherwise, undefined will be returned.
      */
-    public static async downloadDataSet(connection: any, dsn: string, option: IDownloadDataSetOption): Promise<Buffer> {
-        const files = await connection.listDataset(dsn);
+    public static async downloadDataSet(connection: ZosAccessor, dsn: string, option: IDownloadDataSetOption): Promise<Buffer> {
+        const files = await connection.listDatasets(dsn);
         if (files === undefined || files.length === 0) {
             throw new Error(`The dataset "${dsn}" doesn't exist.`);
         }
 
-        const estimatedSize = parseInt(files[0].Used, 10) * TRACK;
+        const estimatedSize = files[0].usedTracks * TRACK;
         let encoding;
         if (option.encoding) {
             encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
         }
-        const transferType = option.transferType || TRANSFER_TYPE_ASCII;
+        const transferType = option.transferType || TransferMode.ASCII;
 
         let buffer;
         let length;
-        const stream = await connection.getDataset(dsn, transferType, true, encoding);
+        const stream = await connection.downloadDataset(dsn, transferType, true, encoding) as fs.ReadStream;
         if (option.localFile) {
             this.log.debug("Downloading data set '%s' to local file '%s' in transfer mode '%s'",
                 dsn, option.localFile, transferType);
@@ -123,28 +122,28 @@ export class DataSetUtils {
      * @param dsn - fully-qualified dataset name without quotes
      * @param option - upload option
      */
-    public static async uploadDataSet(connection: any, dsn: string, option: IUploadDataSetOption): Promise<void> {
-        const transferType = option.transferType || TRANSFER_TYPE_ASCII;
+    public static async uploadDataSet(connection: ZosAccessor, dsn: string, option: IUploadDataSetOption): Promise<void> {
+        const transferType = option.transferType || TransferMode.ASCII;
         let content = option.content;
-        let siteparm;
+        let siteParm;
         let encoding;
         if (option.encoding) {
             encoding= "sbd=(" + option.encoding + ",ISO8859-1)";
-            siteparm = option.dcb + " " + encoding;
+            siteParm = option.dcb + " " + encoding;
         } else {
-            siteparm = option.dcb;
+            siteParm = option.dcb;
         }
         if (option.localFile) {
             this.log.debug("Attempting to upload from local file '%s' to data set '%s' in transfer mode '%s'",
                 option.localFile, dsn, transferType);
-            content = IO.readFileSync(option.localFile, undefined, transferType === TRANSFER_TYPE_BINARY);
+            content = IO.readFileSync(option.localFile, undefined, transferType === TransferMode.BINARY);
         } else {
             this.log.debug("Attempting to upload to data set '%s' in transfer mode '%s'", dsn, option.transferType);
         }
-        if (transferType === TRANSFER_TYPE_ASCII) {
+        if (transferType === TransferMode.ASCII) {
             content = Buffer.from(CoreUtils.addCarriageReturns(content.toString()));
         }
-        await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteparm);
+        await connection.uploadDataset(content, "'" + dsn + "'", transferType, siteParm);
     }
 
     /**
@@ -154,7 +153,7 @@ export class DataSetUtils {
      * @param dsn - fully-qualified dataset name without quotes
      * @param option - Allocate option
      */
-    public static async allocateDataSet(connection: any, dsn: string, option: IAllocateDataSetOption): Promise<void> {
+    public static async allocateDataSet(connection: ZosAccessor, dsn: string, option: IAllocateDataSetOption): Promise<void> {
         this.log.debug("Allocate data set '%s'", dsn);
         await connection.allocateDataset(dsn, option.dcb);
     }

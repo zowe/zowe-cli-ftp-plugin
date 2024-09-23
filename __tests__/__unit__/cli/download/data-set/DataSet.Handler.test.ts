@@ -32,8 +32,8 @@ describe("Download data set handler", () => {
                 file: "invalid.txt☻"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
             },
             response: mockResponse
         };
@@ -56,7 +56,7 @@ describe("Download data set handler", () => {
                 dataSet: "ds1"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files))
             }
         };
         try {
@@ -83,14 +83,14 @@ describe("Download data set handler", () => {
                 rdw: true,
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
             },
             response: mockResponse
         };
         await handler.processFTP(mockParams);
         expect(mockResponse.console.log.mock.calls[0][0]).toBe(ZosFilesMessages.datasetDownloadedSuccessfully.message);
         expect(mockResponse.console.log.mock.calls[0][1]).toBe("ds1");
-        expect(mockParams.connection.getDataset.mock.calls[0][1]).toBe("binary_rdw");
+        expect(mockParams.connection.downloadDataset.mock.calls[0][1]).toBe("binary_rdw");
     });
 });

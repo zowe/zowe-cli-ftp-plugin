@@ -13,8 +13,9 @@ import { ITestEnvironment, TestEnvironment, runCliScript } from "@zowe/cli-test-
 import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSchema";
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString } from "../../../../__src__/TestUtils";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -41,7 +42,7 @@ describe("delete uss file command", () => {
         const fileNameLength = 30;
         const destination = ussTestDir + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
         const uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
-        await connection.uploadDataset(uploadContent, destination, "ascii");
+        await connection.uploadDataset(uploadContent, destination, TransferMode.ASCII);
         const result = runCliScript(__dirname + "/__scripts__/command_delete_uss_file.sh", testEnvironment,
             [destination]);
         expect(result.stderr.toString()).toEqual("");
@@ -75,7 +76,7 @@ describe("delete uss file command", () => {
 
         let uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         const file = destination + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
-        await connection.uploadDataset(uploadContent, file, "ascii");
+        await connection.uploadDataset(uploadContent, file, TransferMode.ASCII);
 
         const subDirectoryDestination1 = destination + "/" + generateRandomAlphaNumericString(fileNameLength);
         await connection.makeDirectory(subDirectoryDestination1);
@@ -85,11 +86,11 @@ describe("delete uss file command", () => {
 
         uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         const file1 = subDirectoryDestination1 + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
-        await connection.uploadDataset(uploadContent, file1, "ascii");
+        await connection.uploadDataset(uploadContent, file1, TransferMode.ASCII);
 
         uploadContent = generateRandomAlphaNumericString(CONTENT_LENGTH);
         const file2 = subDirectoryDestination2 + "/" + generateRandomAlphaNumericString(fileNameLength) + ".txt";
-        await connection.uploadDataset(uploadContent, file2, "ascii");
+        await connection.uploadDataset(uploadContent, file2, TransferMode.ASCII);
 
         const result = runCliScript(__dirname + "/__scripts__/command_delete_uss_directory_recursively.sh", testEnvironment,
             [destination]);

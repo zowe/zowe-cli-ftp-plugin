@@ -47,8 +47,8 @@ describe("Download all spool by job id handler", () => {
             }
         ];
         const jobDetails = {
-            jobid: "jobid1",
-            jobname: "job1",
+            jobId: "jobid1",
+            jobName: "job1",
             spoolFiles
         };
 
@@ -66,13 +66,13 @@ describe("Download all spool by job id handler", () => {
         const mockGetSpoolDownloadFile = jest.fn().mockReturnValue("value");
         const mockCreateDirsSyncFromFilePath = jest.fn();
         const mockWriteFile = jest.fn();
-        DownloadJobs.getSpoolDownloadFile = mockGetSpoolDownloadFile;
+        DownloadJobs.getSpoolDownloadFilePath = mockGetSpoolDownloadFile;
         IO.createDirsSyncFromFilePath = mockCreateDirsSyncFromFilePath;
         IO.writeFile = mockWriteFile;
 
         await handler.processFTP(mockParams);
-        expect(mockCreateDirsSyncFromFilePath).toBeCalled();
-        expect(mockWriteFile).toBeCalled();
+        expect(mockCreateDirsSyncFromFilePath).toHaveBeenCalled();
+        expect(mockWriteFile).toHaveBeenCalled();
         expect(mockResponse.console.log.mock.calls[0][0]).toBe("Successfully downloaded %d spool files to %s");
         expect(mockResponse.console.log.mock.calls[0][1]).toBe(1);
         expect(mockResponse.console.log.mock.calls[0][2]).toBe("./output/");

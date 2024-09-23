@@ -4,9 +4,9 @@ exports[`List spool files by job id handler should return correct message if at 
 Object {
   "fields": Array [
     "id",
-    "ddname",
-    "procstep",
-    "stepname",
+    "ddName",
+    "procStep",
+    "stepName",
   ],
   "format": "table",
   "output": Array [
@@ -35,9 +35,9 @@ exports[`List spool files by job id handler should return correct message if at 
 Object {
   "fields": Array [
     "id",
-    "ddname",
-    "procstep",
-    "stepname",
+    "ddName",
+    "procStep",
+    "stepName",
   ],
   "format": "table",
   "output": Array [
@@ -48,20 +48,5 @@ Object {
       "name": "file2",
     },
   ],
-}
-`;
-
-exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 1`] = `Array []`;
-
-exports[`List spool files by job id handler should return no spool file if the no spool file is not found. 2`] = `
-Object {
-  "fields": Array [
-    "id",
-    "ddname",
-    "procstep",
-    "stepname",
-  ],
-  "format": "table",
-  "output": Array [],
 }
 `;

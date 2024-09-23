@@ -15,8 +15,9 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { IO } from "@zowe/imperative";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 
@@ -42,7 +43,7 @@ describe("download all-spool-by-jobid command", () => {
 
     it("should be able to submit an IEFBR14 job and then download the jobid", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;
         await CoreUtils.sleep(JOB_WAIT);
@@ -60,7 +61,7 @@ describe("download all-spool-by-jobid command", () => {
 
     it("should be able to submit a job from a local file and then download the spool, omitting the jobid directory", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         const jobid = await connection.submitJCL(iefbr14Content.toString());
         const JOB_WAIT = 2000;
         await CoreUtils.sleep(JOB_WAIT);

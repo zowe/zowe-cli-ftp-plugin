@@ -2,8 +2,8 @@
 
 exports[`View job status by jobid handler should return correct job status if the job is found. 1`] = `
 Object {
-  "jobid": "jobid1",
-  "jobname": "jobname1",
+  "jobId": "jobId1",
+  "jobName": "jobName1",
   "owner": "owner1",
   "rc": 0,
   "status": "success",
@@ -13,17 +13,18 @@ Object {
 exports[`View job status by jobid handler should return correct job status if the job is found. 2`] = `
 Object {
   "fields": Array [
-    "jobname",
-    "jobid",
+    "jobName",
+    "jobId",
     "owner",
     "status",
     "rc",
     "retcode",
+    "extra",
   ],
   "format": "object",
   "output": Object {
-    "jobid": "jobid1",
-    "jobname": "jobname1",
+    "jobId": "jobId1",
+    "jobName": "jobName1",
     "owner": "owner1",
     "rc": 0,
     "status": "success",

@@ -15,8 +15,9 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let ussTestDir: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -46,14 +47,14 @@ describe("upload file to uss file command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset(destination)).toString().trim();
+        const uploadedContent = (await connection.downloadFile(destination)).toString().trim();
         const expectedContent = IO.readFileSync(fileToUpload).toString().trim();
         const uploadedLines = uploadedContent.split(/\r?\n/g);
         const expectedLines = expectedContent.split(/\r?\n/g);
         for (let x = 0; x < expectedLines.length; x++) {
             expect(uploadedLines[x].trim()).toEqual(expectedLines[x].trim());
         }
-        await connection.deleteDataset(destination);
+        await connection.deleteFile(destination);
     });
 
     it("should be able to upload stdin to a data set in binary mode and verify that the content is correct", async () => {
@@ -67,10 +68,10 @@ describe("upload file to uss file command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset(destination, "binary"));
+        const uploadedContent = (await connection.downloadFile(destination, TransferMode.BINARY));
         const uploadedContentString = uploadedContent.toString("hex");
         expect(uploadedContentString).toEqual(randomContent.toString("hex"));
-        await connection.deleteDataset(destination);
+        await connection.deleteFile(destination);
     });
 
     it("should give a syntax error if the file and uss file are omitted", async () => {

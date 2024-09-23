@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 let iefbr14Content: string;
@@ -33,7 +34,7 @@ describe("view job-status-by-jobid command", () => {
 
         const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
         iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
-        iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
     });
 
     afterAll(async () => {
@@ -49,8 +50,8 @@ describe("view job-status-by-jobid command", () => {
         const result = runCliScript(__dirname + "/__scripts__/command_view_job_status_by_jobid.sh", testEnvironment, [jobID]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        expect(result.stdout.toString()).toContain("jobname");
-        expect(result.stdout.toString()).toContain("jobid");
+        expect(result.stdout.toString()).toContain("jobName");
+        expect(result.stdout.toString()).toContain("jobId");
         expect(result.stdout.toString()).toContain(jobID);
     });
 
@@ -58,7 +59,7 @@ describe("view job-status-by-jobid command", () => {
         const result = runCliScript(__dirname + "/__scripts__/command_view_job_status_by_jobid.sh", testEnvironment, []);
         const stderr = result.stderr.toString();
         expect(stderr).toContain("Positional");
-        expect(stderr).toContain("jobid");
+        expect(stderr).toContain("jobId");
         expect(stderr).toContain("Syntax");
         expect(result.status).toEqual(1);
     });

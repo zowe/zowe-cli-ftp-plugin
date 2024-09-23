@@ -20,25 +20,25 @@ export default class ListSpoolFilesByJobidHandler extends FTPBaseHandler {
 
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
 
-        this.log.debug("Listing spool files for job ID %s", params.arguments.jobid);
-        const job = await JobUtils.findJobByID(params.connection, params.arguments.jobid);
+        this.log.debug("Listing spool files for job ID %s", params.arguments.jobId);
+        const job = await JobUtils.findJobByID(params.connection, params.arguments.jobId);
         const files = job.spoolFiles;
-        if (files) {
-            const successMessage = this.log.info(`"${files.length}" spool files obtained for job "${job.jobname}(${job.jobid})"`);
+        if (files?.length > 0) {
+            const successMessage = this.log.info(`"${files.length}" spool files obtained for job "${job.jobName}(${job.jobId})"`);
             // Set the object, message, and log the prettified object
             params.response.data.setObj(files);
             params.response.data.setMessage(successMessage);
 
             // Format & print the response
             params.response.format.output({
-                fields: ["id", "ddname", "procstep", "stepname"],
+                fields: ["id", "ddName", "procStep", "stepName"],
                 output: files,
-                format: "table"
+                format: "table",
             });
         } else {
-            const errorMessage = this.log.info("No spool file available.");
-            params.response.data.setMessage(errorMessage);
-            params.response.console.error(errorMessage);
+            const failedMessage = params.response.console.log("No spool file.");
+            params.response.data.setMessage(failedMessage);
+            this.log.info(failedMessage);
         }
     }
 }

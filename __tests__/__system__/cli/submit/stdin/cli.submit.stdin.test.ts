@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { IO } from "@zowe/imperative";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 let sleepDataSet: string;
@@ -36,8 +37,8 @@ describe("submit job from stdin command", () => {
         const pds = testEnvironment.systemTestProperties.datasets.writablePDS;
         iefbr14DataSet = await prepareTestJclDataSet(connection, pds, "IEFBR14");
         sleepDataSet = await prepareTestJclDataSet(connection, pds, "SLEEP");
-        iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
-        sleepContent = (await connection.getDataset(sleepDataSet)).toString();
+        iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
+        sleepContent = (await connection.downloadDataset(sleepDataSet)).toString();
     });
 
     afterAll(async () => {

@@ -15,8 +15,9 @@ import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { generateRandomAlphaNumericString, generateRandomBytes } from "../../../../__src__/TestUtils";
 import { IO } from "@zowe/imperative";
 import * as fs from "fs";
+import { TransferMode, ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testDataSet: string;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 
@@ -46,7 +47,7 @@ describe("upload stdin to data set command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset("'" + destination + "'")).toString().trim();
+        const uploadedContent = (await connection.downloadDataset("'" + destination + "'")).toString().trim();
         const expectedContent = IO.readFileSync(fileToUpload).toString().trim();
         const uploadedLines = uploadedContent.split(/\r?\n/g);
         const expectedLines = expectedContent.split(/\r?\n/g);
@@ -67,7 +68,7 @@ describe("upload stdin to data set command", () => {
             [fileToUpload, destination]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
-        const uploadedContent = (await connection.getDataset("'" + destination + "'", "binary"));
+        const uploadedContent = (await connection.downloadDataset("'" + destination + "'", TransferMode.BINARY));
         // binary upload to a fixed record  data set will fill a data set with zeroes for the remainder of the record
         // so we can trim the zeroes off and still be accurate
         const uploadedContentString = uploadedContent.toString("hex").replace(/0+$/, "");

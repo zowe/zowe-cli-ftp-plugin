@@ -24,7 +24,7 @@ export const SpoolFilesByJobidDefinition: ICommandDefinition = {
     },
     positionals: [
         {
-            name: "jobid",
+            name: "jobId",
             description: "The z/OS JOBID of the job with the spool files you want to list. " +
             "No pre-validation of the JOBID is performed.",
             type: "string",

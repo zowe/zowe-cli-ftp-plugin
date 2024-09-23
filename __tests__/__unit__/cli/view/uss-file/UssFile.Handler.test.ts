@@ -22,8 +22,8 @@ describe("View uss file handler", () => {
                 ussFile: "ussFile1"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getUssFile: jest.fn().mockReturnValue(Promise.resolve(""))
+                listFiles: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadFile: jest.fn().mockReturnValue(Promise.resolve(""))
             }
         };
         try {
@@ -47,8 +47,8 @@ describe("View uss file handler", () => {
                 ussFile: "ussFile1"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files)),
-                getDataset: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
+                listFiles: jest.fn().mockReturnValue(Promise.resolve(files)),
+                downloadFile: jest.fn().mockReturnValue(Promise.resolve(TestUtils.getSingleLineStream()))
             },
             response: mockResponse
         };

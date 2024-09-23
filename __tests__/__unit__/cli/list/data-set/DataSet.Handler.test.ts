@@ -24,7 +24,7 @@ describe("List data set handler", () => {
                 pattern: "ds*"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };
@@ -53,7 +53,7 @@ describe("List data set handler", () => {
                 pattern: "ds*"
             },
             connection: {
-                listDataset: jest.fn().mockReturnValue(Promise.resolve(files))
+                listDatasets: jest.fn().mockReturnValue(Promise.resolve(files))
             },
             response: mockResponse
         };

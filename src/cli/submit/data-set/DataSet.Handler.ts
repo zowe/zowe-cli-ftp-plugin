@@ -11,13 +11,14 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { SubmitJobHandler } from "../SubmitJobHandler";
-import { DataSetUtils, TRANSFER_TYPE_ASCII } from "../../../api";
+import { DataSetUtils } from "../../../api";
+import { TransferMode } from "zos-node-accessor";
 
 export default class SubmitJobFromLocalFileHandler extends SubmitJobHandler {
     public async processFTP(params: IFTPHandlerParams): Promise<void> {
         this.log.debug("Submitting a job from data set '%s'. Downloading before submitting...", params.arguments.dataSet);
         const options = {
-            transferType: TRANSFER_TYPE_ASCII,
+            transferType: TransferMode.ASCII,
         };
         const dsContent = (await DataSetUtils.downloadDataSet(params.connection, params.arguments.dataSet, options)).toString();
         this.log.debug("Downloaded data set '%s'. Submitting...", params.arguments.dataSet);

@@ -14,8 +14,9 @@ import { ITestPropertiesSchema } from "../../../../__src__/doc/ITestPropertiesSc
 import { FTPConfig } from "../../../../../src/api/FTPConfig";
 import { CoreUtils } from "../../../../../src/api/CoreUtils";
 import { prepareTestJclDataSet } from "../../PrepareTestJclDatasets";
+import { ZosAccessor } from "zos-node-accessor";
 
-let connection: any;
+let connection: ZosAccessor;
 let testEnvironment: ITestEnvironment<ITestPropertiesSchema>;
 let iefbr14DataSet: string;
 
@@ -41,12 +42,12 @@ describe("list spool-files-by-jobid command", () => {
 
     it("should be able to submit a job and then list spool files for the job ID", async () => {
         // download the appropriate JCL content from the data set
-        const iefbr14Content = (await connection.getDataset(iefbr14DataSet)).toString();
+        const iefbr14Content = (await connection.downloadDataset(iefbr14DataSet)).toString();
         expect(iefbr14Content).toContain("IEFBR14");
-        const jobid = await connection.submitJCL(iefbr14Content);
+        const jobId = await connection.submitJCL(iefbr14Content);
         const ONE_SECOND = 1000;
         await CoreUtils.sleep(ONE_SECOND);
-        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, [jobid]);
+        const result = runCliScript(__dirname + "/__scripts__/command_list_spool_files_by_jobid.sh", testEnvironment, [jobId]);
         expect(result.stderr.toString()).toEqual("");
         expect(result.status).toEqual(0);
         expect(result.stdout.toString()).toContain("JESJCL");

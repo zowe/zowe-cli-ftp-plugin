@@ -27,7 +27,7 @@ describe("Upload stdin to USS file handler", () => {
                 ussFile: "/u/user/ussfile1"
             },
             connection: {
-                uploadDataset: jest.fn().mockReturnValue(Promise.resolve(""))
+                uploadFile: jest.fn().mockReturnValue(Promise.resolve(""))
             },
             response: mockResponse
         };

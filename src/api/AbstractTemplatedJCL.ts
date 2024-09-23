@@ -25,8 +25,7 @@ export abstract class AbstractTemplatedJCL {
      * @param  substitutionValues -
      * @param  templateFile - override the default JCL template with a file
      */
-    public getJcl(jobCardFile: string, substitutionValues: any, templateFile?: string) {
-
+    public getJcl(jobCardFile: string, substitutionValues: {[key: string]: string}, templateFile?: string) {
         let jcl = IO.readFileSync(jobCardFile).toString();
         if (!/\r?\nZ/.test(jcl)) {
             // add a newline to the end of the jcl if there is none

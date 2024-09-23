@@ -14,10 +14,11 @@
  * including a connection to FTP
  */
 import { IHandlerParameters } from "@zowe/imperative";
+import { ZosAccessor } from "zos-node-accessor";
 
 export interface IFTPHandlerParams extends IHandlerParameters {
     /**
      * Connection to zos-node-accessor
      */
-    connection: any;
+    connection: ZosAccessor;
 }

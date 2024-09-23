@@ -26,7 +26,7 @@ export default class ListJobsHandler extends FTPBaseHandler {
         params.response.format.output({
             output: filteredJobs,
             format: "table",
-            fields: ["jobid", "jobname", "owner", "status"]
+            fields: ["jobId", "jobName", "owner", "status"]
         });
     }
 }

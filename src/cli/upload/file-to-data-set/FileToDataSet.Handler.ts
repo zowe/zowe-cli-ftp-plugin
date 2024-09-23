@@ -11,7 +11,7 @@
 
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
-import { DataSetUtils, TRANSFER_TYPE_ASCII, TRANSFER_TYPE_BINARY } from "../../../api";
+import { CoreUtils, DataSetUtils } from "../../../api";
 
 export default class UploadFileToDataSetHandler extends FTPBaseHandler {
 
@@ -19,7 +19,7 @@ export default class UploadFileToDataSetHandler extends FTPBaseHandler {
         const options = {
             dcb: params.arguments.dcb,
             localFile: params.arguments.file,
-            transferType: params.arguments.binary ? TRANSFER_TYPE_BINARY : TRANSFER_TYPE_ASCII,
+            transferType: CoreUtils.getBinaryTransferModeOrDefault(params.arguments.binary),
             encoding: params.arguments.encoding
         };
         await DataSetUtils.uploadDataSet(params.connection, params.arguments.dataSet, options);
