@@ -13,9 +13,8 @@ module.exports = {
     branches: [
         {
             name: "master",
-            prerelease: true,
             level: "none",
-            channel: "next",
+            channel: "zowe-v3-lts",
             devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         },
         {
@@ -28,8 +27,7 @@ module.exports = {
         "@octorelease/changelog",
         ["@octorelease/npm", {
             aliasTags: {
-                latest: ["zowe-v2-lts"],
-                next: ["zowe-v3-lts"]
+                latest: ["zowe-v2-lts"]
             },
             pruneShrinkwrap: true
         }],
