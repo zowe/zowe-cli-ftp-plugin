@@ -11,7 +11,6 @@
 
 import { ICommandProfileTypeConfiguration, IImperativeError, Logger } from "@zowe/imperative";
 import * as stream from "stream";
-import { isNullOrUndefined } from "util";
 
 /**
  * The data is transferred in text mode, in which encoding conversion like ASCII/EBCDIC will happen.
@@ -82,7 +81,7 @@ export class CoreUtils {
                 const stdinReadError: IImperativeError = {
                     msg: "Error encountered while reading from stdin",
                     causeErrors: error,
-                    additionalDetails: (isNullOrUndefined(error)) ? undefined : error.message
+                    additionalDetails: (error == null) ? undefined : error.message
                 };
                 reject(stdinReadError);
             });
