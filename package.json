@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
-    "@types/node": "^18.19.21",
+    "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "@zowe/cli": "^8.0.0",
@@ -61,7 +61,7 @@
     "jest-environment-node-debug": "^2.0.0",
     "jest-html-reporter": "^3.10.2",
     "jest-junit": "^16.0.0",
-    "jest-stare": "^2.5.1",
+    "jest-stare": "^2.5.3",
     "madge": "^6.1.0",
     "rimraf": "^5.0.5",
     "ts-jest": "^29.1.2",
