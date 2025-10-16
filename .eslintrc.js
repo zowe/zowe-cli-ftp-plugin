@@ -14,7 +14,8 @@ module.exports = {
   "overrides": [
       {
           "extends": [
-              "plugin:jest/recommended"
+              "plugin:jest/recommended",
+              "plugin:deprecation/recommended"
           ],
           "files": [
               "**/__tests__/**/*.ts"
@@ -34,7 +35,8 @@ module.exports = {
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
       "ecmaVersion": 12,
-      "sourceType": "module"
+      "sourceType": "module",
+      "project": ["./tsconfig.json", "./__tests__/test-tsconfig.json"]
   },
   "plugins": [
       "@typescript-eslint",
