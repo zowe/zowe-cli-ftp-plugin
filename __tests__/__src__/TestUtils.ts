@@ -56,7 +56,7 @@ export function getUniqueDatasetName(hlq: string): string {
     const MAX_NODE_LENGTH = 7;
 
     while (timestampInMs.length > 0) {
-        tempStr = timestampInMs.substr(0, MAX_NODE_LENGTH);
+        tempStr = timestampInMs.substring(0, MAX_NODE_LENGTH);
         generatedName += `A${tempStr}`;
         timestampInMs = timestampInMs.slice(tempStr.length, timestampInMs.length);
 
