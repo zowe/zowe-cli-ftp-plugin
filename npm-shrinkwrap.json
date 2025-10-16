@@ -1670,8 +1670,8 @@
       "license": "MIT"
     },
     "node_modules/@types/node": {
-      "version": "18.19.87",
-      "integrity": "sha512-OIAAu6ypnVZHmsHCeJ+7CCSub38QNBS9uceMQeg7K5Ur0Jr+wG9wEOEvvMbhp09pxD5czIUy/jND7s7Tb6Nw7A==",
+      "version": "20.19.21",
+      "integrity": "sha512-CsGG2P3I5y48RPMfprQGfy4JPRZ6csfC3ltBZSRItG3ngggmNY/qs2uZKp4p9VbrpqNNSMzUZNFZKzgOGnd/VA==",
       "dev": true,
       "license": "MIT",
       "dependencies": {
@@ -5719,8 +5719,8 @@
       }
     },
     "node_modules/jest-stare": {
-      "version": "2.5.2",
-      "integrity": "sha512-dvxHXOsiJlvBi0n2dK9pz6RWFTdPB6njc2ZoMpyjmWI+aIL+X1W8OW5mTm1pkv/quy2ocKO/G+GsTe7Bv07xkQ==",
+      "version": "2.5.3",
+      "integrity": "sha512-HXykqTNNxguOQZiWCEcUPC5HleaVngQysyyniG6LzoeBsM4dtq4YDw/JruS2ChfRBS/9PUcG04eAx6NdcbFDDg==",
       "dev": true,
       "license": "MIT",
       "dependencies": {
@@ -8972,8 +8972,8 @@
       "license": "MIT"
     },
     "node_modules/undici-types": {
-      "version": "5.26.5",
-      "integrity": "sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==",
+      "version": "6.21.0",
+      "integrity": "sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==",
       "dev": true,
       "license": "MIT"
     },
