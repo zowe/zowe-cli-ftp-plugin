@@ -66,6 +66,8 @@ describe("Download all spool by job id handler", () => {
         const mockGetSpoolDownloadFile = jest.fn().mockReturnValue("value");
         const mockCreateDirsSyncFromFilePath = jest.fn();
         const mockWriteFile = jest.fn();
+
+        // eslint-disable-next-line deprecation/deprecation
         DownloadJobs.getSpoolDownloadFile = mockGetSpoolDownloadFile;
         IO.createDirsSyncFromFilePath = mockCreateDirsSyncFromFilePath;
         IO.writeFile = mockWriteFile;

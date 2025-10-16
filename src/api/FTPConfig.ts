@@ -9,7 +9,6 @@
  *
  */
 
-import { isString } from "util";
 import { IZosFTPProfile } from "./doc/IZosFTPProfile";
 import { ConnectionPropsForSessCfg, ICommandOptionDefinition, IHandlerParameters, ISession } from "@zowe/imperative";
 
@@ -154,7 +153,7 @@ export class FTPConfig {
             connTimeout: args.connectionTimeout
         };
         if (args.secureFtp != null) {
-            if (isString(args.secureFtp) && args.secureFtp.trim().toLowerCase() === "true") {
+            if (typeof args.secureFtp == "string" && args.secureFtp.trim().toLowerCase() === "true") {
                 result.secure = true;
             } else {
                 result.secure = args.secureFtp;
