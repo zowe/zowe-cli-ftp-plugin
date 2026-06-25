@@ -22,7 +22,6 @@ function dirEntry(name: string) {
 }
 
 describe("UssUtils", () => {
-
     it("should return the normalized path as is", () => {
         let path = UssUtils.normalizeUnixPath("C:\\Users\\hello.text");
         expect(path).toBe("C:\\Users\\hello.text");
@@ -80,8 +79,12 @@ describe("UssUtils", () => {
             await UssUtils.deleteDirectory(connection, "/u/user/dir", response);
 
             expect(connection.listFiles).toHaveBeenCalledTimes(1);
-            expect(connection.deleteFile).toHaveBeenCalledWith("/u/user/dir/a.txt");
-            expect(connection.deleteFile).toHaveBeenCalledWith("/u/user/dir/b.txt");
+            expect(connection.deleteFile).toHaveBeenCalledWith(
+                "/u/user/dir/a.txt",
+            );
+            expect(connection.deleteFile).toHaveBeenCalledWith(
+                "/u/user/dir/b.txt",
+            );
             expect(connection.deleteFile).toHaveBeenCalledWith("/u/user/dir");
             expect(connection.deleteFile).toHaveBeenCalledTimes(3);
             expect(response.log).toHaveBeenCalledTimes(3);
@@ -95,16 +98,22 @@ describe("UssUtils", () => {
             await UssUtils.deleteDirectory(connection, "/u/user/dir", response);
 
             expect(connection.listFiles).toHaveBeenCalledTimes(2);
-            const order: string[] = connection.deleteFile.mock.calls.map((c: any[]) => c[0]);
-            expect(order.indexOf("/u/user/dir/sub/child.txt")).toBeLessThan(order.indexOf("/u/user/dir/sub"));
-            expect(order.indexOf("/u/user/dir/sub")).toBeLessThan(order.indexOf("/u/user/dir"));
+            const order: string[] = connection.deleteFile.mock.calls.map(
+                (c: any[]) => c[0],
+            );
+            expect(order.indexOf("/u/user/dir/sub/child.txt")).toBeLessThan(
+                order.indexOf("/u/user/dir/sub"),
+            );
+            expect(order.indexOf("/u/user/dir/sub")).toBeLessThan(
+                order.indexOf("/u/user/dir"),
+            );
         });
 
         it("completes without error when no response object is provided", async () => {
             connection.listFiles.mockResolvedValue([fileEntry("x.txt")]);
 
             await expect(
-                UssUtils.deleteDirectory(connection, "/u/user/dir")
+                UssUtils.deleteDirectory(connection, "/u/user/dir"),
             ).resolves.toBeUndefined();
 
             expect(connection.deleteFile).toHaveBeenCalledTimes(2);
@@ -121,8 +130,12 @@ describe("UssUtils", () => {
             await UssUtils.deleteDirectory(connection, "/u/user/dir", response);
 
             expect(connection.listFiles).toHaveBeenCalledTimes(1);
-            expect(connection.deleteFile).not.toHaveBeenCalledWith("/u/user/dir/.");
-            expect(connection.deleteFile).toHaveBeenCalledWith("/u/user/dir/real.txt");
+            expect(connection.deleteFile).not.toHaveBeenCalledWith(
+                "/u/user/dir/.",
+            );
+            expect(connection.deleteFile).toHaveBeenCalledWith(
+                "/u/user/dir/real.txt",
+            );
         });
 
         it("skips '..' entries", async () => {
@@ -134,12 +147,19 @@ describe("UssUtils", () => {
             await UssUtils.deleteDirectory(connection, "/u/user/dir", response);
 
             expect(connection.listFiles).toHaveBeenCalledTimes(1);
-            expect(connection.deleteFile).not.toHaveBeenCalledWith("/u/user/dir/..");
-            expect(connection.deleteFile).toHaveBeenCalledWith("/u/user/dir/real.txt");
+            expect(connection.deleteFile).not.toHaveBeenCalledWith(
+                "/u/user/dir/..",
+            );
+            expect(connection.deleteFile).toHaveBeenCalledWith(
+                "/u/user/dir/real.txt",
+            );
         });
 
         it("skips both '.' and '..' — only the directory itself is deleted", async () => {
-            connection.listFiles.mockResolvedValue([dirEntry("."), dirEntry("..")]);
+            connection.listFiles.mockResolvedValue([
+                dirEntry("."),
+                dirEntry(".."),
+            ]);
 
             await UssUtils.deleteDirectory(connection, "/u/user/dir");
 
@@ -152,7 +172,7 @@ describe("UssUtils", () => {
             connection.listFiles.mockResolvedValue([dirEntry(".")]);
 
             await expect(
-                UssUtils.deleteDirectory(connection, "/u/user/dir")
+                UssUtils.deleteDirectory(connection, "/u/user/dir"),
             ).resolves.toBeUndefined();
 
             expect(connection.listFiles).toHaveBeenCalledTimes(1);
@@ -164,7 +184,12 @@ describe("UssUtils", () => {
             const maxDepth = (UssUtils as any).MAX_DELETE_DEPTH as number;
 
             await expect(
-                UssUtils.deleteDirectory(connection, "/u/user/dir", undefined, maxDepth + 1)
+                UssUtils.deleteDirectory(
+                    connection,
+                    "/u/user/dir",
+                    undefined,
+                    maxDepth + 1,
+                ),
             ).rejects.toThrow(ImperativeError);
 
             expect(connection.listFiles).not.toHaveBeenCalled();
@@ -175,11 +200,21 @@ describe("UssUtils", () => {
             const offendingPath = "/u/user/very/deep/dir";
 
             await expect(
-                UssUtils.deleteDirectory(connection, offendingPath, undefined, maxDepth + 1)
+                UssUtils.deleteDirectory(
+                    connection,
+                    offendingPath,
+                    undefined,
+                    maxDepth + 1,
+                ),
             ).rejects.toThrow(offendingPath);
 
             await expect(
-                UssUtils.deleteDirectory(connection, offendingPath, undefined, maxDepth + 1)
+                UssUtils.deleteDirectory(
+                    connection,
+                    offendingPath,
+                    undefined,
+                    maxDepth + 1,
+                ),
             ).rejects.toThrow(String(maxDepth));
         });
 
@@ -188,7 +223,12 @@ describe("UssUtils", () => {
             connection.listFiles.mockResolvedValue([]);
 
             await expect(
-                UssUtils.deleteDirectory(connection, "/u/user/dir", undefined, maxDepth)
+                UssUtils.deleteDirectory(
+                    connection,
+                    "/u/user/dir",
+                    undefined,
+                    maxDepth,
+                ),
             ).resolves.toBeUndefined();
         });
 
@@ -201,7 +241,7 @@ describe("UssUtils", () => {
             });
 
             await expect(
-                UssUtils.deleteDirectory(connection, "/u/user/dir")
+                UssUtils.deleteDirectory(connection, "/u/user/dir"),
             ).rejects.toThrow(ImperativeError);
 
             // listFiles is called once per depth level from 0 to MAX_DELETE_DEPTH
