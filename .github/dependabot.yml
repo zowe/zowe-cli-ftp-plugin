@@ -5,6 +5,11 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
     open-pull-requests-limit: 10
     target-branch: "master"
   # Enable updates for GitHub actions
@@ -12,5 +17,10 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      actions-minor-patch:
+        update-types:
+          - "minor"
+          - "patch"
     open-pull-requests-limit: 10
     target-branch: "zowe-v2-lts"
