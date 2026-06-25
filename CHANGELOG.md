@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- BugFix: Added path validation for the resolved output file path when downloading a spool file. [#197](https://github.com/zowe/zowe-cli-ftp-plugin/pull/197)
+
 ## `3.0.0`
 
 - MAJOR: v3.0.0 release
@@ -98,11 +102,9 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 - BugFix: Upload dataset using Buffer, stead of string. [2533](https://github.com/zowe/vscode-extension-for-zowe/issues/2533)
 - Simplify the preparation for JCL system tests
 
-
 ## `2.1.7`
 
 - Update the version of zos-node-accessor to 1.0.16
-
 
 ## `2.1.6`
 
@@ -113,6 +115,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 - Add checking the uss file path when upload file or stdin to uss file.
 
 ## `2.1.4`
+
 - BugFix: Provide new utility function that checks file names for valid characters [143](https://github.com/zowe/zowe-cli-ftp-plugin/issues/143).
 
 ## `2.1.3`
@@ -121,7 +124,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## `2.1.2`
 
-- Updated the  `zos-node-accessor` package to 1.0.14 for technical currency.
+- Updated the `zos-node-accessor` package to 1.0.14 for technical currency.
 
 ## `2.1.1`
 
@@ -159,7 +162,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 ## `1.8.6`
 
 - BugFix: Refine error message of uploading partition dataset member.
-          Refine description of parameter dcb of uploading sequential dataset.
+  Refine description of parameter dcb of uploading sequential dataset.
 - Change `bright` command to `zowe` in test scripts.
 
 ## `1.8.5`
@@ -171,22 +174,26 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 - BugFix: Included an npm-shrinkwrap file to lock-down all transitive dependencies.
 
 ## `1.8.3`
+
 - Fix `download uss-file` and `view uss-file` the file under the directory of symbol link.
 
 ## `1.8.2`
+
 - Add some second shortcuts to match with zowe core CLI options.
 
 ## `1.8.1`
+
 - Fix Windows path problem when using `delete uss-file` command.
 
 ## `1.8.0`
-- Support listing USS files with file name pattern containing *.
+
+- Support listing USS files with file name pattern containing \*.
 
 ## `1.7.0`
 
 - Support listing loadlib members
 - Clear password error message
-- Support listing jobs without default prefix *.
+- Support listing jobs without default prefix \*.
 
 ## `1.6.0`
 
@@ -233,4 +240,3 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 ## `1.0.0`
 
 - Plugin released
-
