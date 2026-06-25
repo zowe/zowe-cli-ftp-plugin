@@ -183,12 +183,26 @@ export class UssUtils {
         }
     }
 
-    public static async deleteDirectory(connection: ZosAccessor, dir: string, response?: IHandlerResponseConsoleApi): Promise<void> {
+    // Matches POSIX path depth: /a/b/c has depth 3. Chosen to be well above any
+    // realistic USS directory tree while still bounding runaway server-driven recursion.
+    private static readonly MAX_DELETE_DEPTH = 100;
+
+    public static async deleteDirectory(connection: ZosAccessor, dir: string,
+        response?: IHandlerResponseConsoleApi, depth = 0): Promise<void> {
+        if (depth > UssUtils.MAX_DELETE_DEPTH) {
+            throw new ImperativeError({
+                msg: `deleteDirectory exceeded maximum recursion depth (${UssUtils.MAX_DELETE_DEPTH}) at '${dir}'. ` +
+                    "The remote server may have returned a malformed directory listing."
+            });
+        }
         const files = await connection.listFiles(dir);
         for (const file of files) {
+            if (file.name === "." || file.name === "..") {
+                continue;
+            }
             const filePath = PATH.posix.join(dir, file.name);
             if (file.fileType === FileType.DIRECTORY) {
-                await this.deleteDirectory(connection, filePath, response);
+                await this.deleteDirectory(connection, filePath, response, depth + 1);
             } else {
                 await connection.deleteFile(filePath);
                 if (response) {
