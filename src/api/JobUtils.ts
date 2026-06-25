@@ -160,7 +160,18 @@ export class JobUtils {
 
     public static getSpoolDownloadFilePath(parms: IGetSpoolDownloadFilePath): string {
         this.log.trace("getSpoolDownloadFilePath called with %s", JSON.stringify(parms));
-        let directory: string = (parms.outDir ?? "./output") + IO.FILE_DELIM + parms.jobId;
+        const outDir = parms.outDir ?? "./output";
+
+        // Reject server-supplied segments that contain traversal sequences or embedded separators
+        for (const [fieldName, value] of [
+            ["procStep", parms.procStep], ["stepName", parms.stepName], ["ddName", parms.ddName]
+        ] as [string, string | undefined][]) {
+            if (value != null && (IO.containsBacktrack(value) || IO.fileEvaluatesToDir(value))) {
+                throw new Error(`Spool file field '${fieldName}' contains an unsafe path segment: '${value}'`);
+            }
+        }
+
+        let directory: string = outDir + IO.FILE_DELIM + parms.jobId;
         if (parms.procStep != null) {
             directory += IO.FILE_DELIM + parms.procStep;
         }
@@ -168,7 +179,14 @@ export class JobUtils {
             directory += IO.FILE_DELIM + parms.stepName;
         }
         const extension = parms.extension ?? ".txt";
-        return directory + IO.FILE_DELIM + parms.ddName + extension;
+        const destinationFile = directory + IO.FILE_DELIM + parms.ddName + extension;
+
+        // confirm the resolved path stays within outDir
+        if (!IO.isSubPath(outDir, destinationFile)) {
+            throw new Error(`Spool download path resolves outside the output directory '${outDir}'`);
+        }
+
+        return destinationFile;
     }
 
 

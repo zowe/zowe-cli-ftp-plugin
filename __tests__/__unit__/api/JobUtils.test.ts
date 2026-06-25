@@ -32,6 +32,16 @@ describe("JobUtils", () => {
             });
             expect(res).toEqual(posix.join("myDir", jobId, procStep, stepName, ddName + ".omg"));
         });
+
+        it.each([
+            ["ddName with backtrack", { jobId, ddName: "../../.bashrc" }],
+            ["ddName with absolute path", { jobId, ddName: "/etc/passwd" }],
+            ["stepName with backtrack", { jobId, ddName, stepName: "../.." }],
+            ["procStep with backtrack", { jobId, ddName, procStep: "../../evil" }],
+            ["stepName with embedded separator", { jobId, ddName, stepName: "a/b" }],
+        ])("should throw for unsafe path traversal: %s", (_label, parms) => {
+            expect(() => JobUtils.getSpoolDownloadFilePath(parms as any)).toThrow("unsafe path segment");
+        });
     });
 
     describe("downloadSpoolContent", () => {
