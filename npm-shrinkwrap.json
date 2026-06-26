@@ -39,7 +39,7 @@
         "typescript": "^5.3.3"
       },
       "peerDependencies": {
-        "@zowe/imperative": "^8.0.0"
+        "@zowe/imperative": "^8.33.0"
       }
     },
     "node_modules/@ampproject/remapping": {
