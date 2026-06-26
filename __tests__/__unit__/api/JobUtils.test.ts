@@ -32,6 +32,23 @@ describe("JobUtils", () => {
             });
             expect(res).toEqual(posix.join("myDir", jobId, procStep, stepName, ddName + ".omg"));
         });
+
+        it.each([
+            ["ddName with backtrack", { jobId, ddName: "../../.bashrc" }],
+            ["ddName with absolute path", { jobId, ddName: "/etc/passwd" }],
+            ["stepName with backtrack", { jobId, ddName, stepName: "../.." }],
+            ["procStep with backtrack", { jobId, ddName, procStep: "../../evil" }],
+            ["stepName with embedded separator", { jobId, ddName, stepName: "a/b" }],
+        ])("should throw for unsafe path traversal: %s", (_label, parms) => {
+            expect(() => JobUtils.getSpoolDownloadFilePath(parms as any)).toThrow("unsafe path segment");
+        });
+
+        it("should throw when resolved path escapes the output directory", () => {
+            // jobId is not validated by the per-field check, so a traversal jobId passes
+            // that check but is caught by the isSubPath guard on the final resolved path
+            expect(() => JobUtils.getSpoolDownloadFilePath({ jobId: "../../etc", ddName }))
+                .toThrow("resolves outside the output directory");
+        });
     });
 
     describe("downloadSpoolContent", () => {
