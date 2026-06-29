@@ -103,4 +103,24 @@ describe("Download all spool by job id handler", () => {
         };
         await expect(handler.processFTP(mockParams)).rejects.toThrow("unsafe path segment");
     });
+
+    it("should throw when the assembled path escapes the output directory", async () => {
+        const handler = new ViewAllSpoolByJobIdHandler();
+        const jobDetails = {
+            jobid: "JOB00001", jobname: "TESTJOB",
+            spoolFiles: [{ id: "1", ddname: "SYSOUT" }],
+        };
+        const mockParams: any = {
+            arguments: { jobid: "JOB00001" },
+            connection: {
+                getJobStatus: jest.fn().mockResolvedValue(jobDetails),
+                getJobLog: jest.fn().mockResolvedValue("contents"),
+            },
+            response: TestUtils.getMockResponse(),
+        };
+        // eslint-disable-next-line deprecation/deprecation
+        DownloadJobs.getSpoolDownloadFile = jest.fn().mockReturnValue("value");
+        IO.isSubPath = jest.fn().mockReturnValue(false);
+        await expect(handler.processFTP(mockParams)).rejects.toThrow("resolves outside the output directory");
+    });
 });
