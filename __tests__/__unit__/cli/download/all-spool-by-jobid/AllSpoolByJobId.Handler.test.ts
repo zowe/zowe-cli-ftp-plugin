@@ -71,6 +71,7 @@ describe("Download all spool by job id handler", () => {
         DownloadJobs.getSpoolDownloadFile = mockGetSpoolDownloadFile;
         IO.createDirsSyncFromFilePath = mockCreateDirsSyncFromFilePath;
         IO.writeFile = mockWriteFile;
+        IO.isSubPath = jest.fn().mockReturnValue(true);
 
         await handler.processFTP(mockParams);
         expect(mockCreateDirsSyncFromFilePath).toBeCalled();
@@ -78,5 +79,28 @@ describe("Download all spool by job id handler", () => {
         expect(mockResponse.console.log.mock.calls[0][0]).toBe("Successfully downloaded %d spool files to %s");
         expect(mockResponse.console.log.mock.calls[0][1]).toBe(1);
         expect(mockResponse.console.log.mock.calls[0][2]).toBe("./output/");
+    });
+
+    it.each([
+        ["ddname with backtrack",           { id: "1", ddname: "../../.bashrc" }],
+        ["ddname with absolute path",        { id: "1", ddname: "/etc/passwd" }],
+        ["stepname with backtrack",          { id: "1", ddname: "SYSOUT", stepname: "../.." }],
+        ["procstep with backtrack",          { id: "1", ddname: "SYSOUT", procstep: "../../evil" }],
+        ["stepname with embedded separator", { id: "1", ddname: "SYSOUT", stepname: "a/b" }],
+    ])("should throw for unsafe path traversal: %s", async (_label, spoolFileData) => {
+        const handler = new ViewAllSpoolByJobIdHandler();
+        const jobDetails = {
+            jobid: "JOB00001", jobname: "TESTJOB",
+            spoolFiles: [spoolFileData],
+        };
+        const mockParams: any = {
+            arguments: { jobid: "JOB00001" },
+            connection: {
+                getJobStatus: jest.fn().mockResolvedValue(jobDetails),
+                getJobLog: jest.fn().mockResolvedValue("contents"),
+            },
+            response: TestUtils.getMockResponse(),
+        };
+        await expect(handler.processFTP(mockParams)).rejects.toThrow("unsafe path segment");
     });
 });
