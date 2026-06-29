@@ -4,7 +4,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## Recent Changes
 
-- BugFix: Added path validation for the resolved output file path when downloading a spool file.
+- BugFix: Added path validation for the resolved output file path when downloading a spool file. [#216](https://github.com/zowe/zowe-cli-ftp-plugin/pull/216)
 - BugFix: Added Node 24 support. [#185](https://github.com/zowe/zowe-cli-ftp-plugin/pull/185)
 
 ## `2.1.9`
