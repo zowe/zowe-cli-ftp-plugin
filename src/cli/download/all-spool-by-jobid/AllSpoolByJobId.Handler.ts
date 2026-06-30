@@ -28,8 +28,19 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                 jobDetails.jobname, jobDetails.jobid)
             });
         }
+        const effectiveOutDir = params.arguments.directory ?? DownloadJobs.DEFAULT_JOBS_OUTPUT_DIR;
         const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobid);
         for (const spoolFileToDownload of fullSpoolFiles) {
+            for (const [fieldName, value] of [
+                ["ddname", spoolFileToDownload.ddname],
+                ["stepname", spoolFileToDownload.stepname],
+                ["procstep", spoolFileToDownload.procstep],
+            ] as [string, string | undefined][]) {
+                if (value != null && value !== "N/A" && (IO.containsBacktrack(value) || IO.fileEvaluatesToDir(value))) {
+                    throw new ImperativeError({ msg: `Spool file field '${fieldName}' contains an unsafe path segment: '${value}'` });
+                }
+            }
+
             const mockJobFile: IJobFile = { // mock a job file to get the same format of download directories
                 "jobid": jobDetails.jobid, "jobname": jobDetails.jobname,
                 "recfm": "FB", "lrecl": 80, "byte-count": spoolFileToDownload.byteCount,
@@ -45,6 +56,11 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
                     undefined : spoolFileToDownload.procstep,
             };
             const destinationFile = DownloadJobs.getSpoolDownloadFile(mockJobFile, params.arguments.omitJobidDirectory, params.arguments.directory);
+
+            if (!IO.isSubPath(effectiveOutDir, destinationFile)) {
+                throw new ImperativeError({ msg: `Spool download path resolves outside the output directory '${effectiveOutDir}'` });
+            }
+
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddname, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);
             IO.writeFile(destinationFile, spoolFileToDownload.contents);
