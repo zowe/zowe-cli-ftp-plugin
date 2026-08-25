@@ -42,6 +42,7 @@
   "dependencies": {
     "zos-node-accessor": "2.0.11"
   },
+  "bundleDependencies": true,
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.0.0",
