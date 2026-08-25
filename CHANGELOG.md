@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- BugFix: Bundled the `zos-node-accessor` package for technical currency. [#226](https://github.com/zowe/zowe-cli-ftp-plugin/pull/226)
+
 ## `3.1.0`
 
 - BugFix: Added path validation for the resolved output file path when downloading a spool file. [#197](https://github.com/zowe/zowe-cli-ftp-plugin/pull/197)
