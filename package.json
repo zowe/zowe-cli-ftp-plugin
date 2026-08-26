@@ -42,15 +42,17 @@
   "dependencies": {
     "zos-node-accessor": "2.0.11"
   },
-  "bundleDependencies": true,
+  "bundleDependencies": [
+    "zos-node-accessor"
+  ],
   "devDependencies": {
     "@types/jest": "^29.5.12",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
-    "@zowe/cli": "^8.33.0",
-    "@zowe/cli-test-utils": "^8.33.0",
-    "@zowe/imperative": "^8.33.0",
+    "@zowe/cli": "^8.36.0",
+    "@zowe/cli-test-utils": "^8.36.0",
+    "@zowe/imperative": "^8.36.0",
     "env-cmd": "^10.1.0",
     "eslint": "^8.57.0",
     "eslint-plugin-deprecation": "^3.0.0",
