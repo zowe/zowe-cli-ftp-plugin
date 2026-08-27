@@ -6,9 +6,9 @@ module.exports = {
             devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         },
         {
-            name: "zowe-v1-lts",
+            name: "zowe-v?-lts",
             level: "patch",
-            devDependencies: ["@zowe/cli", "@zowe/imperative"]
+            devDependencies: ["@zowe/cli", "@zowe/imperative", "@zowe/cli-test-utils"]
         }
         // {
         //     name: "next",
