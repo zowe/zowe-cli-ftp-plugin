@@ -2,7 +2,7 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
-## Recent Changes
+## `2.1.10`
 
 - BugFix: Added path validation for the resolved output file path when downloading a spool file. [#216](https://github.com/zowe/zowe-cli-ftp-plugin/pull/216)
 - Enhancement: Added a max depth of 100 for the `UssUtils.deleteDirectory` function. Relative directories are now filtered from the list of items to delete. [#214](https://github.com/zowe/zowe-cli-ftp-plugin/pull/214)

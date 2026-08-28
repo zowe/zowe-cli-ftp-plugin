@@ -1,6 +1,6 @@
 {
   "name": "@zowe/zos-ftp-for-zowe-cli",
-  "version": "2.1.9",
+  "version": "2.1.10",
   "author": "Zowe",
   "repository": {
     "type": "git",
