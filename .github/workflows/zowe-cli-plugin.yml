@@ -52,7 +52,7 @@ jobs:
 
     - name: Update Dependencies
       id: npm-update
-      uses: zowe-actions/octorelease/script@e0672bf28f74f36219713afe75915ea2dc7bf85b # v1
+      uses: zowe-actions/octorelease/script@6cf71bdb7ca82117775295e076d63fe7a812f3c8 # v1
       with:
         script: npmUpdate
 
@@ -78,7 +78,7 @@ jobs:
 
     - name: Upload Results to Codecov
       if: ${{ always() && steps.build.outcome == 'success' }}
-      uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+      uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
       with:
         env_vars: OS,NODE
         token: ${{ secrets.CODECOV_TOKEN }}
@@ -108,7 +108,7 @@ jobs:
       run: npm ci
 
     - name: Update Dependencies
-      uses: zowe-actions/octorelease/script@e0672bf28f74f36219713afe75915ea2dc7bf85b # v1
+      uses: zowe-actions/octorelease/script@6cf71bdb7ca82117775295e076d63fe7a812f3c8 # v1
       env:
         GIT_COMMITTER_NAME: ${{ secrets.ZOWE_ROBOT_USER }}
         GIT_COMMITTER_EMAIL: ${{ secrets.ZOWE_ROBOT_EMAIL }}
@@ -119,7 +119,7 @@ jobs:
     - name: Build Source
       run: npm run build
 
-    - uses: zowe-actions/octorelease@e0672bf28f74f36219713afe75915ea2dc7bf85b # v1
+    - uses: zowe-actions/octorelease@6cf71bdb7ca82117775295e076d63fe7a812f3c8 # v1
       env:
         GIT_COMMITTER_NAME: ${{ secrets.ZOWE_ROBOT_USER }}
         GIT_COMMITTER_EMAIL: ${{ secrets.ZOWE_ROBOT_EMAIL }}
