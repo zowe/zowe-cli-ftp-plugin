@@ -42,7 +42,9 @@
   "dependencies": {
     "zos-node-accessor": "1.0.16"
   },
-  "bundleDependencies": ["zos-node-accessor"],
+  "bundleDependencies": [
+    "zos-node-accessor"
+  ],
   "devDependencies": {
     "@types/fs-extra": "^5.0.5",
     "@types/jest": "^28.0.0",
@@ -52,7 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^5.33.0",
     "@typescript-eslint/parser": "^5.33.0",
     "@zowe/cli": "^7.29.36",
-    "@zowe/cli-test-utils": "^7.29.36",
+    "@zowe/cli-test-utils": "^7.29.37",
     "@zowe/imperative": "^5.27.26",
     "chalk": "^2.3.0",
     "env-cmd": "^10.1.0",
