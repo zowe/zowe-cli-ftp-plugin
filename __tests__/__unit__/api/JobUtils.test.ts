@@ -24,6 +24,11 @@ describe("JobUtils", () => {
             const res = JobUtils.getSpoolDownloadFilePath({ jobId, ddName  });
             expect(res).toEqual("./" + posix.join("output", jobId, ddName + ".txt"));
         });
+
+        it("should omit the jobId directory if requested", () => {
+            const res = JobUtils.getSpoolDownloadFilePath({ jobId, ddName , omitJobidDirectory: true });
+            expect(res).toEqual("./" + posix.join("output",  ddName + ".txt"));
+        });
         it("should return a fully qualified path", () => {
             const res = JobUtils.getSpoolDownloadFilePath({ jobId, ddName,
                 extension: ".omg",

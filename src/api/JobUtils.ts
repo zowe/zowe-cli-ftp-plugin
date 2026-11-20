@@ -171,7 +171,10 @@ export class JobUtils {
             }
         }
 
-        let directory: string = outDir + IO.FILE_DELIM + parms.jobId;
+        let directory: string = outDir;
+        if (!parms.omitJobidDirectory) {
+            directory += IO.FILE_DELIM + parms.jobId;
+        }
         if (parms.procStep != null) {
             directory += IO.FILE_DELIM + parms.procStep;
         }
