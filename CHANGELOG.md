@@ -4,7 +4,7 @@ All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in t
 
 ## Recent Changes
 
-- Hardened destination directory checks in the `download all-spool-by-id` command. [TODO](TODO)
+- Hardened destination directory checks in the `download all-spool-by-id` command. [#247](https://github.com/zowe/zowe-cli-ftp-plugin/pull/247)
 
 ## `3.1.1`
 
