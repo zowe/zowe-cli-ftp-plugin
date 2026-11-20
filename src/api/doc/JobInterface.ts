@@ -57,4 +57,5 @@ export interface IGetSpoolDownloadFilePath extends IDownloadSpoolContentParms {
     ddName: string;
     procStep?: string;
     stepName?: string;
+    omitJobidDirectory?: boolean;
 }
