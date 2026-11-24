@@ -9,7 +9,6 @@
  *
  */
 
-import { DownloadJobs, IJobFile } from "@zowe/cli";
 import { ImperativeError, IO, TextUtils } from "@zowe/imperative";
 import { FTPBaseHandler } from "../../../FTPBase.Handler";
 import { IFTPHandlerParams } from "../../../IFTPHandlerParams";
@@ -30,28 +29,13 @@ export default class ViewAllSpoolByJobIdHandler extends FTPBaseHandler {
         }
         const fullSpoolFiles = await JobUtils.getSpoolFiles(params.connection, jobDetails.jobId);
         for (const spoolFileToDownload of fullSpoolFiles) {
-            const mockJobFile: IJobFile = { // mock a job file to get the same format of download directories
-                jobid: jobDetails.jobId,
-                jobname: jobDetails.jobName,
-                recfm: "FB",
-                lrecl: 80,
-                "byte-count": spoolFileToDownload.byteCount,
-                // todo is recfm or lrecl available? FB 80 could be wrong
-                "record-count": 0,
-                "job-correlator": "", // most of these options don't matter for download
-                class: "A",
-                ddname: spoolFileToDownload.ddName,
-                id: spoolFileToDownload.id,
-                "records-url": "",
-                subsystem: "JES2",
-                stepname: spoolFileToDownload.stepName,
-                procstep: spoolFileToDownload.procStep === "N/A" || spoolFileToDownload.procStep == null ?
+            const destinationFile = JobUtils.getSpoolDownloadFilePath({
+                ddName: spoolFileToDownload.ddName || "UNKNOWN_DD",
+                jobId: jobDetails.jobId,
+                outDir: params.arguments.directory,
+                procStep: spoolFileToDownload.procStep === "N/A" || spoolFileToDownload.procStep == null ?
                     undefined : spoolFileToDownload.procStep,
-            };
-            const destinationFile = DownloadJobs.getSpoolDownloadFilePath({
-                jobFile: mockJobFile,
-                omitJobidDirectory: params.arguments.omitJobidDirectory,
-                outDir: params.arguments.directory
+                stepName: spoolFileToDownload.stepName, omitJobidDirectory: params.arguments.omitJobidDirectory,
             });
             this.log.info("Downloading spool file %s to local file %s", spoolFileToDownload.ddName, destinationFile);
             IO.createDirsSyncFromFilePath(destinationFile);

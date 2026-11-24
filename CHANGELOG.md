@@ -2,6 +2,10 @@
 
 All notable changes to the z/OS FTP Plug-in for Zowe CLI will be documented in this file.
 
+## Recent Changes
+
+- Hardened destination directory checks in the `download all-spool-by-jobid` command. [#247](https://github.com/zowe/zowe-cli-ftp-plugin/pull/247)
+
 ## `3.1.1`
 
 - BugFix: Bundled the `zos-node-accessor` package for technical currency. [#226](https://github.com/zowe/zowe-cli-ftp-plugin/pull/226)
